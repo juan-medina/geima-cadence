@@ -1,0 +1,31 @@
+# SPDX-FileCopyrightText: 2026 Juan Medina
+# SPDX-License-Identifier: MIT
+
+# Godot
+/android/
+
+# Build output
+bin/
+obj/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Other
+.*/
+
+# IDEs
+.idea/
+.vscode/
+*.user
+
+# worflows
+!.github/
+!.github/workflows/
+!.github/workflows/**
