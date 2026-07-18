@@ -14,6 +14,7 @@ def build_spritesheet(config, debug=False):
     for sheet in config.get("spritesheets", []):
         output_path = sheet.get("output_path")
         rows = sheet.get("rows", [])
+        padding = sheet.get("padding", 0)
         
         if not output_path or not rows:
             print(f"Skipping invalid spritesheet config: {sheet}")
@@ -57,8 +58,11 @@ def build_spritesheet(config, debug=False):
             continue
 
         # Pass 2: Create the spritesheet
-        sheet_width = max_width * max_frames
-        sheet_height = max_height * len(rows)
+        cell_width = max_width + padding * 2
+        cell_height = max_height + padding * 2
+        
+        sheet_width = cell_width * max_frames
+        sheet_height = cell_height * len(rows)
         
         spritesheet = Image.new("RGBA", (sheet_width, sheet_height), (0, 0, 0, 0))
 
@@ -66,8 +70,8 @@ def build_spritesheet(config, debug=False):
             for col_idx, img in enumerate(images):
                 # We align top-left in the cell. If frames are different sizes, 
                 # you may want to modify this to align bottom-center.
-                x = col_idx * max_width
-                y = row_idx * max_height
+                x = col_idx * cell_width + padding
+                y = row_idx * cell_height + padding
                 spritesheet.paste(img, (x, y), img)
 
         # Ensure output directory exists

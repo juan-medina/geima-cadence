@@ -2,6 +2,7 @@
   "spritesheets": [
     {
       "output_path": "./src/hero/sprites.png",
+      "padding": 8,
       "rows": [
         "./raw/Warrior/Individual Sprite/Run/*.png",
         "./raw/Warrior/Individual Sprite/Dash Attack/*.png",
