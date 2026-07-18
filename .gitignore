@@ -29,3 +29,10 @@ __pycache__/
 !.github/
 !.github/workflows/
 !.github/workflows/**
+
+# Python Env
+/.venv/
+
+# Third Party Tools
+/thirdparty/*
+!/thirdparty/.gitkeep
