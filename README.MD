@@ -8,6 +8,11 @@
 
 TBC
 
+### Warrior-Free Animation set V1.3
+* **Author:** [Clement Baudet](https://clembod.itch.io/)
+* **Source:** [Itch.io](https://clembod.itch.io/warrior-free-animation-set)
+* **License:** Custom permission (Free for personal and commercial use, modification allowed, redistribution prohibited).
+
 ## License
 
 This project uses a dual-licensing structure to keep the code open while protecting the game's identity:

@@ -1,0 +1,149 @@
+[gd_scene format=3 uid="uid://bn2amc5tts46y"]
+
+[ext_resource type="Texture2D" uid="uid://bws4debog1fa3" path="res://hero/sprites.png" id="1_dpa0h"]
+[ext_resource type="Script" uid="uid://bwls3k46xjefo" path="res://hero/hero.gd" id="2_m6eum"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6eum"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(0, 0, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dt6oo"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(69, 0, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwdmm"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(138, 0, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nr4fb"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(207, 0, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gtqy"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(276, 0, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_siiaj"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(345, 0, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrtht"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(414, 0, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2ti2"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(483, 0, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dpa0h"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(0, 44, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahpkd"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(69, 44, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3vl4"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(138, 44, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kglky"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(207, 44, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrbg0"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(276, 44, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eu2wf"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(345, 44, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylc5j"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(414, 44, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxmd6"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(483, 44, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5fwp"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(552, 44, 69, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyby7"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(621, 44, 69, 44)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a2djh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6eum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dt6oo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwdmm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nr4fb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gtqy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_siiaj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrtht")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2ti2")
+}],
+"loop": 2,
+"name": &"run",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dpa0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahpkd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l3vl4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kglky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrbg0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eu2wf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ylc5j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxmd6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b5fwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iyby7")
+}],
+"loop": 0,
+"name": &"slash",
+"speed": 8.0
+}]
+
+[node name="Hero" type="AnimatedSprite2D" unique_id=954983578]
+sprite_frames = SubResource("SpriteFrames_a2djh")
+animation = &"slash"
+autoplay = "run"
+script = ExtResource("2_m6eum")
