@@ -14,7 +14,7 @@ config/name="Geima: Cadence"
 run/main_scene="uid://del6uukmi7u2m"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="geima-cadence"
-config/features=PackedStringArray("4.6")
+config/features=PackedStringArray("4.7")
 
 [audio]
 
@@ -39,9 +39,9 @@ gdscript/warnings/treat_warnings_as_errors=true
 
 window/size/viewport_width=640
 window/size/viewport_height=360
+window/size/mode=1
 window/size/window_width_override=1280
 window/size/window_height_override=720
-window/size/mode=1
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
