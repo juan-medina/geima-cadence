@@ -9,11 +9,11 @@
 ## 1. Executive Summary & Core Concept
 
 ### The Pitch
-> **Geima: Cadence** is a high-stakes, rhythm-action endless runner where **every step is a heartbeat, and the timeline cannot break**. Sprint, vault, dash, and slash to the precise beat of a high-energy soundtrack to fuel the power of a reality-bending crystal core and escape a ruthless empire.
+> **Geima: Cadence** is a high-stakes, rhythm-action endless runner where **every step is a heartbeat, and your momentum cannot break**. Sprint, vault, dash, slide, and slash to the precise beat of a high-energy soundtrack to fuel the power of a mystical crystal core and escape a ruthless empire.
 
 ### The Core Pillars
 *   **The World is the Beat:** There is no traditional "rhythm highway." The scrolling physical world *is* your timeline[cite: 1]. Obstacles approach you from the right, and you must execute the correct martial maneuver exactly as they reach you on the beat[cite: 1].
-*   **Absolute Chronological Sync:** The forward momentum of the game never pauses, desyncs, or slows down. Mistimed inputs or failures never knock the player back or interrupt the music track; instead, time itself fractures to preserve the rhythmic flow.
+*   **Absolute Chronological Sync:** The forward momentum of the game never pauses, desyncs, or slows down. Mistimed inputs or failures never knock the player back or interrupt the music track; instead, the rhythm falters but the run continues.
 *   **Agnostic Asset Pipeline:** The game is structured so that level visuals are defined strictly by unlocked "visual skins" (Biomes)[cite: 1]. This allows the developer to swap, expand, or introduce brand-new parallax backgrounds without altering the underlying rhythm-collision logic[cite: 1].
 
 ---
@@ -21,7 +21,7 @@
 ## 2. Universe & Narrative Arc
 
 ### Story Synopsis
-You are an enslaved prisoner sprinting for survival through a colossal, shifting scrap-graveyard ruled by the brutal **Iron Empire**—an engineered warrior race of Orcs that overthrew their creators centuries ago[cite: 1]. To escape, you must reach an ancient, hidden Monolith[cite: 1]. Your only hope is a stolen, pure **Geima Core** in your pack that absorbs kinetic energy and grants the wielder the ability to shatter and rewrite brief fragments of reality. Only by running, vaulting, and fighting in perfect rhythmic sync can you charge the device to tear open a portal to safety[cite: 1].
+You are an enslaved female prisoner sprinting for survival through a colossal, shifting scrap-graveyard ruled by the brutal **Iron Empire**—an engineered warrior race of Orcs that overthrew their creators centuries ago[cite: 1]. To escape, you must reach an ancient, hidden Monolith[cite: 1]. Your only hope is a stolen, pure **Geima Core** in your pack that absorbs kinetic energy to charge its latent magic. Only by running, vaulting, sliding, and fighting in perfect rhythmic sync can you charge the device to tear open a portal to safety[cite: 1].
 
 The ultimate truth lies at the journey’s end. Players who merely survive will teleport to a peaceful new world to live in quiet freedom[cite: 1]. However, those who master every track in absolute rhythmic harmony will overload the Monolith, tearing a rift through time itself[cite: 1]. They will wake up in a prehistoric age, eventually becoming the mythical **First Sage** who founded the very Empire that would one day enslave their descendants—trapping them in a perfect, tragic time loop[cite: 1].
 
@@ -46,7 +46,7 @@ The story is told using clean, comic-book-style slide screens with multi-panel i
 | :---: | :---: | :---: |
 | The First Sage's Portrait | The Slave Mines Revolt | The Ruins of Utopia |
 
-*   **Panel 1.1 (The First Sage's Legacy):** A magnificent portrait of the legendary **First Sage**—an old, wise figure with glowing blue Geima-stone veins on his hands, holding a staff of white stone[cite: 1]. Behind him, a gleaming, utopian fantasy empire rises[cite: 1].
+*   **Panel 1.1 (The First Sage's Legacy):** A magnificent portrait of the legendary **First Sage**—an old, wise woman with glowing blue Geima-stone veins on her hands, holding a staff of white stone[cite: 1]. Behind her, a gleaming, utopian fantasy empire rises[cite: 1].
     *   *Caption:* *"Centuries ago, the legendary First Sage discovered the power of the Geima-stone, building a golden utopia of peace and magic..."*[cite: 1]
 *   **Panel 1.2 (The Iron Revolt):** The scene shifts to a dark, jagged quarry[cite: 1]. Orcs with pickaxes look up from the deep pits with glowing, furious red eyes[cite: 1]. In the foreground, a shadowy, corrupt Elder secretly hands them iron weapons[cite: 1].
     *   *Caption:* *"To harvest the stone, the Elders forged a warrior race of Orcs to slave in the toxic deep. But a bored, power-hungry councilman betrayed his own kin, uniting the slaves..."*[cite: 1]
@@ -63,7 +63,7 @@ The story is told using clean, comic-book-style slide screens with multi-panel i
 
 *   **Panel 2.1 (The Hidden Core):** Deep inside a dark, forbidden cave behind the quarry, our character's family works in secret around a massive, cracked stone archway (The Monolith)[cite: 1]. The character's father is holding a glowing, pulsating blue crystal—the **Geima Core**.
     *   *Caption:* *"For three generations, our family secretly repaired an ancient Gate of the Sages. To power it, we stole tiny fragments of Geima-stone to forge a master Core."*[cite: 1]
-*   **Panel 2.2 (The Raid):** Red torchlight floods the cave[cite: 1]. The heavy silhouettes of armored Orc guards break through the wooden barricades[cite: 1]. The father desperately pushes the glowing crystal core into our hero's hands, pointing toward the quarry exit.
+*   **Panel 2.2 (The Raid):** Red torchlight floods the cave[cite: 1]. The heavy silhouettes of armored Orc guards break through the wooden barricades[cite: 1]. Her father desperately pushes the glowing crystal core into our hero's hands, pointing toward the quarry exit.
     *   *Caption:* *"They found us. My father shoved the Core into my hands. 'Run!' he cried. 'Feed the Core the rhythm of your stride! It is our only hope!'"*[cite: 1]
 *   **Panel 2.3 (The Chase Begins):** Our hero leaps out of the cave, sprinting directly into the scrolling quarry background[cite: 1]. The core in their pack glows bright blue, pulsing in sync with the first beat of the music.
     *   *Caption:* *"Do not stop. Do not break the cadence. Run!"*[cite: 1]
@@ -81,7 +81,7 @@ The story is told using clean, comic-book-style slide screens with multi-panel i
     *   *Caption:* *"With a final, desperate stride, I plunged into the heart of the ancient Gate..."*[cite: 1]
 *   **Panel 3.2 (The Reconstruction):** The screen fades in from white[cite: 1]. Our hero collapses onto the soft, green grass of a beautiful, pristine beach[cite: 1]. Behind them, the stone Monolith violently cracks and shatters into pieces, permanently closing the portal[cite: 1].
     *   *Caption:* *"The Gate shattered behind us, forever sealing the Iron Empire away in our past. We had escaped to a new world."*[cite: 1]
-*   **Panel 3.3 (A New Dawn):** The hero stands on a cliffside overlooking a beautiful, lush valley where their friends and girlfriend are already starting to build a modest wooden village[cite: 1]. The sun rises over a free land[cite: 1].
+*   **Panel 3.3 (A New Dawn):** The hero stands on a cliffside overlooking a beautiful, lush valley where her friends and loved ones are already starting to build a modest wooden village[cite: 1]. The sun rises over a free land[cite: 1].
     *   *Caption:* *"Here, far from their chains, we will build a quiet haven. We are finally free."*[cite: 1]
 
 ---
@@ -93,7 +93,7 @@ The story is told using clean, comic-book-style slide screens with multi-panel i
 | :---: | :---: | :---: |
 | The Harmonic Overload | Time Reversing | Prehistoric Plain |
 
-*   **Panel 4.1 (The Flawless Chord):** As our hero leaps into the Monolith, the core doesn't just glow—it explodes with a blinding white-blue light. The absolute harmonic precision of their perfect run has pushed the machine past its physical limits[cite: 1].
+*   **Panel 4.1 (The Flawless Chord):** As our hero leaps into the Monolith, the core doesn't just glow—it explodes with a blinding white-blue light. The absolute harmonic precision of her perfect run has pushed the machine past its physical limits[cite: 1].
     *   *Caption:* *"A perfect run. A perfect rhythm. The Geima Core did not just activate—it resonated in absolute, flawless harmony."*
 *   **Panel 4.2 (The Reverse Warp):** The background scrolls backward at impossible speeds[cite: 1]. We see the ruined castles of the Orcs rapidly "un-building" themselves back into pristine white stone towers, and then those towers turning back into wild, ancient forests in a dizzying blur of light[cite: 1].
     *   *Caption:* *"The energy ripped a hole not through space, but through the fabric of time itself, dragging me back through centuries of history..."*[cite: 1]
@@ -108,11 +108,11 @@ The story is told using clean, comic-book-style slide screens with multi-panel i
 | :---: | :---: | :---: |
 | Founding the Empire | Deathbed of the Sage | The Name Revealed |
 
-*   **Panel 5.1 (The Founder):** Decades have passed[cite: 1]. A much older, wiser version of our hero is shown standing before primitive tribes[cite: 1]. He is teaching them how to harvest a glowing blue crystal from the ground and build beautiful, white stone structures[cite: 1]. He holds the exact white stone staff seen in Panel 1.1[cite: 1].
+*   **Panel 5.1 (The Founder):** Decades have passed[cite: 1]. A much older, wiser version of our hero is shown standing before primitive tribes[cite: 1]. She is teaching them how to harvest a glowing blue crystal from the ground and build beautiful, white stone structures[cite: 1]. She holds the exact white stone staff seen in Panel 1.1[cite: 1].
     *   *Caption:* *"To survive, I gathered the lost tribes. I taught them the secrets of the Geima-stone, guiding them to build a peaceful, rhythmic utopia..."*[cite: 1]
-*   **Panel 5.2 (The Last Breath):** The hero is now an incredibly old, grey-haired man lying on a bed of silk[cite: 1]. A massive crowd of citizens and council members surround him, weeping[cite: 1]. One of them holds a crown of white stone[cite: 1].
+*   **Panel 5.2 (The Last Breath):** The hero is now an incredibly old, grey-haired woman lying on a bed of silk[cite: 1]. A massive crowd of citizens and council members surround her, weeping[cite: 1]. One of them holds a crown of white stone[cite: 1].
     *   *Caption:* *"On my deathbed, as the lights of our great new empire shined outside my window, my people gathered to bid me farewell..."*[cite: 1]
-*   **Panel 5.3 (The True Identity):** A close-up of our dying hero’s eyes fading[cite: 1]. One of the grieving citizens whispers a final prayer, calling him by the legendary name of the **First Sage**—the exact ancestor whose empire would one day enslave his descendants[cite: 1].
+*   **Panel 5.3 (The True Identity):** A close-up of our dying hero’s eyes fading[cite: 1]. One of the grieving citizens whispers a final prayer, calling her by the legendary name of the **First Sage**—the exact ancestor whose empire would one day enslave her descendants[cite: 1].
     *   *Caption:* *"As my eyes closed, they whispered the name of the legendary First Sage. The loop was complete. I ran from my chains... only to forge them myself."*[cite: 1]
 
 ---
@@ -120,7 +120,7 @@ The story is told using clean, comic-book-style slide screens with multi-panel i
 ## 4. Gameplay & Controls
 
 ### The Kinetic Charger Loop
-To power the escape gate (The Monolith) at the end of the run, the player must charge the Geima Core in their pack[cite: 1]. The core absorbs kinetic energy and vibration[cite: 1]. The rhythmic, steady impact of your boots hitting the ground at high speeds, the clashing of your sword strikes, and the chronological force of shattering time are what actually charge the core.
+To power the escape gate (The Monolith) at the end of the run, the player must charge the Geima Core in her pack[cite: 1]. The core absorbs kinetic energy and vibration[cite: 1]. The rhythmic, steady impact of your boots hitting the ground at high speeds, the clashing of your sword strikes, and swift maneuvering are what actually charge the core.
 
 If you hit minor hazards, the rhythmic charge drops, the energy bleeds out, and your health bar depletes[cite: 1].
 
@@ -131,10 +131,10 @@ When an obstacle reaches the player's physical coordinates on a beat, they must 
 
 | Button | Combat Action | Target Hazard | Success Outcome | Failure Outcome |
 | :---: | :--- | :--- | :--- | :--- |
-| **B Button** | **Sword Slash** | Normal Orc Scout | Slices the Orc cleanly on the beat; enemy vanishes in a particle explosion. | **Instant Death (Run Freeze):** You slam head-on into his weapon. Reality breaks. |
-| **A Button** | **Aether Dash** | Spike Traps / Barbed Wire | A low-profile, high-speed burst that passes over or snaps the wire safely. | **Casual Hurt:** You trudge through pain, flashing red and losing a chunk of health, but keep running forward. |
-| **Y Button** | **Jump / Vault** | Rolling Wood Barrels | You clear the rolling hazard in a tight, athletic aerial arc. | **Casual Hurt:** You smash directly into the barrel, shattering it into wooden splinters. You lose health but keep running. |
-| **X Button** | **Core Rewind** | Heavy Orc Vanguard *(Un-killable)* | **Timeline Rewrite:** You trigger a localized reversal, rewinding the track and music to try the section again. | **Instant Death (No Energy):** If core power is entirely empty, you are crushed. Game Over. |
+| **B Button** | **Sword Slash** | Normal Orc Scout | Slices the weak Orc cleanly on the beat; enemy vanishes in a particle explosion. | **Fatal Failure:** You slam head-on into their weapon. The run ends in defeat. |
+| **A Button** | **Dash** | Heavy Orc Vanguard | You explosively push back the unstoppable big ogre, clearing the lane. | **Fatal Failure:** You are crushed by the heavy obstacle. The run ends in defeat. |
+| **Y Button** | **Jump / Vault** | Gaps / Fire Barrels | You vault over the hazard in a tight aerial arc. (Not high enough to jump over enemies). | **Casual Hurt:** You fall or smash into the hazard, losing health but keeping momentum. |
+| **X Button** | **Slide** | Barbed Wire / Beams | A quick, frictionless slide to go under low hazards like wires. | **Casual Hurt:** You strike the obstacle. You lose health but keep running. |
 
 ---
 
@@ -145,12 +145,7 @@ Instead of separate health and scoring meters, your health bar is your rhythmic 
 
 *   **Perfect / Good (Successful Action):** Bypasses the threat safely[cite: 1]. Your health bar remains untouched, and you build your score multiplier[cite: 1].
 *   **Casual Failure (Missed Jump/Dash):** The obstacle physically breaks or your feet clear it late. The character plays a quick "hurt/wince" pose, the sprite flashes red, and your health bar permanently drops by a chunk[cite: 1]. Forward movement and music continue seamlessly.
-*   **Fatal Failure (Missed Slash/Crashing a Heavy Orc):** The character collides head-on with an unstoppable force. The screen violently cracks, the music screeches to a dead halt, and the game freezes on the impact frame, prompting an immediate timeline intervention.
-
-### The Geima Rewind System
-When a Fatal Threat is triggered, or when the player chooses to rewrite a poor section, the timeline fractures.
-*   **The Rewind Snap:** Activating the core rapidly scrubs the game world and music back by a fixed musical measure (exactly 4 or 8 beats backward). This ensures the player is never dropped randomly between notes and can re-enter the track perfectly in sync with the song's pulse.
-*   **Mechanical Limitations:** Rewinding consumes a charge of the Geima Core. If a player exhausts their core charges and strikes a Fatal Threat, the run ends in absolute defeat, forcing a full level restart.
+*   **Fatal Failure (Missed Slash/Crashing a Heavy Orc):** The character collides head-on with an unstoppable force. The screen violently cracks, the music screeches to a dead halt, and the run ends in absolute defeat, forcing a full level restart.
 
 ### Dynamic Tempo Scaling
 The game's running speed is directly tied to the song's tempo (BPM)[cite: 1].
@@ -173,9 +168,9 @@ Each Zone features a curated playlist of 6 songs, scaling in difficulty (2 Slow,
 ### Onboarding Sequence (Zone 1 Tutorial Layout)
 To introduce the mechanics seamlessly without text-heavy manual interruptions, the initial area utilizes a forced narrative script:
 1.  **The Slash Tutorial:** A lone Normal Orc approaches with a prominent button prompt. The player presses **Slash**, exploding the enemy and establishing basic rhythmic timing.
-2.  **The Unstoppable Wall:** Immediately after, an armored Heavy Orc blocks the entire lane. The player intuitively presses **Slash** again; the blade bounces off harmlessly, the screen cracks, and the stage completely freezes on impact.
-3.  **The Rewind Awakening:** A stylized UI prompt instructs the player to use the core. Pressing **Rewind** inverts the screen colors and drags the player and music backward exactly 4 beats.
-4.  **The Alternate Action:** The music resumes, and the Heavy Orc charges a second time. A flashing prompt guides the player to use **Dash**, sliding beneath the heavy club swing and clearing the tutorial track cleanly.
+2.  **The Unstoppable Wall:** Immediately after, an armored Heavy Orc blocks the entire lane. The player intuitively presses **Slash** again; the blade bounces off harmlessly, the screen cracks, and the stage ends, establishing that some threats are fatal and cannot be fought.
+3.  **The Retry:** The player restarts the sequence, now aware of the danger.
+4.  **The Alternate Action:** As the Heavy Orc approaches again, a flashing prompt guides the player to use **Dash**, violently pushing the unstoppable ogre back and clearing the tutorial track cleanly.
 
 ### The Score Chase & Medal System
 Completing a song awards an **Escape Medal** based on the remaining percentage of your health bar at the finish line[cite: 1]:
@@ -198,8 +193,7 @@ To bring the runner to life, the player sprite assets must support six core anim
 1.  **The Running Loop:** A constant, energetic forward sprint[cite: 1]. The animation frame rate scales dynamically to bounce in sync with the song's BPM[cite: 1].
 2.  **The Sword Slash:** A rapid, wide horizontal blade swing that snaps instantly when the attack button is pressed and transitions smoothly back to running[cite: 1].
 3.  **The Jump / Airborne Frame:** A tucked, agile mid-air pose used while the character is physically arching through the air to clear barrels[cite: 1].
-4.  **The Aether Dash:** A low-profile, compressed forward slide or high-speed silhouette shift used to dash through floor hazards.
-5.  **The Hurt / Flicker State:** A brief, off-balance animation frame triggered when taking damage from casual obstacles, visually signaling a missed beat while continuing forward momentum[cite: 1].
-6.  **The Crash / Defeat:** A full physical collapse frame triggered when striking a fatal threat without core energy, ending the run.
-
-> **Design Note on Rewinding:** When the Geima Core triggers, the engine handles the rewind purely through code and shaders. The game captures the current running, jumping, or crashing frames, reverses the animation playback data, and applies a distortion effect as the player travels backward on the timeline. No dedicated rewind sprites are required.
+4.  **The Dash:** A high-speed, forceful forward burst used to violently push back large, unstoppable enemies.
+5.  **The Slide:** A low-profile, compressed forward slide to go under low-hanging threats like wires.
+6.  **The Hurt / Flicker State:** A brief, off-balance animation frame triggered when taking damage from casual obstacles, visually signaling a missed beat while continuing forward momentum[cite: 1].
+7.  **The Crash / Defeat:** A full physical collapse frame triggered when striking a fatal threat, ending the run.
