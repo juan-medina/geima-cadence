@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://by10witwjhger" path="res://game/game.gd" id="1_qnjlk"]
 [ext_resource type="PackedScene" uid="uid://xa3r75sscyif" path="res://background/background.tscn" id="2_h7iqs"]
 [ext_resource type="PackedScene" uid="uid://bn2amc5tts46y" path="res://hero/hero.tscn" id="2_vasa2"]
+[ext_resource type="PackedScene" uid="uid://b75lqx86bgvns" path="res://track/track.tscn" id="4_4fuuu"]
+[ext_resource type="AudioStream" uid="uid://7541vp6p1fvi" path="res://songs/Disco_Medusae.mp3" id="5_dxrkv"]
 
 [node name="Game" type="Node2D" unique_id=534874988]
 script = ExtResource("1_qnjlk")
@@ -13,3 +15,11 @@ script = ExtResource("1_qnjlk")
 
 [node name="Hero" parent="." unique_id=954983578 instance=ExtResource("2_vasa2")]
 position = Vector2(-100, 0)
+
+[node name="Track" parent="." unique_id=1738776798 node_paths=PackedStringArray("music", "hero") instance=ExtResource("4_4fuuu")]
+music = NodePath("../Music")
+hero = NodePath("../Hero")
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=140037485]
+stream = ExtResource("5_dxrkv")
+bus = &"Music"

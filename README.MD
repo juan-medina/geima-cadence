@@ -8,10 +8,21 @@
 
 TBC
 
+Graphics
+
 ### Warrior-Free Animation set V1.3
 * **Author:** [Clement Baudet](https://clembod.itch.io/)
 * **Source:** [Itch.io](https://clembod.itch.io/warrior-free-animation-set)
 * **License:** Custom permission (Free for personal and commercial use, modification allowed, redistribution prohibited).
+
+Music
+
+
+### "Disco Medusae"
+* **Author:** [Kevin MacLeod](incompetech.com)
+* **Source:** [incompetech](incompetech.com)
+* **License:** Creative Commons: By Attribution 4.0 License
+http://creativecommons.org/licenses/by/4.0/
 
 ## License
 
