@@ -151,7 +151,7 @@ Instead of separate health and scoring meters, your health bar is your rhythmic 
 The game's running speed is directly tied to the song's tempo (BPM)[cite: 1].
 *   **Slow Tracks (80-100 BPM):** The environment scrolls gently; the character's running animation bounces lazily to the beat[cite: 1].
 *   **Fast Tracks (140-170 BPM):** The background blurs, obstacles rush toward you at high speed, and the running animation is a frantic sprint[cite: 1].
-*   **The Sync:** Regardless of the speed, obstacles take exactly 4 full beats to travel from the right edge of the screen to your character's position[cite: 1].
+*   **The Sync:** Obstacles scroll at a fixed speed (currently 250 px/s), so every obstacle is visible for the same warning time (~1.7 s at the 640 px design resolution) regardless of tempo. Faster songs feel harder because notes are packed closer together in time, not because obstacles move faster. See the [Beatmap Generation Pipeline](beatmap-generation.md) for how this warning time drives the map's lead-in.
 
 ---
 

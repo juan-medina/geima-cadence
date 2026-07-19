@@ -1,6 +1,9 @@
 param(
     [Parameter(Mandatory=$true, Position=0)]
-    [string]$AudioFile
+    [string]$AudioFile,
+
+    [Parameter(ValueFromRemainingArguments=$true)]
+    [string[]]$ExtraArgs
 )
 
 if (-Not (Test-Path ".\.venv")) {
@@ -14,4 +17,4 @@ if (-Not (Test-Path "scripts\beatmap_generator.py")) {
 }
 
 Write-Host "Generating beatmap from $AudioFile..."
-& .\.venv\Scripts\python.exe scripts\beatmap_generator.py $AudioFile
+& .\.venv\Scripts\python.exe scripts\beatmap_generator.py $AudioFile @ExtraArgs

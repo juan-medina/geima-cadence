@@ -45,6 +45,11 @@ window/size/window_height_override=720
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
+[editor]
+
+movie_writer/movie_file="C:/Users/mail/Documents/Source/geima-cadence/bin/video.avi"
+movie_writer/fps=165
+
 [input]
 
 toggle_fullscreen={

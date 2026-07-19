@@ -8,6 +8,50 @@
 
 TBC
 
+## Beatmap Generation
+
+Each song needs a beatmap (`src/songs/<song>.json`) that tells the game when obstacles arrive and which action defeats them. Beatmaps are generated from the audio by [scripts/beatmap_generator.py](scripts/beatmap_generator.py) — see the [Beatmap Generation Pipeline](docs/beatmap-generation.md) for how the detection works.
+
+### Setup (one time)
+
+Requires Python. From the repository root:
+
+```powershell
+.\scripts\setup_env.ps1
+```
+
+This creates a `.venv` and installs the dependencies from `requirements.txt`.
+
+### Usage
+
+```powershell
+# defaults: normal difficulty, seed 0 — this is how the current songs are generated
+.\scripts\generate_beatmap.ps1 src\songs\Disco_Medusae.mp3
+
+# denser or sparser maps
+.\scripts\generate_beatmap.ps1 src\songs\Disco_Medusae.mp3 --difficulty hard
+.\scripts\generate_beatmap.ps1 src\songs\Disco_Medusae.mp3 --difficulty easy
+
+# alternative map for the same song (different random choices, still reproducible)
+.\scripts\generate_beatmap.ps1 src\songs\Disco_Medusae.mp3 --seed 7
+```
+
+The JSON is written next to the audio file. Generation is deterministic: the same song, difficulty, and seed always produce the same beatmap.
+
+### Options and current values
+
+| Option | Default | Notes |
+| :--- | :---: | :--- |
+| `--difficulty` | `normal` | `easy` (0.85 s min gap), `normal` (0.50 s), `hard` (0.40 s) |
+| `--seed` | `0` | Random seed for action tie-breaks |
+| `--viewport-width` | `640` | Must match `viewport_width` in [project.godot](src/project.godot) |
+| `--hero-x` | `-100` | Must match the Hero position in [game.tscn](src/game/game.tscn) |
+| `--scroll-speed` | `250` | Must match `scroll_speed` in [track.gd](src/track/track.gd) |
+
+The last three describe the game's layout and drive the lead-in before the first note (currently `(640/2 + 100) / 250 = 1.68 s`). If any of them change in the game, regenerate the beatmaps with matching values. The minimum gap between notes is floored at 0.40 s because the hero's action animations take 0.35 s.
+
+**Current songs:** `Disco_Medusae.json` was generated with the defaults (`normal`, seed `0`).
+
 Graphics
 
 ### Warrior-Free Animation set V1.3
