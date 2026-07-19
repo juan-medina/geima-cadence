@@ -19,13 +19,16 @@ def generate_motif(length=4):
         motif.append(random.choice(valid_actions))
     return motif
 
-def generate_beatmap(audio_path, output_path, intro_skip=5.0, animation_duration=0.5, human_reaction=0.5):
+def generate_beatmap(audio_path, output_path, intro_skip=2.0, animation_duration=0.35, human_reaction=0.5):
     min_gap = animation_duration + human_reaction
     print(f"Loading audio: {audio_path}")
     y, sr = librosa.load(audio_path, sr=None)
     
-    print("Detecting onset beats...")
-    onset_env = librosa.onset.onset_strength(y=y, sr=sr)
+    print("Isolating percussive track (HPSS)...")
+    y_harmonic, y_percussive = librosa.effects.hpss(y)
+    
+    print("Detecting onset beats on percussive track...")
+    onset_env = librosa.onset.onset_strength(y=y_percussive, sr=sr)
     beats = librosa.onset.onset_detect(onset_envelope=onset_env, sr=sr, units='time', backtrack=True)
     
     print(f"Detected {len(beats)} raw beats. Skipping first {intro_skip}s and filtering with {min_gap}s minimum gap...")

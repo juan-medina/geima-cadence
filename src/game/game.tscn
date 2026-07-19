@@ -14,12 +14,12 @@ script = ExtResource("1_qnjlk")
 [node name="Background" parent="." unique_id=1257251874 node_paths=PackedStringArray("track") instance=ExtResource("2_h7iqs")]
 track = NodePath("../Track")
 
-[node name="Hero" parent="." unique_id=954983578 instance=ExtResource("2_vasa2")]
-position = Vector2(-100, 0)
-
 [node name="Track" parent="." unique_id=1738776798 node_paths=PackedStringArray("music", "hero") instance=ExtResource("4_4fuuu")]
 music = NodePath("../Music")
 hero = NodePath("../Hero")
+
+[node name="Hero" parent="." unique_id=954983578 instance=ExtResource("2_vasa2")]
+position = Vector2(-100, 0)
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=140037485]
 stream = ExtResource("5_dxrkv")

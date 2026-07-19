@@ -173,7 +173,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"dash",
-"speed": 14.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -187,7 +187,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"jump_down",
-"speed": 12.0
+"speed": 17.1
 }, {
 "frames": [{
 "duration": 1.0,
@@ -201,7 +201,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"jump_up",
-"speed": 12.0
+"speed": 17.1
 }, {
 "frames": [{
 "duration": 1.0,
@@ -265,7 +265,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"slash",
-"speed": 20.0
+"speed": 28.6
 }, {
 "frames": [{
 "duration": 1.0,
@@ -285,7 +285,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"slide",
-"speed": 10.0
+"speed": 14.3
 }]
 
 [node name="Hero" type="AnimatedSprite2D" unique_id=954983578]
