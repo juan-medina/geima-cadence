@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b6fee7g30odur"]
+
+[ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://track/input.png" id="1_input"]
+
+[node name="DashObstacle" type="Node2D" unique_id=211678094]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1105056636]
+offset_left = -20.0
+offset_top = -44.0
+offset_right = 20.0
+color = Color(1, 0.65, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=142235232]
+position = Vector2(0, 16)
+texture = ExtResource("1_input")
+hframes = 34
+vframes = 24
+frame = 72

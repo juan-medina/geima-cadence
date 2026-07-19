@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bkxtqrqkop3ru"]
+
+[ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://track/input.png" id="1_input"]
+
+[node name="SlashObstacle" type="Node2D" unique_id=18907406]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1813347031]
+offset_left = -5.0
+offset_top = -34.0
+offset_right = 5.0
+color = Color(0, 1, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=256653081]
+position = Vector2(0, 16)
+texture = ExtResource("1_input")
+hframes = 34
+vframes = 24
+frame = 70

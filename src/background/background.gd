@@ -5,6 +5,7 @@ class_name Background
 extends Node2D
 
 @export var scroll_speed: float = 250.0
+@export var track: Node2D
 
 var _scroll_offset: float = 0.0
 var _bg_scroll_offset: float = 0.0
@@ -20,15 +21,22 @@ const _PILLARS_WIDTH: float = 80.0
 
 
 func _process(delta: float) -> void:
-	# Move the foreground offset backwards to simulate the character running forwards
-	_scroll_offset -= scroll_speed * delta
-	if _scroll_offset < -_TILE_WIDTH:
-		_scroll_offset += _TILE_WIDTH
+	if track:
+		# Synchronize perfectly with the master track position
+		_scroll_offset = fmod(track.position.x, _TILE_WIDTH)
+		
+		# Apply parallax ratio
+		var parallax_ratio: float = _BG_SCROLL_SPEED / scroll_speed
+		_bg_scroll_offset = fmod(track.position.x * parallax_ratio, _BG_TILE_WIDTH)
+	else:
+		# Fallback if no track is assigned
+		_scroll_offset -= scroll_speed * delta
+		if _scroll_offset < -_TILE_WIDTH:
+			_scroll_offset += _TILE_WIDTH
 
-	# Move the background offset slower for parallax
-	_bg_scroll_offset -= _BG_SCROLL_SPEED * delta
-	if _bg_scroll_offset < -_BG_TILE_WIDTH:
-		_bg_scroll_offset += _BG_TILE_WIDTH
+		_bg_scroll_offset -= _BG_SCROLL_SPEED * delta
+		if _bg_scroll_offset < -_BG_TILE_WIDTH:
+			_bg_scroll_offset += _BG_TILE_WIDTH
 
 	# Force the node to redraw every frame
 	queue_redraw()

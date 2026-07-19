@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cyji0ma1r4x5q"]
+
+[ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://track/input.png" id="1_input"]
+
+[node name="JumpUpObstacle" type="Node2D" unique_id=960136674]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=494130175]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+color = Color(1, 1, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1048418441]
+position = Vector2(0, 16)
+texture = ExtResource("1_input")
+hframes = 34
+vframes = 24
+frame = 69
