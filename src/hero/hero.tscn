@@ -173,7 +173,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"dash",
-"speed": 7.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -185,7 +185,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_femmg")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"jump_down",
 "speed": 5.0
 }, {
@@ -199,7 +199,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g74me")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"jump_up",
 "speed": 5.0
 }, {
@@ -265,7 +265,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"slash",
-"speed": 8.0
+"speed": 14.0
 }, {
 "frames": [{
 "duration": 1.0,
