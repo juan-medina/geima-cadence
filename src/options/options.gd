@@ -92,7 +92,9 @@ func _load_options() -> void:
 		master_volume = config.get_value(SECTION_AUDIO, &"master_volume", DEFAULT_MASTER_VOLUME)
 		music_volume = config.get_value(SECTION_AUDIO, &"music_volume", DEFAULT_MUSIC_VOLUME)
 		sfx_volume = config.get_value(SECTION_AUDIO, &"sfx_volume", DEFAULT_SFX_VOLUME)
-		eula_accepted_version = config.get_value(SECTION_EULA, &"accepted_version", DEFAULT_EULA_VERSION)
+		eula_accepted_version = config.get_value(
+			SECTION_EULA, &"accepted_version", DEFAULT_EULA_VERSION
+		)
 	else:
 		# First time launch or missing config - set defaults
 		fullscreen = DEFAULT_FULLSCREEN
@@ -112,7 +114,7 @@ func _save_options() -> void:
 
 	var err: int = config.save(CONFIG_PATH)
 	if err != OK:
-		printerr(&"Options: Failed to save config to %s. Error: %d" % [CONFIG_PATH, err])
+		printerr(&"Options: Failed to save config to %s. Error: %d !" % [CONFIG_PATH, err])
 
 
 func is_eula_accepted(minor_version: String) -> bool:
@@ -128,7 +130,11 @@ func _apply_all_settings() -> void:
 
 func _apply_fullscreen() -> void:
 	DisplayServer.window_set_mode(
-		DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN if fullscreen else DisplayServer.WindowMode.WINDOW_MODE_WINDOWED
+		(
+			DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN
+			if fullscreen
+			else DisplayServer.WindowMode.WINDOW_MODE_WINDOWED
+		)
 	)
 
 
@@ -145,10 +151,12 @@ func _apply_bus_volume(bus_name: StringName, volume_linear: float) -> void:
 				base_db = _base_master_db
 
 		# Convert linear 0.0-1.0 to Db offset, and apply to the base Db
-		var volume_db: float = base_db + linear_to_db(volume_linear) if volume_linear > 0.0 else -80.0
+		var volume_db: float = (
+			base_db + linear_to_db(volume_linear) if volume_linear > 0.0 else -80.0
+		)
 		AudioServer.set_bus_volume_db(bus_index, volume_db)
 	else:
-		printerr(&"Options: Audio Bus '%s' not found." % bus_name)
+		printerr(&"Options: Audio Bus '%s' not found!" % bus_name)
 
 
 func _unhandled_input(event: InputEvent) -> void:

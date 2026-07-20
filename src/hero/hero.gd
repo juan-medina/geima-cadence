@@ -15,8 +15,13 @@ var jump_down_duration: float = 0.0
 
 
 func _ready() -> void:
-	jump_up_duration = sprite_frames.get_frame_count(&"jump_up") / sprite_frames.get_animation_speed(&"jump_up")
-	jump_down_duration = sprite_frames.get_frame_count(&"jump_down") / sprite_frames.get_animation_speed(&"jump_down")
+	jump_up_duration = (
+		sprite_frames.get_frame_count(&"jump_up") / sprite_frames.get_animation_speed(&"jump_up")
+	)
+	jump_down_duration = (
+		sprite_frames.get_frame_count(&"jump_down")
+		/ sprite_frames.get_animation_speed(&"jump_down")
+	)
 	animation_finished.connect(_on_animation_finished)
 
 

@@ -14,6 +14,7 @@ const JUMP_UP_SCENE: PackedScene = preload("res://track/jump_up_obstacle.tscn")
 @export var scroll_speed: float = 250.0
 @export var floor_y: float = 24.0
 
+
 func _ready() -> void:
 	if not music or not hero:
 		push_error("Track needs Music and Hero references!")
@@ -27,23 +28,23 @@ func _ready() -> void:
 
 	var file: FileAccess = FileAccess.open(beatmap_file, FileAccess.READ)
 	if not file:
-		push_error("Could not open beatmap file: " + beatmap_file)
+		push_error("Could not open beatmap file: " + beatmap_file + "!")
 		return
 
 	var json_var: Variant = JSON.parse_string(file.get_as_text())
 	if not json_var is Dictionary:
-		push_error("Invalid beatmap JSON format")
+		push_error("Invalid beatmap JSON forma!")
 		return
 
 	var json: Dictionary = json_var
 	if not json.has("actions"):
-		push_error("Invalid beatmap JSON format")
+		push_error("Invalid beatmap JSON format!")
 		return
 
 	var spawn_offset_x: float = hero.position.x
 	var actions_var: Variant = json["actions"]
 	if not actions_var is Array:
-		push_error("Beatmap actions must be an array")
+		push_error("Beatmap actions must be an array!")
 		return
 	var actions: Array = actions_var
 
@@ -77,7 +78,12 @@ func _ready() -> void:
 			obstacle.position = Vector2(local_x, floor_y)
 			add_child(obstacle)
 
+
 func _process(_delta: float) -> void:
 	if music and music.playing:
-		var current_music_time: float = music.get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency()
+		var current_music_time: float = (
+			music.get_playback_position()
+			+ AudioServer.get_time_since_last_mix()
+			- AudioServer.get_output_latency()
+		)
 		position.x = -current_music_time * scroll_speed
