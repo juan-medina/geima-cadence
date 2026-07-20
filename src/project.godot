@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Geima: Cadence"
+config/version="0.1.0"
 run/main_scene="uid://del6uukmi7u2m"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="geima-cadence"
@@ -23,6 +24,7 @@ buses/default_bus_layout="uid://drsl4y4op4opw"
 [autoload]
 
 GlobalOptions="*uid://cpn1inpgx705w"
+GlobalBuildInfo="*res://build_info/build_info.tscn"
 
 [debug]
 

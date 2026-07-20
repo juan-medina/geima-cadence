@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://37rxq5oo3ovm"]
+
+[ext_resource type="Script" uid="uid://3fwu4m6orrn3" path="res://build_info/build_info.gd" id="1_bldi"]
+
+[node name="BuildInfo" type="CanvasLayer" unique_id=1923893905]
+layer = 128
+script = ExtResource("1_bldi")
+
+[node name="Label" type="Label" parent="." unique_id=1516215693]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -18.0
+offset_right = -4.0
+offset_bottom = -3.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 10
+text = "v0.0.0 (dev)"
+horizontal_alignment = 2
+vertical_alignment = 2
