@@ -74,6 +74,10 @@ func _ready() -> void:
 	print(&"Options: Initializing...")
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
+	# Route window-close (the X button) through our own quit so audio is stopped
+	# first, instead of letting the engine quit immediately.
+	get_tree().set_auto_accept_quit(false)
+
 	# get base Db from the default buss setup
 	_base_master_db = AudioServer.get_bus_volume_db(AudioServer.get_bus_index(&"Master"))
 	_base_music_db = AudioServer.get_bus_volume_db(AudioServer.get_bus_index(&"Music"))
@@ -161,7 +165,28 @@ func _apply_bus_volume(bus_name: StringName, volume_linear: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"ui_cancel"):
-		get_tree().quit()
+		_quit()
 	else:
 		if event.is_action_pressed(&"toggle_fullscreen"):
 			fullscreen = not fullscreen
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		_quit()
+
+
+func _quit() -> void:
+	# Stop any playing audio before quitting, otherwise Godot reports the audio
+	# streams as leaked resources at exit (engine bug, see godotengine/godot#95484).
+	_stop_all_audio(get_tree().root)
+	get_tree().quit()
+
+
+func _stop_all_audio(node: Node) -> void:
+	var audio_node: AudioStreamPlayer = node as AudioStreamPlayer
+	if audio_node:
+		audio_node.stop()
+		audio_node.stream = null
+	for child: Node in node.get_children():
+		_stop_all_audio(child)
