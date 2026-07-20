@@ -15,6 +15,7 @@ const JUMP_UP_SCENE: PackedScene = preload("res://track/jump_up_obstacle.tscn")
 @export var floor_y: float = 24.0
 
 var _started: bool = false
+var _stopped: bool = false
 var _last_music_time: float = 0.0
 
 
@@ -23,7 +24,12 @@ func _ready() -> void:
 		push_error("Track needs Music and Hero references!")
 		return
 
+	hero.died.connect(_on_hero_died)
 	_spawn_obstacles(_load_beatmap_actions())
+
+
+func _on_hero_died() -> void:
+	_stopped = true
 
 
 func _load_beatmap_actions() -> Array:
@@ -98,7 +104,7 @@ func _obstacle_scene(type: String) -> PackedScene:
 
 
 func _process(_delta: float) -> void:
-	if not music or not music.playing:
+	if _stopped or not music or not music.playing:
 		return
 
 	# On web `playing` flips true before the browser's audio context actually

@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://bkq3v7w2m8d5n"]
+
+[ext_resource type="Script" uid="uid://cqv2as3o71h4o" path="res://hud/hud.gd" id="1_hud0a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_song_frame"]
+bg_color = Color(0.06, 0.09, 0.22, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.85, 0.9, 1)
+
+[sub_resource type="Gradient" id="Gradient_song"]
+colors = PackedColorArray(0.2, 0.5, 1, 1, 0.2, 0.5, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_song"]
+gradient = SubResource("Gradient_song")
+width = 620
+height = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_health_frame"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.85, 0.9, 1)
+
+[sub_resource type="Gradient" id="Gradient_trail"]
+colors = PackedColorArray(0.85, 0.15, 0.1, 1, 0.85, 0.15, 0.1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_trail"]
+gradient = SubResource("Gradient_trail")
+width = 620
+height = 16
+
+[sub_resource type="Gradient" id="Gradient_health"]
+colors = PackedColorArray(0.95, 0.8, 0.2, 1, 0.95, 0.8, 0.2, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_health"]
+gradient = SubResource("Gradient_health")
+width = 620
+height = 16
+
+[node name="Hud" type="CanvasLayer" unique_id=686730703]
+script = ExtResource("1_hud0a")
+
+[node name="SongPanel" type="Panel" parent="." unique_id=589380403]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 632.0
+offset_bottom = 28.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_song_frame")
+
+[node name="SongBar" type="TextureProgressBar" parent="SongPanel" unique_id=833841049]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 622.0
+offset_bottom = 18.0
+max_value = 1.0
+step = 0.0
+texture_progress = SubResource("GradientTexture2D_song")
+
+[node name="HealthPanel" type="Panel" parent="." unique_id=1421319144]
+offset_left = 8.0
+offset_top = 34.0
+offset_right = 632.0
+offset_bottom = 54.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_health_frame")
+
+[node name="TrailBar" type="TextureProgressBar" parent="HealthPanel" unique_id=1917382410]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 622.0
+offset_bottom = 18.0
+step = 0.0
+value = 100.0
+texture_progress = SubResource("GradientTexture2D_trail")
+
+[node name="HealthBar" type="TextureProgressBar" parent="HealthPanel" unique_id=925292247]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 622.0
+offset_bottom = 18.0
+step = 0.0
+value = 100.0
+texture_progress = SubResource("GradientTexture2D_health")
