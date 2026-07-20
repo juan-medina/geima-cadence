@@ -1,7 +1,7 @@
 {
   "spritesheets": [
     {
-      "output_path": "./src/hero/sprites.png",
+      "output_path": "./src/asets/sprites/hero.png",
       "padding": 8,
       "rows": [
         "./raw/Warrior/Individual Sprite/Run/*.png",
@@ -11,7 +11,7 @@
         "./raw/Warrior/Individual Sprite/Fall/*.png",
         "./raw/Warrior/Individual Sprite/Slide/*.png",
         "./raw/Warrior/Individual Sprite/Hurt-Effect/*.png",
-        "./raw/Warrior/Individual Sprite/Death-Effect/*.png"  
+        "./raw/Warrior/Individual Sprite/Death-Effect/*.png"
       ]
     }
   ]
