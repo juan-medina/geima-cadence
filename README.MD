@@ -37,10 +37,13 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 
 ### Music
 
-#### "Disco Medusae"
-* **Author:** [Kevin MacLeod](https://incompetech.com)
-* **Source:** [incompetech](https://incompetech.com)
-* **License:** Creative Commons: By Attribution 4.0 License — http://creativecommons.org/licenses/by/4.0/
+#### RPG Music Essentials
+* **Author:** [Allen J. Mills](https://allenjmills.itch.io/)
+* **Source:** [Itch.io](https://allenjmills.itch.io/rpg-music-essentials)
+* **License:** Paid, royalty-free ("Unlimited Royalty-free Use"). Used under a
+  purchased license. The audio is not included in this repository and may not
+  be redistributed; it is not covered by the MIT license.
+
 
 ## License
 
