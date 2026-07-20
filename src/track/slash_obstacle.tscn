@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bkxtqrqkop3ru"]
 
-[ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://assets/sprites/input.png" id="1_input"]
+[ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://data/assets/sprites/input.png" id="1_input"]
 
 [node name="SlashObstacle" type="Node2D" unique_id=18907406]
 

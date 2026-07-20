@@ -4,9 +4,6 @@
 # Godot
 /android/
 
-# Game assets — provided externally, never committed here (see README)
-/src/assets/
-
 # Build output
 bin/
 obj/

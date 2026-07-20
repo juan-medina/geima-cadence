@@ -10,19 +10,18 @@ TBC
 
 ## Assets
 
-Game assets are not distributed with this source. They are third-party works governed by their own license terms, credited below.
+Game assets are not distributed with this source. They are third-party works governed by their own license terms, credited below, and several of them may not be redistributed — so they live in a separate, private repository referenced here as a git submodule at `src/data`.
 
-The project expects them at `src/assets`, which is ignored by git. To run the game, obtain the assets credited below, arrange them as `songs/` and `sprites/` in a folder of your own, and link that folder in:
-
-```powershell
-# Windows — Command Prompt, or from PowerShell: cmd /c mklink /J ...
-mklink /J src\assets <path-to-your-assets>
-```
+Each release of the game pins the exact asset revision it was built with, so any tagged version can be rebuilt with the assets it originally shipped.
 
 ```bash
-# Linux / macOS
-ln -s <path-to-your-assets> src/assets
+git clone --recurse-submodules <this-repo>
+
+# already cloned without submodules
+git submodule update --init
 ```
+
+The submodule is private: without access, the clone succeeds but `src/data` stays empty and the project will not run. The credits below list every asset used and where it came from, so the set can be reassembled from the original sources. Arrange them as `assets/songs/` and `assets/sprites/` inside `src/data`.
 
 Each song also needs a beatmap: a JSON file next to the audio, named after it, describing when each obstacle arrives and which action defeats it. [track.gd](src/track/track.gd) reads that file and places the obstacles along the track.
 

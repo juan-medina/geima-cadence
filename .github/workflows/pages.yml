@@ -32,24 +32,29 @@ jobs:
             -   name: Checkout game
                 uses: actions/checkout@v4
 
+            # The submodule is checked out by hand rather than with
+            # submodules:true because a deploy key only authenticates SSH URLs
+            # and .gitmodules holds the HTTPS one. Reading the pinned revision
+            # keeps the build reproducible: a tagged game commit always builds
+            # against the assets it shipped with.
+            -   name: Read pinned data revision
+                id: pin
+                run: echo "sha=$(git rev-parse HEAD:src/data)" >> "$GITHUB_OUTPUT"
+
             -   name: Checkout data
                 uses: actions/checkout@v4
                 with:
                     repository: juan-medina/geima-cadence-data
                     ssh-key: ${{ secrets.DATA_REPO_KEY }}
+                    ref: ${{ steps.pin.outputs.sha }}
                     lfs: true
-                    path: data
-
-            # src/assets is a junction locally and is not tracked here, so the
-            # runner has to recreate it before Godot can resolve res://assets.
-            -   name: Link assets
-                run: ln -s "$GITHUB_WORKSPACE/data/assets" src/assets
+                    path: src/data
 
             # An unfetched LFS file imports as a 130 byte text file and ships a
             # silently broken build, so fail here instead.
             -   name: Verify assets
                 run: |
-                    if grep -rl "^version https://git-lfs" data/assets/ 2>/dev/null | grep -q .; then
+                    if grep -rl "^version https://git-lfs" src/data/assets/ 2>/dev/null | grep -q .; then
                         echo "::error::LFS objects were not fetched"
                         exit 1
                     fi
