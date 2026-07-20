@@ -4,12 +4,12 @@
 class_name Hero
 extends AnimatedSprite2D
 
-enum State { RUNNING, SLASHING, JUMP_UP, JUMP_DOWN, DASH, SLIDE }
+enum State { IDLE, RUNNING, SLASHING, JUMP_UP, JUMP_DOWN, DASH, SLIDE }
 
 const JUMP_HEIGHT: float = 10.0
 const DASH_MATERIAL: Material = preload("res://hero/dash.tres")
 
-var current_state: State = State.RUNNING
+var current_state: State = State.IDLE
 var jump_up_duration: float = 0.0
 var jump_down_duration: float = 0.0
 
@@ -25,7 +25,16 @@ func _ready() -> void:
 	animation_finished.connect(_on_animation_finished)
 
 
+func start() -> void:
+	if current_state == State.IDLE:
+		_change_state(State.RUNNING)
+
+
 func _unhandled_input(event: InputEvent) -> void:
+	# we can not action until we are not idle
+	if current_state == State.IDLE:
+		return
+
 	# jumping can not be interrupted, the others can
 	if _is_jumping():
 		return
@@ -39,10 +48,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		_change_state(State.DASH)
 
 
-func _can_jump() -> bool:
-	return current_state != State.JUMP_UP and current_state != State.JUMP_DOWN
-
-
 func _is_jumping() -> bool:
 	return current_state == State.JUMP_UP or current_state == State.JUMP_DOWN
 
@@ -53,6 +58,9 @@ func _change_state(new_state: State) -> void:
 
 	current_state = new_state
 	match current_state:
+		State.IDLE:
+			material = null
+			play("&idle")
 		State.RUNNING:
 			material = null
 			play(&"run")
@@ -95,7 +103,7 @@ func _on_animation_finished() -> void:
 	match current_state:
 		State.SLASHING, State.DASH, State.SLIDE, State.JUMP_DOWN:
 			_change_state(State.RUNNING)
-		State.RUNNING:
+		State.RUNNING, State.IDLE:
 			pass
 		State.JUMP_UP:
 			_change_state(State.JUMP_DOWN)

@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://bws4debog1fa3" path="res://assets/sprites/hero.png" id="1_dpa0h"]
 [ext_resource type="Script" uid="uid://bwls3k46xjefo" path="res://hero/hero.gd" id="2_m6eum"]
 
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_s3u2y"]
 atlas = ExtResource("1_dpa0h")
 region = Rect2(0, 120, 85, 60)
@@ -31,6 +30,30 @@ region = Rect2(425, 120, 85, 60)
 [sub_resource type="AtlasTexture" id="AtlasTexture_sie0t"]
 atlas = ExtResource("1_dpa0h")
 region = Rect2(510, 120, 85, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4esg5"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(0, 480, 85, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4575"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(85, 480, 85, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i58rg"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(170, 480, 85, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfc78"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(255, 480, 85, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fndc3"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(340, 480, 85, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63xgv"]
+atlas = ExtResource("1_dpa0h")
+region = Rect2(425, 480, 85, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g8rit"]
 atlas = ExtResource("1_dpa0h")
@@ -178,6 +201,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_4esg5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4575")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i58rg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfc78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fndc3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_63xgv")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_g8rit")
 }, {
 "duration": 1.0,
@@ -291,8 +337,6 @@ animations = [{
 
 [node name="Hero" type="AnimatedSprite2D" unique_id=954983578]
 sprite_frames = SubResource("SpriteFrames_a2djh")
-animation = &"dash"
-autoplay = "run"
-frame = 6
-frame_progress = 1.0
+animation = &"idle"
+autoplay = "idle"
 script = ExtResource("2_m6eum")

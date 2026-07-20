@@ -10,9 +10,12 @@ const SLIDE_SCENE: PackedScene = preload("res://track/slide_obstacle.tscn")
 const JUMP_UP_SCENE: PackedScene = preload("res://track/jump_up_obstacle.tscn")
 
 @export var music: AudioStreamPlayer
-@export var hero: Node2D
+@export var hero: Hero
 @export var scroll_speed: float = 250.0
 @export var floor_y: float = 24.0
+
+var _started: bool = false
+var _last_music_time: float = 0.0
 
 
 func _ready() -> void:
@@ -80,10 +83,26 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if music and music.playing:
-		var current_music_time: float = (
-			music.get_playback_position()
-			+ AudioServer.get_time_since_last_mix()
-			- AudioServer.get_output_latency()
-		)
-		position.x = -current_music_time * scroll_speed
+	if not music or not music.playing:
+		return
+
+	# On web `playing` flips true before the browser's audio context actually
+	# starts; until then playback_position stays 0 and only mix jitter moves.
+	if music.get_playback_position() <= 0.0:
+		return
+
+	var current_music_time: float = (
+		music.get_playback_position()
+		+ AudioServer.get_time_since_last_mix()
+		- AudioServer.get_output_latency()
+	)
+
+	# Threads make this jittery; never let the clock run backwards.
+	if current_music_time <= _last_music_time:
+		return
+	_last_music_time = current_music_time
+
+	position.x = -current_music_time * scroll_speed
+	if not _started:
+		hero.start()
+		_started = true
