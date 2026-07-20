@@ -1,3 +1,2 @@
-pillow
-librosa
-numpy
+# Python dependencies for scripts in scripts/
+# (none at present)

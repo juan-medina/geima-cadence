@@ -1,6 +1,6 @@
 # End-User License Agreement (EULA)
 
-This End-User License Agreement ("EULA") is a legal agreement between you and Juan Medina for the compiled game distribution of **Rhythm Playing Game**.
+This End-User License Agreement ("EULA") is a legal agreement between you and Juan Medina for the compiled game distribution of **Geima: Cadence**.
 
 ## 1. License Grant
 * You are granted a non‑exclusive, non‑transferable, revocable license to download, install, use, stream, and non‑commercially distribute this compiled game build for personal entertainment.
@@ -13,11 +13,11 @@ This End-User License Agreement ("EULA") is a legal agreement between you and Ju
 * Use of the software for unlawful, harmful, or malicious activities is prohibited.
 
 ## 3. Ownership & Branding
-The game compiled binary, the title "Chromonia", the logos, and the unique arrangement of the game remain the exclusive property of Juan Medina. This license does not transfer any trademark or ownership rights.
+The game compiled binary, the title "Geima: Cadence", the logos, and the unique arrangement of the game remain the exclusive property of Juan Medina. This license does not transfer any trademark or ownership rights.
 
 ## 4. Source Code & Third‑Party Licenses (The Open Source Exception)
-* **Source Code:** The underlying programming code of Chromonia is open-source and is licensed separately under the permissive MIT License. You are free to view, copy, modify, merge, and use the code in your own projects as outlined in that license. However, any derivative works or redistributed builds of the code must not use the "Chromonia" name, logos, or branding without prior written permission.
-* **Assets:** The game's music, paintings, and sound assets are licensed under Creative Commons 0 (Public Domain) and are not restricted by this EULA.
+* **Source Code:** The underlying programming code of Geima: Cadence is open-source and is licensed separately under the permissive MIT License. You are free to view, copy, modify, merge, and use the code in your own projects as outlined in that license. However, any derivative works or redistributed builds of the code must not use the "Geima: Cadence" name, logos, or branding without prior written permission.
+* **Assets:** The game's graphics, music, and sound assets are third-party works, each governed by its own license terms and credited in the project's README. They are not part of the open-source repository, and neither this EULA nor the MIT License grants any rights to them. Any use of those assets outside this compiled game distribution is subject to the terms of their respective licenses.
 * **Engine:** This game is built with the Godot Engine, which is licensed under the MIT License.
 
 ## 5. Warranty Disclaimer
@@ -42,4 +42,4 @@ If any provision is found invalid or unenforceable, the remaining provisions rem
 By downloading, installing, using or distributing the compiled software you agree to be bound by the terms of this EULA.
 
 ---
-For questions about this agreement or more information, visit [https://github.com/juan-medina/chromonia](https://github.com/juan-medina/chromonia)
+For questions about this agreement or more information, visit [https://github.com/juan-medina/geima-cadence](https://github.com/juan-medina/geima-cadence)
