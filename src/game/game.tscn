@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://xa3r75sscyif" path="res://background/background.tscn" id="2_h7iqs"]
 [ext_resource type="PackedScene" uid="uid://bn2amc5tts46y" path="res://hero/hero.tscn" id="2_vasa2"]
 [ext_resource type="PackedScene" uid="uid://b75lqx86bgvns" path="res://track/track.tscn" id="4_4fuuu"]
-[ext_resource type="AudioStream" uid="uid://c4lbihqwaqi5d" path="res://assets/songs/Disco_Medusae.mp3" id="5_dxrkv"]
+[ext_resource type="AudioStream" uid="uid://b0uivr3cqcl0p" path="res://assets/songs/Disco_Medusae.ogg" id="5_dxrkv"]
 
 [node name="Game" type="Node2D" unique_id=534874988]
 script = ExtResource("1_qnjlk")
@@ -24,3 +24,28 @@ position = Vector2(-100, 0)
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=140037485]
 stream = ExtResource("5_dxrkv")
 bus = &"Music"
+
+[node name="StartOverlay" type="CanvasLayer" parent="." unique_id=482012504]
+layer = 64
+
+[node name="ColorRect" type="ColorRect" parent="StartOverlay" unique_id=1668188296]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Start" type="Button" parent="StartOverlay" unique_id=741521188]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -12.0
+offset_right = 40.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play"
