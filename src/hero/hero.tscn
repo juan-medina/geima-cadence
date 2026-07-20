@@ -335,8 +335,52 @@ animations = [{
 "speed": 14.3
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6eum"]
+size = Vector2(30, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dt6oo"]
+size = Vector2(20, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cwdmm"]
+size = Vector2(53, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nr4fb"]
+size = Vector2(30, 18)
+
+[sub_resource type="RectangleShape2D" id="Shape_hurt"]
+size = Vector2(26, 29)
+
 [node name="Hero" type="AnimatedSprite2D" unique_id=954983578]
 sprite_frames = SubResource("SpriteFrames_a2djh")
-animation = &"idle"
+animation = &"run"
 autoplay = "idle"
 script = ExtResource("2_m6eum")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=810459573]
+collision_layer = 0
+monitorable = false
+
+[node name="ShapeDash" type="CollisionShape2D" parent="HurtBox" unique_id=1087870914]
+position = Vector2(-6.5, 7.5)
+shape = SubResource("RectangleShape2D_m6eum")
+disabled = true
+
+[node name="ShapeJump" type="CollisionShape2D" parent="HurtBox" unique_id=1517718684]
+position = Vector2(-5, 3)
+shape = SubResource("RectangleShape2D_dt6oo")
+disabled = true
+
+[node name="ShapeSlash" type="CollisionShape2D" parent="HurtBox" unique_id=556448581]
+position = Vector2(8.5, 3)
+shape = SubResource("RectangleShape2D_cwdmm")
+disabled = true
+
+[node name="ShapeSlide" type="CollisionShape2D" parent="HurtBox" unique_id=1108243912]
+position = Vector2(-4.5, 12)
+shape = SubResource("RectangleShape2D_nr4fb")
+disabled = true
+
+[node name="ShapeRunning" type="CollisionShape2D" parent="HurtBox" unique_id=72194446]
+position = Vector2(-10, 6.5)
+shape = SubResource("Shape_hurt")
+disabled = true

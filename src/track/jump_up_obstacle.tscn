@@ -1,8 +1,21 @@
-[gd_scene format=3 uid="uid://cyji0ma1r4x5q"]
+[gd_scene load_steps=4 format=3 uid="uid://cyji0ma1r4x5q"]
 
 [ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://data/assets/sprites/input.png" id="1_input"]
+[ext_resource type="Script" path="res://track/obstacle.gd" id="2_obstacle"]
 
-[node name="JumpUpObstacle" type="Node2D" unique_id=960136674]
+[sub_resource type="RectangleShape2D" id="Shape_jump"]
+size = Vector2(20, 10)
+
+[node name="JumpUpObstacle" type="Area2D" unique_id=960136674]
+collision_layer = 1
+collision_mask = 0
+monitoring = false
+script = ExtResource("2_obstacle")
+type = "jump_up"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("Shape_jump")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=494130175]
 offset_left = -10.0

@@ -23,34 +23,39 @@ func _ready() -> void:
 		push_error("Track needs Music and Hero references!")
 		return
 
+	_spawn_obstacles(_load_beatmap_actions())
+
+
+func _load_beatmap_actions() -> Array:
 	if not music.stream:
 		push_error("Music node does not have an audio stream assigned!")
-		return
+		return []
 
 	var beatmap_file: String = music.stream.resource_path.get_basename() + ".json"
-
 	var file: FileAccess = FileAccess.open(beatmap_file, FileAccess.READ)
 	if not file:
 		push_error("Could not open beatmap file: " + beatmap_file + "!")
-		return
+		return []
 
 	var json_var: Variant = JSON.parse_string(file.get_as_text())
 	if not json_var is Dictionary:
-		push_error("Invalid beatmap JSON forma!")
-		return
+		push_error("Invalid beatmap JSON format!")
+		return []
 
 	var json: Dictionary = json_var
 	if not json.has("actions"):
-		push_error("Invalid beatmap JSON format!")
-		return
+		push_error("Beatmap JSON has no actions!")
+		return []
 
-	var spawn_offset_x: float = hero.position.x
 	var actions_var: Variant = json["actions"]
 	if not actions_var is Array:
 		push_error("Beatmap actions must be an array!")
-		return
+		return []
 	var actions: Array = actions_var
+	return actions
 
+
+func _spawn_obstacles(actions: Array) -> void:
 	for action_var: Variant in actions:
 		if not action_var is Dictionary:
 			continue
@@ -58,28 +63,38 @@ func _ready() -> void:
 
 		var time_var: Variant = action.get("time", 0.0)
 		var type_var: Variant = action.get("type", "")
-
 		var time: float = time_var if time_var is float else 0.0
 		var type: String = type_var if type_var is String else ""
 
-		var obstacle: Node2D
-		var local_x: float = spawn_offset_x + (time * scroll_speed)
+		_spawn_obstacle(type, time)
 
-		match type:
-			"slash":
-				obstacle = SLASH_SCENE.instantiate() as Node2D
-			"dash":
-				obstacle = DASH_SCENE.instantiate() as Node2D
-			"slide":
-				obstacle = SLIDE_SCENE.instantiate() as Node2D
-			"jump_up":
-				obstacle = JUMP_UP_SCENE.instantiate() as Node2D
-			_:
-				continue
 
-		if obstacle:
-			obstacle.position = Vector2(local_x, floor_y)
-			add_child(obstacle)
+func _spawn_obstacle(type: String, time: float) -> void:
+	var scene: PackedScene = _obstacle_scene(type)
+	if not scene:
+		return
+
+	var obstacle: Obstacle = scene.instantiate() as Obstacle
+	if not obstacle:
+		return
+
+	# Placed so it reaches the hero exactly on its beat; the hero's hitboxes
+	# decide reach, so no per-type offset is needed here.
+	obstacle.position = Vector2(hero.position.x + (time * scroll_speed), floor_y)
+	add_child(obstacle)
+
+
+func _obstacle_scene(type: String) -> PackedScene:
+	match type:
+		"slash":
+			return SLASH_SCENE
+		"dash":
+			return DASH_SCENE
+		"slide":
+			return SLIDE_SCENE
+		"jump_up":
+			return JUMP_UP_SCENE
+	return null
 
 
 func _process(_delta: float) -> void:
