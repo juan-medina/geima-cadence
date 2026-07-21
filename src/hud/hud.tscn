@@ -56,9 +56,9 @@ script = ExtResource("1_hud0a")
 
 [node name="SongPanel" type="Panel" parent="." unique_id=589380403]
 offset_left = 8.0
-offset_top = 252.0
+offset_top = 303.0
 offset_right = 632.0
-offset_bottom = 272.0
+offset_bottom = 323.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_song_frame")
 
 [node name="SongBar" type="TextureProgressBar" parent="SongPanel" unique_id=833841049]
