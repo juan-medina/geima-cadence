@@ -9,10 +9,12 @@ const DASH_SCENE: PackedScene = preload("res://track/dash_obstacle.tscn")
 const SLIDE_SCENE: PackedScene = preload("res://track/slide_obstacle.tscn")
 const JUMP_UP_SCENE: PackedScene = preload("res://track/jump_up_obstacle.tscn")
 
-@export var music: AudioStreamPlayer
+@export var song: AudioStream
 @export var hero: Hero
 @export var scroll_speed: float = 250.0
 @export var floor_y: float = 24.0
+
+@onready var music: AudioStreamPlayer = $Music
 
 var _started: bool = false
 var _stopped: bool = false
@@ -20,16 +22,51 @@ var _last_music_time: float = 0.0
 
 
 func _ready() -> void:
-	if not music or not hero:
-		push_error("Track needs Music and Hero references!")
+	if not hero:
+		push_error("Track needs a Hero reference!")
+		return
+	if not song:
+		push_error("Track needs a Song assigned!")
 		return
 
-	hero.died.connect(_on_hero_died)
+	# The track owns its song: it holds the player and is handed the stream per
+	# level, so different levels play different music without the game caring.
+	music.stream = song
+	hero.stopped.connect(_on_hero_stopped)
 	_spawn_obstacles(_load_beatmap_actions())
 
 
-func _on_hero_died() -> void:
+func begin() -> void:
+	# The song is the spine of the run: playing it drives the scroll, the beat
+	# timing and (via _process) the hero. Started from the game's start gesture
+	# so the browser's audio unlock happens inside that user input.
+	if music:
+		music.play()
+
+
+func _exit_tree() -> void:
+	# The track owns the song, so it is the track's job to silence it on the way
+	# out (e.g. a scene reload on retry).
+	if music:
+		music.stop()
+
+
+func _on_hero_stopped() -> void:
+	# The player stopped moving, so the run halts here: the scroll and the
+	# progress derived from it freeze, while the song itself keeps playing.
 	_stopped = true
+
+
+func get_progress() -> float:
+	# How far through the run we are, 0..1, for readers like the HUD energy bar.
+	# Derived from the same music-driven clock as the scroll, so it freezes at
+	# exactly the same moment the scroll does.
+	if not music or not music.stream:
+		return 0.0
+	var length: float = music.stream.get_length()
+	if length <= 0.0:
+		return 0.0
+	return clampf(_last_music_time / length, 0.0, 1.0)
 
 
 func _load_beatmap_actions() -> Array:

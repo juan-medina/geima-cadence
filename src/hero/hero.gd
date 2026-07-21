@@ -5,6 +5,7 @@ class_name Hero
 extends AnimatedSprite2D
 
 signal hurt
+signal stopped
 signal died
 
 enum State { IDLE, RUNNING, SLASHING, JUMP_UP, JUMP_DOWN, DASH, SLIDE, HIT, DEAD }
@@ -135,8 +136,11 @@ func _on_animation_finished() -> void:
 	match current_state:
 		State.SLASHING, State.DASH, State.SLIDE, State.JUMP_DOWN, State.HIT:
 			_change_state(State.RUNNING)
-		State.RUNNING, State.IDLE, State.DEAD:
+		State.RUNNING, State.IDLE:
 			pass
+		State.DEAD:
+			# The dying animation has played out; the player is now truly dead.
+			died.emit()
 		State.JUMP_UP:
 			_change_state(State.JUMP_DOWN)
 
@@ -162,7 +166,9 @@ func _update_active_shape() -> void:
 	for child: Node in _hurt_box.get_children():
 		var shape: CollisionShape2D = child as CollisionShape2D
 		if shape:
-			shape.disabled = shape != active
+			# Deferred because this runs from the area_entered physics callback
+			# (via the death transition); the server rejects shape changes mid-flush.
+			shape.set_deferred("disabled", shape != active)
 
 
 func _attacking_type() -> String:
@@ -197,5 +203,7 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	if obstacle.is_casual():
 		_change_state(State.HIT)
 	else:
+		# The blow stops the player moving now; death itself is announced later,
+		# once the dying animation has finished (see _on_animation_finished).
 		_change_state(State.DEAD)
-		died.emit()
+		stopped.emit()

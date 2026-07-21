@@ -8,7 +8,7 @@ extends Node2D
 # a retry can start the song straight away without asking to play again.
 static var _show_play: bool = true
 
-@onready var music: AudioStreamPlayer = $Music
+@onready var _track: Track = $Track
 @onready var _start_overlay: CanvasLayer = $StartOverlay
 @onready var _start_button: Button = $StartOverlay/Start
 @onready var _retry_overlay: CanvasLayer = $RetryOverlay
@@ -42,12 +42,13 @@ func _on_window_resized() -> void:
 
 func _on_start_pressed() -> void:
 	_start_overlay.visible = false
-	music.play()
+	# The song lives in the track now; the game just asks it to begin the run.
+	_track.begin()
 
 
 func _on_hero_died() -> void:
-	# Halting the song also freezes everything driven by it (scroll, song bar).
-	music.stop()
+	# The player has finished dying; only now is the retry offered. A delay
+	# before this (e.g. hold on the corpse for a beat) would belong here.
 	_retry_overlay.visible = true
 	_retry_button.grab_focus()
 
@@ -55,7 +56,3 @@ func _on_hero_died() -> void:
 func _on_retry_pressed() -> void:
 	_show_play = false
 	get_tree().reload_current_scene()
-
-
-func _exit_tree() -> void:
-	music.stop()

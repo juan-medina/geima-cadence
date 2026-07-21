@@ -56,9 +56,9 @@ script = ExtResource("1_hud0a")
 
 [node name="SongPanel" type="Panel" parent="." unique_id=589380403]
 offset_left = 8.0
-offset_top = 32.0
+offset_top = 252.0
 offset_right = 632.0
-offset_bottom = 52.0
+offset_bottom = 272.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_song_frame")
 
 [node name="SongBar" type="TextureProgressBar" parent="SongPanel" unique_id=833841049]
@@ -73,9 +73,9 @@ texture_progress = SubResource("GradientTexture2D_song")
 
 [node name="HealthPanel" type="Panel" parent="." unique_id=1421319144]
 offset_left = 8.0
-offset_top = 58.0
+offset_top = 278.0
 offset_right = 632.0
-offset_bottom = 78.0
+offset_bottom = 298.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_health_frame")
 
 [node name="TrailBar" type="TextureProgressBar" parent="HealthPanel" unique_id=1917382410]

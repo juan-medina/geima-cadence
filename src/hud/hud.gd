@@ -11,7 +11,7 @@ const HIT_DAMAGE: float = 10.0
 const TRAIL_HOLD_DURATION: float = 0.4
 const TRAIL_DRAIN_DURATION: float = 0.25
 
-@export var music: AudioStreamPlayer
+@export var track: Track
 @export var hero: Hero
 
 var _health: float = MAX_HEALTH
@@ -24,11 +24,12 @@ var _trail_tween: Tween
 
 
 func _ready() -> void:
-	if not music or not hero:
-		push_error("Hud needs Music and Hero references!")
+	if not track or not hero:
+		push_error("Hud needs Track and Hero references!")
 		return
 
 	hero.hurt.connect(_on_hero_hurt)
+	hero.stopped.connect(_on_hero_stopped)
 	_health_bar.max_value = MAX_HEALTH
 	_health_bar.value = _health
 	_trail_bar.max_value = MAX_HEALTH
@@ -43,15 +44,25 @@ func _exit_tree() -> void:
 
 
 func _process(_delta: float) -> void:
-	if not music or not music.playing or not music.stream:
+	if not track:
 		return
 
-	# No smoothing needed: playback position already advances with the song.
-	_song_bar.value = music.get_playback_position() / music.stream.get_length()
+	# The bar is the player's energy to reach the monolith: it fills as the run
+	# advances, so it reads the track's progress and freezes when the run stops.
+	_song_bar.value = track.get_progress()
 
 
 func _on_hero_hurt() -> void:
-	_health = maxf(_health - HIT_DAMAGE, 0.0)
+	_set_health(_health - HIT_DAMAGE)
+
+
+func _on_hero_stopped() -> void:
+	# A fatal blow empties the bar outright, not just a single hit's worth.
+	_set_health(0.0)
+
+
+func _set_health(value: float) -> void:
+	_health = clampf(value, 0.0, MAX_HEALTH)
 	_health_bar.value = _health
 	if _trail_tween:
 		_trail_tween.kill()
