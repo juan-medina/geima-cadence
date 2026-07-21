@@ -13,19 +13,19 @@ const JUMP_HEIGHT: float = 10.0
 const DASH_MATERIAL: Material = preload("res://hero/dash.tres")
 const HIT_MATERIAL: Material = preload("res://hero/hit.tres")
 
-@onready var _hurt_box: Area2D = $HurtBox
-@onready var _shape_running: CollisionShape2D = $HurtBox/ShapeRunning
-@onready var _shape_slash: CollisionShape2D = $HurtBox/ShapeSlash
-@onready var _shape_dash: CollisionShape2D = $HurtBox/ShapeDash
-@onready var _shape_slide: CollisionShape2D = $HurtBox/ShapeSlide
-@onready var _shape_jump: CollisionShape2D = $HurtBox/ShapeJump
-
 var current_state: State = State.IDLE
 var jump_up_duration: float = 0.0
 var jump_down_duration: float = 0.0
 
 var _jump_tween: Tween
 var _base_y: float = 0.0
+
+@onready var _hurt_box: Area2D = $HurtBox
+@onready var _shape_running: CollisionShape2D = $HurtBox/ShapeRunning
+@onready var _shape_slash: CollisionShape2D = $HurtBox/ShapeSlash
+@onready var _shape_dash: CollisionShape2D = $HurtBox/ShapeDash
+@onready var _shape_slide: CollisionShape2D = $HurtBox/ShapeSlide
+@onready var _shape_jump: CollisionShape2D = $HurtBox/ShapeJump
 
 
 func _ready() -> void:

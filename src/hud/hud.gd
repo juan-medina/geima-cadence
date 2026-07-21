@@ -14,12 +14,12 @@ const TRAIL_DRAIN_DURATION: float = 0.25
 @export var music: AudioStreamPlayer
 @export var hero: Hero
 
+var _health: float = MAX_HEALTH
+var _trail_tween: Tween
+
 @onready var _song_bar: TextureProgressBar = $SongPanel/SongBar
 @onready var _health_bar: TextureProgressBar = $HealthPanel/HealthBar
 @onready var _trail_bar: TextureProgressBar = $HealthPanel/TrailBar
-
-var _health: float = MAX_HEALTH
-var _trail_tween: Tween
 
 
 func _ready() -> void:

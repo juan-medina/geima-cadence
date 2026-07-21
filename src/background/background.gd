@@ -4,9 +4,6 @@
 class_name Background
 extends Node2D
 
-@export var scroll_speed: float = 250.0
-@export var track: Node2D
-
 const _TILE_WIDTH: float = 128.0
 const _TILE_HEIGHT: float = 8.0
 const _SCROLL_POS_Y: float = 24.0
@@ -15,6 +12,9 @@ const _BG_SCROLL_SPEED: float = 80.0
 const _BG_TILE_WIDTH: float = 300.0
 const _CEILING_POS_Y: float = -120.0
 const _PILLARS_WIDTH: float = 80.0
+
+@export var scroll_speed: float = 250.0
+@export var track: Node2D
 
 
 func _ready() -> void:
