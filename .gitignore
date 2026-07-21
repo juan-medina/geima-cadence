@@ -32,7 +32,3 @@ __pycache__/
 
 # Python Env
 /.venv/
-
-# Third Party Tools
-/thirdparty/*
-!/thirdparty/.gitkeep
