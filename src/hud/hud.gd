@@ -20,6 +20,7 @@ var _trail_tween: Tween
 @onready var _song_bar: TextureProgressBar = $SongPanel/SongBar
 @onready var _health_bar: TextureProgressBar = $HealthPanel/HealthBar
 @onready var _trail_bar: TextureProgressBar = $HealthPanel/TrailBar
+@onready var _fullscreen_button: TextureButton = $Fullscreen
 
 
 func _ready() -> void:
@@ -32,6 +33,13 @@ func _ready() -> void:
 	_health_bar.value = _health
 	_trail_bar.max_value = MAX_HEALTH
 	_trail_bar.value = _health
+
+	GlobalOptions.fullscreen_changed.connect(_on_fullscreen_change)
+	_on_fullscreen_change(GlobalOptions.fullscreen)
+
+
+func _exit_tree() -> void:
+	GlobalOptions.fullscreen_changed.disconnect(_on_fullscreen_change)
 
 
 func _process(_delta: float) -> void:
@@ -50,3 +58,11 @@ func _on_hero_hurt() -> void:
 	_trail_tween = create_tween()
 	_trail_tween.tween_interval(TRAIL_HOLD_DURATION)
 	_trail_tween.tween_property(_trail_bar, ^"value", _health, TRAIL_DRAIN_DURATION)
+
+
+func _on_fullscreen_toggled(is_on: bool) -> void:
+	GlobalOptions.fullscreen = is_on
+
+
+func _on_fullscreen_change(is_on: bool) -> void:
+	_fullscreen_button.button_pressed = is_on

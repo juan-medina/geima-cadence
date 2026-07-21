@@ -34,6 +34,11 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 * **Source:** [Itch.io](https://clembod.itch.io/warrior-free-animation-set)
 * **License:** Custom permission (Free for personal and commercial use, modification allowed, redistribution prohibited).
 
+#### Kenney Game Assets All-in-1
+* **Author:** [Kenney](https://kenney.nl/)
+* **Source:** [Itch.io](https://kenney.itch.io/kenney-game-assets)
+* **License:** [Creative Commons Zero (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/) — public domain, free for personal and commercial use. The pack was purchased to support the author.
+
 ### Music
 
 #### RPG Music Essentials

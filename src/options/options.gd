@@ -4,6 +4,8 @@
 class_name Options
 extends Node
 
+signal fullscreen_changed
+
 const CONFIG_PATH: String = "user://options.cfg"
 const SECTION_DISPLAY: StringName = &"display"
 const SECTION_AUDIO: StringName = &"audio"
@@ -22,6 +24,7 @@ var fullscreen: bool = DEFAULT_FULLSCREEN:
 	set(value):
 		if fullscreen == value:
 			return
+		fullscreen_changed.emit(value)
 		fullscreen = value
 		_apply_fullscreen()
 		_save_options()
@@ -107,10 +110,18 @@ func _load_options() -> void:
 		sfx_volume = DEFAULT_SFX_VOLUME
 		eula_accepted_version = DEFAULT_EULA_VERSION
 
+	# on web we allways start not full screen
+	if OS.has_feature("web"):
+		fullscreen = false
+
 
 func _save_options() -> void:
 	var config: ConfigFile = ConfigFile.new()
-	config.set_value(SECTION_DISPLAY, &"fullscreen", fullscreen)
+
+	# since we dont use the setting on web, we dont save it
+	if not OS.has_feature("web"):
+		config.set_value(SECTION_DISPLAY, &"fullscreen", fullscreen)
+
 	config.set_value(SECTION_AUDIO, &"master_volume", master_volume)
 	config.set_value(SECTION_AUDIO, &"music_volume", music_volume)
 	config.set_value(SECTION_AUDIO, &"sfx_volume", sfx_volume)
@@ -126,7 +137,9 @@ func is_eula_accepted(minor_version: String) -> bool:
 
 
 func _apply_all_settings() -> void:
-	_apply_fullscreen()
+	# we can not set full screen on web without user gesture
+	if not OS.has_feature("web"):
+		_apply_fullscreen()
 	_apply_bus_volume(&"Master", master_volume)
 	_apply_bus_volume(&"Music", music_volume)
 	_apply_bus_volume(&"Sfx", sfx_volume)
