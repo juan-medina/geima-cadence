@@ -11,6 +11,7 @@ collision_mask = 0
 monitoring = false
 script = ExtResource("2_obstacle")
 type = "dash"
+damage = 9999.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1278810387]
 position = Vector2(0, -22)

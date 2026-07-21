@@ -4,16 +4,12 @@
 class_name Obstacle
 extends Area2D
 
-# Missing these on the beat only hurts; the others (slash, dash) are fatal threats.
-const CASUAL_TYPES: Array[String] = ["jump_up", "slide"]
-
 @export var type: String = ""
+# Health this obstacle costs the hero on a missed beat. Fatal threats (slash,
+# dash) set this far above max health; casual ones (jump_up, slide) just chip.
+@export var damage: float = 10.0
 
 var resolved: bool = false
-
-
-func is_casual() -> bool:
-	return type in CASUAL_TYPES
 
 
 func clear() -> void:

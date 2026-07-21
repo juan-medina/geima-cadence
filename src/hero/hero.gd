@@ -4,7 +4,7 @@
 class_name Hero
 extends AnimatedSprite2D
 
-signal hurt
+signal health_changed(current: float)
 signal stopped
 signal died
 
@@ -14,7 +14,10 @@ const JUMP_HEIGHT: float = 10.0
 const DASH_MATERIAL: Material = preload("res://hero/dash.tres")
 const HIT_MATERIAL: Material = preload("res://hero/hit.tres")
 
+@export var max_health: float = 100.0
+
 var current_state: State = State.IDLE
+var health: float = 0.0
 var jump_up_duration: float = 0.0
 var jump_down_duration: float = 0.0
 
@@ -30,6 +33,7 @@ var _base_y: float = 0.0
 
 
 func _ready() -> void:
+	health = max_health
 	jump_up_duration = (
 		sprite_frames.get_frame_count(&"jump_up") / sprite_frames.get_animation_speed(&"jump_up")
 	)
@@ -198,12 +202,16 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 		return
 
 	obstacle.mark_resolved()
-	hurt.emit()
+	_take_damage(obstacle.damage)
 
-	if obstacle.is_casual():
+
+func _take_damage(amount: float) -> void:
+	health = maxf(health - amount, 0.0)
+	health_changed.emit(health)
+	if health > 0.0:
 		_change_state(State.HIT)
 	else:
-		# The blow stops the player moving now; death itself is announced later,
-		# once the dying animation has finished (see _on_animation_finished).
+		# Out of health: this blow is fatal. The player stops moving now; death
+		# itself is announced later, once the dying animation has played out.
 		_change_state(State.DEAD)
 		stopped.emit()
