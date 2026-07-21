@@ -20,6 +20,7 @@ config/features=PackedStringArray("4.7")
 [audio]
 
 buses/default_bus_layout="uid://drsl4y4op4opw"
+general/default_playback_type.web=0
 
 [autoload]
 
