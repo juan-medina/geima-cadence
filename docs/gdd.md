@@ -383,3 +383,159 @@ animation states:
     missed beat while continuing forward momentum[cite: 1].
 7.  **The Crash / Defeat:** A full physical collapse frame triggered when
     striking a fatal threat, ending the run.
+
+---
+
+## 8. Pending Implementation
+
+Decisions taken and not yet built. This section refines the hazard matrix in §4
+with the enemies actually in use, and records why each pairing was chosen so the
+reasoning is not lost between sessions.
+
+### The Cast
+
+| Direction | Action | Threat | Sprite | Why only this verb |
+| :---: | :--- | :--- | :--- | :--- |
+| **Right** | Slash | Assassin Cultist | `Assassin Cultist` | Fightable, and quick — a committed charge passes through him |
+| **Left** | Dash | The Ogre | `Big Cultist`, scaled up | Fightable, but too large to cut — only momentum moves him |
+| **Up** | Jump | Shoggoth | `Shoggoth`, scaled 0.5 | Not fightable, and low |
+| **Down** | Slide | Fireball | `Cultist/Fireball` | Not fightable, and high |
+
+Two questions decide every verb: **can I fight this at all**, and if so, **is it
+quick or is it committed?** No verb has a second threat it would also work on.
+
+### The Ogre and the Dash
+
+The ogre is scaled up until a sword visibly cannot matter against it. That size
+is what makes the verb legible — at close to the player's own height it reads as
+a large man, and no effect work can compensate.
+
+The dash is a magic charge, not a sword strike. It uses the weaponless `Dash`
+frames; putting a blade in the animation contradicts the premise that blades do
+nothing to him.
+
+*Success:* the ogre **reverses** — it travels right, against the scroll, while
+playing its `Death` (a backward fall with the axe flying off). Nothing else in
+the game ever moves right, which is what makes the moment unmistakable at the
+design resolution.
+
+*Failure (slashing him):* play his `Hit` frames, but **do not remove him**. He
+flinches, keeps coming, and kills the player. The hero's swing freezes for two
+or three frames on contact (`speed_scale = 0`), because a swing that halts reads
+as striking something solid where a follow-through reads as striking air.
+
+### The Assassin and the Slash
+
+The Assassin is not reliably solid — `Blink run`, `Vanish`, `Ambush` and `Arise`
+are all him teleporting through dark smoke. He approaches using `Blink run`, so
+the flicker teaches "do not charge this one" before the player commits.
+
+*Failure (dashing him):* his alpha drops, the hero passes through him, and he
+strikes. The player watches the reason rather than being told it. A plain
+`modulate` tween, not the `Vanish` frames — those are nine frames and the window
+is 0.35 s.
+
+### The Fireball
+
+The Cultist who throws it is **not in the lane and has no collision**. Only the
+fireball is an obstacle. Otherwise the player clears the projectile and runs
+into the body that threw it.
+
+The fireball flies **flat**, at roughly 35 px above the ground — the band the
+existing slide obstacle already occupies. Constant height is readable a beat
+ahead; an arc is not. On a successful slide it plays `Impact` behind the player.
+
+This is the next obstacle to build; the others follow.
+
+### Feedback
+
+`Obstacle.clear()` is currently a bare `queue_free()` and a miss only sets
+`resolved`, so neither outcome shows the player anything. Each threat resolves
+through its own animation instead:
+
+| Threat | Success | Failure |
+| :--- | :--- | :--- |
+| Fireball | `Impact` behind the player | strikes the player |
+| Shoggoth | passes under untouched | hurts the player, plays `Vanish` |
+| Assassin | collapses and dissolves | phases, then strikes |
+| Ogre | reverses, plays `Death` | flinches with `Hit`, keeps coming |
+
+### Obstacle Architecture
+
+**Build this before the enemy art.** The whole thing can be verified with the
+placeholder rectangles already in the track, so the refactor and the new sprites
+never have to be debugged at the same time.
+
+Today the hero decides the outcome *and* carries it out: it calls `clear()` or
+`mark_resolved()`, then reads `obstacle.damage` and applies it. Each enemy now
+needs its own multi-step reaction, so that logic cannot live in the hero without
+becoming a pile of special cases.
+
+The hero hands over; the obstacle decides what it does.
+
+```gdscript
+# Obstacle
+signal hit_player(damage: float)
+
+func resolve(action: String) -> void:
+	if resolved:
+		return
+	resolved = true
+	if action == type:
+		_on_defeated()
+	else:
+		_on_survived()
+```
+
+`resolve()` replaces `clear()` and `mark_resolved()` and returns nothing. The
+hero's collision handler becomes a single call. `_on_defeated()` and
+`_on_survived()` are empty in the base and overridden by a script per obstacle
+scene — ordinary inheritance, matching the scene-per-feature layout in §7.
+
+Damage is a signal rather than a return value because **the obstacle owns when,
+not only how much**. The ogre damages the player at the end of its `Attack`
+animation, not on contact; the fireball damages immediately. A return value
+cannot express that difference. `Track` wires `hit_player` to the hero at spawn,
+being the only place that holds both references, and `Hero._take_damage` becomes
+public `take_damage`.
+
+Inside an obstacle scene the root calls down into its own sprite and tweens;
+signals only travel up, to the track and HUD. The check for whether the split is
+complete: **the hero should read no field of the obstacle.**
+
+`_update_active_shape()` stays with the hero — a pose deciding which of its own
+shapes collides is the hero's business. Once damage no longer arrives inside the
+`area_entered` callback, the `set_deferred` in it may become unnecessary; either
+drop it or correct its comment then.
+
+Two facts about the track that this has to respect:
+
+*   Every obstacle for the song is spawned at `begin()` and the **track** moves,
+    not the obstacles. So the ogre's reversal is a tween on its own local
+    `position.x`, independent of the scroll.
+*   Because they all exist from the start, approach animations should be started
+    by a `VisibleOnScreenNotifier2D` rather than autoplay.
+
+### What Does Not Work
+
+Tested and rejected, so it is not retried:
+
+*   **An outline shader on the hero.** Invisible at 640×360 on a 69×44 sprite.
+*   **Afterimage clones.** The hero is pinned at x = −100 and never moves, so
+    copies stack on top of him and cancel out.
+*   **Any effect drawn on the hero.** He is roughly 12% of the screen height;
+    effects at that scale do not register in a 0.35 s window.
+
+What does survive at this resolution is **change of position or silhouette** —
+which is exactly why jump and slide read instantly and the other two do not —
+and **screen-wide effects**.
+
+### Deferred
+
+*   **Camera shake** on impact. `game.tscn` already has a `Camera2D` and
+    `game.gd` caches it. Screen-wide, and it touches neither the scroll nor the
+    audio, so the beat is unaffected. Part of a wider VFX pass.
+*   **A VFX pass** covering hit and miss across all four threats.
+*   **Sound.** The dash needs a strong one in particular; the "clink" of a
+    sword failing against the ogre is mostly an audio event rather than a visual
+    one. Any transient has to sit against the beat without fighting it.
