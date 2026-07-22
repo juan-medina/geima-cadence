@@ -5,6 +5,9 @@
 
 > **Geima: Cadence** is a rhythm-action endless runner where **the music is your health, and your heartbeat is your shield**. Run, jump, slash, and block to the beat of a high-energy soundtrack to charge your magical escape core and outrun a ruthless empire.
 
+## ▶ Play now
+
+**[Play in your browser →](https://juan-medina.github.io/geima-cadence/)** — no download required.
 
 TBC
 
@@ -38,6 +41,14 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 * **Author:** [Kenney](https://kenney.nl/)
 * **Source:** [Itch.io](https://kenney.itch.io/kenney-game-assets)
 * **License:** [Creative Commons Zero (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/) — public domain, free for personal and commercial use. The pack was purchased to support the author.
+
+#### Dark Fantasy Backgrounds
+* **Author:** [Arludus](https://arludus.itch.io/)
+* **Source:** [Itch.io](https://arludus.itch.io/dark-fantasy-backgrounds)
+* **License:** Paid. Used under a purchased license (free for use in games,
+  including commercial ones; the pack itself may not be resold or
+  redistributed). The backgrounds are not included in this repository and are
+  not covered by the MIT license.
 
 ### Music
 
