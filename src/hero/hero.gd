@@ -10,7 +10,7 @@ signal died
 
 enum State { IDLE, RUNNING, SLASHING, JUMP_UP, JUMP_DOWN, DASH, SLIDE, HIT, DEAD }
 
-const JUMP_HEIGHT: float = 10.0
+const JUMP_HEIGHT: float = 35.0
 const DASH_MATERIAL: Material = preload("res://hero/dash.tres")
 const HIT_MATERIAL: Material = preload("res://hero/hit.tres")
 
@@ -102,23 +102,26 @@ func _change_state(new_state: State) -> void:
 			material = null
 			play(&"jump_up")
 			_jump_tween = create_tween()
-			# Move UP over time (ease out makes it slow down at the top like real gravity)
+			# Move UP over time. Ease out rises fast and hangs near the apex; cubic
+			# (vs quad) reaches clearing height sooner and holds it longer, so more
+			# of the fixed air time clears the obstacle without changing the beat.
 			(
 				_jump_tween
 				. tween_property(self, ^"position:y", position.y - JUMP_HEIGHT, jump_up_duration)
 				. set_ease(Tween.EASE_OUT)
-				. set_trans(Tween.TRANS_QUAD)
+				. set_trans(Tween.TRANS_CUBIC)
 			)
 		State.JUMP_DOWN:
 			material = null
 			play(&"jump_down")
 			_jump_tween = create_tween()
-			# Move DOWN over time (ease in makes it speed up as it falls)
+			# Move DOWN over time. Ease in holds near the apex then speeds up as it
+			# falls; cubic keeps the hero clear longer before dropping back down.
 			(
 				_jump_tween
 				. tween_property(self, ^"position:y", position.y + JUMP_HEIGHT, jump_down_duration)
 				. set_ease(Tween.EASE_IN)
-				. set_trans(Tween.TRANS_QUAD)
+				. set_trans(Tween.TRANS_CUBIC)
 			)
 
 		State.DASH:
