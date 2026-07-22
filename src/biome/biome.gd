@@ -15,11 +15,15 @@ const _LAYER_PATH: String = "res://data/assets/backgrounds/bg_%d_layer_%d.png"
 # Read each frame to turn the track scroll into every layer's parallax offset.
 @export var track: Node2D
 
-# Parallax speed as a fraction of the track scroll, spread from the backmost
-# layer (slowest) to the frontmost fog (fastest). Both stay below 1: the
-# obstacles and floor are the true foreground and move faster than any layer.
+# Parallax speed of the backmost layer as a fraction of the track scroll: the
+# slowest, most distant layer. Layers ramp from this up to 1.0 at the ground
+# layer, which shares the obstacles' plane and so must scroll at the exact object
+# speed or the obstacles visibly slide along it.
 @export var far_factor: float = 0.1
-@export var near_factor: float = 0.6
+
+# The fog drifts on top at its own parallax speed, slower than the ground so it
+# reads as its own layer instead of being pinned to the objects.
+@export var fog_factor: float = 0.6
 
 # Nudges every layer vertically to line the art's ground up with the gameplay
 # floor.
@@ -107,8 +111,8 @@ func draw_layer(canvas: CanvasItem, texture: Texture2D, offset: float, view_widt
 	var width: float = texture.get_width()
 	var height: float = texture.get_height()
 	var top: float = -height / 2.0 + ground_offset
-	var first: int = int(floor((-view_width / 2.0 - offset) / width))
-	var last: int = int(ceil((view_width / 2.0 - offset) / width))
+	var first: int = floori((-view_width / 2.0 - offset) / width)
+	var last: int = ceili((view_width / 2.0 - offset) / width)
 	for copy: int in range(first, last + 1):
 		canvas.draw_texture_rect(texture, Rect2(offset + copy * width, top, width, height), false)
 
@@ -123,10 +127,15 @@ func _layer_offset(index: int) -> float:
 
 
 func _factor(index: int) -> float:
-	var last: int = _layers.size() - 1
-	if last <= 0:
-		return far_factor
-	return lerpf(far_factor, near_factor, float(index) / float(last))
+	# The fog drifts on top at its own slower speed. The frontmost back layer is
+	# the ground the obstacles stand on, so it moves at the object speed (1.0);
+	# everything behind ramps from far_factor up to that.
+	if index == _layers.size() - 1:
+		return fog_factor
+	var ground_index: int = _layers.size() - 2
+	if index >= ground_index:
+		return 1.0
+	return lerpf(far_factor, 1.0, float(index) / float(ground_index))
 
 
 func _load_layers() -> void:
