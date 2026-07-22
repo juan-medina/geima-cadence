@@ -33,7 +33,7 @@ func _ready() -> void:
 
 	# Temporary: a random biome each load so every one gets seen while testing.
 	# This will come from stage selection later.
-	_set_biome(randi_range(1, 3))
+	_set_biome(randi_range(1, 4))
 
 	if _show_play:
 		# Focused so ui_accept (space / gamepad) presses it without a mouse.
