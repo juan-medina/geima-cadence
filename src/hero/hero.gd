@@ -52,6 +52,14 @@ func start() -> void:
 		_change_state(State.RUNNING)
 
 
+# The biome's ground line is set by the game after the hero is ready, so the
+# baseline a cancelled jump restores to must be updated with it, not left at the
+# scene's placeholder position captured in _ready.
+func set_ground_y(y: float) -> void:
+	position.y = y
+	_base_y = y
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	# we can not action until we are not idle, and never again once dead
 	if current_state == State.IDLE or current_state == State.DEAD:

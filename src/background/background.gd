@@ -4,56 +4,37 @@
 class_name Background
 extends Node2D
 
-const _TILE_WIDTH: float = 128.0
-const _TILE_HEIGHT: float = 8.0
-const _SCROLL_POS_Y: float = 24.0
-
-const _BG_SCROLL_SPEED: float = 80.0
-const _BG_TILE_WIDTH: float = 300.0
-const _CEILING_POS_Y: float = -120.0
-const _PILLARS_WIDTH: float = 80.0
-
-@export var scroll_speed: float = 250.0
-@export var track: Node2D
+# Draws the biome's back layers (everything behind the hero) and the solid fill
+# above and below the art. It only renders: the Biome node owns the textures,
+# colours and scroll maths.
+@export var biome: Biome
 
 
 func _ready() -> void:
-	if not track:
-		push_error("Background needs a Track reference!")
+	if not biome:
+		push_error("Background needs a Biome reference!")
 
 
 func _process(_delta: float) -> void:
 	queue_redraw()
 
 
-# Read from the track rather than keeping a copy: _draw runs after every node
-# has processed, so this is always the current frame's position.
+# Pull from the biome each frame: _draw runs after every node has processed, so
+# the track scroll its offsets derive from is the current frame's.
 func _draw() -> void:
-	if not track:
+	if not biome or biome.back_layer_count() == 0:
 		return
 
-	var scroll_offset: float = fmod(track.position.x, _TILE_WIDTH)
-	var parallax_ratio: float = _BG_SCROLL_SPEED / scroll_speed
-	var bg_scroll_offset: float = fmod(track.position.x * parallax_ratio, _BG_TILE_WIDTH)
+	# In viewport stretch the canvas grows on wider-than-16:9 screens, and the
+	# camera is centred on the origin, so the visible region is symmetric.
+	var view: Vector2 = get_viewport_rect().size
 
-	# 1. Draw Parallax Background (Dark Pillars)
-	for i: int in range(-10, 10):
-		var x_pos: float = (i * _BG_TILE_WIDTH) + bg_scroll_offset
-		# Draw a background pillar that extends from ceiling to floor
-		var height: float = _SCROLL_POS_Y - _CEILING_POS_Y
-		draw_rect(Rect2(x_pos, _CEILING_POS_Y, _PILLARS_WIDTH, height), Color(0.15, 0.15, 0.18))
+	# Fill above and below the horizon with the two edge colours. The opaque art
+	# covers the seam at the split, so it only shows where the viewport is taller
+	# than the art.
+	var split: float = biome.fill_split()
+	draw_rect(Rect2(-view.x / 2.0, -view.y / 2.0, view.x, split + view.y / 2.0), biome.top_color())
+	draw_rect(Rect2(-view.x / 2.0, split, view.x, view.y / 2.0 - split), biome.bottom_color())
 
-	# 2. Draw Foreground Floor and Ceiling Tiles
-	for i: int in range(-15, 15):
-		var x_pos: float = (i * _TILE_WIDTH) + scroll_offset
-		# Floor tiles
-		draw_rect(Rect2(x_pos, _SCROLL_POS_Y, _TILE_WIDTH / 2.0, _TILE_HEIGHT), Color.DIM_GRAY)
-		# Ceiling tiles (upside down)
-		draw_rect(
-			Rect2(x_pos, _CEILING_POS_Y - _TILE_HEIGHT, _TILE_WIDTH / 2.0, _TILE_HEIGHT),
-			Color.DIM_GRAY
-		)
-
-	# 3. Draw solid boundary lines
-	draw_line(Vector2(-2000, _SCROLL_POS_Y), Vector2(2000, _SCROLL_POS_Y), Color.DARK_GRAY, 4.0)
-	draw_line(Vector2(-2000, _CEILING_POS_Y), Vector2(2000, _CEILING_POS_Y), Color.DARK_GRAY, 4.0)
+	for index: int in biome.back_layer_count():
+		biome.draw_layer(self, biome.back_layer(index), biome.back_layer_offset(index), view.x)

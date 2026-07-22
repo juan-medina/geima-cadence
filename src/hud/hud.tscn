@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://cqv2as3o71h4o" path="res://hud/hud.gd" id="1_hud0a"]
 [ext_resource type="Texture2D" uid="uid://bjh3chg3dubcr" path="res://data/assets/sprites/icons.png" id="2_2gk58"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frame_black"]
+bg_color = Color(0, 0, 0, 0.25)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_song_frame"]
 bg_color = Color(0.06, 0.09, 0.22, 1)
 border_width_left = 2
@@ -54,49 +57,92 @@ region = Rect2(150, 0, 50, 50)
 [node name="Hud" type="CanvasLayer" unique_id=686730703]
 script = ExtResource("1_hud0a")
 
-[node name="SongPanel" type="Panel" parent="." unique_id=589380403]
-offset_left = 8.0
-offset_top = 303.0
-offset_right = 632.0
-offset_bottom = 323.0
+[node name="SongFrame" type="Panel" parent="."]
+anchors_preset = -1
+anchor_left = 0.125
+anchor_right = 0.875
+offset_top = 8.0
+offset_bottom = 28.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_frame_black")
+
+[node name="SongPanel" type="Panel" parent="SongFrame" unique_id=589380403]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_song_frame")
 
-[node name="SongBar" type="TextureProgressBar" parent="SongPanel" unique_id=833841049]
-layout_mode = 0
+[node name="SongBar" type="TextureProgressBar" parent="SongFrame/SongPanel" unique_id=833841049]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 2.0
 offset_top = 2.0
-offset_right = 622.0
-offset_bottom = 18.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
 max_value = 1.0
 step = 0.0
 texture_progress = SubResource("GradientTexture2D_song")
+nine_patch_stretch = true
 
-[node name="HealthPanel" type="Panel" parent="." unique_id=1421319144]
-offset_left = 8.0
-offset_top = 278.0
-offset_right = 632.0
-offset_bottom = 298.0
+[node name="HealthFrame" type="Panel" parent="."]
+anchors_preset = -1
+anchor_left = 0.125
+anchor_right = 0.875
+offset_top = 34.0
+offset_bottom = 54.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_frame_black")
+
+[node name="HealthPanel" type="Panel" parent="HealthFrame" unique_id=1421319144]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_health_frame")
 
-[node name="TrailBar" type="TextureProgressBar" parent="HealthPanel" unique_id=1917382410]
-layout_mode = 0
+[node name="TrailBar" type="TextureProgressBar" parent="HealthFrame/HealthPanel" unique_id=1917382410]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 2.0
 offset_top = 2.0
-offset_right = 622.0
-offset_bottom = 18.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
 step = 0.0
 value = 100.0
 texture_progress = SubResource("GradientTexture2D_trail")
+nine_patch_stretch = true
 
-[node name="HealthBar" type="TextureProgressBar" parent="HealthPanel" unique_id=925292247]
-layout_mode = 0
+[node name="HealthBar" type="TextureProgressBar" parent="HealthFrame/HealthPanel" unique_id=925292247]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 2.0
 offset_top = 2.0
-offset_right = 622.0
-offset_bottom = 18.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
 step = 0.0
 value = 100.0
 texture_progress = SubResource("GradientTexture2D_health")
+nine_patch_stretch = true
 
 [node name="Fullscreen" type="TextureButton" parent="." unique_id=1507735070]
 anchors_preset = 1

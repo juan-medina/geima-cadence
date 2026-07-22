@@ -14,9 +14,9 @@ const TRAIL_DRAIN_DURATION: float = 0.25
 
 var _trail_tween: Tween
 
-@onready var _song_bar: TextureProgressBar = $SongPanel/SongBar
-@onready var _health_bar: TextureProgressBar = $HealthPanel/HealthBar
-@onready var _trail_bar: TextureProgressBar = $HealthPanel/TrailBar
+@onready var _song_bar: TextureProgressBar = $SongFrame/SongPanel/SongBar
+@onready var _health_bar: TextureProgressBar = $HealthFrame/HealthPanel/HealthBar
+@onready var _trail_bar: TextureProgressBar = $HealthFrame/HealthPanel/TrailBar
 @onready var _fullscreen_button: TextureButton = $Fullscreen
 
 

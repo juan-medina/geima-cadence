@@ -6,21 +6,29 @@
 [ext_resource type="PackedScene" uid="uid://b75lqx86bgvns" path="res://track/track.tscn" id="4_4fuuu"]
 [ext_resource type="AudioStream" uid="uid://di8jf0al81hcl" path="res://data/assets/songs/BattleTheme_EasyPickins.ogg" id="5_dxrkv"]
 [ext_resource type="PackedScene" uid="uid://bkq3v7w2m8d5n" path="res://hud/hud.tscn" id="6_p2wqe"]
+[ext_resource type="PackedScene" uid="uid://c5xart2yh6k1a" path="res://biome/biome.tscn" id="7_biome"]
+[ext_resource type="PackedScene" uid="uid://bqf7w2natk3xn" path="res://fog/fog.tscn" id="8_fog"]
 
 [node name="Game" type="Node2D" unique_id=534874988]
 script = ExtResource("1_qnjlk")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1407452804]
 
-[node name="Background" parent="." unique_id=1257251874 node_paths=PackedStringArray("track") instance=ExtResource("2_h7iqs")]
+[node name="Biome" parent="." unique_id=446387458 node_paths=PackedStringArray("track") instance=ExtResource("7_biome")]
 track = NodePath("../Track")
+
+[node name="Background" parent="." unique_id=1257251874 node_paths=PackedStringArray("biome") instance=ExtResource("2_h7iqs")]
+biome = NodePath("../Biome")
 
 [node name="Track" parent="." unique_id=1738776798 node_paths=PackedStringArray("hero") instance=ExtResource("4_4fuuu")]
 song = ExtResource("5_dxrkv")
 hero = NodePath("../Hero")
 
 [node name="Hero" parent="." unique_id=954983578 instance=ExtResource("2_vasa2")]
-position = Vector2(-100, 0)
+position = Vector2(-100, 158)
+
+[node name="Fog" parent="." unique_id=1396824401 node_paths=PackedStringArray("biome") instance=ExtResource("8_fog")]
+biome = NodePath("../Biome")
 
 [node name="Hud" parent="." unique_id=1930472651 node_paths=PackedStringArray("track", "hero") instance=ExtResource("6_p2wqe")]
 track = NodePath("../Track")

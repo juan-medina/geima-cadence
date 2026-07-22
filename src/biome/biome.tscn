@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c5xart2yh6k1a"]
+
+[ext_resource type="Script" uid="uid://dj1b66bokp145" path="res://biome/biome.gd" id="1_biome"]
+
+[node name="Biome" type="Node"]
+script = ExtResource("1_biome")

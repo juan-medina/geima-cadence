@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bqf7w2natk3xn"]
+
+[ext_resource type="Script" uid="uid://vrkar8pn3c7d" path="res://fog/fog.gd" id="1_fog"]
+
+[node name="Fog" type="Node2D"]
+z_index = 1
+script = ExtResource("1_fog")

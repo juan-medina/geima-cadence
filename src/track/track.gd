@@ -33,13 +33,16 @@ func _ready() -> void:
 	# level, so different levels play different music without the game caring.
 	music.stream = song
 	hero.stopped.connect(_on_hero_stopped)
-	_spawn_obstacles(_load_beatmap_actions())
 
 
 func begin() -> void:
 	# The song is the spine of the run: playing it drives the scroll, the beat
 	# timing and (via _process) the hero. Started from the game's start gesture
 	# so the browser's audio unlock happens inside that user input.
+	#
+	# Obstacles are spawned here rather than in _ready so the game has already set
+	# floor_y for the chosen biome; the start overlay hides them until play.
+	_spawn_obstacles(_load_beatmap_actions())
 	if music:
 		music.play()
 
