@@ -56,7 +56,7 @@ func set_biome(new_biome: int) -> void:
 # stage selection.
 func ground_y() -> float:
 	match _biome:
-		3:
+		2:
 			return 115.0
 		_:
 			return 130.0
