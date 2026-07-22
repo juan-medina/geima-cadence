@@ -11,7 +11,6 @@ signal died
 enum State { IDLE, RUNNING, SLASHING, JUMP_UP, JUMP_DOWN, DASH, SLIDE, HIT, DEAD }
 
 const JUMP_HEIGHT: float = 35.0
-const DASH_MATERIAL: Material = preload("res://hero/dash.tres")
 const HIT_MATERIAL: Material = preload("res://hero/hit.tres")
 
 @export var max_health: float = 100.0
@@ -125,7 +124,7 @@ func _change_state(new_state: State) -> void:
 			)
 
 		State.DASH:
-			material = DASH_MATERIAL
+			material = null
 			play(&"dash")
 		State.SLIDE:
 			material = null
