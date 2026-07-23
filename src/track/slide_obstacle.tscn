@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bgyaryhqjymes" path="res://track/slide_obstacle.gd" id="1_3panf"]
 [ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://data/assets/sprites/input.png" id="1_input"]
+[ext_resource type="SpriteFrames" uid="uid://dlxcrnc0ppoej" path="res://data/assets/sprites/fireball.tres" id="3_fge8k"]
 
 [sub_resource type="RectangleShape2D" id="Shape_slide"]
-size = Vector2(20, 30)
+size = Vector2(20, 11)
 
 [node name="SlideObstacle" type="Area2D" unique_id=1724125034]
 collision_mask = 0
@@ -12,15 +13,8 @@ monitoring = false
 script = ExtResource("1_3panf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1172097612]
-position = Vector2(0, -39)
+position = Vector2(0, -29.5)
 shape = SubResource("Shape_slide")
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1331433330]
-offset_left = -10.0
-offset_top = -54.0
-offset_right = 10.0
-offset_bottom = -24.0
-color = Color(0, 1, 1, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1792567669]
 position = Vector2(0, 16)
@@ -28,3 +22,11 @@ texture = ExtResource("1_input")
 hframes = 34
 vframes = 24
 frame = 71
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=534112722]
+position = Vector2(-6.000001, -29.000004)
+scale = Vector2(1.0023922, 0.96921504)
+sprite_frames = ExtResource("3_fge8k")
+animation = &"run"
+autoplay = "run"
+frame_progress = 0.79949343
