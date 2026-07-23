@@ -2,9 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://data/assets/sprites/input.png" id="1_input"]
 [ext_resource type="Script" uid="uid://cl1med2dbbjct" path="res://track/jump_up_obstacle.gd" id="1_tirxj"]
+[ext_resource type="SpriteFrames" uid="uid://dm2firwfelhnp" path="res://data/assets/sprites/shoggoth.tres" id="3_n7kf5"]
 
 [sub_resource type="RectangleShape2D" id="Shape_jump"]
-size = Vector2(20, 10)
+size = Vector2(20, 25)
 
 [node name="JumpUpObstacle" type="Area2D" unique_id=960136674]
 collision_mask = 0
@@ -12,14 +13,8 @@ monitoring = false
 script = ExtResource("1_tirxj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1657938416]
-position = Vector2(0, -5)
+position = Vector2(0, -12.5)
 shape = SubResource("Shape_jump")
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=494130175]
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-color = Color(1, 1, 0, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1048418441]
 position = Vector2(0, 16)
@@ -27,3 +22,10 @@ texture = ExtResource("1_input")
 hframes = 34
 vframes = 24
 frame = 69
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=543206521]
+position = Vector2(-3, -19)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("3_n7kf5")
+animation = &"dead"
+autoplay = "idle"
