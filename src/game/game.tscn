@@ -60,6 +60,7 @@ grow_vertical = 2
 text = "Play"
 
 [node name="RetryOverlay" type="CanvasLayer" parent="." unique_id=1266638174]
+process_mode = 2
 layer = 64
 visible = false
 

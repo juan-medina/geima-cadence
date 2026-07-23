@@ -69,10 +69,15 @@ func _on_start_pressed() -> void:
 func _on_hero_died() -> void:
 	# The player has finished dying; only now is the retry offered. A delay
 	# before this (e.g. hold on the corpse for a beat) would belong here.
+	# Pausing holds the scenery and the song still; the overlay runs on anyway
+	# because its process mode is set to run while paused.
 	_retry_overlay.visible = true
 	_retry_button.grab_focus()
+	get_tree().paused = true
 
 
 func _on_retry_pressed() -> void:
 	_show_play = false
+	# The reloaded scene inherits the paused flag, so it has to be cleared here.
+	get_tree().paused = false
 	get_tree().reload_current_scene()
