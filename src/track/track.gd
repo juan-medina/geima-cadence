@@ -20,6 +20,13 @@ var _started: bool = false
 var _stopped: bool = false
 var _last_music_time: float = 0.0
 
+# Threats not yet told the player is near, in beatmap order alongside the music
+# time each one asked to be told at. Walked by an index so _process allocates
+# nothing.
+var _approaching: Array[Obstacle] = []
+var _near_times: PackedFloat32Array = PackedFloat32Array()
+var _next_near: int = 0
+
 
 func _ready() -> void:
 	if not hero:
@@ -48,13 +55,6 @@ func _exit_tree() -> void:
 
 func _on_hero_stopped() -> void:
 	_stopped = true
-
-
-func _on_fatal_contact() -> void:
-	# The blow lands at the end of the threat's own animation, so the run halts
-	# here, before the hero is dead, or the threat scrolls away mid-swing.
-	_stopped = true
-	hero.freeze()
 
 
 func get_progress() -> float:
@@ -138,9 +138,13 @@ func _spawn_obstacle(type: Obstacle.Type, time: float) -> void:
 
 	obstacle.position = Vector2(hero.position.x + (time * scroll_speed), floor_y)
 	obstacle.hit_player.connect(hero.take_damage)
-	obstacle.fatal_contact.connect(_on_fatal_contact)
 	obstacle.z_index = 1
 	add_child(obstacle)
+
+	# Both sides use scroll_speed, so a threat placed for this beat reaches the
+	# hero at exactly this music time, and counts him near its own span before.
+	_approaching.append(obstacle)
+	_near_times.append(time - obstacle.near_time())
 
 
 func _obstacle_scene(type: Obstacle.Type) -> PackedScene:
@@ -179,6 +183,15 @@ func _process(_delta: float) -> void:
 	_last_music_time = current_music_time
 
 	position.x = -current_music_time * scroll_speed
+	_notify_player_near(current_music_time)
 	if not _started:
 		hero.start()
 		_started = true
+
+
+func _notify_player_near(music_time: float) -> void:
+	while _next_near < _near_times.size() and music_time >= _near_times[_next_near]:
+		var obstacle: Obstacle = _approaching[_next_near]
+		if is_instance_valid(obstacle):
+			obstacle.on_player_near()
+		_next_near += 1

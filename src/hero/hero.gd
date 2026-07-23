@@ -9,10 +9,11 @@ signal stopped
 signal died
 signal dashed
 
-enum State { IDLE, RUNNING, SLASHING, JUMP_UP, JUMP_DOWN, DASH, SLIDE, HIT, FROZEN, DEAD }
+enum State { IDLE, RUNNING, SLASHING, JUMP_UP, JUMP_DOWN, DASH, SLIDE, HIT, DYING, DEAD }
 
 const JUMP_HEIGHT: float = 30.0
 const HIT_MATERIAL: Material = preload("res://hero/hit.tres")
+const HIT_FLASH_DURATION: float = 0.2
 
 @export var max_health: float = 100.0
 
@@ -22,6 +23,7 @@ var jump_up_duration: float = 0.0
 var jump_down_duration: float = 0.0
 
 var _jump_tween: Tween
+var _flash_tween: Tween
 var _base_y: float = 0.0
 
 @onready var _hurt_box: Area2D = $HurtBox
@@ -59,14 +61,10 @@ func set_ground_y(y: float) -> void:
 	_base_y = y
 
 
-func freeze() -> void:
-	_change_state(State.FROZEN)
-
-
 func _unhandled_input(event: InputEvent) -> void:
-	if current_state == State.IDLE or current_state == State.FROZEN:
+	if current_state == State.IDLE:
 		return
-	if current_state == State.DEAD:
+	if current_state == State.DYING or current_state == State.DEAD:
 		return
 
 	if _is_jumping():
@@ -91,21 +89,14 @@ func _change_state(new_state: State) -> void:
 
 	current_state = new_state
 	_update_active_shape()
-	speed_scale = 1.0
 	match current_state:
-		State.FROZEN:
-			speed_scale = 0.0
 		State.IDLE:
-			material = null
 			play("&idle")
 		State.RUNNING:
-			material = null
 			play(&"run")
 		State.SLASHING:
 			play(&"slash")
-			material = null
 		State.JUMP_UP:
-			material = null
 			play(&"jump_up")
 			_jump_tween = create_tween()
 			# Air time is fixed by the animation length, so the curve may change
@@ -117,7 +108,6 @@ func _change_state(new_state: State) -> void:
 				. set_trans(Tween.TRANS_CUBIC)
 			)
 		State.JUMP_DOWN:
-			material = null
 			play(&"jump_down")
 			_jump_tween = create_tween()
 			(
@@ -128,31 +118,57 @@ func _change_state(new_state: State) -> void:
 			)
 
 		State.DASH:
-			material = null
 			play(&"dash")
 			dashed.emit()
 		State.SLIDE:
-			material = null
 			play(&"slide")
 		State.HIT:
-			material = HIT_MATERIAL
 			play(&"hit")
+		State.DYING:
+			play(&"jump_down")
+			_fall_to_ground()
 		State.DEAD:
-			material = null
 			play(&"dead")
 
 
-func _cancel_jump() -> void:
+# Killed in the air: the drop finishes from wherever he is before he dies, so the
+# blow and the collapse read as one event instead of a snap to the ground.
+func _fall_to_ground() -> void:
 	if _jump_tween:
 		_jump_tween.kill()
-	position.y = _base_y
+	var remaining: float = (_base_y - position.y) / JUMP_HEIGHT
+	_jump_tween = create_tween()
+	(
+		_jump_tween
+		. tween_property(self, ^"position:y", _base_y, maxf(remaining, 0.0) * jump_down_duration)
+		. set_ease(Tween.EASE_IN)
+		. set_trans(Tween.TRANS_CUBIC)
+	)
+	_jump_tween.finished.connect(_on_fall_finished)
+
+
+func _on_fall_finished() -> void:
+	_change_state(State.DEAD)
+
+
+func _flash() -> void:
+	material = HIT_MATERIAL
+	if _flash_tween:
+		_flash_tween.kill()
+	_flash_tween = create_tween()
+	_flash_tween.tween_interval(HIT_FLASH_DURATION)
+	_flash_tween.tween_callback(_clear_flash)
+
+
+func _clear_flash() -> void:
+	material = null
 
 
 func _on_animation_finished() -> void:
 	match current_state:
 		State.SLASHING, State.DASH, State.SLIDE, State.JUMP_DOWN, State.HIT:
 			_change_state(State.RUNNING)
-		State.RUNNING, State.IDLE, State.FROZEN:
+		State.RUNNING, State.IDLE, State.DYING:
 			pass
 		State.DEAD:
 			died.emit()
@@ -170,7 +186,7 @@ func _shape_for_state(state: State) -> CollisionShape2D:
 			return _shape_slide
 		State.JUMP_UP, State.JUMP_DOWN:
 			return _shape_jump
-		State.IDLE, State.RUNNING, State.HIT, State.FROZEN, State.DEAD:
+		State.IDLE, State.RUNNING, State.HIT, State.DYING, State.DEAD:
 			pass
 	return _shape_running
 
@@ -195,7 +211,7 @@ func _current_action() -> Obstacle.Type:
 			return Obstacle.Type.SLIDE
 		State.JUMP_UP, State.JUMP_DOWN:
 			return Obstacle.Type.JUMP_UP
-		State.IDLE, State.RUNNING, State.HIT, State.FROZEN, State.DEAD:
+		State.IDLE, State.RUNNING, State.HIT, State.DYING, State.DEAD:
 			pass
 	return Obstacle.Type.NONE
 
@@ -212,11 +228,18 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 
 
 func take_damage(amount: float) -> void:
-	_cancel_jump()
 	health = maxf(health - amount, 0.0)
 	health_changed.emit(health)
+	_flash()
+
+	# Surviving never interrupts a jump: the arc and the landing stay on the beat.
 	if health > 0.0:
-		_change_state(State.HIT)
+		if not _is_jumping():
+			_change_state(State.HIT)
+		return
+
+	stopped.emit()
+	if _is_jumping():
+		_change_state(State.DYING)
 	else:
 		_change_state(State.DEAD)
-		stopped.emit()

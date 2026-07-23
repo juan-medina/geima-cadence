@@ -5,7 +5,6 @@ class_name Obstacle
 extends Area2D
 
 signal hit_player(damage: float)
-signal fatal_contact
 
 enum Type { NONE, SLASH, DASH, SLIDE, JUMP_UP }
 
@@ -16,6 +15,18 @@ enum Type { NONE, SLASH, DASH, SLIDE, JUMP_UP }
 var type: Type = Type.NONE
 
 var _resolved: bool = false
+
+
+# How long before contact this threat counts the player as near. A threat that
+# acts on the beat asks for the time its own action takes to land.
+func near_time() -> float:
+	return 0.0
+
+
+# The player is near_time() away. Runs before he has committed, so nothing here
+# may depend on what he ends up doing.
+func on_player_near() -> void:
+	pass
 
 
 func resolve(action: Type) -> void:
