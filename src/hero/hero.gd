@@ -51,20 +51,17 @@ func start() -> void:
 		_change_state(State.RUNNING)
 
 
-# The biome's ground line is set by the game after the hero is ready, so the
-# baseline a cancelled jump restores to must be updated with it, not left at the
-# scene's placeholder position captured in _ready.
+# Called after _ready, so it must also move the baseline a cancelled jump
+# restores to; _ready only captured the scene's placeholder position.
 func set_ground_y(y: float) -> void:
 	position.y = y
 	_base_y = y
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	# we can not action until we are not idle, and never again once dead
 	if current_state == State.IDLE or current_state == State.DEAD:
 		return
 
-	# jumping can not be interrupted, the others can
 	if _is_jumping():
 		return
 	if event.is_action_pressed(&"right"):
@@ -101,9 +98,8 @@ func _change_state(new_state: State) -> void:
 			material = null
 			play(&"jump_up")
 			_jump_tween = create_tween()
-			# Move UP over time. Ease out rises fast and hangs near the apex; cubic
-			# (vs quad) reaches clearing height sooner and holds it longer, so more
-			# of the fixed air time clears the obstacle without changing the beat.
+			# Air time is fixed by the animation length, so the curve may change
+			# but the duration may not: the beat depends on it.
 			(
 				_jump_tween
 				. tween_property(self, ^"position:y", position.y - JUMP_HEIGHT, jump_up_duration)
@@ -114,8 +110,6 @@ func _change_state(new_state: State) -> void:
 			material = null
 			play(&"jump_down")
 			_jump_tween = create_tween()
-			# Move DOWN over time. Ease in holds near the apex then speeds up as it
-			# falls; cubic keeps the hero clear longer before dropping back down.
 			(
 				_jump_tween
 				. tween_property(self, ^"position:y", position.y + JUMP_HEIGHT, jump_down_duration)
@@ -140,7 +134,7 @@ func _change_state(new_state: State) -> void:
 
 
 func _cancel_jump() -> void:
-	# A hit can land mid-air; abort the jump tween so the hero is not left floating.
+	# A hit can land mid-air, leaving the hero floating.
 	if _jump_tween:
 		_jump_tween.kill()
 	position.y = _base_y
@@ -153,7 +147,6 @@ func _on_animation_finished() -> void:
 		State.RUNNING, State.IDLE:
 			pass
 		State.DEAD:
-			# The dying animation has played out; the player is now truly dead.
 			died.emit()
 		State.JUMP_UP:
 			_change_state(State.JUMP_DOWN)
@@ -175,39 +168,35 @@ func _shape_for_state(state: State) -> CollisionShape2D:
 
 
 func _update_active_shape() -> void:
-	# Only the shape matching the current pose collides; the rest are turned off.
 	var active: CollisionShape2D = _shape_for_state(current_state)
 	for child: Node in _hurt_box.get_children():
 		var shape: CollisionShape2D = child as CollisionShape2D
 		if shape:
 			# Deferred because this runs from the area_entered physics callback
 			# (via the death transition); the server rejects shape changes mid-flush.
-			shape.set_deferred("disabled", shape != active)
+			shape.set_deferred(&"disabled", shape != active)
 
 
-func _attacking_type() -> String:
-	# The obstacle type the current attack pose can destroy, or "" if not attacking.
+func _destroys(type: Obstacle.Type) -> bool:
 	match current_state:
 		State.SLASHING:
-			return "slash"
+			return type == Obstacle.Type.SLASH
 		State.DASH:
-			return "dash"
+			return type == Obstacle.Type.DASH
 		State.IDLE, State.RUNNING, State.JUMP_UP, State.JUMP_DOWN, State.SLIDE, State.HIT, State.DEAD:
-			return ""
-	return ""
+			return false
+	return false
 
 
 func _on_hurt_box_area_entered(area: Area2D) -> void:
 	if current_state == State.DEAD:
 		return
 
-	# The active pose shape decides this: the slash/dash shape reaches the threat
-	# while attacking, so destroy it; any other pose that touches it missed.
 	var obstacle: Obstacle = area as Obstacle
 	if not obstacle or obstacle.resolved:
 		return
 
-	if _attacking_type() == obstacle.type:
+	if _destroys(obstacle.type):
 		obstacle.clear()
 		return
 
@@ -221,7 +210,5 @@ func _take_damage(amount: float) -> void:
 	if health > 0.0:
 		_change_state(State.HIT)
 	else:
-		# Out of health: this blow is fatal. The player stops moving now; death
-		# itself is announced later, once the dying animation has played out.
 		_change_state(State.DEAD)
 		stopped.emit()

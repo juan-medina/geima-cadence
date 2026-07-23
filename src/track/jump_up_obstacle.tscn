@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cyji0ma1r4x5q"]
 
 [ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://data/assets/sprites/input.png" id="1_input"]
-[ext_resource type="Script" uid="uid://hd6fu73ucakd" path="res://track/obstacle.gd" id="2_obstacle"]
+[ext_resource type="Script" uid="uid://cl1med2dbbjct" path="res://track/jump_up_obstacle.gd" id="1_tirxj"]
 
 [sub_resource type="RectangleShape2D" id="Shape_jump"]
 size = Vector2(20, 10)
@@ -9,8 +9,7 @@ size = Vector2(20, 10)
 [node name="JumpUpObstacle" type="Area2D" unique_id=960136674]
 collision_mask = 0
 monitoring = false
-script = ExtResource("2_obstacle")
-type = "jump_up"
+script = ExtResource("1_tirxj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1657938416]
 position = Vector2(0, -5)

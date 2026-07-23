@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bkxtqrqkop3ru"]
 
 [ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://data/assets/sprites/input.png" id="1_input"]
-[ext_resource type="Script" uid="uid://hd6fu73ucakd" path="res://track/obstacle.gd" id="2_obstacle"]
+[ext_resource type="Script" uid="uid://basulbhagg4v" path="res://track/slash_obstacle.gd" id="1_xiw5x"]
 
 [sub_resource type="RectangleShape2D" id="Shape_slash"]
 size = Vector2(10, 34)
@@ -9,8 +9,7 @@ size = Vector2(10, 34)
 [node name="SlashObstacle" type="Area2D" unique_id=18907406]
 collision_mask = 0
 monitoring = false
-script = ExtResource("2_obstacle")
-type = "slash"
+script = ExtResource("1_xiw5x")
 damage = 9999.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1289071184]

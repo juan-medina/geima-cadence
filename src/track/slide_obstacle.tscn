@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://42ael8xwetpv"]
 
+[ext_resource type="Script" uid="uid://bgyaryhqjymes" path="res://track/slide_obstacle.gd" id="1_3panf"]
 [ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://data/assets/sprites/input.png" id="1_input"]
-[ext_resource type="Script" uid="uid://hd6fu73ucakd" path="res://track/obstacle.gd" id="2_obstacle"]
 
 [sub_resource type="RectangleShape2D" id="Shape_slide"]
 size = Vector2(20, 30)
@@ -9,8 +9,7 @@ size = Vector2(20, 30)
 [node name="SlideObstacle" type="Area2D" unique_id=1724125034]
 collision_mask = 0
 monitoring = false
-script = ExtResource("2_obstacle")
-type = "slide"
+script = ExtResource("1_3panf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1172097612]
 position = Vector2(0, -39)

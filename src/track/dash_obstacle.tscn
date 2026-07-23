@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b6fee7g30odur"]
 
 [ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://data/assets/sprites/input.png" id="1_input"]
-[ext_resource type="Script" uid="uid://hd6fu73ucakd" path="res://track/obstacle.gd" id="2_obstacle"]
+[ext_resource type="Script" uid="uid://ddfshx1fl4wuq" path="res://track/dash_obstacle.gd" id="1_qroe8"]
 
 [sub_resource type="RectangleShape2D" id="Shape_dash"]
 size = Vector2(40, 44)
@@ -9,8 +9,7 @@ size = Vector2(40, 44)
 [node name="DashObstacle" type="Area2D" unique_id=211678094]
 collision_mask = 0
 monitoring = false
-script = ExtResource("2_obstacle")
-type = "dash"
+script = ExtResource("1_qroe8")
 damage = 9999.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1278810387]

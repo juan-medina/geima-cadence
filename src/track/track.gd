@@ -29,41 +29,28 @@ func _ready() -> void:
 		push_error("Track needs a Song assigned!")
 		return
 
-	# The track owns its song: it holds the player and is handed the stream per
-	# level, so different levels play different music without the game caring.
 	music.stream = song
 	hero.stopped.connect(_on_hero_stopped)
 
 
 func begin() -> void:
-	# The song is the spine of the run: playing it drives the scroll, the beat
-	# timing and (via _process) the hero. Started from the game's start gesture
-	# so the browser's audio unlock happens inside that user input.
-	#
-	# Obstacles are spawned here rather than in _ready so the game has already set
-	# floor_y for the chosen biome; the start overlay hides them until play.
+	# Must run inside the game's start gesture: on web the browser only unlocks
+	# audio from a user input. Needs floor_y already set for the chosen biome.
 	_spawn_obstacles(_load_beatmap_actions())
 	if music:
 		music.play()
 
 
 func _exit_tree() -> void:
-	# The track owns the song, so it is the track's job to silence it on the way
-	# out (e.g. a scene reload on retry).
 	if music:
 		music.stop()
 
 
 func _on_hero_stopped() -> void:
-	# The player stopped moving, so the run halts here: the scroll and the
-	# progress derived from it freeze, while the song itself keeps playing.
 	_stopped = true
 
 
 func get_progress() -> float:
-	# How far through the run we are, 0..1, for readers like the HUD energy bar.
-	# Derived from the same music-driven clock as the scroll, so it freezes at
-	# exactly the same moment the scroll does.
 	if not music or not music.stream:
 		return 0.0
 	var length: float = music.stream.get_length()
@@ -110,12 +97,30 @@ func _spawn_obstacles(actions: Array) -> void:
 		var time_var: Variant = action.get("time", 0.0)
 		var type_var: Variant = action.get("type", "")
 		var time: float = time_var if time_var is float else 0.0
-		var type: String = type_var if type_var is String else ""
+		var type_name: String = type_var if type_var is String else ""
+
+		var type: Obstacle.Type = _parse_type(type_name)
+		if type == Obstacle.Type.NONE:
+			push_error("Beatmap has an unknown action type: " + type_name + "!")
+			continue
 
 		_spawn_obstacle(type, time)
 
 
-func _spawn_obstacle(type: String, time: float) -> void:
+func _parse_type(type_name: String) -> Obstacle.Type:
+	match type_name:
+		"slash":
+			return Obstacle.Type.SLASH
+		"dash":
+			return Obstacle.Type.DASH
+		"slide":
+			return Obstacle.Type.SLIDE
+		"jump_up":
+			return Obstacle.Type.JUMP_UP
+	return Obstacle.Type.NONE
+
+
+func _spawn_obstacle(type: Obstacle.Type, time: float) -> void:
 	var scene: PackedScene = _obstacle_scene(type)
 	if not scene:
 		return
@@ -124,22 +129,22 @@ func _spawn_obstacle(type: String, time: float) -> void:
 	if not obstacle:
 		return
 
-	# Placed so it reaches the hero exactly on its beat; the hero's hitboxes
-	# decide reach, so no per-type offset is needed here.
 	obstacle.position = Vector2(hero.position.x + (time * scroll_speed), floor_y)
 	add_child(obstacle)
 
 
-func _obstacle_scene(type: String) -> PackedScene:
+func _obstacle_scene(type: Obstacle.Type) -> PackedScene:
 	match type:
-		"slash":
+		Obstacle.Type.SLASH:
 			return SLASH_SCENE
-		"dash":
+		Obstacle.Type.DASH:
 			return DASH_SCENE
-		"slide":
+		Obstacle.Type.SLIDE:
 			return SLIDE_SCENE
-		"jump_up":
+		Obstacle.Type.JUMP_UP:
 			return JUMP_UP_SCENE
+		Obstacle.Type.NONE:
+			pass
 	return null
 
 

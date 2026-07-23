@@ -4,16 +4,17 @@
 class_name Obstacle
 extends Area2D
 
-@export var type: String = ""
-# Health this obstacle costs the hero on a missed beat. Fatal threats (slash,
-# dash) set this far above max health; casual ones (jump_up, slide) just chip.
+enum Type { NONE, SLASH, DASH, SLIDE, JUMP_UP }
+
+# Set per scene: slash and dash sit far above max health, jump_up and slide chip.
 @export var damage: float = 10.0
 
+# Set by each obstacle's own script.
+var type: Type = Type.NONE
 var resolved: bool = false
 
 
 func clear() -> void:
-	# A landed attack destroys the threat.
 	if resolved:
 		return
 	resolved = true
@@ -21,5 +22,5 @@ func clear() -> void:
 
 
 func mark_resolved() -> void:
-	# Dodged/passed obstacles stay on screen but must not be judged twice.
+	# Stays on screen, so it must never be judged twice.
 	resolved = true
