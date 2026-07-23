@@ -2,9 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://data/assets/sprites/input.png" id="1_input"]
 [ext_resource type="Script" uid="uid://ddfshx1fl4wuq" path="res://track/dash_obstacle.gd" id="1_qroe8"]
+[ext_resource type="SpriteFrames" uid="uid://clb1mq0m5n130" path="res://data/assets/sprites/big_cultist.tres" id="3_jkmvy"]
 
 [sub_resource type="RectangleShape2D" id="Shape_dash"]
-size = Vector2(40, 44)
+size = Vector2(57, 66)
 
 [node name="DashObstacle" type="Area2D" unique_id=211678094]
 collision_mask = 0
@@ -13,14 +14,8 @@ script = ExtResource("1_qroe8")
 damage = 9999.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1278810387]
-position = Vector2(0, -22)
+position = Vector2(-8.5, -33)
 shape = SubResource("Shape_dash")
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1105056636]
-offset_left = -20.0
-offset_top = -44.0
-offset_right = 20.0
-color = Color(1, 0.65, 0, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=142235232]
 position = Vector2(0, 16)
@@ -28,3 +23,12 @@ texture = ExtResource("1_input")
 hframes = 34
 vframes = 24
 frame = 72
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1945128615]
+position = Vector2(-32, -45)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("3_jkmvy")
+animation = &"attack"
+autoplay = "run"
+frame = 19
+frame_progress = 1.0
