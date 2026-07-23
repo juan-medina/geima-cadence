@@ -8,7 +8,7 @@ signal health_changed(current: float)
 signal stopped
 signal died
 
-enum State { IDLE, RUNNING, SLASHING, JUMP_UP, JUMP_DOWN, DASH, SLIDE, HIT, DEAD }
+enum State { IDLE, RUNNING, SLASHING, JUMP_UP, JUMP_DOWN, DASH, SLIDE, HIT, FROZEN, DEAD }
 
 const JUMP_HEIGHT: float = 35.0
 const HIT_MATERIAL: Material = preload("res://hero/hit.tres")
@@ -58,8 +58,14 @@ func set_ground_y(y: float) -> void:
 	_base_y = y
 
 
+func freeze() -> void:
+	_change_state(State.FROZEN)
+
+
 func _unhandled_input(event: InputEvent) -> void:
-	if current_state == State.IDLE or current_state == State.DEAD:
+	if current_state == State.IDLE or current_state == State.FROZEN:
+		return
+	if current_state == State.DEAD:
 		return
 
 	if _is_jumping():
@@ -84,7 +90,10 @@ func _change_state(new_state: State) -> void:
 
 	current_state = new_state
 	_update_active_shape()
+	speed_scale = 1.0
 	match current_state:
+		State.FROZEN:
+			speed_scale = 0.0
 		State.IDLE:
 			material = null
 			play("&idle")
@@ -124,17 +133,14 @@ func _change_state(new_state: State) -> void:
 			material = null
 			play(&"slide")
 		State.HIT:
-			_cancel_jump()
 			material = HIT_MATERIAL
 			play(&"hit")
 		State.DEAD:
-			_cancel_jump()
 			material = null
 			play(&"dead")
 
 
 func _cancel_jump() -> void:
-	# A hit can land mid-air, leaving the hero floating.
 	if _jump_tween:
 		_jump_tween.kill()
 	position.y = _base_y
@@ -144,7 +150,7 @@ func _on_animation_finished() -> void:
 	match current_state:
 		State.SLASHING, State.DASH, State.SLIDE, State.JUMP_DOWN, State.HIT:
 			_change_state(State.RUNNING)
-		State.RUNNING, State.IDLE:
+		State.RUNNING, State.IDLE, State.FROZEN:
 			pass
 		State.DEAD:
 			died.emit()
@@ -162,7 +168,7 @@ func _shape_for_state(state: State) -> CollisionShape2D:
 			return _shape_slide
 		State.JUMP_UP, State.JUMP_DOWN:
 			return _shape_jump
-		State.IDLE, State.RUNNING, State.HIT, State.DEAD:
+		State.IDLE, State.RUNNING, State.HIT, State.FROZEN, State.DEAD:
 			pass
 	return _shape_running
 
@@ -177,15 +183,19 @@ func _update_active_shape() -> void:
 			shape.set_deferred(&"disabled", shape != active)
 
 
-func _destroys(type: Obstacle.Type) -> bool:
+func _current_action() -> Obstacle.Type:
 	match current_state:
 		State.SLASHING:
-			return type == Obstacle.Type.SLASH
+			return Obstacle.Type.SLASH
 		State.DASH:
-			return type == Obstacle.Type.DASH
-		State.IDLE, State.RUNNING, State.JUMP_UP, State.JUMP_DOWN, State.SLIDE, State.HIT, State.DEAD:
-			return false
-	return false
+			return Obstacle.Type.DASH
+		State.SLIDE:
+			return Obstacle.Type.SLIDE
+		State.JUMP_UP, State.JUMP_DOWN:
+			return Obstacle.Type.JUMP_UP
+		State.IDLE, State.RUNNING, State.HIT, State.FROZEN, State.DEAD:
+			pass
+	return Obstacle.Type.NONE
 
 
 func _on_hurt_box_area_entered(area: Area2D) -> void:
@@ -193,18 +203,14 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 		return
 
 	var obstacle: Obstacle = area as Obstacle
-	if not obstacle or obstacle.resolved:
+	if not obstacle:
 		return
 
-	if _destroys(obstacle.type):
-		obstacle.clear()
-		return
-
-	obstacle.mark_resolved()
-	_take_damage(obstacle.damage)
+	obstacle.resolve(_current_action())
 
 
-func _take_damage(amount: float) -> void:
+func take_damage(amount: float) -> void:
+	_cancel_jump()
 	health = maxf(health - amount, 0.0)
 	health_changed.emit(health)
 	if health > 0.0:

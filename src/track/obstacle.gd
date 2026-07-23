@@ -4,6 +4,9 @@
 class_name Obstacle
 extends Area2D
 
+signal hit_player(damage: float)
+signal fatal_contact
+
 enum Type { NONE, SLASH, DASH, SLIDE, JUMP_UP }
 
 # Set per scene: slash and dash sit far above max health, jump_up and slide chip.
@@ -11,16 +14,23 @@ enum Type { NONE, SLASH, DASH, SLIDE, JUMP_UP }
 
 # Set by each obstacle's own script.
 var type: Type = Type.NONE
-var resolved: bool = false
+
+var _resolved: bool = false
 
 
-func clear() -> void:
-	if resolved:
+func resolve(action: Type) -> void:
+	if _resolved:
 		return
-	resolved = true
-	queue_free()
+	_resolved = true
+	if action == type:
+		_on_player_success()
+	else:
+		_on_player_failure()
 
 
-func mark_resolved() -> void:
-	# Stays on screen, so it must never be judged twice.
-	resolved = true
+func _on_player_success() -> void:
+	pass
+
+
+func _on_player_failure() -> void:
+	pass

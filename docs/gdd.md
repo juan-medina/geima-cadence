@@ -417,12 +417,16 @@ nothing to him.
 *Success:* the ogre **reverses** — it travels right, against the scroll, while
 playing its `Death` (a backward fall with the axe flying off). Nothing else in
 the game ever moves right, which is what makes the moment unmistakable at the
-design resolution.
+design resolution. The track is what scrolls, not the obstacles, so the reversal
+is a tween on the ogre's own local `position.x`.
 
 *Failure (slashing him):* play his `Hit` frames, but **do not remove him**. He
-flinches, keeps coming, and kills the player. The hero's swing freezes for two
-or three frames on contact (`speed_scale = 0`), because a swing that halts reads
-as striking something solid where a follow-through reads as striking air.
+flinches, then swings his `Attack`, and the blow at the end of it is what kills.
+The flinch has to be seen before the blow arrives, or the two read as one event.
+
+He emits `fatal_contact` on contact and `hit_player` at the end of `Attack`. The
+first halts the scroll and locks the hero mid-motion, so he is not carried out of
+frame before his own swing finishes; the second is the kill.
 
 ### The Assassin and the Slash
 
@@ -435,6 +439,9 @@ strikes. The player watches the reason rather than being told it. A plain
 `modulate` tween, not the `Vanish` frames — those are nine frames and the window
 is 0.35 s.
 
+Two moments like the ogre: `fatal_contact` as the hero passes through him, then
+`hit_player` when the strike lands.
+
 ### The Fireball
 
 The Cultist who throws it is **not in the lane and has no collision**. Only the
@@ -443,7 +450,12 @@ into the body that threw it.
 
 The fireball flies **flat**, at roughly 35 px above the ground — the band the
 existing slide obstacle already occupies. Constant height is readable a beat
-ahead; an arc is not. On a successful slide it plays `Impact` behind the player.
+ahead; an arc is not.
+
+Success and failure below are always the player's, never the threat's. A clean
+slide leaves the fireball untouched and it flies on out of frame. When it hits
+the player it plays `Impact`, damages immediately, and disappears — immediately
+because it is a projectile, with nothing for the player to watch first.
 
 This is the next obstacle to build; the others follow.
 
@@ -455,66 +467,10 @@ through its own animation instead:
 
 | Threat | Success | Failure |
 | :--- | :--- | :--- |
-| Fireball | `Impact` behind the player | strikes the player |
+| Fireball | flies on untouched | strikes the player, plays `Impact` |
 | Shoggoth | passes under untouched | hurts the player, plays `Vanish` |
 | Assassin | collapses and dissolves | phases, then strikes |
-| Ogre | reverses, plays `Death` | flinches with `Hit`, keeps coming |
-
-### Obstacle Architecture
-
-**Build this before the enemy art.** The whole thing can be verified with the
-placeholder rectangles already in the track, so the refactor and the new sprites
-never have to be debugged at the same time.
-
-Today the hero decides the outcome *and* carries it out: it calls `clear()` or
-`mark_resolved()`, then reads `obstacle.damage` and applies it. Each enemy now
-needs its own multi-step reaction, so that logic cannot live in the hero without
-becoming a pile of special cases.
-
-The hero hands over; the obstacle decides what it does.
-
-```gdscript
-# Obstacle
-signal hit_player(damage: float)
-
-func resolve(action: String) -> void:
-	if resolved:
-		return
-	resolved = true
-	if action == type:
-		_on_defeated()
-	else:
-		_on_survived()
-```
-
-`resolve()` replaces `clear()` and `mark_resolved()` and returns nothing. The
-hero's collision handler becomes a single call. `_on_defeated()` and
-`_on_survived()` are empty in the base and overridden by a script per obstacle
-scene — ordinary inheritance, matching the scene-per-feature layout in §7.
-
-Damage is a signal rather than a return value because **the obstacle owns when,
-not only how much**. The ogre damages the player at the end of its `Attack`
-animation, not on contact; the fireball damages immediately. A return value
-cannot express that difference. `Track` wires `hit_player` to the hero at spawn,
-being the only place that holds both references, and `Hero._take_damage` becomes
-public `take_damage`.
-
-Inside an obstacle scene the root calls down into its own sprite and tweens;
-signals only travel up, to the track and HUD. The check for whether the split is
-complete: **the hero should read no field of the obstacle.**
-
-`_update_active_shape()` stays with the hero — a pose deciding which of its own
-shapes collides is the hero's business. Once damage no longer arrives inside the
-`area_entered` callback, the `set_deferred` in it may become unnecessary; either
-drop it or correct its comment then.
-
-Two facts about the track that this has to respect:
-
-*   Every obstacle for the song is spawned at `begin()` and the **track** moves,
-    not the obstacles. So the ogre's reversal is a tween on its own local
-    `position.x`, independent of the scroll.
-*   Because they all exist from the start, approach animations should be started
-    by a `VisibleOnScreenNotifier2D` rather than autoplay.
+| Ogre | reverses, plays `Death` | flinches with `Hit`, then `Attack` kills |
 
 ### What Does Not Work
 

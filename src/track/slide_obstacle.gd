@@ -7,3 +7,12 @@ extends Obstacle
 
 func _init() -> void:
 	type = Type.SLIDE
+
+
+func _on_player_success() -> void:
+	pass
+
+
+func _on_player_failure() -> void:
+	hit_player.emit(damage)
+	queue_free()

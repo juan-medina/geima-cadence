@@ -50,6 +50,13 @@ func _on_hero_stopped() -> void:
 	_stopped = true
 
 
+func _on_fatal_contact() -> void:
+	# The blow lands at the end of the threat's own animation, so the run halts
+	# here, before the hero is dead, or the threat scrolls away mid-swing.
+	_stopped = true
+	hero.freeze()
+
+
 func get_progress() -> float:
 	if not music or not music.stream:
 		return 0.0
@@ -130,6 +137,8 @@ func _spawn_obstacle(type: Obstacle.Type, time: float) -> void:
 		return
 
 	obstacle.position = Vector2(hero.position.x + (time * scroll_speed), floor_y)
+	obstacle.hit_player.connect(hero.take_damage)
+	obstacle.fatal_contact.connect(_on_fatal_contact)
 	add_child(obstacle)
 
 
