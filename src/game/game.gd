@@ -19,6 +19,7 @@ static var _show_play: bool = true
 @onready var _retry_button: Button = $RetryOverlay/Retry
 @onready var _camera: Camera2D = $Camera2D
 @onready var _hero: Hero = $Hero
+@onready var _hud: Hud = $Hud
 
 
 func _ready() -> void:
@@ -67,10 +68,13 @@ func _on_start_pressed() -> void:
 
 
 func _on_hero_died() -> void:
-	# The player has finished dying; only now is the retry offered. A delay
-	# before this (e.g. hold on the corpse for a beat) would belong here.
+	# The player has finished dying, but the health bar may still be draining, so
+	# the retry waits for whichever of the two finishes last.
+	await _hud.health_settled()
+
 	# Pausing holds the scenery and the song still; the overlay runs on anyway
-	# because its process mode is set to run while paused.
+	# because its process mode is set to run while paused. It has to come after
+	# the await: a paused tween would never finish.
 	_retry_overlay.visible = true
 	_retry_button.grab_focus()
 	get_tree().paused = true
