@@ -37,6 +37,22 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 * **Source:** [Itch.io](https://clembod.itch.io/warrior-free-animation-set)
 * **License:** Custom permission (Free for personal and commercial use, modification allowed, redistribution prohibited).
 
+#### Cultist Enemy Pack
+* **Author:** [Clement Baudet](https://clembod.itch.io/)
+* **Source:** [Itch.io](https://clembod.itch.io/cultist-enemy-pack)
+* **License:** Paid. Used under a purchased license (personal and commercial use
+  allowed, modification allowed, redistribution and resale prohibited). The
+  sprites are not included in this repository and are not covered by the MIT
+  license.
+
+#### Shoggoth
+* **Author:** [Clement Baudet](https://clembod.itch.io/)
+* **Source:** [Itch.io](https://clembod.itch.io/shoggoth)
+* **License:** Paid. Used under a purchased license (personal and commercial use
+  allowed, modification allowed, redistribution and resale prohibited). The
+  sprites are not included in this repository and are not covered by the MIT
+  license.
+
 #### Kenney Game Assets All-in-1
 * **Author:** [Kenney](https://kenney.nl/)
 * **Source:** [Itch.io](https://kenney.itch.io/kenney-game-assets)
