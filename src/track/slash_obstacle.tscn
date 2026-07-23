@@ -2,9 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://data/assets/sprites/input.png" id="1_input"]
 [ext_resource type="Script" uid="uid://basulbhagg4v" path="res://track/slash_obstacle.gd" id="1_xiw5x"]
+[ext_resource type="SpriteFrames" uid="uid://ex2yfarrwcdn" path="res://data/assets/sprites/assassin.tres" id="3_x8lxr"]
 
 [sub_resource type="RectangleShape2D" id="Shape_slash"]
-size = Vector2(10, 34)
+size = Vector2(26, 61)
 
 [node name="SlashObstacle" type="Area2D" unique_id=18907406]
 collision_mask = 0
@@ -13,14 +14,8 @@ script = ExtResource("1_xiw5x")
 damage = 9999.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1289071184]
-position = Vector2(0, -17)
+position = Vector2(5, -30.5)
 shape = SubResource("Shape_slash")
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1813347031]
-offset_left = -5.0
-offset_top = -34.0
-offset_right = 5.0
-color = Color(0, 1, 0, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=256653081]
 position = Vector2(0, 16)
@@ -28,3 +23,9 @@ texture = ExtResource("1_input")
 hframes = 34
 vframes = 24
 frame = 70
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=311666500]
+position = Vector2(0, -19)
+sprite_frames = ExtResource("3_x8lxr")
+animation = &"run"
+autoplay = "run"

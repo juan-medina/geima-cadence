@@ -139,6 +139,7 @@ func _spawn_obstacle(type: Obstacle.Type, time: float) -> void:
 	obstacle.position = Vector2(hero.position.x + (time * scroll_speed), floor_y)
 	obstacle.hit_player.connect(hero.take_damage)
 	obstacle.fatal_contact.connect(_on_fatal_contact)
+	obstacle.z_index = 1
 	add_child(obstacle)
 
 

@@ -11,7 +11,7 @@ signal dashed
 
 enum State { IDLE, RUNNING, SLASHING, JUMP_UP, JUMP_DOWN, DASH, SLIDE, HIT, FROZEN, DEAD }
 
-const JUMP_HEIGHT: float = 35.0
+const JUMP_HEIGHT: float = 30.0
 const HIT_MATERIAL: Material = preload("res://hero/hit.tres")
 
 @export var max_health: float = 100.0
