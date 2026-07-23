@@ -5,7 +5,7 @@
 [ext_resource type="SpriteFrames" uid="uid://dlxcrnc0ppoej" path="res://data/assets/sprites/fireball.tres" id="3_fge8k"]
 
 [sub_resource type="RectangleShape2D" id="Shape_slide"]
-size = Vector2(20, 11)
+size = Vector2(38, 19)
 
 [node name="SlideObstacle" type="Area2D" unique_id=1724125034]
 collision_mask = 0
@@ -13,7 +13,7 @@ monitoring = false
 script = ExtResource("1_3panf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1172097612]
-position = Vector2(0, -29.5)
+position = Vector2(5, -33)
 shape = SubResource("Shape_slide")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1792567669]
@@ -24,8 +24,8 @@ vframes = 24
 frame = 71
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=534112722]
-position = Vector2(-6.000001, -29.000004)
-scale = Vector2(1.0023922, 0.96921504)
+position = Vector2(-6.000001, -33.000004)
+scale = Vector2(2, 2)
 sprite_frames = ExtResource("3_fge8k")
 animation = &"run"
 autoplay = "run"
