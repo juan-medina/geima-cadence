@@ -7,6 +7,7 @@ extends AnimatedSprite2D
 signal health_changed(current: float)
 signal stopped
 signal died
+signal dashed
 
 enum State { IDLE, RUNNING, SLASHING, JUMP_UP, JUMP_DOWN, DASH, SLIDE, HIT, FROZEN, DEAD }
 
@@ -129,6 +130,7 @@ func _change_state(new_state: State) -> void:
 		State.DASH:
 			material = null
 			play(&"dash")
+			dashed.emit()
 		State.SLIDE:
 			material = null
 			play(&"slide")

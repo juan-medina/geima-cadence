@@ -12,6 +12,11 @@ extends Node
 
 const _LAYER_PATH: String = "res://data/assets/backgrounds/bg_%d_layer_%d.png"
 
+# Extra scroll distance the dash burst adds to the parallax layers, and how long
+# the surge takes to decay back to the normal scroll speed.
+const _DASH_BURST_DISTANCE: float = 100.0
+const _DASH_BURST_DURATION: float = 0.4
+
 # Read each frame to turn the track scroll into every layer's parallax offset.
 @export var track: Node2D
 
@@ -37,6 +42,11 @@ var _layers: Array[Texture2D] = []
 var _top_color: Color = Color.BLACK
 var _bottom_color: Color = Color.BLACK
 
+# Accumulated extra scroll from dash bursts. It only ever grows (fmod wraps it),
+# so a burst never rewinds: it reads as a speed surge that eases back to normal.
+var _burst: float = 0.0
+var _burst_tween: Tween
+
 
 func _ready() -> void:
 	if not track:
@@ -49,6 +59,18 @@ func set_biome(new_biome: int) -> void:
 	_biome = new_biome
 	_layers.clear()
 	_load_layers()
+
+
+func dash_burst() -> void:
+	if _burst_tween:
+		_burst_tween.kill()
+	_burst_tween = create_tween()
+	(
+		_burst_tween
+		. tween_property(self, ^"_burst", _burst + _DASH_BURST_DISTANCE, _DASH_BURST_DURATION)
+		. set_ease(Tween.EASE_OUT)
+		. set_trans(Tween.TRANS_CUBIC)
+	)
 
 
 # The ground line the hero and the obstacles share, which differs because each
@@ -123,7 +145,13 @@ func _layer_offset(index: int) -> float:
 	if not track:
 		return 0.0
 	var width: float = _layers[index].get_width()
-	return fmod(track.position.x * _factor(index), width)
+	var factor: float = _factor(index)
+	var scrolled: float = track.position.x
+	# The ground layer shares the obstacle plane and must stay locked to it, so
+	# the dash burst only moves the layers behind (and the fog above).
+	if factor < 1.0:
+		scrolled -= _burst
+	return fmod(scrolled * factor, width)
 
 
 func _factor(index: int) -> float:
