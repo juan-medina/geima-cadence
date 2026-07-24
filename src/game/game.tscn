@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://bkq3v7w2m8d5n" path="res://hud/hud.tscn" id="6_p2wqe"]
 [ext_resource type="PackedScene" uid="uid://c5xart2yh6k1a" path="res://biome/biome.tscn" id="7_biome"]
 [ext_resource type="PackedScene" uid="uid://bqf7w2natk3xn" path="res://fog/fog.tscn" id="8_fog"]
+[ext_resource type="Script" path="res://cheat/cheat_code.gd" id="9_cheat"]
+[ext_resource type="AudioStream" path="res://data/assets/sounds/game_start.wav" id="10_gstart"]
 
 [node name="Game" type="Node2D" unique_id=534874988]
 script = ExtResource("1_qnjlk")
@@ -34,8 +36,15 @@ biome = NodePath("../Biome")
 track = NodePath("../Track")
 hero = NodePath("../Hero")
 
+[node name="StartSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_gstart")
+bus = &"Sfx"
+
 [node name="StartOverlay" type="CanvasLayer" parent="." unique_id=482012504]
 layer = 64
+
+[node name="CheatCode" type="Node" parent="StartOverlay"]
+script = ExtResource("9_cheat")
 
 [node name="ColorRect" type="ColorRect" parent="StartOverlay" unique_id=1668188296]
 anchors_preset = 15
@@ -115,6 +124,7 @@ text = "Retry"
 layout_mode = 2
 text = "Change Difficulty"
 
+[connection signal="entered" from="StartOverlay/CheatCode" to="." method="_on_cheat_entered"]
 [connection signal="pressed" from="StartOverlay/Center/VBox/Buttons/Easy" to="." method="_on_easy_pressed"]
 [connection signal="pressed" from="StartOverlay/Center/VBox/Buttons/Normal" to="." method="_on_normal_pressed"]
 [connection signal="pressed" from="StartOverlay/Center/VBox/Buttons/Hard" to="." method="_on_hard_pressed"]

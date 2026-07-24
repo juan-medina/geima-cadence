@@ -228,8 +228,9 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 
 
 func take_damage(amount: float) -> void:
-	health = maxf(health - amount, 0.0)
-	health_changed.emit(health)
+	if not GlobalOptions.invincible:
+		health = maxf(health - amount, 0.0)
+		health_changed.emit(health)
 	_flash()
 
 	# Surviving never interrupts a jump: the arc and the landing stay on the beat.

@@ -26,6 +26,8 @@ static var _selected_difficulty: Track.DifficultType = Track.DifficultType.NORMA
 @onready var _camera: Camera2D = $Camera2D
 @onready var _hero: Hero = $Hero
 @onready var _hud: Hud = $Hud
+@onready var _cheat: CheatCode = $StartOverlay/CheatCode
+@onready var _start_sound: AudioStreamPlayer = $StartSound
 
 
 func _ready() -> void:
@@ -84,9 +86,18 @@ func _on_hard_pressed() -> void:
 	_start_run(Track.DifficultType.HARD)
 
 
+# The cheat code unlocks invincibility so a whole song can be played through,
+# and rewards it with the fanfare.
+func _on_cheat_entered() -> void:
+	GlobalOptions.invincible = true
+	_start_sound.play()
+
+
 func _start_run(chosen: Track.DifficultType) -> void:
 	_selected_difficulty = chosen
 	_start_overlay.visible = false
+	# The run has begun: the code can only be entered on the difficulty screen.
+	_cheat.set_process_input(false)
 	# The game picks the difficulty and asks it, to begin the run.
 	_track.begin(chosen)
 

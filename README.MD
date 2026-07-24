@@ -75,6 +75,13 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 * **License:** Paid, royalty-free ("Unlimited Royalty-free Use"). Used under a
   purchased license.
 
+### Sound Effects
+
+#### Game Start
+* **Author:** [plasterbrain](https://freesound.org/people/plasterbrain/)
+* **Source:** [Freesound](https://freesound.org/s/243020/)
+* **License:** [Creative Commons Zero (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/) — public domain, free for personal and commercial use.
+
 ### Fonts
 
 #### m5x7
