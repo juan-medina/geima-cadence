@@ -28,5 +28,5 @@ frame = 70
 position = Vector2(0, -24)
 scale = Vector2(1.25, 1.25)
 sprite_frames = ExtResource("3_x8lxr")
-animation = &"run"
-autoplay = "run"
+animation = &"idle"
+autoplay = "idle"
