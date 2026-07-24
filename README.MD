@@ -35,23 +35,19 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 #### Warrior-Free Animation set V1.3
 * **Author:** [Clement Baudet](https://clembod.itch.io/)
 * **Source:** [Itch.io](https://clembod.itch.io/warrior-free-animation-set)
-* **License:** Custom permission (Free for personal and commercial use, modification allowed, redistribution prohibited).
+* **License:** Custom permission (Free for personal and commercial use, modification allowed, redistribution prohibited). The set was purchased to support the author.
 
 #### Cultist Enemy Pack
 * **Author:** [Clement Baudet](https://clembod.itch.io/)
 * **Source:** [Itch.io](https://clembod.itch.io/cultist-enemy-pack)
 * **License:** Paid. Used under a purchased license (personal and commercial use
-  allowed, modification allowed, redistribution and resale prohibited). The
-  sprites are not included in this repository and are not covered by the MIT
-  license.
+  allowed, modification allowed, redistribution and resale prohibited).
 
 #### Shoggoth
 * **Author:** [Clement Baudet](https://clembod.itch.io/)
 * **Source:** [Itch.io](https://clembod.itch.io/shoggoth)
 * **License:** Paid. Used under a purchased license (personal and commercial use
-  allowed, modification allowed, redistribution and resale prohibited). The
-  sprites are not included in this repository and are not covered by the MIT
-  license.
+  allowed, modification allowed, redistribution and resale prohibited).
 
 #### Kenney Game Assets All-in-1
 * **Author:** [Kenney](https://kenney.nl/)
@@ -63,8 +59,13 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 * **Source:** [Itch.io](https://arludus.itch.io/dark-fantasy-backgrounds)
 * **License:** Paid. Used under a purchased license (free for use in games,
   including commercial ones; the pack itself may not be resold or
-  redistributed). The backgrounds are not included in this repository and are
-  not covered by the MIT license.
+  redistributed).
+
+#### Pixel UI Theme for Godot
+* **Author:** [Pelatho](https://thowsenmedia.itch.io/)
+* **Source:** [Itch.io](https://thowsenmedia.itch.io/pixel-ui-theme-for-godot)
+* **License:** Paid. Used under a purchased license (personal and commercial use
+  allowed for one or more projects; redistribution and resale prohibited).
 
 ### Music
 
@@ -72,8 +73,14 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 * **Author:** [Allen J. Mills](https://allenjmills.itch.io/)
 * **Source:** [Itch.io](https://allenjmills.itch.io/rpg-music-essentials)
 * **License:** Paid, royalty-free ("Unlimited Royalty-free Use"). Used under a
-  purchased license. The audio is not included in this repository and may not
-  be redistributed; it is not covered by the MIT license.
+  purchased license.
+
+### Fonts
+
+#### m5x7
+* **Author:** [Daniel Linssen](https://managore.itch.io/)
+* **Source:** [Itch.io](https://managore.itch.io/m5x7)
+* **License:** [Creative Commons Zero (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/) — public domain, free for personal and commercial use. The font was purchased to support the author.
 
 
 ## License
