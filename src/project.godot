@@ -57,6 +57,8 @@ movie_writer/fps=165
 
 theme/default_font_antialiasing=0
 theme/default_font_subpixel_positioning=0
+theme/custom="uid://csuj8yvw71swq"
+theme/custom_font="uid://boaqbesuwm3jm"
 
 [input]
 
