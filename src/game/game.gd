@@ -7,26 +7,28 @@ extends Node2D
 # Obstacles rest this far below the hero's ground line
 const _OBSTACLE_OFFSET_Y: float = 22.0
 
-# Survives scene reloads: once the first user gesture has unlocked audio,
-# a retry can start the song straight away without asking to play again.
-static var _show_play: bool = true
+# Survives scene reloads. A retry replays the same difficulty and skips the
+# selection screen (the first gesture has already unlocked audio); "change
+# difficulty" flips this back on so the reload asks again.
+static var _show_selection: bool = true
+
+# The difficulty the player last chose, replayed on retry across reloads.
+static var _selected_difficulty: Track.DifficultType = Track.DifficultType.NORMAL
 
 @onready var _track: Track = $Track
 @onready var _biome: Biome = $Biome
 @onready var _start_overlay: CanvasLayer = $StartOverlay
-@onready var _start_button: Button = $StartOverlay/Start
+@onready var _easy_button: Button = $StartOverlay/Center/VBox/Buttons/Easy
+@onready var _normal_button: Button = $StartOverlay/Center/VBox/Buttons/Normal
+@onready var _hard_button: Button = $StartOverlay/Center/VBox/Buttons/Hard
 @onready var _retry_overlay: CanvasLayer = $RetryOverlay
-@onready var _retry_button: Button = $RetryOverlay/Retry
+@onready var _retry_button: Button = $RetryOverlay/Center/VBox/Retry
 @onready var _camera: Camera2D = $Camera2D
 @onready var _hero: Hero = $Hero
 @onready var _hud: Hud = $Hud
 
 
 func _ready() -> void:
-	# Browsers refuse to start audio before a user gesture, so the song only
-	# begins once the player has pressed something.
-	_start_button.pressed.connect(_on_start_pressed)
-	_retry_button.pressed.connect(_on_retry_pressed)
 	_hero.died.connect(_on_hero_died)
 	_hero.dashed.connect(_biome.dash_burst)
 
@@ -37,11 +39,18 @@ func _ready() -> void:
 	# This will come from stage selection later.
 	_set_biome(randi_range(1, 4))
 
-	if _show_play:
-		# Focused so ui_accept (space / gamepad) presses it without a mouse.
-		_start_button.grab_focus()
+	if _show_selection:
+		match _selected_difficulty:
+			Track.DifficultType.EASY:
+				_easy_button.grab_focus()
+			Track.DifficultType.NORMAL:
+				_normal_button.grab_focus()
+			Track.DifficultType.HARD:
+				_hard_button.grab_focus()
+			_:
+				push_error("invalid difficulty")
 	else:
-		_on_start_pressed()
+		_start_run(_selected_difficulty)
 
 
 # Applies a biome: the Biome node loads its art and colours, then hands back the
@@ -61,10 +70,25 @@ func _on_window_resized() -> void:
 	_camera.force_update_scroll()
 
 
-func _on_start_pressed() -> void:
+# Each difficulty button routes here through its own handler (wired in the
+# editor's Signals panel).
+func _on_easy_pressed() -> void:
+	_start_run(Track.DifficultType.EASY)
+
+
+func _on_normal_pressed() -> void:
+	_start_run(Track.DifficultType.NORMAL)
+
+
+func _on_hard_pressed() -> void:
+	_start_run(Track.DifficultType.HARD)
+
+
+func _start_run(chosen: Track.DifficultType) -> void:
+	_selected_difficulty = chosen
 	_start_overlay.visible = false
-	# The song lives in the track now; the game just asks it to begin the run.
-	_track.begin()
+	# The game picks the difficulty and asks it, to begin the run.
+	_track.begin(chosen)
 
 
 func _on_hero_died() -> void:
@@ -81,7 +105,15 @@ func _on_hero_died() -> void:
 
 
 func _on_retry_pressed() -> void:
-	_show_play = false
+	# Same difficulty, no selection screen.
+	_show_selection = false
 	# The reloaded scene inherits the paused flag, so it has to be cleared here.
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
+
+func _on_change_difficulty_pressed() -> void:
+	# Reload and ask for the difficulty again.
+	_show_selection = true
 	get_tree().paused = false
 	get_tree().reload_current_scene()

@@ -4,6 +4,8 @@
 class_name Track
 extends Node2D
 
+enum DifficultType { EASY, NORMAL, HARD }
+
 const SLASH_SCENE: PackedScene = preload("res://track/slash_obstacle.tscn")
 const DASH_SCENE: PackedScene = preload("res://track/dash_obstacle.tscn")
 const SLIDE_SCENE: PackedScene = preload("res://track/slide_obstacle.tscn")
@@ -19,6 +21,8 @@ const JUMP_UP_SCENE: PackedScene = preload("res://track/jump_up_obstacle.tscn")
 var _started: bool = false
 var _stopped: bool = false
 var _last_music_time: float = 0.0
+
+var _current_difficulty: DifficultType = DifficultType.NORMAL
 
 # Threats not yet told the player is near, in beatmap order alongside the music
 # time each one asked to be told at. Walked by an index so _process allocates
@@ -40,9 +44,8 @@ func _ready() -> void:
 	hero.stopped.connect(_on_hero_stopped)
 
 
-func begin() -> void:
-	# Must run inside the game's start gesture: on web the browser only unlocks
-	# audio from a user input. Needs floor_y already set for the chosen biome.
+func begin(difficulty: DifficultType) -> void:
+	_current_difficulty = difficulty
 	_spawn_obstacles(_load_beatmap_actions())
 	if music:
 		music.play()
@@ -67,6 +70,7 @@ func get_progress() -> float:
 
 
 func _load_beatmap_actions() -> Array:
+	var difficulty: StringName = _difficulty()
 	if not music.stream:
 		push_error("Music node does not have an audio stream assigned!")
 		return []
@@ -83,11 +87,31 @@ func _load_beatmap_actions() -> Array:
 		return []
 
 	var json: Dictionary = json_var
-	if not json.has("actions"):
-		push_error("Beatmap JSON has no actions!")
+	if not json.has("difficulties"):
+		push_error("Beatmap JSON has no difficulties!")
 		return []
 
-	var actions_var: Variant = json["actions"]
+	var difficulties_var: Variant = json["difficulties"]
+	if not difficulties_var is Dictionary:
+		push_error("Beatmap difficulties must be a dictionary!")
+		return []
+	var difficulties: Dictionary = difficulties_var
+
+	if not difficulties.has(difficulty):
+		push_error("Beatmap has no '" + difficulty + "' difficulty!")
+		return []
+
+	var entry_var: Variant = difficulties[difficulty]
+	if not entry_var is Dictionary:
+		push_error("Beatmap '" + difficulty + "' difficulty must be a dictionary!")
+		return []
+	var entry: Dictionary = entry_var
+
+	if not entry.has("actions"):
+		push_error("Beatmap '" + difficulty + "' difficulty has no actions!")
+		return []
+
+	var actions_var: Variant = entry["actions"]
 	if not actions_var is Array:
 		push_error("Beatmap actions must be an array!")
 		return []
@@ -195,3 +219,20 @@ func _notify_player_near(music_time: float) -> void:
 		if is_instance_valid(obstacle):
 			obstacle.on_player_near()
 		_next_near += 1
+
+
+func _difficulty() -> StringName:
+	return _difficulty_to_string(_current_difficulty)
+
+
+func _difficulty_to_string(difficulty: DifficultType) -> StringName:
+	match difficulty:
+		Track.DifficultType.EASY:
+			return &"easy"
+		Track.DifficultType.NORMAL:
+			return &"normal"
+		Track.DifficultType.HARD:
+			return &"hard"
+		_:
+			push_error("invalid difficulty")
+			return &""

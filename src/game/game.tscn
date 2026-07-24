@@ -45,19 +45,42 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Start" type="Button" parent="StartOverlay" unique_id=741521188]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -12.0
-offset_right = 40.0
-offset_bottom = 12.0
+[node name="Center" type="CenterContainer" parent="StartOverlay" unique_id=2102240131]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Play"
+
+[node name="VBox" type="VBoxContainer" parent="StartOverlay/Center" unique_id=1681171005]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Prompt" type="Label" parent="StartOverlay/Center/VBox" unique_id=1486339882]
+layout_mode = 2
+text = "Choose difficulty"
+horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="StartOverlay/Center/VBox" unique_id=1037812241]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Easy" type="Button" parent="StartOverlay/Center/VBox/Buttons" unique_id=455579482]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Easy"
+
+[node name="Normal" type="Button" parent="StartOverlay/Center/VBox/Buttons" unique_id=1224136120]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Normal"
+
+[node name="Hard" type="Button" parent="StartOverlay/Center/VBox/Buttons" unique_id=1765630201]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Hard"
 
 [node name="RetryOverlay" type="CanvasLayer" parent="." unique_id=1266638174]
 process_mode = 2
@@ -72,16 +95,28 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.6)
 
-[node name="Retry" type="Button" parent="RetryOverlay" unique_id=670035422]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -12.0
-offset_right = 40.0
-offset_bottom = 12.0
+[node name="Center" type="CenterContainer" parent="RetryOverlay" unique_id=857079343]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="RetryOverlay/Center" unique_id=1874194930]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Retry" type="Button" parent="RetryOverlay/Center/VBox" unique_id=2049082868]
+layout_mode = 2
 text = "Retry"
+
+[node name="ChangeDifficulty" type="Button" parent="RetryOverlay/Center/VBox" unique_id=1284914436]
+layout_mode = 2
+text = "Change Difficulty"
+
+[connection signal="pressed" from="StartOverlay/Center/VBox/Buttons/Easy" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="StartOverlay/Center/VBox/Buttons/Normal" to="." method="_on_normal_pressed"]
+[connection signal="pressed" from="StartOverlay/Center/VBox/Buttons/Hard" to="." method="_on_hard_pressed"]
+[connection signal="pressed" from="RetryOverlay/Center/VBox/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="RetryOverlay/Center/VBox/ChangeDifficulty" to="." method="_on_change_difficulty_pressed"]
