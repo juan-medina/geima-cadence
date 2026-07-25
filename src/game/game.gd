@@ -34,9 +34,7 @@ func _ready() -> void:
 	# Workaround for Godot 4 Camera2D not re-centering after the window resizes.
 	get_tree().root.size_changed.connect(_on_window_resized)
 
-	# Temporary: a random biome each load so every one gets seen while testing.
-	# This will come from stage selection later.
-	_set_biome(randi_range(1, 4))
+	_prepare_biome()
 
 	if _show_selection:
 		match CurrentRun.difficulty:
@@ -49,15 +47,15 @@ func _ready() -> void:
 			_:
 				push_error("invalid difficulty")
 	else:
-		_start_run(CurrentRun.difficulty)
+		_start_run(CurrentRun.difficulty, CurrentRun.biome)
 
 
 # Applies a biome: the Biome node loads its art and colours, then hands back the
 # ground line the hero and obstacles share. Background and Fog read the Biome
 # directly, so they need no telling — they redraw every frame. The track spawns
 # its obstacles in begin(), after this has set floor_y.
-func _set_biome(biome: int) -> void:
-	_biome.set_biome(biome)
+func _prepare_biome() -> void:
+	_biome.load()
 	var ground_y: float = _biome.ground_y()
 	_hero.set_ground_y(ground_y)
 	_track.floor_y = ground_y + _OBSTACLE_OFFSET_Y
@@ -72,15 +70,15 @@ func _on_window_resized() -> void:
 # Each difficulty button routes here through its own handler (wired in the
 # editor's Signals panel).
 func _on_easy_pressed() -> void:
-	_start_run(Track.DifficultType.EASY)
+	_start_run(Track.DifficultType.EASY, randi_range(1, 4))
 
 
 func _on_normal_pressed() -> void:
-	_start_run(Track.DifficultType.NORMAL)
+	_start_run(Track.DifficultType.NORMAL, randi_range(1, 4))
 
 
 func _on_hard_pressed() -> void:
-	_start_run(Track.DifficultType.HARD)
+	_start_run(Track.DifficultType.HARD, randi_range(1, 4))
 
 
 # The cheat code unlocks invincibility so a whole song can be played through,
@@ -90,7 +88,8 @@ func _on_cheat_entered() -> void:
 	_start_sound.play()
 
 
-func _start_run(chosen: Track.DifficultType) -> void:
+func _start_run(chosen: Track.DifficultType, biome: int) -> void:
+	CurrentRun.biome = biome
 	CurrentRun.difficulty = chosen
 	_start_overlay.visible = false
 	# The run has begun: the code can only be entered on the difficulty screen.

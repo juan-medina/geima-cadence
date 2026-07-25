@@ -34,7 +34,6 @@ const _DASH_BURST_DURATION: float = 0.4
 # floor.
 @export var ground_offset: float = 0.0
 
-var _biome: int = 1
 var _layers: Array[Texture2D] = []
 # Filled behind the art above and below the horizon. The two edges are different
 # colours (sky at the top, fog-tinted ground at the bottom), so they are read
@@ -53,10 +52,7 @@ func _ready() -> void:
 		push_error("Biome needs a Track reference!")
 
 
-# The game picks the biome; loading its layers and sampling its colours happens
-# here so the render nodes stay dumb.
-func set_biome(new_biome: int) -> void:
-	_biome = new_biome
+func load() -> void:
 	_layers.clear()
 	_load_layers()
 
@@ -77,7 +73,7 @@ func dash_burst() -> void:
 # biome's ground sits at a different height. A switch for now; moves to JSON with
 # stage selection.
 func ground_y() -> float:
-	match _biome:
+	match CurrentRun.biome:
 		2:
 			return 115.0
 		_:
@@ -172,7 +168,7 @@ func _load_layers() -> void:
 	# over res:// does not, so it must drive the loop.
 	var layer_number: int = 1
 	while true:
-		var path: String = _LAYER_PATH % [_biome, layer_number]
+		var path: String = _LAYER_PATH % [CurrentRun.biome, layer_number]
 		if not ResourceLoader.exists(path):
 			break
 		var texture: Texture2D = load(path) as Texture2D
@@ -182,7 +178,7 @@ func _load_layers() -> void:
 		layer_number += 1
 
 	if _layers.is_empty():
-		push_error("Biome found no layers for biome %d!" % _biome)
+		push_error("Biome found no layers for biome %d!" % CurrentRun.biome)
 		return
 
 	_sample_edge_colors()

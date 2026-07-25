@@ -4,3 +4,4 @@
 extends Node
 
 var difficulty: Track.DifficultType = Track.DifficultType.NORMAL
+var biome: int = 1
