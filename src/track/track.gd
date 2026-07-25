@@ -20,9 +20,6 @@ var _started: bool = false
 var _stopped: bool = false
 var _last_music_time: float = 0.0
 
-# Threats not yet told the player is near, in beatmap order alongside the music
-# time each one asked to be told at. Walked by an index so _process allocates
-# nothing.
 var _approaching: Array[Obstacle] = []
 var _near_times: PackedFloat32Array = PackedFloat32Array()
 var _next_near: int = 0
@@ -191,8 +188,6 @@ func _process(_delta: float) -> void:
 	if _stopped or not music or not music.playing:
 		return
 
-	# On web `playing` flips true before the browser's audio context actually
-	# starts; until then playback_position stays 0 and only mix jitter moves.
 	if music.get_playback_position() <= 0.0:
 		return
 

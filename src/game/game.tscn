@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://bkq3v7w2m8d5n" path="res://hud/hud.tscn" id="6_p2wqe"]
 [ext_resource type="PackedScene" uid="uid://c5xart2yh6k1a" path="res://biome/biome.tscn" id="7_biome"]
 [ext_resource type="PackedScene" uid="uid://bqf7w2natk3xn" path="res://fog/fog.tscn" id="8_fog"]
-[ext_resource type="Script" path="res://cheat/cheat_code.gd" id="9_cheat"]
-[ext_resource type="AudioStream" path="res://data/assets/sounds/game_start.wav" id="10_gstart"]
+[ext_resource type="Script" uid="uid://b22x0b0cxahlj" path="res://cheat/cheat_code.gd" id="9_cheat"]
+[ext_resource type="AudioStream" uid="uid://cjopydg4qb3f7" path="res://data/assets/sounds/game_start.wav" id="10_gstart"]
 
 [node name="Game" type="Node2D" unique_id=534874988]
 script = ExtResource("1_qnjlk")
@@ -36,14 +36,14 @@ biome = NodePath("../Biome")
 track = NodePath("../Track")
 hero = NodePath("../Hero")
 
-[node name="StartSound" type="AudioStreamPlayer" parent="."]
+[node name="StartSound" type="AudioStreamPlayer" parent="." unique_id=1056931328]
 stream = ExtResource("10_gstart")
 bus = &"Sfx"
 
 [node name="StartOverlay" type="CanvasLayer" parent="." unique_id=482012504]
 layer = 64
 
-[node name="CheatCode" type="Node" parent="StartOverlay"]
+[node name="CheatCode" type="Node" parent="StartOverlay" unique_id=469832813]
 script = ExtResource("9_cheat")
 
 [node name="ColorRect" type="ColorRect" parent="StartOverlay" unique_id=1668188296]

@@ -6,7 +6,6 @@ extends Obstacle
 
 const ATTACK_ANIMATION: StringName = &"attack"
 
-# He never fully disappears: enough to see through, not enough to lose him.
 const FADED_ALPHA: float = 0.6
 
 # Which frame of the attack his blade actually connects on

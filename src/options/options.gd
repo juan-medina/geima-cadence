@@ -17,9 +17,6 @@ const DEFAULT_MUSIC_VOLUME: float = 0.5
 const DEFAULT_SFX_VOLUME: float = 0.5
 const DEFAULT_EULA_VERSION: StringName = ""
 
-# Test cheat: when on, the hero takes no damage so a whole song can be played
-# through. Session-only — deliberately not saved to disk, so it clears on
-# restart. Set by the cheat code on the difficulty screen.
 var invincible: bool = false
 
 var fullscreen: bool = DEFAULT_FULLSCREEN:
@@ -195,7 +192,6 @@ func _notification(what: int) -> void:
 
 func _quit() -> void:
 	# Stop any playing audio before quitting, otherwise Godot reports the audio
-	# streams as leaked resources at exit (engine bug, see godotengine/godot#95484).
 	_stop_all_audio(get_tree().root)
 	get_tree().quit()
 

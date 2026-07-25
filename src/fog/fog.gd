@@ -4,9 +4,6 @@
 class_name Fog
 extends Node2D
 
-# Draws the biome's frontmost layer on top of the hero and obstacles (via a
-# higher z_index set in the scene). Like Background it only renders; the Biome
-# node owns the texture and the scroll maths.
 @export var biome: Biome
 
 

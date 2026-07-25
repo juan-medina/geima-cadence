@@ -54,8 +54,7 @@ func start() -> void:
 		_change_state(State.RUNNING)
 
 
-# Called after _ready, so it must also move the baseline a cancelled jump
-# restores to; _ready only captured the scene's placeholder position.
+# position the hero but also store, use when we died mid-air
 func set_ground_y(y: float) -> void:
 	position.y = y
 	_base_y = y
@@ -196,8 +195,6 @@ func _update_active_shape() -> void:
 	for child: Node in _hurt_box.get_children():
 		var shape: CollisionShape2D = child as CollisionShape2D
 		if shape:
-			# Deferred because this runs from the area_entered physics callback
-			# (via the death transition); the server rejects shape changes mid-flush.
 			shape.set_deferred(&"disabled", shape != active)
 
 
@@ -233,7 +230,6 @@ func take_damage(amount: float) -> void:
 		health_changed.emit(health)
 	_flash()
 
-	# Surviving never interrupts a jump: the arc and the landing stay on the beat.
 	if health > 0.0:
 		if not _is_jumping():
 			_change_state(State.HIT)

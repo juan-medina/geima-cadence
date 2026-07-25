@@ -7,9 +7,7 @@ extends Node2D
 # Obstacles rest this far below the hero's ground line
 const _OBSTACLE_OFFSET_Y: float = 22.0
 
-# Survives scene reloads. A retry replays the same difficulty and skips the
-# selection screen (the first gesture has already unlocked audio); "change
-# difficulty" flips this back on so the reload asks again.
+# TODO: To remove when moving difficult to it own screen
 static var _show_selection: bool = true
 
 @onready var _track: Track = $Track
@@ -50,10 +48,6 @@ func _ready() -> void:
 		_start_run(CurrentRun.difficulty, CurrentRun.biome)
 
 
-# Applies a biome: the Biome node loads its art and colours, then hands back the
-# ground line the hero and obstacles share. Background and Fog read the Biome
-# directly, so they need no telling — they redraw every frame. The track spawns
-# its obstacles in begin(), after this has set floor_y.
 func _prepare_biome() -> void:
 	_biome.load()
 	var ground_y: float = _biome.ground_y()
@@ -67,8 +61,6 @@ func _on_window_resized() -> void:
 	_camera.force_update_scroll()
 
 
-# Each difficulty button routes here through its own handler (wired in the
-# editor's Signals panel).
 func _on_easy_pressed() -> void:
 	_start_run(Track.DifficultType.EASY, randi_range(1, 4))
 
@@ -81,8 +73,6 @@ func _on_hard_pressed() -> void:
 	_start_run(Track.DifficultType.HARD, randi_range(1, 4))
 
 
-# The cheat code unlocks invincibility so a whole song can be played through,
-# and rewards it with the fanfare.
 func _on_cheat_entered() -> void:
 	Options.invincible = true
 	_start_sound.play()
@@ -92,35 +82,26 @@ func _start_run(chosen: Track.DifficultType, biome: int) -> void:
 	CurrentRun.biome = biome
 	CurrentRun.difficulty = chosen
 	_start_overlay.visible = false
-	# The run has begun: the code can only be entered on the difficulty screen.
 	_cheat.set_process_input(false)
-	# The game picks the difficulty and asks it, to begin the run.
 	_track.begin()
 
 
 func _on_hero_died() -> void:
-	# The player has finished dying, but the health bar may still be draining, so
-	# the retry waits for whichever of the two finishes last.
+	# The player has finished dying, but the health bar may still be draining
 	await _hud.health_settled()
 
-	# Pausing holds the scenery and the song still; the overlay runs on anyway
-	# because its process mode is set to run while paused. It has to come after
-	# the await: a paused tween would never finish.
 	_retry_overlay.visible = true
 	_retry_button.grab_focus()
 	get_tree().paused = true
 
 
 func _on_retry_pressed() -> void:
-	# Same difficulty, no selection screen.
 	_show_selection = false
-	# The reloaded scene inherits the paused flag, so it has to be cleared here.
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
 
 func _on_change_difficulty_pressed() -> void:
-	# Reload and ask for the difficulty again.
 	_show_selection = true
 	get_tree().paused = false
 	get_tree().reload_current_scene()

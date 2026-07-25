@@ -8,7 +8,6 @@ signal hit_player(damage: float)
 
 enum Type { NONE, SLASH, DASH, SLIDE, JUMP_UP }
 
-# Set per scene: slash and dash sit far above max health, jump_up and slide chip.
 @export var damage: float = 10.0
 
 # Set by each obstacle's own script.
