@@ -1,7 +1,6 @@
 # SPDX-FileCopyrightText: 2026 Juan Medina
 # SPDX-License-Identifier: MIT
 
-class_name Options
 extends Node
 
 signal fullscreen_changed

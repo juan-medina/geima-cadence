@@ -16,13 +16,9 @@ const JUMP_UP_SCENE: PackedScene = preload("res://track/jump_up_obstacle.tscn")
 @export var scroll_speed: float = 250.0
 @export var floor_y: float = 24.0
 
-@onready var music: AudioStreamPlayer = $Music
-
 var _started: bool = false
 var _stopped: bool = false
 var _last_music_time: float = 0.0
-
-var _current_difficulty: DifficultType = DifficultType.NORMAL
 
 # Threats not yet told the player is near, in beatmap order alongside the music
 # time each one asked to be told at. Walked by an index so _process allocates
@@ -30,6 +26,8 @@ var _current_difficulty: DifficultType = DifficultType.NORMAL
 var _approaching: Array[Obstacle] = []
 var _near_times: PackedFloat32Array = PackedFloat32Array()
 var _next_near: int = 0
+
+@onready var music: AudioStreamPlayer = $Music
 
 
 func _ready() -> void:
@@ -44,8 +42,7 @@ func _ready() -> void:
 	hero.stopped.connect(_on_hero_stopped)
 
 
-func begin(difficulty: DifficultType) -> void:
-	_current_difficulty = difficulty
+func begin() -> void:
 	_spawn_obstacles(_load_beatmap_actions())
 	if music:
 		music.play()
@@ -97,6 +94,10 @@ func _load_beatmap_actions() -> Array:
 		return []
 	var difficulties: Dictionary = difficulties_var
 
+	return _extract_actions(difficulties, difficulty)
+
+
+func _extract_actions(difficulties: Dictionary, difficulty: StringName) -> Array:
 	if not difficulties.has(difficulty):
 		push_error("Beatmap has no '" + difficulty + "' difficulty!")
 		return []
@@ -222,7 +223,7 @@ func _notify_player_near(music_time: float) -> void:
 
 
 func _difficulty() -> StringName:
-	return _difficulty_to_string(_current_difficulty)
+	return _difficulty_to_string(CurrentRun.difficulty)
 
 
 func _difficulty_to_string(difficulty: DifficultType) -> StringName:

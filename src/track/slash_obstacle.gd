@@ -12,10 +12,10 @@ const FADED_ALPHA: float = 0.6
 # Which frame of the attack his blade actually connects on
 @export var impact_frame: int = 8
 
+var _fade_tween: Tween
+
 @onready var animated_sprite2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape2d: CollisionShape2D = $CollisionShape2D
-
-var _fade_tween: Tween
 
 
 func _init() -> void:

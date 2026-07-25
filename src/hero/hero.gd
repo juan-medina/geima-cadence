@@ -228,7 +228,7 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 
 
 func take_damage(amount: float) -> void:
-	if not GlobalOptions.invincible:
+	if not Options.invincible:
 		health = maxf(health - amount, 0.0)
 		health_changed.emit(health)
 	_flash()

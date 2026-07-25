@@ -1,7 +1,6 @@
 # SPDX-FileCopyrightText: 2026 Juan Medina
 # SPDX-License-Identifier: MIT
 
-class_name BuildInfo
 extends CanvasLayer
 
 const INFO_PATH: String = "res://build_info/build_info.json"

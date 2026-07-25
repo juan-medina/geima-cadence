@@ -31,12 +31,12 @@ func _ready() -> void:
 	_trail_bar.max_value = hero.max_health
 	_trail_bar.value = hero.health
 
-	GlobalOptions.fullscreen_changed.connect(_on_fullscreen_change)
-	_on_fullscreen_change(GlobalOptions.fullscreen)
+	Options.fullscreen_changed.connect(_on_fullscreen_change)
+	_on_fullscreen_change(Options.fullscreen)
 
 
 func _exit_tree() -> void:
-	GlobalOptions.fullscreen_changed.disconnect(_on_fullscreen_change)
+	Options.fullscreen_changed.disconnect(_on_fullscreen_change)
 
 
 func _process(_delta: float) -> void:
@@ -69,7 +69,7 @@ func _on_health_changed(current: float) -> void:
 
 
 func _on_fullscreen_toggled(is_on: bool) -> void:
-	GlobalOptions.fullscreen = is_on
+	Options.fullscreen = is_on
 
 
 func _on_fullscreen_change(is_on: bool) -> void:

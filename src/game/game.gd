@@ -12,9 +12,6 @@ const _OBSTACLE_OFFSET_Y: float = 22.0
 # difficulty" flips this back on so the reload asks again.
 static var _show_selection: bool = true
 
-# The difficulty the player last chose, replayed on retry across reloads.
-static var _selected_difficulty: Track.DifficultType = Track.DifficultType.NORMAL
-
 @onready var _track: Track = $Track
 @onready var _biome: Biome = $Biome
 @onready var _start_overlay: CanvasLayer = $StartOverlay
@@ -42,7 +39,7 @@ func _ready() -> void:
 	_set_biome(randi_range(1, 4))
 
 	if _show_selection:
-		match _selected_difficulty:
+		match CurrentRun.difficulty:
 			Track.DifficultType.EASY:
 				_easy_button.grab_focus()
 			Track.DifficultType.NORMAL:
@@ -52,7 +49,7 @@ func _ready() -> void:
 			_:
 				push_error("invalid difficulty")
 	else:
-		_start_run(_selected_difficulty)
+		_start_run(CurrentRun.difficulty)
 
 
 # Applies a biome: the Biome node loads its art and colours, then hands back the
@@ -89,17 +86,17 @@ func _on_hard_pressed() -> void:
 # The cheat code unlocks invincibility so a whole song can be played through,
 # and rewards it with the fanfare.
 func _on_cheat_entered() -> void:
-	GlobalOptions.invincible = true
+	Options.invincible = true
 	_start_sound.play()
 
 
 func _start_run(chosen: Track.DifficultType) -> void:
-	_selected_difficulty = chosen
+	CurrentRun.difficulty = chosen
 	_start_overlay.visible = false
 	# The run has begun: the code can only be entered on the difficulty screen.
 	_cheat.set_process_input(false)
 	# The game picks the difficulty and asks it, to begin the run.
-	_track.begin(chosen)
+	_track.begin()
 
 
 func _on_hero_died() -> void:
