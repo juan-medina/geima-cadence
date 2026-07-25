@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://bkq3v7w2m8d5n" path="res://hud/hud.tscn" id="6_p2wqe"]
 [ext_resource type="PackedScene" uid="uid://c5xart2yh6k1a" path="res://biome/biome.tscn" id="7_biome"]
 [ext_resource type="PackedScene" uid="uid://bqf7w2natk3xn" path="res://fog/fog.tscn" id="8_fog"]
-[ext_resource type="Script" uid="uid://b22x0b0cxahlj" path="res://cheat/cheat_code.gd" id="9_cheat"]
 [ext_resource type="AudioStream" uid="uid://cjopydg4qb3f7" path="res://data/assets/sounds/game_start.wav" id="10_gstart"]
 
 [node name="Game" type="Node2D" unique_id=534874988]
@@ -40,57 +39,6 @@ hero = NodePath("../Hero")
 stream = ExtResource("10_gstart")
 bus = &"Sfx"
 
-[node name="StartOverlay" type="CanvasLayer" parent="." unique_id=482012504]
-layer = 64
-
-[node name="CheatCode" type="Node" parent="StartOverlay" unique_id=469832813]
-script = ExtResource("9_cheat")
-
-[node name="ColorRect" type="ColorRect" parent="StartOverlay" unique_id=1668188296]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="Center" type="CenterContainer" parent="StartOverlay" unique_id=2102240131]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBox" type="VBoxContainer" parent="StartOverlay/Center" unique_id=1681171005]
-layout_mode = 2
-theme_override_constants/separation = 12
-alignment = 1
-
-[node name="Prompt" type="Label" parent="StartOverlay/Center/VBox" unique_id=1486339882]
-layout_mode = 2
-text = "Choose difficulty"
-horizontal_alignment = 1
-
-[node name="Buttons" type="HBoxContainer" parent="StartOverlay/Center/VBox" unique_id=1037812241]
-layout_mode = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="Easy" type="Button" parent="StartOverlay/Center/VBox/Buttons" unique_id=455579482]
-custom_minimum_size = Vector2(80, 0)
-layout_mode = 2
-text = "Easy"
-
-[node name="Normal" type="Button" parent="StartOverlay/Center/VBox/Buttons" unique_id=1224136120]
-custom_minimum_size = Vector2(80, 0)
-layout_mode = 2
-text = "Normal"
-
-[node name="Hard" type="Button" parent="StartOverlay/Center/VBox/Buttons" unique_id=1765630201]
-custom_minimum_size = Vector2(80, 0)
-layout_mode = 2
-text = "Hard"
-
 [node name="RetryOverlay" type="CanvasLayer" parent="." unique_id=1266638174]
 process_mode = 2
 layer = 64
@@ -120,13 +68,9 @@ alignment = 1
 layout_mode = 2
 text = "Retry"
 
-[node name="ChangeDifficulty" type="Button" parent="RetryOverlay/Center/VBox" unique_id=1284914436]
+[node name="BackToMenu" type="Button" parent="RetryOverlay/Center/VBox" unique_id=1284914436]
 layout_mode = 2
-text = "Change Difficulty"
+text = "Back to Menu"
 
-[connection signal="entered" from="StartOverlay/CheatCode" to="." method="_on_cheat_entered"]
-[connection signal="pressed" from="StartOverlay/Center/VBox/Buttons/Easy" to="." method="_on_easy_pressed"]
-[connection signal="pressed" from="StartOverlay/Center/VBox/Buttons/Normal" to="." method="_on_normal_pressed"]
-[connection signal="pressed" from="StartOverlay/Center/VBox/Buttons/Hard" to="." method="_on_hard_pressed"]
 [connection signal="pressed" from="RetryOverlay/Center/VBox/Retry" to="." method="_on_retry_pressed"]
-[connection signal="pressed" from="RetryOverlay/Center/VBox/ChangeDifficulty" to="." method="_on_change_difficulty_pressed"]
+[connection signal="pressed" from="RetryOverlay/Center/VBox/BackToMenu" to="." method="_on_back_to_menu_pressed"]

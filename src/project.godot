@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Geima: Cadence"
 config/version="0.2.0"
-run/main_scene="uid://del6uukmi7u2m"
+run/main_scene="uid://ba12montdc7ou"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="geima-cadence"
 config/features=PackedStringArray("4.7")
@@ -27,6 +27,7 @@ general/default_playback_type.web=0
 Options="*uid://cpn1inpgx705w"
 BuildInfo="*res://build_info/build_info.tscn"
 CurrentRun="*res://current_run/current_run.gd"
+Transition="*uid://c4i51qfge0mir"
 
 [debug]
 

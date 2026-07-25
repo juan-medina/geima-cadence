@@ -48,3 +48,7 @@ func _input(event: InputEvent) -> void:
 		_index = 1
 	else:
 		_index = 0
+
+
+func _on_entered() -> void:
+	Options.invincible = true

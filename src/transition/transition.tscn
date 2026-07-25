@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c4i51qfge0mir"]
+
+[ext_resource type="Script" uid="uid://45itca2pdrnr" path="res://transition/transition.gd" id="1_rtb6f"]
+[ext_resource type="PackedScene" uid="uid://del6uukmi7u2m" path="res://game/game.tscn" id="2_q5fnr"]
+[ext_resource type="PackedScene" uid="uid://ba12montdc7ou" path="res://menu/menu.tscn" id="3_7llrt"]
+
+[node name="Transition" type="Node2D" unique_id=844246070]
+script = ExtResource("1_rtb6f")
+game_scene = ExtResource("2_q5fnr")
+menu_scene = ExtResource("3_7llrt")

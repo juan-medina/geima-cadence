@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://ba12montdc7ou"]
+
+[ext_resource type="Script" uid="uid://djy1hrtyic4ue" path="res://menu/menu.gd" id="1_g18jx"]
+[ext_resource type="Script" uid="uid://b22x0b0cxahlj" path="res://cheat/cheat_code.gd" id="1_j0t7f"]
+
+[node name="MenuOverlay" type="CanvasLayer" unique_id=105136617]
+layer = 64
+script = ExtResource("1_g18jx")
+
+[node name="CheatCode" type="Node" parent="." unique_id=552878436]
+script = ExtResource("1_j0t7f")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1386438849]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Center" type="CenterContainer" parent="." unique_id=449936572]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Center" unique_id=1337018460]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Prompt" type="Label" parent="Center/VBox" unique_id=1649483207]
+layout_mode = 2
+text = "Choose difficulty"
+horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="Center/VBox" unique_id=1420468140]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Easy" type="Button" parent="Center/VBox/Buttons" unique_id=1627145301]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Easy"
+
+[node name="Normal" type="Button" parent="Center/VBox/Buttons" unique_id=1940438704]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Normal"
+
+[node name="Hard" type="Button" parent="Center/VBox/Buttons" unique_id=399957160]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Hard"
+
+[connection signal="entered" from="CheatCode" to="CheatCode" method="_on_entered"]
+[connection signal="pressed" from="Center/VBox/Buttons/Easy" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="Center/VBox/Buttons/Normal" to="." method="_on_normal_pressed"]
+[connection signal="pressed" from="Center/VBox/Buttons/Hard" to="." method="_on_hard_pressed"]
