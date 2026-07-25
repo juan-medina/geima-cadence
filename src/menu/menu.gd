@@ -7,6 +7,7 @@ extends CanvasLayer
 @onready var easy: Button = $Center/VBox/Buttons/Easy
 @onready var normal: Button = $Center/VBox/Buttons/Normal
 @onready var hard: Button = $Center/VBox/Buttons/Hard
+@onready var game_start: AudioStreamPlayer2D = $GameStart
 
 
 func _ready() -> void:
@@ -33,3 +34,8 @@ func _on_hard_pressed() -> void:
 
 func _go_to_game(chosen: Track.DifficultType) -> void:
 	Transition.go_to_game(chosen, CurrentRun.biome)
+
+
+func _on_cheat_code_entered() -> void:
+	Options.invincible = true
+	game_start.play()

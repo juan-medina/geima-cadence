@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://djy1hrtyic4ue" path="res://menu/menu.gd" id="1_g18jx"]
 [ext_resource type="Script" uid="uid://b22x0b0cxahlj" path="res://cheat/cheat_code.gd" id="1_j0t7f"]
+[ext_resource type="AudioStream" uid="uid://cjopydg4qb3f7" path="res://data/assets/sounds/game_start.wav" id="3_6nwqt"]
 
 [node name="MenuOverlay" type="CanvasLayer" unique_id=105136617]
 layer = 64
@@ -55,7 +56,12 @@ custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Hard"
 
-[connection signal="entered" from="CheatCode" to="CheatCode" method="_on_entered"]
+[node name="GameStart" type="AudioStreamPlayer2D" parent="." unique_id=1523574304]
+position = Vector2(31, 46)
+stream = ExtResource("3_6nwqt")
+bus = &"Sfx"
+
+[connection signal="entered" from="CheatCode" to="." method="_on_cheat_code_entered"]
 [connection signal="pressed" from="Center/VBox/Buttons/Easy" to="." method="_on_easy_pressed"]
 [connection signal="pressed" from="Center/VBox/Buttons/Normal" to="." method="_on_normal_pressed"]
 [connection signal="pressed" from="Center/VBox/Buttons/Hard" to="." method="_on_hard_pressed"]
