@@ -57,4 +57,4 @@ func _on_retry_pressed() -> void:
 
 
 func _on_back_to_menu_pressed() -> void:
-	Transition.go_to_menu()
+	await Transition.go_to_menu()
