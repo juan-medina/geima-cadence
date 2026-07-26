@@ -9,9 +9,9 @@ const FADE_PHASE: float = FADE_DURATION / 3
 @export var game_scene: PackedScene = null
 @export var menu_scene: PackedScene = null
 
-@onready var filler: ColorRect = $Filler
-
 var in_transition: bool = false
+
+@onready var filler: ColorRect = $Filler
 
 
 func _ready() -> void:
