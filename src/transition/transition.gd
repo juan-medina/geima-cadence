@@ -28,7 +28,10 @@ func _ready() -> void:
 func go_to_game(difficulty: Track.DifficultType, biome: int) -> void:
 	CurrentRun.difficulty = difficulty
 	CurrentRun.biome = biome
+	await reload_game()
 
+
+func reload_game() -> void:
 	await _go_to_scene(game_scene)
 
 

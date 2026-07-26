@@ -31,7 +31,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"ui_cancel"):
 		if visible:
 			if _resume_button.visible:
-				_resume()
+				_on_resume_pressed()
 			else:
 				await _on_back_to_menu_pressed()
 		else:
@@ -40,7 +40,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_retry_pressed() -> void:
 	get_tree().paused = false
-	get_tree().reload_current_scene()
+	await Transition.reload_game()
 
 
 func _on_back_to_menu_pressed() -> void:
