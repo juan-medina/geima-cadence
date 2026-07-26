@@ -4,14 +4,12 @@
 class_name PauseOverlay
 extends CanvasLayer
 
-var _is_paused: bool = false
-
 @onready var _resume_button: Button = $Center/VBox/Resume
 @onready var _retry_button: Button = $Center/VBox/Retry
 
 
 func display() -> void:
-	_pause(true)
+	_pause(false)
 
 
 func _pause(can_resume: bool) -> void:
@@ -22,18 +20,16 @@ func _pause(can_resume: bool) -> void:
 	else:
 		_retry_button.grab_focus()
 	get_tree().paused = true
-	_is_paused = true
 
 
 func _resume() -> void:
 	visible = false
 	get_tree().paused = false
-	_is_paused = false
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"ui_cancel"):
-		if _is_paused:
+		if visible:
 			if _resume_button.visible:
 				_resume()
 			else:
