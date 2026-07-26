@@ -26,3 +26,11 @@ func _on_fullscreen_toggled(is_on: bool) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"toggle_fullscreen"):
 		Options.fullscreen = not Options.fullscreen
+
+
+func _on_fullscreen_mouse_entered() -> void:
+	_fullscreen_button.modulate.a = 0.5
+
+
+func _on_fullscreen_mouse_exited() -> void:
+	_fullscreen_button.modulate.a = 0.25
