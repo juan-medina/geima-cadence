@@ -11,8 +11,9 @@ const _OBSTACLE_OFFSET_Y: float = 22.0
 
 @onready var _track: Track = $Track
 @onready var _biome: Biome = $Biome
-@onready var _retry_overlay: CanvasLayer = $RetryOverlay
-@onready var _retry_button: Button = $RetryOverlay/Center/VBox/Retry
+
+@onready var _pause_overlay: PauseOverlay = $PauseOverlay
+
 @onready var _camera: Camera2D = $Camera2D
 @onready var _hero: Hero = $Hero
 @onready var _hud: Hud = $Hud
@@ -45,16 +46,4 @@ func _on_window_resized() -> void:
 func _on_hero_died() -> void:
 	# The player has finished dying, but the health bar may still be draining
 	await _hud.health_settled()
-
-	_retry_overlay.visible = true
-	_retry_button.grab_focus()
-	get_tree().paused = true
-
-
-func _on_retry_pressed() -> void:
-	get_tree().paused = false
-	get_tree().reload_current_scene()
-
-
-func _on_back_to_menu_pressed() -> void:
-	await Transition.go_to_menu()
+	_pause_overlay.display()

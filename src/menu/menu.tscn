@@ -36,25 +36,36 @@ layout_mode = 2
 text = "Choose difficulty"
 horizontal_alignment = 1
 
-[node name="Buttons" type="HBoxContainer" parent="Center/VBox" unique_id=1420468140]
+[node name="ButtonsRow" type="HBoxContainer" parent="Center/VBox" unique_id=1420468140]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Easy" type="Button" parent="Center/VBox/Buttons" unique_id=1627145301]
+[node name="Easy" type="Button" parent="Center/VBox/ButtonsRow" unique_id=1627145301]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Easy"
 
-[node name="Normal" type="Button" parent="Center/VBox/Buttons" unique_id=1940438704]
+[node name="Normal" type="Button" parent="Center/VBox/ButtonsRow" unique_id=1940438704]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Normal"
 
-[node name="Hard" type="Button" parent="Center/VBox/Buttons" unique_id=399957160]
+[node name="Hard" type="Button" parent="Center/VBox/ButtonsRow" unique_id=399957160]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Hard"
+
+[node name="ExitRow" type="HBoxContainer" parent="Center/VBox" unique_id=1624820871]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Exit" type="Button" parent="Center/VBox/ExitRow" unique_id=1718520578]
+custom_minimum_size = Vector2(90, 35)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Exit"
 
 [node name="GameStart" type="AudioStreamPlayer2D" parent="." unique_id=1523574304]
 position = Vector2(31, 46)
@@ -62,6 +73,7 @@ stream = ExtResource("3_6nwqt")
 bus = &"Sfx"
 
 [connection signal="entered" from="CheatCode" to="." method="_on_cheat_code_entered"]
-[connection signal="pressed" from="Center/VBox/Buttons/Easy" to="." method="_on_easy_pressed"]
-[connection signal="pressed" from="Center/VBox/Buttons/Normal" to="." method="_on_normal_pressed"]
-[connection signal="pressed" from="Center/VBox/Buttons/Hard" to="." method="_on_hard_pressed"]
+[connection signal="pressed" from="Center/VBox/ButtonsRow/Easy" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="Center/VBox/ButtonsRow/Normal" to="." method="_on_normal_pressed"]
+[connection signal="pressed" from="Center/VBox/ButtonsRow/Hard" to="." method="_on_hard_pressed"]
+[connection signal="pressed" from="Center/VBox/ExitRow/Exit" to="." method="_on_exit_pressed"]

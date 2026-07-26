@@ -47,6 +47,9 @@ func _go_to_scene(scene: PackedScene) -> void:
 	visible = true
 	in_transition = true
 
+	# kill any sound that was playing since we transition
+	_stop_all_audio(tree.root)
+
 	# fade out
 	await filler.create_tween().tween_property(filler, ^"color:a", 1.0, FADE_PHASE).finished
 
@@ -63,3 +66,12 @@ func _go_to_scene(scene: PackedScene) -> void:
 
 	visible = false
 	in_transition = false
+
+
+func _stop_all_audio(node: Node) -> void:
+	var audio_node: AudioStreamPlayer = node as AudioStreamPlayer
+	if audio_node:
+		audio_node.stop()
+		audio_node.stream = null
+	for child: Node in node.get_children():
+		_stop_all_audio(child)

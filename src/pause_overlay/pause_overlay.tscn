@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dapiytd67uklp"]
+
+[ext_resource type="Script" uid="uid://beubqk7vmmskc" path="res://pause_overlay/pause_overlay.gd" id="1_eh0lt"]
+
+[node name="PauseOverlay" type="CanvasLayer" unique_id=12134441]
+process_mode = 3
+layer = 64
+visible = false
+script = ExtResource("1_eh0lt")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=896867497]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Center" type="CenterContainer" parent="." unique_id=192573260]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Center" unique_id=1713566704]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Resume" type="Button" parent="Center/VBox" unique_id=316183886]
+layout_mode = 2
+text = "Resume"
+
+[node name="Retry" type="Button" parent="Center/VBox" unique_id=166123250]
+layout_mode = 2
+text = "Retry"
+
+[node name="BackToMenu" type="Button" parent="Center/VBox" unique_id=744626250]
+layout_mode = 2
+text = "Back to Menu"
+
+[connection signal="pressed" from="Center/VBox/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Center/VBox/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="Center/VBox/BackToMenu" to="." method="_on_back_to_menu_pressed"]

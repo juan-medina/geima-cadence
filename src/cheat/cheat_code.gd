@@ -36,10 +36,9 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_pressed(_SEQUENCE[_index]):
 		_index += 1
-		# A matching press is swallowed so it never also moves UI focus or
-		# activates the focused button (the gamepad A button doubles as
-		# ui_accept, which would otherwise start the run mid-code).
-		get_viewport().set_input_as_handled()
+		# on swallow ui_accept, the final step so we dont "accept" a menu button
+		if event.is_action_pressed(&"ui_accept") and _index == _SEQUENCE.size():
+			get_viewport().set_input_as_handled()
 		if _index == _SEQUENCE.size():
 			_index = 0
 			entered.emit()

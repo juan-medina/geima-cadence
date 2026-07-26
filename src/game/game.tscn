@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c5xart2yh6k1a" path="res://biome/biome.tscn" id="7_biome"]
 [ext_resource type="PackedScene" uid="uid://bqf7w2natk3xn" path="res://fog/fog.tscn" id="8_fog"]
 [ext_resource type="AudioStream" uid="uid://cjopydg4qb3f7" path="res://data/assets/sounds/game_start.wav" id="10_gstart"]
+[ext_resource type="PackedScene" uid="uid://dapiytd67uklp" path="res://pause_overlay/pause_overlay.tscn" id="10_j8tme"]
 
 [node name="Game" type="Node2D" unique_id=534874988]
 script = ExtResource("1_qnjlk")
@@ -39,38 +40,4 @@ hero = NodePath("../Hero")
 stream = ExtResource("10_gstart")
 bus = &"Sfx"
 
-[node name="RetryOverlay" type="CanvasLayer" parent="." unique_id=1266638174]
-process_mode = 2
-layer = 64
-visible = false
-
-[node name="ColorRect" type="ColorRect" parent="RetryOverlay" unique_id=1901547306]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.6)
-
-[node name="Center" type="CenterContainer" parent="RetryOverlay" unique_id=857079343]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBox" type="VBoxContainer" parent="RetryOverlay/Center" unique_id=1874194930]
-layout_mode = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="Retry" type="Button" parent="RetryOverlay/Center/VBox" unique_id=2049082868]
-layout_mode = 2
-text = "Retry"
-
-[node name="BackToMenu" type="Button" parent="RetryOverlay/Center/VBox" unique_id=1284914436]
-layout_mode = 2
-text = "Back to Menu"
-
-[connection signal="pressed" from="RetryOverlay/Center/VBox/Retry" to="." method="_on_retry_pressed"]
-[connection signal="pressed" from="RetryOverlay/Center/VBox/BackToMenu" to="." method="_on_back_to_menu_pressed"]
+[node name="PauseOverlay" parent="." unique_id=12134441 instance=ExtResource("10_j8tme")]

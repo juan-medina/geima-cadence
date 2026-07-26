@@ -178,11 +178,8 @@ func _apply_bus_volume(bus_name: StringName, volume_linear: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"ui_cancel") and not OS.has_feature(&"web"):
-		_quit()
-	else:
-		if event.is_action_pressed(&"toggle_fullscreen"):
-			fullscreen = not fullscreen
+	if event.is_action_pressed(&"toggle_fullscreen"):
+		fullscreen = not fullscreen
 
 
 func _notification(what: int) -> void:
