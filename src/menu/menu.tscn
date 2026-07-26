@@ -5,7 +5,6 @@
 [ext_resource type="AudioStream" uid="uid://cjopydg4qb3f7" path="res://data/assets/sounds/game_start.wav" id="3_6nwqt"]
 
 [node name="MenuOverlay" type="CanvasLayer" unique_id=105136617]
-layer = 64
 script = ExtResource("1_g18jx")
 
 [node name="CheatCode" type="Node" parent="." unique_id=552878436]
