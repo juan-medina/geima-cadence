@@ -3,8 +3,8 @@
 
 extends CanvasLayer
 
-const INFO_PATH: String = "res://build_info/build_info.json"
-const DEV_BUILD: String = "dev"
+const INFO_PATH: String = &"res://build_info/build_info.json"
+const DEV_BUILD: String = &"dev"
 
 var version: String = ""
 var commit: String = ""
@@ -14,7 +14,7 @@ var built_at: String = ""
 
 
 func _ready() -> void:
-	version = ProjectSettings.get_setting("application/config/version", "0.0.0")
+	version = ProjectSettings.get_setting(&"application/config/version", &"0.0.0")
 	_load_build_info()
 	_label.text = display_string()
 
@@ -30,7 +30,7 @@ func display_string() -> String:
 func _load_build_info() -> void:
 	var file: FileAccess = FileAccess.open(INFO_PATH, FileAccess.READ)
 	if file == null:
-		printerr("BuildInfo: Failed to open %s !" % INFO_PATH)
+		printerr(&"BuildInfo: Failed to open %s !" % INFO_PATH)
 		return
 
 	var text: String = file.get_as_text()
@@ -41,19 +41,19 @@ func _load_build_info() -> void:
 	if err != OK:
 		printerr(
 			(
-				"BuildInfo: Failed to parse %s at line %d: %s !"
+				&"BuildInfo: Failed to parse %s at line %d: %s !"
 				% [INFO_PATH, json.get_error_line(), json.get_error_message()]
 			)
 		)
 		return
 
 	var data: Dictionary = json.data
-	commit = _read_string(data, "commit")
-	built_at = _read_string(data, "built_at")
+	commit = _read_string(data, &"commit")
+	built_at = _read_string(data, &"built_at")
 
 
 func _read_string(data: Dictionary, key: String) -> String:
-	var value: Variant = data.get(key, "")
+	var value: Variant = data.get(key, &"")
 	if value is String:
 		return value
-	return ""
+	return &""

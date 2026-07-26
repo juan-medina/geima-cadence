@@ -4,7 +4,7 @@
 class_name Biome
 extends Node
 
-const _LAYER_PATH: String = "res://data/assets/backgrounds/bg_%d_layer_%d.png"
+const _LAYER_PATH: String = &"res://data/assets/backgrounds/bg_%d_layer_%d.png"
 
 # configuration for the burst effect
 const _DASH_BURST_DISTANCE: float = 100.0
@@ -32,7 +32,8 @@ var _burst_tween: Tween
 
 func _ready() -> void:
 	if not track:
-		push_error("Biome needs a Track reference!")
+		printerr(&"Biome needs a Track reference!")
+		get_tree().quit()
 
 
 func load() -> void:
@@ -144,7 +145,8 @@ func _load_layers() -> void:
 		layer_number += 1
 
 	if _layers.is_empty():
-		push_error("Biome found no layers for biome %d!" % CurrentRun.biome)
+		printerr(&"Biome found no layers for biome %d!" % CurrentRun.biome)
+		get_tree().quit()
 		return
 
 	_sample_edge_colors()

@@ -9,7 +9,8 @@ extends Node2D
 
 func _ready() -> void:
 	if not biome:
-		push_error("Background needs a Biome reference!")
+		printerr(&"Background needs a Biome reference!")
+		get_tree().quit()
 
 
 func _process(_delta: float) -> void:

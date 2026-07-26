@@ -21,7 +21,8 @@ var _trail_tween: Tween
 
 func _ready() -> void:
 	if not track or not hero:
-		push_error("Hud needs Track and Hero references!")
+		printerr(&"Hud needs Track and Hero references!")
+		get_tree().quit()
 		return
 
 	hero.health_changed.connect(_on_health_changed)

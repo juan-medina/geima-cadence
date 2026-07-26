@@ -29,10 +29,12 @@ var _next_near: int = 0
 
 func _ready() -> void:
 	if not hero:
-		push_error("Track needs a Hero reference!")
+		printerr(&"Track needs a Hero reference!")
+		get_tree().quit()
 		return
 	if not song:
-		push_error("Track needs a Song assigned!")
+		printerr(&"Track needs a Song assigned!")
+		get_tree().quit()
 		return
 
 	music.stream = song
@@ -66,28 +68,33 @@ func get_progress() -> float:
 func _load_beatmap_actions() -> Array:
 	var difficulty: StringName = _difficulty()
 	if not music.stream:
-		push_error("Music node does not have an audio stream assigned!")
+		printerr(&"Music node does not have an audio stream assigned!")
+		get_tree().quit()
 		return []
 
-	var beatmap_file: String = music.stream.resource_path.get_basename() + ".json"
+	var beatmap_file: String = music.stream.resource_path.get_basename() + &".json"
 	var file: FileAccess = FileAccess.open(beatmap_file, FileAccess.READ)
 	if not file:
-		push_error("Could not open beatmap file: " + beatmap_file + "!")
+		printerr(&"Could not open beatmap file: " + beatmap_file + &"!")
+		get_tree().quit()
 		return []
 
 	var json_var: Variant = JSON.parse_string(file.get_as_text())
 	if not json_var is Dictionary:
-		push_error("Invalid beatmap JSON format!")
+		printerr(&"Invalid beatmap JSON format!")
+		get_tree().quit()
 		return []
 
 	var json: Dictionary = json_var
 	if not json.has("difficulties"):
-		push_error("Beatmap JSON has no difficulties!")
+		printerr(&"Beatmap JSON has no difficulties!")
+		get_tree().quit()
 		return []
 
-	var difficulties_var: Variant = json["difficulties"]
+	var difficulties_var: Variant = json[&"difficulties"]
 	if not difficulties_var is Dictionary:
-		push_error("Beatmap difficulties must be a dictionary!")
+		printerr(&"Beatmap difficulties must be a dictionary!")
+		get_tree().quit()
 		return []
 	var difficulties: Dictionary = difficulties_var
 
@@ -96,22 +103,26 @@ func _load_beatmap_actions() -> Array:
 
 func _extract_actions(difficulties: Dictionary, difficulty: StringName) -> Array:
 	if not difficulties.has(difficulty):
-		push_error("Beatmap has no '" + difficulty + "' difficulty!")
+		printerr(&"Beatmap has no '" + difficulty + &"' difficulty!")
+		get_tree().quit()
 		return []
 
 	var entry_var: Variant = difficulties[difficulty]
 	if not entry_var is Dictionary:
-		push_error("Beatmap '" + difficulty + "' difficulty must be a dictionary!")
+		printerr(&"Beatmap '" + difficulty + &"' difficulty must be a dictionary!")
+		get_tree().quit()
 		return []
 	var entry: Dictionary = entry_var
 
 	if not entry.has("actions"):
-		push_error("Beatmap '" + difficulty + "' difficulty has no actions!")
+		printerr(&"Beatmap '" + difficulty + &"' difficulty has no actions!")
+		get_tree().quit()
 		return []
 
-	var actions_var: Variant = entry["actions"]
+	var actions_var: Variant = entry[&"actions"]
 	if not actions_var is Array:
-		push_error("Beatmap actions must be an array!")
+		printerr(&"Beatmap actions must be an array!")
+		get_tree().quit()
 		return []
 	var actions: Array = actions_var
 	return actions
@@ -123,28 +134,29 @@ func _spawn_obstacles(actions: Array) -> void:
 			continue
 		var action: Dictionary = action_var
 
-		var time_var: Variant = action.get("time", 0.0)
-		var type_var: Variant = action.get("type", "")
+		var time_var: Variant = action.get(&"time", 0.0)
+		var type_var: Variant = action.get(&"type", &"")
 		var time: float = time_var if time_var is float else 0.0
-		var type_name: String = type_var if type_var is String else ""
+		var type_name: String = type_var if type_var is String else &""
 
 		var type: Obstacle.Type = _parse_type(type_name)
 		if type == Obstacle.Type.NONE:
-			push_error("Beatmap has an unknown action type: " + type_name + "!")
-			continue
+			printerr(&"Beatmap has an unknown action type: " + type_name + &"!")
+			get_tree().quit()
+			return
 
 		_spawn_obstacle(type, time)
 
 
 func _parse_type(type_name: String) -> Obstacle.Type:
 	match type_name:
-		"slash":
+		&"slash":
 			return Obstacle.Type.SLASH
-		"dash":
+		&"dash":
 			return Obstacle.Type.DASH
-		"slide":
+		&"slide":
 			return Obstacle.Type.SLIDE
-		"jump_up":
+		&"jump_up":
 			return Obstacle.Type.JUMP_UP
 	return Obstacle.Type.NONE
 
@@ -230,5 +242,6 @@ func _difficulty_to_string(difficulty: DifficultType) -> StringName:
 		Track.DifficultType.HARD:
 			return &"hard"
 		_:
-			push_error("invalid difficulty")
+			printerr(&"invalid difficulty")
+			get_tree().quit()
 			return &""

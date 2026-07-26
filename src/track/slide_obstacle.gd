@@ -18,6 +18,6 @@ func _on_player_success() -> void:
 func _on_player_failure() -> void:
 	hit_player.emit(damage)
 	if animated_sprite2d:
-		animated_sprite2d.play("impact")
+		animated_sprite2d.play(&"impact")
 		await animated_sprite2d.animation_finished
 	queue_free()

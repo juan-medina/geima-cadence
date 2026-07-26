@@ -5,7 +5,7 @@ extends Node
 
 signal fullscreen_changed
 
-const CONFIG_PATH: String = "user://options.cfg"
+const CONFIG_PATH: String = &"user://options.cfg"
 const SECTION_DISPLAY: StringName = &"display"
 const SECTION_AUDIO: StringName = &"audio"
 const SECTION_EULA: StringName = &"eula"
@@ -112,7 +112,7 @@ func _load_options() -> void:
 		eula_accepted_version = DEFAULT_EULA_VERSION
 
 	# on web we allways start not full screen
-	if OS.has_feature("web"):
+	if OS.has_feature(&"web"):
 		fullscreen = false
 
 
@@ -120,7 +120,7 @@ func _save_options() -> void:
 	var config: ConfigFile = ConfigFile.new()
 
 	# since we dont use the setting on web, we dont save it
-	if not OS.has_feature("web"):
+	if not OS.has_feature(&"web"):
 		config.set_value(SECTION_DISPLAY, &"fullscreen", fullscreen)
 
 	config.set_value(SECTION_AUDIO, &"master_volume", master_volume)
@@ -139,7 +139,7 @@ func is_eula_accepted(minor_version: String) -> bool:
 
 func _apply_all_settings() -> void:
 	# we can not set full screen on web without user gesture
-	if not OS.has_feature("web"):
+	if not OS.has_feature(&"web"):
 		_apply_fullscreen()
 	_apply_bus_volume(&"Master", master_volume)
 	_apply_bus_volume(&"Music", music_volume)
@@ -178,7 +178,7 @@ func _apply_bus_volume(bus_name: StringName, volume_linear: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"ui_cancel") and not OS.has_feature("web"):
+	if event.is_action_pressed(&"ui_cancel") and not OS.has_feature(&"web"):
 		_quit()
 	else:
 		if event.is_action_pressed(&"toggle_fullscreen"):

@@ -16,11 +16,11 @@ var in_transition: bool = false
 
 func _ready() -> void:
 	if not game_scene:
-		push_error("Game scene is not set in the Transition node.")
+		printerr(&"Game scene is not set in the Transition node.")
 		get_tree().quit()
 		return
 	if not menu_scene:
-		push_error("Menu scene is not set in the Transition node.")
+		printerr(&"Menu scene is not set in the Transition node.")
 		get_tree().quit()
 		return
 
@@ -48,7 +48,7 @@ func _go_to_scene(scene: PackedScene) -> void:
 	in_transition = true
 
 	# fade out
-	await filler.create_tween().tween_property(filler, "color:a", 1.0, FADE_PHASE).finished
+	await filler.create_tween().tween_property(filler, ^"color:a", 1.0, FADE_PHASE).finished
 
 	# change is deferred, so yield a frame for the new scene to exist
 	tree.change_scene_to_packed.call_deferred(scene)
@@ -59,7 +59,7 @@ func _go_to_scene(scene: PackedScene) -> void:
 	await tree.create_timer(FADE_PHASE, true, false, false).timeout
 
 	#fade in
-	await filler.create_tween().tween_property(filler, "color:a", 0.0, FADE_PHASE).finished
+	await filler.create_tween().tween_property(filler, ^"color:a", 0.0, FADE_PHASE).finished
 
 	visible = false
 	in_transition = false

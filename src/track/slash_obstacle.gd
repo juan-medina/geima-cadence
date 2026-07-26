@@ -31,7 +31,7 @@ func near_time() -> float:
 func on_player_near() -> void:
 	animated_sprite2d.play(ATTACK_ANIMATION)
 	_fade_tween = create_tween()
-	_fade_tween.tween_property(animated_sprite2d, "modulate:a", FADED_ALPHA, near_time())
+	_fade_tween.tween_property(animated_sprite2d, ^"modulate:a", FADED_ALPHA, near_time())
 
 
 func _on_player_success() -> void:
@@ -39,7 +39,7 @@ func _on_player_success() -> void:
 		_fade_tween.kill()
 	animated_sprite2d.modulate.a = 1.0
 	collision_shape2d.set_deferred(&"disabled", true)
-	animated_sprite2d.play("dead")
+	animated_sprite2d.play(&"dead")
 	await animated_sprite2d.animation_finished
 	queue_free()
 
