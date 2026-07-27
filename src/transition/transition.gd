@@ -6,23 +6,23 @@ extends CanvasLayer
 const FADE_DURATION: float = 1.5
 const FADE_PHASE: float = FADE_DURATION / 3
 
-@export var game_scene: PackedScene = null
-@export var menu_scene: PackedScene = null
+const GAME_SCENE: PackedScene = preload("res://game/game.tscn")
+const MENU_SCENE: PackedScene = preload("res://menu/menu.tscn")
 
 var in_transition: bool = false
-
-@onready var filler: ColorRect = $Filler
+var filler: ColorRect = null
 
 
 func _ready() -> void:
-	if not game_scene:
-		printerr(&"Game scene is not set in the Transition node.")
-		get_tree().quit()
-		return
-	if not menu_scene:
-		printerr(&"Menu scene is not set in the Transition node.")
-		get_tree().quit()
-		return
+	layer = 9999
+	# keep processing while the tree is paused during a transition
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	visible = false
+
+	filler = ColorRect.new()
+	filler.color = Color(0, 0, 0, 0)
+	filler.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(filler)
 
 
 func go_to_game(difficulty: Track.DifficultType, biome: int) -> void:
@@ -32,11 +32,11 @@ func go_to_game(difficulty: Track.DifficultType, biome: int) -> void:
 
 
 func reload_game() -> void:
-	await _go_to_scene(game_scene)
+	await _go_to_scene(GAME_SCENE)
 
 
 func go_to_menu() -> void:
-	await _go_to_scene(menu_scene)
+	await _go_to_scene(MENU_SCENE)
 
 
 func _go_to_scene(scene: PackedScene) -> void:

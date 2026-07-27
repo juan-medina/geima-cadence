@@ -27,7 +27,7 @@ general/default_playback_type.web=0
 Options="*uid://cpn1inpgx705w"
 BuildInfo="*res://build_info/build_info.tscn"
 CurrentRun="*res://current_run/current_run.gd"
-Transition="*uid://c4i51qfge0mir"
+Transition="*res://transition/transition.gd"
 FullscreenToggle="*uid://m1d65tjxd2vu"
 
 [debug]
