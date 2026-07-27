@@ -42,7 +42,3 @@ func _on_player_success() -> void:
 	animated_sprite2d.play(&"dead")
 	await animated_sprite2d.animation_finished
 	queue_free()
-
-
-func _on_player_failure() -> void:
-	hit_player.emit(damage)

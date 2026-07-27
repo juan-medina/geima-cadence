@@ -39,7 +39,3 @@ func _on_player_success() -> void:
 	tween.tween_property(self, ^"position:x", position.x + REVERSE_DISTANCE, REVERSE_DURATION)
 	await animated_sprite2d.animation_finished
 	queue_free()
-
-
-func _on_player_failure() -> void:
-	hit_player.emit(damage)

@@ -16,7 +16,7 @@ func _on_player_success() -> void:
 
 
 func _on_player_failure() -> void:
-	hit_player.emit(damage)
+	super._on_player_failure()
 	if animated_sprite2d:
 		animated_sprite2d.play(&"dead")
 		await animated_sprite2d.animation_finished

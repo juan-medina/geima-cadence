@@ -43,4 +43,4 @@ func _on_player_success() -> void:
 
 
 func _on_player_failure() -> void:
-	pass
+	hit_player.emit(damage)
