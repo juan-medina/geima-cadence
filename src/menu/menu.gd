@@ -4,51 +4,49 @@
 class_name Menu
 extends CanvasLayer
 
-@onready var _easy: Button = $Center/VBox/ButtonsRow/Easy
-@onready var _normal: Button = $Center/VBox/ButtonsRow/Normal
-@onready var _hard: Button = $Center/VBox/ButtonsRow/Hard
-@onready var _exit_row: HBoxContainer = $Center/VBox/ExitRow
+@onready var _main_menu_panel: MainMenuPanel = $Center/MainMenuPanel
+@onready var _stage_panel: StagePanel = $Center/StagePanel
+@onready var _settings_panel: SettingsPanel = $Center/SettingsPanel
+@onready var _about_panel: AboutPanel = $Center/AboutPanel
 @onready var _cheat: AudioStreamPlayer2D = $Cheat
 
 
 func _ready() -> void:
-	match CurrentRun.difficulty:
-		Track.DifficultType.EASY:
-			_easy.grab_focus()
-		Track.DifficultType.NORMAL:
-			_normal.grab_focus()
-		Track.DifficultType.HARD:
-			_hard.grab_focus()
-	if OS.has_feature(&"web"):
-		_exit_row.visible = false
-	Audio.connect_menu_sounds(self)
+	_close_all()
+	_main_menu_panel.open()
 
 
-func _on_easy_pressed() -> void:
-	await _go_to_game(Track.DifficultType.EASY)
+func _close_all() -> void:
+	_main_menu_panel.close()
+	_stage_panel.close()
+	_settings_panel.close()
+	_about_panel.close()
 
 
-func _on_normal_pressed() -> void:
-	await _go_to_game(Track.DifficultType.NORMAL)
+func _on_play_requested() -> void:
+	_close_all()
+	_stage_panel.open()
 
 
-func _on_hard_pressed() -> void:
-	await _go_to_game(Track.DifficultType.HARD)
+func _on_settings_requested() -> void:
+	_close_all()
+	_settings_panel.open()
 
 
-func _go_to_game(chosen: Track.DifficultType) -> void:
-	await Transition.go_to_game(chosen, CurrentRun.biome)
+func _on_about_requested() -> void:
+	_close_all()
+	_about_panel.open()
+
+
+func _on_exit_requested() -> void:
+	get_tree().quit()
+
+
+func _on_panel_back_requested() -> void:
+	_close_all()
+	_main_menu_panel.open()
 
 
 func _on_cheat_code_entered() -> void:
 	Options.invincible = true
 	_cheat.play()
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"ui_cancel") and not OS.has_feature(&"web"):
-		_on_exit_pressed()
-
-
-func _on_exit_pressed() -> void:
-	get_tree().quit()

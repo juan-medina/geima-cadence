@@ -3,6 +3,10 @@
 [ext_resource type="Script" uid="uid://djy1hrtyic4ue" path="res://menu/menu.gd" id="1_g18jx"]
 [ext_resource type="Script" uid="uid://b22x0b0cxahlj" path="res://cheat/cheat_code.gd" id="1_j0t7f"]
 [ext_resource type="AudioStream" uid="uid://cjopydg4qb3f7" path="res://data/assets/sounds/cheat.wav" id="3_6nwqt"]
+[ext_resource type="PackedScene" path="res://main_menu_panel/main_menu_panel.tscn" id="4_main"]
+[ext_resource type="PackedScene" path="res://stage_panel/stage_panel.tscn" id="5_stage"]
+[ext_resource type="PackedScene" uid="uid://dxbnvjyrjip1y" path="res://settings_panel/settings_panel.tscn" id="6_settings"]
+[ext_resource type="PackedScene" path="res://about_panel/about_panel.tscn" id="7_about"]
 
 [node name="MenuOverlay" type="CanvasLayer" unique_id=105136617]
 script = ExtResource("1_g18jx")
@@ -25,46 +29,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBox" type="VBoxContainer" parent="Center" unique_id=1337018460]
+[node name="MainMenuPanel" parent="Center" instance=ExtResource("4_main")]
+visible = false
 layout_mode = 2
-theme_override_constants/separation = 12
-alignment = 1
 
-[node name="Prompt" type="Label" parent="Center/VBox" unique_id=1649483207]
+[node name="StagePanel" parent="Center" instance=ExtResource("5_stage")]
+visible = false
 layout_mode = 2
-text = "Choose difficulty"
-horizontal_alignment = 1
 
-[node name="ButtonsRow" type="HBoxContainer" parent="Center/VBox" unique_id=1420468140]
+[node name="SettingsPanel" parent="Center" instance=ExtResource("6_settings")]
+visible = false
 layout_mode = 2
-theme_override_constants/separation = 8
-alignment = 1
 
-[node name="Easy" type="Button" parent="Center/VBox/ButtonsRow" unique_id=1627145301 groups=["ui_start"]]
-custom_minimum_size = Vector2(80, 0)
+[node name="AboutPanel" parent="Center" instance=ExtResource("7_about")]
+visible = false
 layout_mode = 2
-text = "Easy"
-
-[node name="Normal" type="Button" parent="Center/VBox/ButtonsRow" unique_id=1940438704 groups=["ui_start"]]
-custom_minimum_size = Vector2(80, 0)
-layout_mode = 2
-text = "Normal"
-
-[node name="Hard" type="Button" parent="Center/VBox/ButtonsRow" unique_id=399957160 groups=["ui_start"]]
-custom_minimum_size = Vector2(80, 0)
-layout_mode = 2
-text = "Hard"
-
-[node name="ExitRow" type="HBoxContainer" parent="Center/VBox" unique_id=1624820871]
-layout_mode = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="Exit" type="Button" parent="Center/VBox/ExitRow" unique_id=1718520578]
-custom_minimum_size = Vector2(90, 35)
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Exit"
 
 [node name="Cheat" type="AudioStreamPlayer2D" parent="." unique_id=1523574304]
 position = Vector2(31, 46)
@@ -72,7 +51,10 @@ stream = ExtResource("3_6nwqt")
 bus = &"Sfx"
 
 [connection signal="entered" from="CheatCode" to="." method="_on_cheat_code_entered"]
-[connection signal="pressed" from="Center/VBox/ButtonsRow/Easy" to="." method="_on_easy_pressed"]
-[connection signal="pressed" from="Center/VBox/ButtonsRow/Normal" to="." method="_on_normal_pressed"]
-[connection signal="pressed" from="Center/VBox/ButtonsRow/Hard" to="." method="_on_hard_pressed"]
-[connection signal="pressed" from="Center/VBox/ExitRow/Exit" to="." method="_on_exit_pressed"]
+[connection signal="play_requested" from="Center/MainMenuPanel" to="." method="_on_play_requested"]
+[connection signal="settings_requested" from="Center/MainMenuPanel" to="." method="_on_settings_requested"]
+[connection signal="about_requested" from="Center/MainMenuPanel" to="." method="_on_about_requested"]
+[connection signal="exit_requested" from="Center/MainMenuPanel" to="." method="_on_exit_requested"]
+[connection signal="back_requested" from="Center/StagePanel" to="." method="_on_panel_back_requested"]
+[connection signal="back_requested" from="Center/SettingsPanel" to="." method="_on_panel_back_requested"]
+[connection signal="back_requested" from="Center/AboutPanel" to="." method="_on_panel_back_requested"]
