@@ -5,6 +5,7 @@ class_name PausePanel
 extends PanelContainer
 
 signal resume_requested
+signal settings_requested
 
 @onready var _title_label: Label = $VBox/Title
 @onready var _resume_button: Button = $VBox/Resume
@@ -35,3 +36,7 @@ func _on_retry_pressed() -> void:
 
 func _on_back_to_menu_pressed() -> void:
 	await Transition.go_to_menu()
+
+
+func _on_settings_pressed() -> void:
+	settings_requested.emit()

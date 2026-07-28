@@ -24,10 +24,15 @@ text = "Resume"
 layout_mode = 2
 text = "Retry"
 
+[node name="Settings" type="Button" parent="VBox" unique_id=141105527]
+layout_mode = 2
+text = "Settings"
+
 [node name="BackToMenu" type="Button" parent="VBox" unique_id=1905238898]
 layout_mode = 2
 text = "Back to Menu"
 
 [connection signal="pressed" from="VBox/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="VBox/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="VBox/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="VBox/BackToMenu" to="." method="_on_back_to_menu_pressed"]

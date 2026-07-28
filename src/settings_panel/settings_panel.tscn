@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dxbnvjyrjip1y"]
+
+[ext_resource type="Script" uid="uid://ijy1dc2q37h6" path="res://settings_panel/settings_panel.gd" id="1_enujn"]
+
+[node name="SettingsPanel" type="PanelContainer" unique_id=819585722]
+offset_right = 12.0
+offset_bottom = 12.0
+script = ExtResource("1_enujn")
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=1244735400]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Title" type="Label" parent="VBox" unique_id=1118480601]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="Fullscreen" type="CheckButton" parent="VBox" unique_id=360008963]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="Back" type="Button" parent="VBox" unique_id=1564037314]
+layout_mode = 2
+text = "Back"
+
+[connection signal="toggled" from="VBox/Fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="pressed" from="VBox/Back" to="." method="_on_back_pressed"]

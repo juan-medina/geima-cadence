@@ -7,6 +7,7 @@ extends CanvasLayer
 var _can_resume: bool = false
 
 @onready var _pause_panel: PausePanel = $Center/PausePanel
+@onready var _settings_panel: SettingsPanel = $Center/SettingsPanel
 
 
 func display() -> void:
@@ -38,3 +39,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_resume_requested() -> void:
 	_close()
+
+
+func _on_pause_panel_settings_requested() -> void:
+	_settings_panel.open()
+	_pause_panel.close()
+
+
+func _on_settings_panel_back_requested() -> void:
+	_settings_panel.close()
+	_pause_panel.open(_can_resume)
