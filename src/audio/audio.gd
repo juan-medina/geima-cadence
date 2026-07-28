@@ -45,6 +45,7 @@ func connect_menu_sounds(root: Node) -> void:
 func connect_sound(control: Control) -> void:
 	var button: BaseButton = control as Button
 	if button:
+		button.mouse_entered.connect(button.grab_focus)
 		button.focus_entered.connect(play_hover)
 		if button.is_in_group(&"ui_return"):
 			button.pressed.connect(play_return)
@@ -56,5 +57,6 @@ func connect_sound(control: Control) -> void:
 
 	var slider: Slider = control as Slider
 	if slider:
+		slider.mouse_entered.connect(slider.grab_focus)
 		slider.focus_entered.connect(play_hover)
 		slider.value_changed.connect(slider_change)
