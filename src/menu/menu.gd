@@ -21,6 +21,7 @@ func _ready() -> void:
 			_hard.grab_focus()
 	if OS.has_feature(&"web"):
 		_exit_row.visible = false
+	Audio.connect_menu_sounds(self)
 
 
 func _on_easy_pressed() -> void:

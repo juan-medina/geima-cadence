@@ -16,6 +16,7 @@ func display() -> void:
 
 func _open_pause(can_resume: bool) -> void:
 	_can_resume = can_resume
+	_settings_panel.close()
 	_pause_panel.open(can_resume)
 	visible = true
 	get_tree().paused = true
@@ -27,14 +28,13 @@ func _close() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"pause"):
-		if visible:
-			if _can_resume:
-				_close()
-			else:
-				await Transition.go_to_menu()
-		else:
-			_open_pause(true)
+	if not event.is_action_pressed(&"pause"):
+		return
+	if not visible:
+		Audio.play_pause()
+		_open_pause(true)
+	elif not _can_resume:
+		await Transition.go_to_menu()
 
 
 func _on_resume_requested() -> void:

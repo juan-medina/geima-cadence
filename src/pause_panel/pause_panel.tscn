@@ -2,6 +2,17 @@
 
 [ext_resource type="Script" uid="uid://mrrrhl6jdcyo" path="res://pause_panel/pause_panel.gd" id="1_jp402"]
 
+[sub_resource type="InputEventAction" id="InputEventAction_pause"]
+device = -1
+action = &"pause"
+
+[sub_resource type="InputEventAction" id="InputEventAction_back"]
+device = -1
+action = &"back"
+
+[sub_resource type="Shortcut" id="Shortcut_back"]
+events = [SubResource("InputEventAction_pause"), SubResource("InputEventAction_back")]
+
 [node name="PausePanel" type="PanelContainer" unique_id=120753670]
 script = ExtResource("1_jp402")
 
@@ -16,8 +27,9 @@ theme_override_font_sizes/font_size = 24
 text = "Title"
 horizontal_alignment = 1
 
-[node name="Resume" type="Button" parent="VBox" unique_id=1096885448]
+[node name="Resume" type="Button" parent="VBox" unique_id=1096885448 groups=["ui_return"]]
 layout_mode = 2
+shortcut = SubResource("Shortcut_back")
 text = "Resume"
 
 [node name="Retry" type="Button" parent="VBox" unique_id=691946685]

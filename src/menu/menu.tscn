@@ -40,17 +40,17 @@ layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Easy" type="Button" parent="Center/VBox/ButtonsRow" unique_id=1627145301]
+[node name="Easy" type="Button" parent="Center/VBox/ButtonsRow" unique_id=1627145301 groups=["ui_start"]]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Easy"
 
-[node name="Normal" type="Button" parent="Center/VBox/ButtonsRow" unique_id=1940438704]
+[node name="Normal" type="Button" parent="Center/VBox/ButtonsRow" unique_id=1940438704 groups=["ui_start"]]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Normal"
 
-[node name="Hard" type="Button" parent="Center/VBox/ButtonsRow" unique_id=399957160]
+[node name="Hard" type="Button" parent="Center/VBox/ButtonsRow" unique_id=399957160 groups=["ui_start"]]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Hard"

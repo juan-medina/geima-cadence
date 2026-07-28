@@ -12,6 +12,10 @@ signal settings_requested
 @onready var _retry_button: Button = $VBox/Retry
 
 
+func _ready() -> void:
+	Audio.connect_menu_sounds(self)
+
+
 func open(can_resume: bool) -> void:
 	_resume_button.visible = can_resume
 	_title_label.text = "Pause" if can_resume else "Game Over"
