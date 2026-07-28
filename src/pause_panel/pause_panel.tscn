@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bfn0ey8pe5jm7"]
+
+[ext_resource type="Script" uid="uid://mrrrhl6jdcyo" path="res://pause_panel/pause_panel.gd" id="1_jp402"]
+
+[node name="PausePanel" type="PanelContainer" unique_id=120753670]
+script = ExtResource("1_jp402")
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=1755086627]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Title" type="Label" parent="VBox" unique_id=2087902257]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Title"
+horizontal_alignment = 1
+
+[node name="Resume" type="Button" parent="VBox" unique_id=1096885448]
+layout_mode = 2
+text = "Resume"
+
+[node name="Retry" type="Button" parent="VBox" unique_id=691946685]
+layout_mode = 2
+text = "Retry"
+
+[node name="BackToMenu" type="Button" parent="VBox" unique_id=1905238898]
+layout_mode = 2
+text = "Back to Menu"
+
+[connection signal="pressed" from="VBox/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="VBox/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="VBox/BackToMenu" to="." method="_on_back_to_menu_pressed"]

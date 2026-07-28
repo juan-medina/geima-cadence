@@ -4,25 +4,23 @@
 class_name PauseOverlay
 extends CanvasLayer
 
-@onready var _resume_button: Button = $Center/VBox/Resume
-@onready var _retry_button: Button = $Center/VBox/Retry
+var _can_resume: bool = false
+
+@onready var _pause_panel: PausePanel = $Center/PausePanel
 
 
 func display() -> void:
-	_pause(false)
+	_open_pause(false)
 
 
-func _pause(can_resume: bool) -> void:
-	_resume_button.visible = can_resume
+func _open_pause(can_resume: bool) -> void:
+	_can_resume = can_resume
+	_pause_panel.open(can_resume)
 	visible = true
-	if can_resume:
-		_resume_button.grab_focus()
-	else:
-		_retry_button.grab_focus()
 	get_tree().paused = true
 
 
-func _resume() -> void:
+func _close() -> void:
 	visible = false
 	get_tree().paused = false
 
@@ -30,22 +28,13 @@ func _resume() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"ui_cancel"):
 		if visible:
-			if _resume_button.visible:
-				_on_resume_pressed()
+			if _can_resume:
+				_close()
 			else:
-				await _on_back_to_menu_pressed()
+				await Transition.go_to_menu()
 		else:
-			_pause(true)
+			_open_pause(true)
 
 
-func _on_retry_pressed() -> void:
-	get_tree().paused = false
-	await Transition.reload_game()
-
-
-func _on_back_to_menu_pressed() -> void:
-	await Transition.go_to_menu()
-
-
-func _on_resume_pressed() -> void:
-	_resume()
+func _on_resume_requested() -> void:
+	_close()
