@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://djy1hrtyic4ue" path="res://menu/menu.gd" id="1_g18jx"]
 [ext_resource type="Script" uid="uid://b22x0b0cxahlj" path="res://cheat/cheat_code.gd" id="1_j0t7f"]
-[ext_resource type="AudioStream" uid="uid://cjopydg4qb3f7" path="res://data/assets/sounds/game_start.wav" id="3_6nwqt"]
+[ext_resource type="AudioStream" uid="uid://cjopydg4qb3f7" path="res://data/assets/sounds/cheat.wav" id="3_6nwqt"]
 
 [node name="MenuOverlay" type="CanvasLayer" unique_id=105136617]
 script = ExtResource("1_g18jx")
@@ -66,7 +66,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Exit"
 
-[node name="GameStart" type="AudioStreamPlayer2D" parent="." unique_id=1523574304]
+[node name="Cheat" type="AudioStreamPlayer2D" parent="." unique_id=1523574304]
 position = Vector2(31, 46)
 stream = ExtResource("3_6nwqt")
 bus = &"Sfx"

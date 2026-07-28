@@ -8,7 +8,7 @@ extends CanvasLayer
 @onready var _normal: Button = $Center/VBox/ButtonsRow/Normal
 @onready var _hard: Button = $Center/VBox/ButtonsRow/Hard
 @onready var _exit_row: HBoxContainer = $Center/VBox/ExitRow
-@onready var _game_start: AudioStreamPlayer2D = $GameStart
+@onready var _cheat: AudioStreamPlayer2D = $Cheat
 
 
 func _ready() -> void:
@@ -41,7 +41,7 @@ func _go_to_game(chosen: Track.DifficultType) -> void:
 
 func _on_cheat_code_entered() -> void:
 	Options.invincible = true
-	_game_start.play()
+	_cheat.play()
 
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://bkq3v7w2m8d5n" path="res://hud/hud.tscn" id="6_p2wqe"]
 [ext_resource type="PackedScene" uid="uid://c5xart2yh6k1a" path="res://biome/biome.tscn" id="7_biome"]
 [ext_resource type="PackedScene" uid="uid://bqf7w2natk3xn" path="res://fog/fog.tscn" id="8_fog"]
-[ext_resource type="AudioStream" uid="uid://cjopydg4qb3f7" path="res://data/assets/sounds/game_start.wav" id="10_gstart"]
 [ext_resource type="PackedScene" uid="uid://dapiytd67uklp" path="res://pause_overlay/pause_overlay.tscn" id="10_j8tme"]
 
 [node name="Game" type="Node2D" unique_id=534874988]
@@ -35,9 +34,5 @@ biome = NodePath("../Biome")
 [node name="Hud" parent="." unique_id=1930472651 node_paths=PackedStringArray("track", "hero") instance=ExtResource("6_p2wqe")]
 track = NodePath("../Track")
 hero = NodePath("../Hero")
-
-[node name="StartSound" type="AudioStreamPlayer" parent="." unique_id=1056931328]
-stream = ExtResource("10_gstart")
-bus = &"Sfx"
 
 [node name="PauseOverlay" parent="." unique_id=12134441 instance=ExtResource("10_j8tme")]

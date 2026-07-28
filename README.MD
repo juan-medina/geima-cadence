@@ -77,10 +77,18 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 
 ### Sound Effects
 
+#### Modern UI SFX
+* **Author:** [Leohpaz](https://www.patreon.com/cw/leohpaz)
+* **Source:** [Itch.io](https://leohpaz.itch.io/modern-ui-sfx)
+* **License:** Paid. Used under a purchased license (personal and commercial use
+  allowed; the pack may not be resold or redistributed). Attribution is optional
+  but appreciated. Used for UI sound effects.
+
 #### Game Start
 * **Author:** [plasterbrain](https://freesound.org/people/plasterbrain/)
 * **Source:** [Freesound](https://freesound.org/s/243020/)
 * **License:** [Creative Commons Zero (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/) — public domain, free for personal and commercial use.
+* **Usage:** Cheat-activation sound.
 
 ### Fonts
 
