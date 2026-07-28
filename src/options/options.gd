@@ -91,6 +91,15 @@ func _ready() -> void:
 	_apply_all_settings()
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(&"toggle_fullscreen"):
+		fullscreen = not fullscreen
+		_apply_fullscreen()
+		# in web this is not saved so skip it
+		if not OS.has_feature(&"web"):
+			_save_options()
+
+
 func _load_options() -> void:
 	var config: ConfigFile = ConfigFile.new()
 	var err: int = config.load(CONFIG_PATH)
@@ -111,7 +120,7 @@ func _load_options() -> void:
 		sfx_volume = DEFAULT_SFX_VOLUME
 		eula_accepted_version = DEFAULT_EULA_VERSION
 
-	# on web we allways start not full screen
+	# on web we always start not full screen
 	if OS.has_feature(&"web"):
 		fullscreen = false
 
@@ -119,7 +128,7 @@ func _load_options() -> void:
 func _save_options() -> void:
 	var config: ConfigFile = ConfigFile.new()
 
-	# since we dont use the setting on web, we dont save it
+	# since we don't use the setting on web, we don't save it
 	if not OS.has_feature(&"web"):
 		config.set_value(SECTION_DISPLAY, &"fullscreen", fullscreen)
 
