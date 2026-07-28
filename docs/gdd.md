@@ -388,45 +388,29 @@ animation states:
 
 ## 8. Pending Implementation
 
-Decisions taken and not yet built, with the reasoning recorded so that a session
-can resume from this document alone rather than from one long unbroken sitting.
-Work is sliced into phases; each phase leaves the game runnable and testable.
+What still needs to be built, with the reasoning recorded so a session can resume
+from this document alone. Each piece leaves the game runnable and testable.
 
 ### Menus, Transitions & Song Delivery
 
-**Overview.** The game currently boots straight into a single gameplay scene:
-difficulty is an in-scene overlay and a death reloads that same scene, with the
-last choice carried across reloads in static variables. This is being replaced
-with a proper front end — a menu, scene-to-scene transitions, and a loading step
-— structured so that later song selection and web-friendly song delivery drop in
-without reworking the flow. Single-scene is the wrong shape once a run has to be
-chosen and its assets fetched, so the whole thing is built around scenes and a
-transition from the start.
+**Overview.** The front end still needs its song-selection menu, a loading step,
+and web-friendly song delivery, added so they drop into the existing
+scene-and-transition flow without reworking it. The tree moves between three real
+scenes glued by a fade: **Menu → Loading → Game**, and back.
 
-**The scene chain.** Three real scenes the tree moves between, glued by a fade:
-**Menu → Loading → Game**, and back. A transition owns only the fade and the
-scene swap — it knows nothing about resources or readiness. The loading step is
-its own scene, not something hidden behind the fade, so it can show real progress
-and own whatever fetching a run needs.
-
-**How the fade behaves.** The transition is a full-screen overlay sitting above
-everything, holding a black rectangle that starts fully transparent and passes
-input through. On a request it first refuses if a transition is already running,
-then pauses the tree, blocks input on the overlay, and fades the rectangle to
-opaque black over a short beat. Once the screen is black it swaps the scene, holds
-black a brief moment so the incoming scene has a frame to settle, then fades the
-rectangle back to transparent and unpauses. Because the tree is paused throughout,
-the fade animation runs in a mode that keeps playing while paused; a plain
-animation would freeze with everything else. Reloading, going to the menu, and
-going to the game are the same routine with a different destination scene.
+**The Loading scene.** The scene that is still missing sits between Menu and Game.
+The transition owns only the fade and the scene swap and knows nothing about
+resources or readiness; loading is its own scene rather than something hidden
+behind the fade, so it can show real progress and own whatever fetching a run
+needs.
 
 **How the loading step behaves.** The Loading scene shows a progress bar and,
 when its work is done, transitions on to the Game scene. Where resolving is
 instant — the editor, desktop, or a web download that is already the cached song
 — the bar still fills over a short minimum time rather than flashing past, so the
 step reads consistently and the whole pipeline stays identical and testable
-across platforms. This is also the emulated fill used in Phase 1 before any real
-fetching exists.
+across platforms. Until real fetching exists, that same fill is emulated so the
+flow can be exercised end to end.
 
 **Submenus are panels, not scenes.** Inside the Menu scene, the navigation (play,
 then choose stage, then choose song, then difficulty) is a set of reusable
@@ -443,24 +427,13 @@ stays usable without a mouse. Cancel runs the same move in reverse, back one
 step. The very first control of the opening menu grabs focus on entry for the
 same reason.
 
-**The pause / game-end menu.** A `CanvasLayer` overlay living in the Game scene,
-toggled mid-run by a pause action. Opening it flips the overlay to keep running
-while the tree is paused, pauses the tree, fades a dimming rectangle over the
-frozen game in over a short beat, and grabs focus on Resume so a controller works
-at once; the fade runs in process mode so it does not freeze along with the game
-behind it. Closing reverses the fade and unpauses. The same overlay is shown on
-death, opened the same way but with Resume hidden, since there is nothing to
-return to — so "the menu you see on game end" and the pause menu are one thing.
-Resume simply closes; retry and quit-to-menu clear the pause first and then hand
-off to the transition (retry back through the flow, quit to the Menu scene).
-
 **Carrying the choice across a scene swap.** Changing scene destroys the old one
 and builds the new one with no way to pass arguments into it, so anything that
-must survive the swap lives in a small persistent autoload, **`CurrentRun`**. It
-holds the run being set up — the stage/biome, the song, the difficulty, and the
-resolved local song path — written by the menu and read by the loading and game
-scenes. It is deliberately separate from `GlobalOptions` (saved preferences,
-different lifetime) and from the transition (which only moves us).
+must survive the swap lives in the small persistent `CurrentRun` autoload. It
+must hold the whole run being set up — the stage/biome, the song, the difficulty,
+and the resolved local song path — written by the menu and read by the loading
+and game scenes. It stays deliberately separate from `Options` (saved
+preferences, different lifetime) and from the transition (which only moves us).
 
 **The catalog is static; packs are only delivery.** The game ships a bundled,
 always-present catalog of the biomes and songs that exist — their ids and
@@ -475,34 +448,18 @@ its zone, so packing its art per-song would duplicate it. The song pack carries
 only the song and its beatmap; biome art stays bundled (or, later, in its own
 per-zone delivery), chosen by the stage.
 
-### Phases
+### Song packs and real loading
 
-**Phase 1 — Scene flow and transition.** A `GlobalTransition` autoload (a fade
-rectangle plus the deferred scene change). A Loading scene with an *emulated*
-progress bar, so the flow is exercised even where loading is instant. Split the
-current game into Menu → Loading → Game wired by transitions; move difficulty out
-of the game's static variables into `CurrentRun`; the single song and the biomes
-already present stand in as content. The death path is rewired through the
-transition. This proves the whole chain end to end against what already exists.
-
-**Phase 2 — Menus and catalog.** The Menu scene composed of the reusable submenu
-panels, the reusable settings panel, and the real pause / game-end overlay.
-Selection is drawn from the static catalog and writes `CurrentRun`; the Loading
-scene still resolves bytes locally from the data submodule. One song with its id
-repeated across catalog entries is enough to build and test selection — the logic
-never counts entries, so duplicated ids behave exactly as real content will.
-
-**Phase 3 — Song packs and real loading.** Gated on Phase 2 being in place *and*
-on there being enough content that a single web bundle is too large; before both,
-streaming the local song from the data submodule is the correct behaviour and
-there is nothing to split. Songs are split into per-song packs (song plus
-beatmap) in the data submodule. The Loading scene resolves bytes per platform: on
-web it downloads the selected pack over HTTP to a fixed path in the virtual
-filesystem, overwriting each time and keeping only the most recent download so an
-unchanged selection is not fetched again; in the editor and on desktop it
-resolves straight from the data submodule (a desktop packing pipeline is deferred
-until one exists). Packs are excluded from the Godot web export and delivered by
-the web build instead.
+Gated on the catalog and menus being in place *and* on there being enough content
+that a single web bundle is too large; before both, streaming the local song from
+the data submodule is the correct behaviour and there is nothing to split. Songs
+are split into per-song packs (song plus beatmap) in the data submodule. The
+Loading scene resolves bytes per platform: on web it downloads the selected pack
+over HTTP to a fixed path in the virtual filesystem, overwriting each time and
+keeping only the most recent download so an unchanged selection is not fetched
+again; in the editor and on desktop it resolves straight from the data submodule
+(a desktop packing pipeline is deferred until one exists). Packs are excluded from
+the Godot web export and delivered by the web build instead.
 
 ### Constraints that carry through
 
