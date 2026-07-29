@@ -27,8 +27,6 @@ func show_panel(next: MenuPanel) -> void:
 	_current = next
 
 	next.modulate.a = 0.0
-	# a tween bound to a disabled node freezes, so the host owns it; disabling
-	# both panels for the crossover is what keeps them unclickable mid-swap
 	next.process_mode = Node.PROCESS_MODE_DISABLED
 	next.visible = true
 
