@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 class_name Menu
-extends CanvasLayer
+extends PanelHost
 
 @onready var _main_menu_panel: MainMenuPanel = $Center/MainMenuPanel
 @onready var _stage_panel: StagePanel = $Center/StagePanel
@@ -12,30 +12,19 @@ extends CanvasLayer
 
 
 func _ready() -> void:
-	_close_all()
-	_main_menu_panel.open()
-
-
-func _close_all() -> void:
-	_main_menu_panel.close()
-	_stage_panel.close()
-	_settings_panel.close()
-	_about_panel.close()
+	_show_first(_main_menu_panel)
 
 
 func _on_play_requested() -> void:
-	_close_all()
-	_stage_panel.open()
+	show_panel(_stage_panel)
 
 
 func _on_settings_requested() -> void:
-	_close_all()
-	_settings_panel.open()
+	show_panel(_settings_panel)
 
 
 func _on_about_requested() -> void:
-	_close_all()
-	_about_panel.open()
+	show_panel(_about_panel)
 
 
 func _on_exit_requested() -> void:
@@ -43,8 +32,7 @@ func _on_exit_requested() -> void:
 
 
 func _on_panel_back_requested() -> void:
-	_close_all()
-	_main_menu_panel.open()
+	show_panel(_main_menu_panel)
 
 
 func _on_cheat_code_entered() -> void:

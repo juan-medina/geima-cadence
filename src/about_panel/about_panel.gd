@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 class_name AboutPanel
-extends PanelContainer
+extends MenuPanel
 
 signal back_requested
 
@@ -13,17 +13,12 @@ const ABOUT_PATH: String = "res://data/assets/about.txt"
 
 
 func _ready() -> void:
-	Audio.connect_menu_sounds(self)
+	super._ready()
 	_about_text.load_file(ABOUT_PATH)
 
 
-func open() -> void:
-	visible = true
-	Audio.grab_focus_silent(_back_button)
-
-
-func close() -> void:
-	visible = false
+func first_focus_control() -> Control:
+	return _back_button
 
 
 func _on_back_pressed() -> void:

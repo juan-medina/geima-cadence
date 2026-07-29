@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 class_name SettingsPanel
-extends PanelContainer
+extends MenuPanel
 
 signal back_requested
 
@@ -16,25 +16,20 @@ signal back_requested
 
 
 func _ready() -> void:
+	super._ready()
 	Options.fullscreen_changed.connect(_on_fullscreen_changed)
 	_on_fullscreen_changed(Options.fullscreen)
 	_init_slider(_master_slider, _master_percent, Options.master_volume)
 	_init_slider(_music_slider, _music_percent, Options.music_volume)
 	_init_slider(_sfx_slider, _sfx_percent, Options.sfx_volume)
-	Audio.connect_menu_sounds(self)
 
 
 func _exit_tree() -> void:
 	Options.fullscreen_changed.disconnect(_on_fullscreen_changed)
 
 
-func open() -> void:
-	visible = true
-	Audio.grab_focus_silent(_fullscreen_check)
-
-
-func close() -> void:
-	visible = false
+func first_focus_control() -> Control:
+	return _fullscreen_check
 
 
 func _on_fullscreen_changed(is_on: bool) -> void:

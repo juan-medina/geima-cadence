@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 class_name StagePanel
-extends PanelContainer
+extends MenuPanel
 
 signal back_requested
 
@@ -11,23 +11,14 @@ signal back_requested
 @onready var _hard_button: Button = $VBox/Hard
 
 
-func _ready() -> void:
-	Audio.connect_menu_sounds(self)
-
-
-func open() -> void:
-	visible = true
+func first_focus_control() -> Control:
 	match CurrentRun.difficulty:
-		Track.DifficultType.EASY:
-			Audio.grab_focus_silent(_easy_button)
 		Track.DifficultType.NORMAL:
-			Audio.grab_focus_silent(_normal_button)
+			return _normal_button
 		Track.DifficultType.HARD:
-			Audio.grab_focus_silent(_hard_button)
-
-
-func close() -> void:
-	visible = false
+			return _hard_button
+		_:
+			return _easy_button
 
 
 func _on_easy_pressed() -> void:

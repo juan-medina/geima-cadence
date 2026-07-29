@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 class_name PauseOverlay
-extends CanvasLayer
+extends PanelHost
 
 var _can_resume: bool = false
 
@@ -16,13 +16,20 @@ func display() -> void:
 
 func _open_pause(can_resume: bool) -> void:
 	_can_resume = can_resume
-	_settings_panel.close()
-	_pause_panel.open(can_resume)
-	visible = true
 	get_tree().paused = true
+	_settings_panel.visible = false
+	_pause_panel.configure(can_resume)
+	set_host_alpha(0.0)
+	_show_first(_pause_panel)
+	visible = true
+	fade_host(1.0)
 
 
 func _close() -> void:
+	fade_host(0.0).finished.connect(_on_close_finished)
+
+
+func _on_close_finished() -> void:
 	visible = false
 	get_tree().paused = false
 
@@ -42,10 +49,8 @@ func _on_resume_requested() -> void:
 
 
 func _on_pause_panel_settings_requested() -> void:
-	_settings_panel.open()
-	_pause_panel.close()
+	show_panel(_settings_panel)
 
 
 func _on_settings_panel_back_requested() -> void:
-	_settings_panel.close()
-	_pause_panel.open(_can_resume)
+	show_panel(_pause_panel)

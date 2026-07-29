@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 class_name MainMenuPanel
-extends PanelContainer
+extends MenuPanel
 
 signal play_requested
 signal settings_requested
@@ -14,18 +14,13 @@ signal exit_requested
 
 
 func _ready() -> void:
+	super._ready()
 	if OS.has_feature(&"web"):
 		_exit_button.visible = false
-	Audio.connect_menu_sounds(self)
 
 
-func open() -> void:
-	visible = true
-	Audio.grab_focus_silent(_play_button)
-
-
-func close() -> void:
-	visible = false
+func first_focus_control() -> Control:
+	return _play_button
 
 
 func _on_play_pressed() -> void:

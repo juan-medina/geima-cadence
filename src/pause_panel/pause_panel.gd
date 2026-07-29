@@ -2,29 +2,26 @@
 # SPDX-License-Identifier: MIT
 
 class_name PausePanel
-extends PanelContainer
+extends MenuPanel
 
 signal resume_requested
 signal settings_requested
+
+var _can_resume: bool = false
 
 @onready var _title_label: Label = $VBox/Title
 @onready var _resume_button: Button = $VBox/Resume
 @onready var _retry_button: Button = $VBox/Retry
 
 
-func _ready() -> void:
-	Audio.connect_menu_sounds(self)
-
-
-func open(can_resume: bool) -> void:
+func configure(can_resume: bool) -> void:
+	_can_resume = can_resume
 	_resume_button.visible = can_resume
 	_title_label.text = "Pause" if can_resume else "Game Over"
-	visible = true
-	Audio.grab_focus_silent(_resume_button if can_resume else _retry_button)
 
 
-func close() -> void:
-	visible = false
+func first_focus_control() -> Control:
+	return _resume_button if _can_resume else _retry_button
 
 
 func _on_resume_pressed() -> void:
