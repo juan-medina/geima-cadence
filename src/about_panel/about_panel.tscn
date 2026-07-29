@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cs4cvs62xjs2s"]
 
 [ext_resource type="Script" uid="uid://bsp4jhr5cpgk3" path="res://about_panel/about_panel.gd" id="1_about"]
+[ext_resource type="Script" uid="uid://cn7pp7ar1abmh" path="res://big_text_panel/big_text_panel.gd" id="2_bigtext"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_pause"]
 device = -1
@@ -32,6 +33,7 @@ custom_minimum_size = Vector2(550, 250)
 layout_mode = 2
 theme_override_colors/default_color = Color(0.7, 0.72, 0.78, 1)
 bbcode_enabled = true
+script = ExtResource("2_bigtext")
 
 [node name="Back" type="Button" parent="VBox" unique_id=1475802171 groups=["ui_return"]]
 custom_minimum_size = Vector2(100, 0)
@@ -40,5 +42,5 @@ size_flags_horizontal = 4
 shortcut = SubResource("Shortcut_back")
 text = "Back"
 
-[connection signal="meta_clicked" from="VBox/AboutText" to="." method="_on_about_text_meta_clicked"]
+[connection signal="meta_clicked" from="VBox/AboutText" to="VBox/AboutText" method="_on_meta_clicked"]
 [connection signal="pressed" from="VBox/Back" to="." method="_on_back_pressed"]

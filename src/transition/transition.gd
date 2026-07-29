@@ -39,6 +39,10 @@ func go_to_menu() -> void:
 	await _go_to_scene(MENU_SCENE)
 
 
+func go_to_menu_instant() -> void:
+	get_tree().change_scene_to_packed(MENU_SCENE)
+
+
 func _go_to_scene(scene: PackedScene) -> void:
 	if in_transition:
 		return
