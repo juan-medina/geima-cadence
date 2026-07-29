@@ -20,10 +20,7 @@ func open(can_resume: bool) -> void:
 	_resume_button.visible = can_resume
 	_title_label.text = "Pause" if can_resume else "Game Over"
 	visible = true
-	if can_resume:
-		_resume_button.grab_focus()
-	else:
-		_retry_button.grab_focus()
+	Audio.grab_focus_silent(_resume_button if can_resume else _retry_button)
 
 
 func close() -> void:

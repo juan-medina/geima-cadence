@@ -17,7 +17,7 @@ func _ready() -> void:
 		return
 
 	_eula_text.load_file(EULA_PATH)
-	_accept_button.grab_focus()
+	Audio.grab_focus_silent(_accept_button)
 
 
 # Acceptance is keyed to the major.minor version so a patch release does not

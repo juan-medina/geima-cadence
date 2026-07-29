@@ -19,7 +19,7 @@ func _ready() -> void:
 
 func open() -> void:
 	visible = true
-	_back_button.grab_focus()
+	Audio.grab_focus_silent(_back_button)
 
 
 func close() -> void:

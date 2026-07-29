@@ -34,6 +34,15 @@ func play_pause() -> void:
 	_pause.play()
 
 
+# focus_entered is emitted synchronously inside grab_focus(), so blocking
+# signals around the call suppresses the hover sound this is used to
+# focus the first control in the menus without emitting a sound
+func grab_focus_silent(control: Control) -> void:
+	control.set_block_signals(true)
+	control.grab_focus()
+	control.set_block_signals(false)
+
+
 func connect_menu_sounds(root: Node) -> void:
 	for child: Node in root.get_children():
 		var control: Control = child as Control

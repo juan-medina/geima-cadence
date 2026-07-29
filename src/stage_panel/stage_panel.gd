@@ -19,11 +19,11 @@ func open() -> void:
 	visible = true
 	match CurrentRun.difficulty:
 		Track.DifficultType.EASY:
-			_easy_button.grab_focus()
+			Audio.grab_focus_silent(_easy_button)
 		Track.DifficultType.NORMAL:
-			_normal_button.grab_focus()
+			Audio.grab_focus_silent(_normal_button)
 		Track.DifficultType.HARD:
-			_hard_button.grab_focus()
+			Audio.grab_focus_silent(_hard_button)
 
 
 func close() -> void:

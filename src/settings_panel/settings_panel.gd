@@ -30,7 +30,7 @@ func _exit_tree() -> void:
 
 func open() -> void:
 	visible = true
-	_fullscreen_check.grab_focus()
+	Audio.grab_focus_silent(_fullscreen_check)
 
 
 func close() -> void:
