@@ -1,6 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://by26em3vy57v4"]
 
-[ext_resource type="Script" path="res://main_menu_panel/main_menu_panel.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://dja1svjfyk527" path="res://main_menu_panel/main_menu_panel.gd" id="1_main"]
+[ext_resource type="Texture2D" uid="uid://c6kv1espj2gjs" path="res://data/assets/logo/logo.png" id="2_ksr5m"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_pause"]
 device = -1
@@ -13,39 +14,39 @@ action = &"back"
 [sub_resource type="Shortcut" id="Shortcut_back"]
 events = [SubResource("InputEventAction_pause"), SubResource("InputEventAction_back")]
 
-[node name="MainMenuPanel" type="PanelContainer"]
+[node name="MainMenuPanel" type="PanelContainer" unique_id=541502767]
 script = ExtResource("1_main")
 
-[node name="VBox" type="VBoxContainer" parent="."]
+[node name="VBox" type="VBoxContainer" parent="." unique_id=1726968106]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Title" type="Label" parent="VBox"]
+[node name="TextureRect" type="TextureRect" parent="VBox" unique_id=818872107]
+custom_minimum_size = Vector2(150, 72)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Geima: Cadence"
-horizontal_alignment = 1
+texture = ExtResource("2_ksr5m")
+expand_mode = 1
 
-[node name="Play" type="Button" parent="VBox"]
+[node name="Play" type="Button" parent="VBox" unique_id=636806430]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Play"
 
-[node name="Settings" type="Button" parent="VBox"]
+[node name="Settings" type="Button" parent="VBox" unique_id=645039572]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Settings"
 
-[node name="About" type="Button" parent="VBox"]
+[node name="About" type="Button" parent="VBox" unique_id=1862729328]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "About"
 
-[node name="Exit" type="Button" parent="VBox"]
+[node name="Exit" type="Button" parent="VBox" unique_id=1636178871]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
