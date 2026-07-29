@@ -13,6 +13,12 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
 		<title>$GODOT_PROJECT_NAME</title>
+		<!-- Favicon. The stock Godot shell ships these links; our custom shell
+		     must carry them so the icons the exporter writes (from the project
+		     icon, with html/export_icon enabled) are picked up on GitHub Pages.
+		     The exporter names them after the export basename (index). -->
+		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png">
+		<link rel="apple-touch-icon" href="index.apple-touch-icon.png">
 		<style>
 html, body, #canvas {
 	margin: 0;

@@ -3,13 +3,13 @@
 [![Conduct](https://img.shields.io/badge/Conduct-Covenat%202.0-478CBF.svg?style=for-the-badge)](https://www.contributor-covenant.org/version/2/0/code_of_conduct/)
 [![Made with Godot](https://img.shields.io/badge/GODOT-4.7-478CBF?style=for-the-badge&logo=godot%20engine&logoColor=white)](https://godotengine.org)
 
+<p align="center">
+  <a href="https://juan-medina.github.io/geima-cadence/"><img src="logo.png" alt="Geima: Cadence — play in your browser"></a>
+</p>
+
 > **Geima: Cadence** is a rhythm-action endless runner where **the music is your health, and your heartbeat is your shield**. Run, jump, slash, and block to the beat of a high-energy soundtrack to charge your magical escape core and outrun a ruthless empire.
 
-## ▶ Play now
-
 **[Play in your browser →](https://juan-medina.github.io/geima-cadence/)** — no download required.
-
-TBC
 
 ## Assets
 

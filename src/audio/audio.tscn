@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://dpyyjwfs8qr48"]
 
 [ext_resource type="Script" uid="uid://dxrla560us4tg" path="res://audio/audio.gd" id="1_audio"]
-[ext_resource type="AudioStream" uid="uid://bxilxna73oh8u" path="res://data/assets/sounds/Hover_1.wav" id="2_hover"]
-[ext_resource type="AudioStream" uid="uid://btwrnaswn4dqf" path="res://data/assets/sounds/Click_1.wav" id="3_click"]
-[ext_resource type="AudioStream" uid="uid://cdnd5p3mhcp3f" path="res://data/assets/sounds/Return_1.wav" id="4_return"]
-[ext_resource type="AudioStream" uid="uid://du1fcieirxplf" path="res://data/assets/sounds/Start_2.wav" id="5_start"]
+[ext_resource type="AudioStream" uid="uid://wxinht5sgagm" path="res://data/assets/sounds/Hover_1.wav" id="2_hover"]
+[ext_resource type="AudioStream" uid="uid://qnomi31xw0i2" path="res://data/assets/sounds/Click_1.wav" id="3_click"]
+[ext_resource type="AudioStream" uid="uid://sm8awl6ds7ja" path="res://data/assets/sounds/Return_1.wav" id="4_return"]
+[ext_resource type="AudioStream" uid="uid://50lltwfwo1fs" path="res://data/assets/sounds/Start_2.wav" id="5_start"]
 [ext_resource type="AudioStream" uid="uid://dy1rk4bhj3mjk" path="res://data/assets/sounds/Pause_4.wav" id="6_kevv0"]
 
 [node name="Audio" type="Node" unique_id=1460181053]
