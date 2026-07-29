@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2026 Juan Medina
 # SPDX-License-Identifier: MIT
 
-extends CanvasLayer
+extends Node
 
 const INFO_PATH: String = &"res://build_info/build_info.json"
 const DEV_BUILD: String = &"dev"
@@ -10,13 +10,10 @@ var version: String = ""
 var commit: String = ""
 var built_at: String = ""
 
-@onready var _label: Label = $Label
-
 
 func _ready() -> void:
 	version = ProjectSettings.get_setting(&"application/config/version", &"0.0.0")
 	_load_build_info()
-	_label.text = display_string()
 
 
 # A build is identified by the commit it was made from, so the stamp is written

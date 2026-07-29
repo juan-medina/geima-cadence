@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cs4cvs62xjs2s"]
 
-[ext_resource type="Script" path="res://about_panel/about_panel.gd" id="1_about"]
+[ext_resource type="Script" uid="uid://bsp4jhr5cpgk3" path="res://about_panel/about_panel.gd" id="1_about"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_pause"]
 device = -1
@@ -13,30 +13,31 @@ action = &"back"
 [sub_resource type="Shortcut" id="Shortcut_back"]
 events = [SubResource("InputEventAction_pause"), SubResource("InputEventAction_back")]
 
-[node name="AboutPanel" type="PanelContainer"]
+[node name="AboutPanel" type="PanelContainer" unique_id=56321530]
 script = ExtResource("1_about")
 
-[node name="VBox" type="VBoxContainer" parent="."]
+[node name="VBox" type="VBoxContainer" parent="." unique_id=1015664536]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Title" type="Label" parent="VBox"]
+[node name="Title" type="Label" parent="VBox" unique_id=169382310]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "About"
 horizontal_alignment = 1
 
-[node name="Text" type="Label" parent="VBox"]
+[node name="AboutTextl" type="RichTextLabel" parent="VBox" unique_id=1263699437]
+custom_minimum_size = Vector2(550, 250)
 layout_mode = 2
-text = "Geima: Cadence"
-horizontal_alignment = 1
+bbcode_enabled = true
 
-[node name="Back" type="Button" parent="VBox" groups=["ui_return"]]
+[node name="Back" type="Button" parent="VBox" unique_id=1475802171 groups=["ui_return"]]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 shortcut = SubResource("Shortcut_back")
 text = "Back"
 
+[connection signal="meta_clicked" from="VBox/AboutTextl" to="." method="_on_about_text_meta_clicked"]
 [connection signal="pressed" from="VBox/Back" to="." method="_on_back_pressed"]

@@ -30,7 +30,7 @@ general/default_playback_type.web=0
 
 Options="*uid://cpn1inpgx705w"
 Audio="*res://audio/audio.tscn"
-BuildInfo="*res://build_info/build_info.tscn"
+BuildInfo="*res://build_info/build_info.gd"
 CurrentRun="*res://current_run/current_run.gd"
 Transition="*res://transition/transition.gd"
 
