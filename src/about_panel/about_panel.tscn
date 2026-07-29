@@ -27,9 +27,10 @@ theme_override_font_sizes/font_size = 24
 text = "About"
 horizontal_alignment = 1
 
-[node name="AboutTextl" type="RichTextLabel" parent="VBox" unique_id=1263699437]
+[node name="AboutText" type="RichTextLabel" parent="VBox" unique_id=1263699437]
 custom_minimum_size = Vector2(550, 250)
 layout_mode = 2
+theme_override_colors/default_color = Color(0.7, 0.72, 0.78, 1)
 bbcode_enabled = true
 
 [node name="Back" type="Button" parent="VBox" unique_id=1475802171 groups=["ui_return"]]
@@ -39,5 +40,5 @@ size_flags_horizontal = 4
 shortcut = SubResource("Shortcut_back")
 text = "Back"
 
-[connection signal="meta_clicked" from="VBox/AboutTextl" to="." method="_on_about_text_meta_clicked"]
+[connection signal="meta_clicked" from="VBox/AboutText" to="." method="_on_about_text_meta_clicked"]
 [connection signal="pressed" from="VBox/Back" to="." method="_on_back_pressed"]
