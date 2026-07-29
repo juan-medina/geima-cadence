@@ -40,7 +40,7 @@ func go_to_menu() -> void:
 
 
 func go_to_menu_instant() -> void:
-	get_tree().change_scene_to_packed(MENU_SCENE)
+	get_tree().change_scene_to_packed.call_deferred(MENU_SCENE)
 
 
 func _go_to_scene(scene: PackedScene) -> void:
