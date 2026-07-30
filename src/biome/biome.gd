@@ -56,7 +56,7 @@ func dash_burst() -> void:
 # The ground change between biomes
 func ground_y() -> float:
 	match CurrentRun.biome:
-		2:
+		3:
 			return 115.0
 		_:
 			return 130.0
