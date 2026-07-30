@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://djy1hrtyic4ue" path="res://menu/menu.gd" id="1_g18jx"]
 [ext_resource type="Script" uid="uid://b22x0b0cxahlj" path="res://cheat/cheat_code.gd" id="1_j0t7f"]
 [ext_resource type="AudioStream" uid="uid://cas3f5gxv63w" path="res://data/assets/sounds/cheat.wav" id="3_6nwqt"]
-[ext_resource type="PackedScene" path="res://main_menu_panel/main_menu_panel.tscn" id="4_main"]
-[ext_resource type="PackedScene" path="res://stage_panel/stage_panel.tscn" id="5_stage"]
+[ext_resource type="PackedScene" uid="uid://by26em3vy57v4" path="res://main_menu_panel/main_menu_panel.tscn" id="4_main"]
+[ext_resource type="PackedScene" uid="uid://bibapluimkj6l" path="res://biome_carousel_panel/biome_carousel_panel.tscn" id="4_s4hbh"]
 [ext_resource type="PackedScene" uid="uid://dxbnvjyrjip1y" path="res://settings_panel/settings_panel.tscn" id="6_settings"]
-[ext_resource type="PackedScene" path="res://about_panel/about_panel.tscn" id="7_about"]
+[ext_resource type="PackedScene" uid="uid://cs4cvs62xjs2s" path="res://about_panel/about_panel.tscn" id="7_about"]
 
 [node name="MenuOverlay" type="CanvasLayer" unique_id=105136617]
 script = ExtResource("1_g18jx")
@@ -33,7 +33,7 @@ grow_vertical = 2
 visible = false
 layout_mode = 2
 
-[node name="StagePanel" parent="Center" unique_id=1481665712 instance=ExtResource("5_stage")]
+[node name="BiomeCarouselPanel" parent="Center" unique_id=1307915439 instance=ExtResource("4_s4hbh")]
 visible = false
 layout_mode = 2
 
@@ -55,6 +55,6 @@ bus = &"Sfx"
 [connection signal="exit_requested" from="Center/MainMenuPanel" to="." method="_on_exit_requested"]
 [connection signal="play_requested" from="Center/MainMenuPanel" to="." method="_on_play_requested"]
 [connection signal="settings_requested" from="Center/MainMenuPanel" to="." method="_on_settings_requested"]
-[connection signal="back_requested" from="Center/StagePanel" to="." method="_on_panel_back_requested"]
+[connection signal="back_requested" from="Center/BiomeCarouselPanel" to="." method="_on_panel_back_requested"]
 [connection signal="back_requested" from="Center/SettingsPanel" to="." method="_on_panel_back_requested"]
 [connection signal="back_requested" from="Center/AboutPanel" to="." method="_on_panel_back_requested"]

@@ -3,6 +3,8 @@
 
 extends Node
 
+var _suppress_hover: bool = false
+
 @onready var _hover: AudioStreamPlayer = $Hover
 @onready var _click: AudioStreamPlayer = $Click
 @onready var _return: AudioStreamPlayer = $Return
@@ -11,6 +13,8 @@ extends Node
 
 
 func play_hover() -> void:
+	if _suppress_hover:
+		return
 	_hover.play()
 
 
@@ -34,14 +38,12 @@ func play_pause() -> void:
 	_pause.play()
 
 
-# focus_entered is emitted synchronously inside grab_focus(), so blocking
-# signals around the call suppresses the hover sound this is used to
-# focus the first control in the menus without emitting a sound
 func grab_focus_silent(control: Control) -> void:
-	control.set_block_signals(true)
+	# Focus without the hover sound. focus_entered still fires synchronously,
+	# so focus-driven visuals react normally — only the sound is skipped.
+	_suppress_hover = true
 	control.grab_focus()
-	control.set_block_signals(false)
-
+	_suppress_hover = false
 
 func connect_menu_sounds(root: Node) -> void:
 	for child: Node in root.get_children():
@@ -52,20 +54,37 @@ func connect_menu_sounds(root: Node) -> void:
 
 
 func connect_sound(control: Control) -> void:
-	var button: BaseButton = control as Button
+	var button: BaseButton = control as BaseButton
 	if button:
-		button.mouse_entered.connect(button.grab_focus)
-		button.focus_entered.connect(play_hover)
-		if button.is_in_group(&"ui_return"):
-			button.pressed.connect(play_return)
-		elif button.is_in_group(&"ui_start"):
-			button.pressed.connect(play_start)
-		else:
-			button.pressed.connect(play_click)
+		_connect_button(button)
 		return
 
 	var slider: Slider = control as Slider
 	if slider:
-		slider.mouse_entered.connect(slider.grab_focus)
-		slider.focus_entered.connect(play_hover)
-		slider.value_changed.connect(slider_change)
+		_connect_slider(slider)
+		return
+
+	_connect_focus(control)
+
+
+func _connect_button(button: BaseButton) -> void:
+	_connect_focus(button)
+
+	if button.is_in_group(&"ui_return"):
+		button.pressed.connect(play_return)
+	elif button.is_in_group(&"ui_start"):
+		button.pressed.connect(play_start)
+	else:
+		button.pressed.connect(play_click)
+
+
+func _connect_slider(slider: Slider) -> void:
+	slider.mouse_entered.connect(slider.grab_focus)
+	slider.focus_entered.connect(play_hover)
+	slider.value_changed.connect(slider_change)
+
+
+func _connect_focus(control: Control) -> void:
+	if control.focus_mode != Control.FOCUS_NONE:
+		control.mouse_entered.connect(control.grab_focus)
+	control.focus_entered.connect(play_hover)
