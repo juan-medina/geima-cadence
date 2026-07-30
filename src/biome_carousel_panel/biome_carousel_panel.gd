@@ -19,9 +19,9 @@ var _pills_textures: Array[TextureRect] = []
 var _slide_tween: Tween
 
 @onready var _carousel: Control = %Carousel
-@onready var _focus_border: Panel = %FocusBorder
 @onready var _name: Label = %Name
 @onready var _pills: HBoxContainer = %Pills
+@onready var _song_list: VBoxContainer = %SongList
 
 
 func _ready() -> void:
@@ -47,6 +47,7 @@ func _ready() -> void:
 	_carousel.clip_contents = true
 	_preview_textures[_current_biome].visible = true
 	_refresh_info()
+	_refresh_songs()
 
 
 func _create_preview(biome: BiomeEntry) -> TextureRect:
@@ -80,20 +81,24 @@ func _refresh_info() -> void:
 	_name.text = catalogue.biomes[_current_biome].name
 
 
+func _refresh_songs() -> void:
+	var songs: Array[SongEntry] = catalogue.biomes[_current_biome].songs
+	var rows: Array[Node] = _song_list.get_children()
+	for i: int in rows.size():
+		var row: SongRow = rows[i] as SongRow
+		if row == null:
+			continue
+		row.visible = i < songs.size()
+		if row.visible:
+			row.setup(songs[i])
+
+
 func first_focus_control() -> Control:
-	return _carousel
+	return _song_list.get_child(0) as Control
 
 
 func _on_back_pressed() -> void:
 	back_requested.emit()
-
-
-func _on_carousel_focus_entered() -> void:
-	_focus_border.visible = true
-
-
-func _on_carousel_focus_exited() -> void:
-	_focus_border.visible = false
 
 
 func _on_right_button_pressed() -> void:
@@ -107,10 +112,9 @@ func _on_left_button_pressed() -> void:
 func _cycle(step: int) -> void:
 	var previous: int = _current_biome
 	_current_biome = wrapi(_current_biome + step, 0, catalogue.biomes.size())
-	if _current_biome == previous:
-		return
 	_slide(previous, _current_biome, step)
 	_refresh_info()
+	_refresh_songs()
 
 
 func _slide(from_index: int, to_index: int, direction: int) -> void:
@@ -148,3 +152,19 @@ func _input(event: InputEvent) -> void:
 		_cycle(-1)
 		Audio.play_click()
 		get_viewport().set_input_as_handled()
+
+
+func _on_song_row_1_pressed() -> void:
+	await _go_to_game()
+
+
+func _on_song_row_2_pressed() -> void:
+	await _go_to_game()
+
+
+func _on_song_row_3_pressed() -> void:
+	await _go_to_game()
+
+
+func _go_to_game() -> void:
+	await Transition.go_to_game(Track.DifficultType.EASY, _current_biome + 1)

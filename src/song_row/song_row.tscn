@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://kvmg0lr57424"]
+
+[ext_resource type="Script" uid="uid://ne3qc6ca4ewr" path="res://song_row/song_row.gd" id="1_row"]
+[ext_resource type="Texture2D" uid="uid://0ojm2t30ns7s" path="res://data/assets/sprites/game_icons.png" id="2_icons"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_row"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hl"]
+bg_color = Color(0.54, 0.7, 0.97, 0.12)
+border_width_left = 3
+border_color = Color(0.54, 0.7, 0.97, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_star"]
+atlas = ExtResource("2_icons")
+region = Rect2(109, 460, 32, 30)
+
+[node name="SongRow" type="Button" unique_id=388539262]
+custom_minimum_size = Vector2(0, 34)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_row")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_row")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_row")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_row")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_row")
+script = ExtResource("1_row")
+
+[node name="Highlight" type="Panel" parent="." unique_id=1542938286]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hl")
+
+[node name="Row" type="HBoxContainer" parent="." unique_id=366704695]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_right = -8.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Spacer" type="Control" parent="Row"]
+custom_minimum_size = Vector2(14, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Info" type="VBoxContainer" parent="Row" unique_id=548942345]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="SongName" type="Label" parent="Row/Info" unique_id=824408125]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Song Name"
+clip_text = true
+
+[node name="Details" type="HBoxContainer" parent="Row/Info" unique_id=1750787135]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="Bpm" type="Label" parent="Row/Info/Details" unique_id=2076109596]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+text = "120 BPM"
+
+[node name="Stars" type="HBoxContainer" parent="Row/Info/Details" unique_id=390719739]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Star1" type="TextureRect" parent="Row/Info/Details/Stars" unique_id=181819164]
+modulate = Color(0.4, 0.4, 0.4, 1)
+custom_minimum_size = Vector2(16, 15)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_star")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star2" type="TextureRect" parent="Row/Info/Details/Stars" unique_id=1230288088]
+modulate = Color(0.4, 0.4, 0.4, 1)
+custom_minimum_size = Vector2(16, 15)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_star")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star3" type="TextureRect" parent="Row/Info/Details/Stars" unique_id=1129829430]
+modulate = Color(0.4, 0.4, 0.4, 1)
+custom_minimum_size = Vector2(16, 15)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_star")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Play" type="Label" parent="Row" unique_id=658342621]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+text = "PLAY"
+horizontal_alignment = 1
