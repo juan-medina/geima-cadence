@@ -47,9 +47,9 @@ func dash_burst() -> void:
 	_burst_tween = create_tween()
 	(
 		_burst_tween
-		. tween_property(self, ^"_burst", _burst + _DASH_BURST_DISTANCE, _DASH_BURST_DURATION)
-		. set_ease(Tween.EASE_OUT)
-		. set_trans(Tween.TRANS_CUBIC)
+		.tween_property(self, ^"_burst", _burst + _DASH_BURST_DISTANCE, _DASH_BURST_DURATION)
+		.set_ease(Tween.EASE_OUT)
+		.set_trans(Tween.TRANS_CUBIC)
 	)
 
 
@@ -102,7 +102,7 @@ func draw_layer(canvas: CanvasItem, texture: Texture2D, offset: float, view_widt
 	# no scaling, just tiling copies across the viewport.
 	var width: float = texture.get_width()
 	var height: float = texture.get_height()
-	var top: float = -height / 2.0
+	var top: float = - height / 2.0
 	var first: int = floori((-view_width / 2.0 - offset) / width)
 	var last: int = ceili((view_width / 2.0 - offset) / width)
 	for copy: int in range(first, last + 1):

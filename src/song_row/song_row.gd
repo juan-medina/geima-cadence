@@ -6,11 +6,11 @@ extends Button
 
 const STAR_EARNED: Color = Color.WHITE
 const STAR_MISSING: Color = Color(0.4, 0.4, 0.4)
-const FLASH_MIN_ALPHA: float = 0.25
-const FLASH_TIME: float = 0.5
+const BREATH_MIN_ALPHA: float = 0.25
+const BREATH_TIME: float = 0.5
 
 var _song: SongEntry
-var _flash_tween: Tween
+var _breath_tween: Tween
 
 @onready var _song_name: Label = %SongName
 @onready var _bpm: Label = %Bpm
@@ -23,11 +23,10 @@ func setup(song: SongEntry) -> void:
 	_song = song
 	_song_name.text = song.name
 	_bpm.text = "%d BPM" % song.bpm
-	# Earned stars come from the (not yet built) score store; none for now.
 	_set_stars(0)
 
 
-func song() -> SongEntry:
+func song_entry() -> SongEntry:
 	return _song
 
 
@@ -37,9 +36,6 @@ func _set_stars(earned: int) -> void:
 		star.modulate = STAR_EARNED if i < earned else STAR_MISSING
 
 
-# The panel focuses the first row with signals blocked, so selection is driven
-# off the focus notification rather than the focus_entered signal. This fires for
-# keyboard, controller, and mouse hover (hover grabs focus) alike.
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_FOCUS_ENTER:
 		_set_selected(true)
@@ -48,19 +44,16 @@ func _notification(what: int) -> void:
 
 
 func _set_selected(selected: bool) -> void:
+	if _breath_tween != null:
+		_breath_tween.kill()
 	_highlight.visible = selected
-	_flash_play(selected)
 
-
-func _flash_play(active: bool) -> void:
-	# The label always keeps its slot (so the row never reflows); only its alpha
-	# changes, pulsing while selected and fully transparent otherwise.
-	if _flash_tween != null:
-		_flash_tween.kill()
-	if not active:
-		_play.modulate.a = 0.0
+	_play.modulate.a = 1.0 if selected else 0.0
+	if not selected:
 		return
-	_play.modulate.a = 1.0
-	_flash_tween = create_tween().set_loops()
-	_flash_tween.tween_property(_play, ^"modulate:a", FLASH_MIN_ALPHA, FLASH_TIME)
-	_flash_tween.tween_property(_play, ^"modulate:a", 1.0, FLASH_TIME)
+
+	_highlight.modulate.a = 1.0
+	_breath_tween = create_tween().set_loops()
+	_breath_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_breath_tween.tween_property(_highlight, ^"modulate:a", BREATH_MIN_ALPHA, BREATH_TIME)
+	_breath_tween.tween_property(_highlight, ^"modulate:a", 1.0, BREATH_TIME)
