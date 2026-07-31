@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://by10witwjhger" path="res://game/game.gd" id="1_qnjlk"]
 [ext_resource type="PackedScene" uid="uid://xa3r75sscyif" path="res://background/background.tscn" id="2_h7iqs"]
 [ext_resource type="PackedScene" uid="uid://bn2amc5tts46y" path="res://hero/hero.tscn" id="2_vasa2"]
+[ext_resource type="Resource" uid="uid://bhnr47r4rxtgr" path="res://data/assets/catalogue/catalogue.tres" id="3_j8tme"]
 [ext_resource type="PackedScene" uid="uid://b75lqx86bgvns" path="res://track/track.tscn" id="4_4fuuu"]
 [ext_resource type="AudioStream" uid="uid://di8jf0al81hcl" path="res://data/assets/songs/BattleTheme_EasyPickins.ogg" id="5_dxrkv"]
 [ext_resource type="PackedScene" uid="uid://bkq3v7w2m8d5n" path="res://hud/hud.tscn" id="6_p2wqe"]
@@ -17,6 +18,7 @@ script = ExtResource("1_qnjlk")
 
 [node name="Biome" parent="." unique_id=446387458 node_paths=PackedStringArray("track") instance=ExtResource("7_biome")]
 track = NodePath("../Track")
+catalogue = ExtResource("3_j8tme")
 
 [node name="Background" parent="." unique_id=1257251874 node_paths=PackedStringArray("biome") instance=ExtResource("2_h7iqs")]
 biome = NodePath("../Biome")

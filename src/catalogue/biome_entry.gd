@@ -10,3 +10,4 @@ extends Resource
 
 @export var name: String
 @export var songs: Array[SongEntry] = []
+@export var floor_offset: float = 0.0

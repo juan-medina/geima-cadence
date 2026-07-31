@@ -18,10 +18,12 @@ const _DASH_BURST_DURATION: float = 0.4
 # The fog, on top of even the ground, enemies and players, has it own parallax speed
 @export var fog_factor: float = 0.6
 
+@export var catalogue: Catalogue = null
+
 var _layers: Array[Texture2D] = []
 
 # Filled behind the art above and below the horizon. The two edges are different
-# colours (sky at the top, fog-tinted ground at the bottom), so they are read
+# colors (sky at the top, fog-tinted ground at the bottom), so they are read
 # from the composited stack, not from a single layer.
 var _top_color: Color = Color.BLACK
 var _bottom_color: Color = Color.BLACK
@@ -35,6 +37,9 @@ func _ready() -> void:
 		printerr(&"Biome needs a Track reference!")
 		get_tree().quit()
 
+	if not catalogue or not catalogue.biomes or catalogue.biomes.is_empty():
+		printerr(&"Biome needs a Catalogue reference with biomes!")
+		get_tree().quit()
 
 func load() -> void:
 	_layers.clear()
@@ -55,12 +60,7 @@ func dash_burst() -> void:
 
 # The ground change between biomes
 func ground_y() -> float:
-	match CurrentRun.biome:
-		3:
-			return 115.0
-		_:
-			return 130.0
-
+	return catalogue.biomes[CurrentRun.biome - 1].floor_offset
 
 func back_layer_count() -> int:
 	return maxi(_layers.size() - 1, 0)

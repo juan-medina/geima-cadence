@@ -7,7 +7,6 @@ extends Node2D
 # Obstacles rest this far below the hero's ground line
 const _OBSTACLE_OFFSET_Y: float = 22.0
 
-@export var menu_scene: PackedScene = null
 
 @onready var _track: Track = $Track
 @onready var _biome: Biome = $Biome
