@@ -1,0 +1,190 @@
+[gd_scene format=3 uid="uid://cutwj246j5hso"]
+
+[ext_resource type="Script" uid="uid://bmsgsub4em158" path="res://song_selection_panel/song_selection_panel.gd" id="1_1kv5s"]
+[ext_resource type="Resource" uid="uid://bhnr47r4rxtgr" path="res://data/assets/catalogue/catalogue.tres" id="2_sm2ec"]
+[ext_resource type="Texture2D" uid="uid://ot46r4fwlred" path="res://data/assets/backgrounds/bg_1_preview.png" id="3_ikrfw"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_sm2ec"]
+resource_name = "Songs"
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_ikrfw"]
+resource_name = "difficulty"
+
+[sub_resource type="InputEventAction" id="InputEventAction_pause"]
+device = -1
+action = &"pause"
+
+[sub_resource type="InputEventAction" id="InputEventAction_back"]
+device = -1
+action = &"back"
+
+[sub_resource type="Shortcut" id="Shortcut_sm2ec"]
+events = [SubResource("InputEventAction_pause"), SubResource("InputEventAction_back")]
+
+[node name="SongSelectionPanel" type="PanelContainer" unique_id=233113089]
+offset_right = 12.0
+offset_bottom = 12.0
+script = ExtResource("1_1kv5s")
+catalogue = ExtResource("2_sm2ec")
+metadata/_custom_type_script = "uid://ido3okvantbc"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1595932991]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBoxContainer" unique_id=1847190880]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Select  a Song"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=609404945]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer" unique_id=340496060]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+follow_focus = true
+draw_focus_border = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/ScrollContainer" unique_id=1741758890]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label1" type="Label" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=467745134]
+layout_mode = 2
+text = "Biome Name 1"
+
+[node name="Button1" type="Button" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=80188418]
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+button_group = SubResource("ButtonGroup_sm2ec")
+text = "Song 1"
+alignment = 0
+
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1421415653]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_sm2ec")
+text = "Song 2"
+alignment = 0
+
+[node name="Button3" type="Button" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=888559477]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_sm2ec")
+text = "Song 3"
+alignment = 0
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1810424063]
+layout_mode = 2
+text = "Biome Name 2"
+
+[node name="Button4" type="Button" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=444039709]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_sm2ec")
+text = "Song 4"
+alignment = 0
+
+[node name="Button5" type="Button" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=379441397]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_sm2ec")
+text = "Song 5"
+alignment = 0
+
+[node name="Button6" type="Button" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1771501643]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_sm2ec")
+text = "Song 6"
+alignment = 0
+
+[node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1988548748]
+layout_mode = 2
+text = "Biome Name 3"
+
+[node name="Button7" type="Button" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=683028435]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_sm2ec")
+text = "Song 7"
+alignment = 0
+
+[node name="Button8" type="Button" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1711842181]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_sm2ec")
+text = "Song 8"
+alignment = 0
+
+[node name="Button9" type="Button" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer" unique_id=1552898655]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_sm2ec")
+text = "Song 9"
+alignment = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=531351979]
+layout_mode = 2
+
+[node name="Preview" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1606441633]
+custom_minimum_size = Vector2(50, 110)
+layout_mode = 2
+texture = ExtResource("3_ikrfw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SongName" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=920990357]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Song Name"
+
+[node name="BiomeName" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=650991084]
+layout_mode = 2
+text = "Biome Name"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=483683616]
+layout_mode = 2
+alignment = 1
+
+[node name="Easy" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1402781536]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_ikrfw")
+text = "Easy"
+
+[node name="Normal" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1567535988]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+button_group = SubResource("ButtonGroup_ikrfw")
+text = "Normal"
+
+[node name="Hard" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=598937687]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_ikrfw")
+text = "Hard"
+
+[node name="Play" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1015029408 groups=["ui_start"]]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+shortcut = SubResource("Shortcut_sm2ec")
+text = "Play"
+
+[node name="Back" type="Button" parent="VBoxContainer" unique_id=1471375704 groups=["ui_return"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+shortcut = SubResource("Shortcut_sm2ec")
+text = "Back"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]

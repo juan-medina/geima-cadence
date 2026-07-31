@@ -5,7 +5,7 @@ class_name Menu
 extends PanelHost
 
 @onready var _main_menu_panel: MainMenuPanel = $Center/MainMenuPanel
-@onready var _biome_carousel_panel: BiomeCarouselPanel = $Center/BiomeCarouselPanel
+@onready var _song_selection_panel: SongSelectionPanel = $Center/SongSelectionPanel
 @onready var _settings_panel: SettingsPanel = $Center/SettingsPanel
 @onready var _about_panel: AboutPanel = $Center/AboutPanel
 @onready var _cheat: AudioStreamPlayer2D = $Cheat
@@ -16,7 +16,7 @@ func _ready() -> void:
 
 
 func _on_play_requested() -> void:
-	show_panel(_biome_carousel_panel)
+	show_panel(_song_selection_panel)
 
 
 func _on_settings_requested() -> void:
