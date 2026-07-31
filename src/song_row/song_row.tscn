@@ -48,7 +48,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/separation = 8
 
-[node name="Spacer" type="Control" parent="Row"]
+[node name="Spacer" type="Control" parent="Row" unique_id=839156952]
 custom_minimum_size = Vector2(14, 0)
 layout_mode = 2
 mouse_filter = 2
