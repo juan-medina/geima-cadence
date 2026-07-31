@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://t4h28qulftc8"]
+
+[ext_resource type="Script" uid="uid://bjaxti0iy76e6" path="res://difficulty_button/difficulty_button.gd" id="1_d5yo7"]
+[ext_resource type="PackedScene" path="res://star/star.tscn" id="2_star"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_yqiyx"]
+resource_local_to_scene = false
+resource_name = "difficulty"
+
+[node name="Difficulty" type="Button" unique_id=236782536]
+custom_minimum_size = Vector2(60, 30)
+toggle_mode = true
+button_group = SubResource("ButtonGroup_yqiyx")
+script = ExtResource("1_d5yo7")
+
+[node name="CustomText" type="Label" parent="." unique_id=1817741959]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 13.0
+grow_horizontal = 2
+text = "Difficulty"
+horizontal_alignment = 1
+
+[node name="Star" parent="." unique_id=558882181 instance=ExtResource("2_star")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -17.0
+offset_right = 8.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="toggled" from="." to="." method="_on_toggled"]

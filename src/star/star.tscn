@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://star/star.gd" id="1_star"]
+[ext_resource type="Texture2D" uid="uid://0ojm2t30ns7s" path="res://data/assets/sprites/game_icons.png" id="2_icons"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_star"]
+atlas = ExtResource("2_icons")
+region = Rect2(109, 460, 32, 30)
+
+[node name="Star" type="Control"]
+custom_minimum_size = Vector2(16, 17)
+script = ExtResource("1_star")
+
+[node name="Icon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+modulate = Color(0.25, 0.25, 0.3, 1)
+custom_minimum_size = Vector2(16, 15)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_star")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -9.0
+offset_right = 8.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.2, 0.12, 0.1, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
