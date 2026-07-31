@@ -167,4 +167,4 @@ func _on_song_row_3_pressed() -> void:
 
 
 func _go_to_game() -> void:
-	await Transition.go_to_game(Track.DifficultType.EASY, _current_biome + 1)
+	await Transition.go_to_game(Track.DifficultType.EASY, catalogue.biomes[_current_biome].id)
