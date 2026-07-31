@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c8018wvd53hxe"]
+
+[ext_resource type="Script" uid="uid://jqnmh1jqhdqx" path="res://song_row/song_row.gd" id="1_row"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_sm2ec"]
+resource_local_to_scene = false
+resource_name = "Songs"
+
+[node name="SongButton" type="Button" unique_id=2026602915]
+offset_right = 47.0
+offset_bottom = 21.0
+toggle_mode = true
+button_group = SubResource("ButtonGroup_sm2ec")
+text = "Song 2"
+alignment = 0
+script = ExtResource("1_row")
