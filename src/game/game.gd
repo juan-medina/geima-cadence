@@ -20,7 +20,9 @@ const _OBSTACLE_OFFSET_Y: float = 22.0
 
 func _ready() -> void:
 	_hero.died.connect(_on_hero_died)
-	_hero.dashed.connect(_biome.dash_burst)
+
+	# disable the dash burst effect for now, we may remove it entirely
+	# _hero.dashed.connect(_biome.dash_burst)
 
 	# Workaround for Godot 4 Camera2D not re-centering after the window resizes.
 	get_tree().root.size_changed.connect(_on_window_resized)
