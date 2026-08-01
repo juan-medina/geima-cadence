@@ -36,3 +36,5 @@ track = NodePath("../Track")
 hero = NodePath("../Hero")
 
 [node name="PauseOverlay" parent="." unique_id=12134441 instance=ExtResource("10_j8tme")]
+
+[connection signal="victory_finished" from="Track" to="." method="_on_track_victory_finished"]

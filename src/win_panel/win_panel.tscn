@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dfboir5hc8k4x"]
+
+[ext_resource type="Script" uid="uid://b2ppi1dimfwbr" path="res://win_panel/win_panel.gd" id="1_2gykl"]
+[ext_resource type="PackedScene" path="res://star/star.tscn" id="2_2gykl"]
+
+[node name="WinPanel" type="PanelContainer" unique_id=1163804544]
+offset_right = 12.0
+offset_bottom = 12.0
+script = ExtResource("1_2gykl")
+metadata/_custom_type_script = "uid://ido3okvantbc"
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=2019642119]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Title" type="Label" parent="VBox" unique_id=61730951]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Congratulations: You Won!"
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="VBox" unique_id=1230121607]
+layout_mode = 2
+text = "Score: "
+horizontal_alignment = 1
+
+[node name="Star" parent="VBox" unique_id=1261481326 instance=ExtResource("2_2gykl")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBox" unique_id=111236095]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Replay" type="Button" parent="VBox/HBoxContainer" unique_id=317059941]
+layout_mode = 2
+text = "Replay"
+
+[node name="BackToMenu" type="Button" parent="VBox/HBoxContainer" unique_id=960144715]
+layout_mode = 2
+text = "Back to Menu"
+
+[connection signal="pressed" from="VBox/HBoxContainer/Replay" to="." method="_on_replay_pressed"]
+[connection signal="pressed" from="VBox/HBoxContainer/BackToMenu" to="." method="_on_back_to_menu_pressed"]

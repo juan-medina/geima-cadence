@@ -4,6 +4,8 @@
 class_name Track
 extends Node2D
 
+signal victory_finished
+
 enum DifficultType { EASY, NORMAL, HARD }
 
 const SLASH_SCENE: PackedScene = preload("res://track/slash_obstacle.tscn")
@@ -241,6 +243,7 @@ func _process(_delta: float) -> void:
 		victory.play()
 		var tween: Tween = create_tween()
 		tween.tween_property(music, ^"volume_db", -40.0, 2.0)
+		victory.finished.connect(_on_victory_finished)
 
 	position.x = -current_music_time * scroll_speed
 	_notify_player_near(current_music_time)
@@ -273,3 +276,7 @@ func _difficulty_to_string(difficulty: DifficultType) -> StringName:
 			printerr(&"invalid difficulty")
 			get_tree().quit()
 			return &""
+
+
+func _on_victory_finished() -> void:
+	victory_finished.emit()

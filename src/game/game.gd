@@ -7,7 +7,6 @@ extends Node2D
 # Obstacles rest this far below the hero's ground line
 const _OBSTACLE_OFFSET_Y: float = 22.0
 
-
 @onready var _track: Track = $Track
 @onready var _biome: Biome = $Biome
 
@@ -48,3 +47,16 @@ func _on_hero_died() -> void:
 	# The player has finished dying, but the health bar may still be draining
 	await _hud.health_settled()
 	_pause_overlay.display()
+
+
+func _on_track_victory_finished() -> void:
+	var health_percentage: float = _hero.health / _hero.max_health
+
+	var rank: Star.Rank = Star.Rank.S
+	if health_percentage < 0.5:
+		rank = Star.Rank.B
+	else:
+		rank = Star.Rank.A
+
+	GameData.set_star_record(GameData.last_song_id, GameData.difficulty, rank)
+	_pause_overlay._open_win(rank)

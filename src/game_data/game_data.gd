@@ -54,7 +54,7 @@ func get_star_record(song_id: StringName, diff: Track.DifficultType) -> int:
 	return 0
 
 
-func set_star_record(song_id: StringName, diff: Track.DifficultType, stars: int) -> void:
+func set_star_record(song_id: StringName, diff: Track.DifficultType, stars: Star.Rank) -> void:
 	var song_key: String = String(song_id)
 	if not _star_records.has(song_key):
 		_star_records[song_key] = {}

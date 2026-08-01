@@ -8,7 +8,7 @@ var _can_resume: bool = false
 
 @onready var _pause_panel: PausePanel = $Center/PausePanel
 @onready var _settings_panel: SettingsPanel = $Center/SettingsPanel
-
+@onready var _win_panel: WinPanel = $Center/WinPanel
 
 func display() -> void:
 	_open_pause(false)
@@ -24,6 +24,13 @@ func _open_pause(can_resume: bool) -> void:
 	visible = true
 	fade_host(1.0)
 
+func _open_win(rank: Star.Rank) -> void:
+	get_tree().paused = true
+	_win_panel.rank = rank
+	_win_panel.visible = false
+	_show_first(_win_panel)
+	visible = true
+	fade_host(1.0)
 
 func _close() -> void:
 	fade_host(0.0).finished.connect(_on_close_finished)
