@@ -11,7 +11,6 @@ const DASH_SCENE: PackedScene = preload("res://track/dash_obstacle.tscn")
 const SLIDE_SCENE: PackedScene = preload("res://track/slide_obstacle.tscn")
 const JUMP_UP_SCENE: PackedScene = preload("res://track/jump_up_obstacle.tscn")
 
-@export var song: AudioStream
 @export var hero: Hero
 @export var scroll_speed: float = 250.0
 @export var floor_y: float = 24.0
@@ -23,8 +22,11 @@ var _last_music_time: float = 0.0
 var _approaching: Array[Obstacle] = []
 var _near_times: PackedFloat32Array = PackedFloat32Array()
 var _next_near: int = 0
+var _ducking_started: bool = false
+var _ducking_trigger_time: float = 0.0
 
 @onready var music: AudioStreamPlayer = $Music
+@onready var victory: AudioStreamPlayer = $Victory
 
 
 func _ready() -> void:
@@ -32,24 +34,32 @@ func _ready() -> void:
 		printerr(&"Track needs a Hero reference!")
 		get_tree().quit()
 		return
-	if not song:
+	if not music:
 		printerr(&"Track needs a Song assigned!")
 		get_tree().quit()
 		return
 
-	music.stream = song
+	if not victory:
+		printerr(&"Track needs a Victory sound assigned!")
+		get_tree().quit()
+		return
+
+	if victory and victory.stream:
+		_ducking_trigger_time = music.stream.get_length() - victory.stream.get_length()
+
 	hero.stopped.connect(_on_hero_stopped)
 
 
 func begin() -> void:
 	_spawn_obstacles(_load_beatmap_actions())
-	if music:
-		music.play()
+	music.play()
 
 
 func _exit_tree() -> void:
-	if music:
+	if music and music.playing:
 		music.stop()
+	if victory and victory.playing:
+		victory.stop()
 
 
 func _on_hero_stopped() -> void:
@@ -57,8 +67,6 @@ func _on_hero_stopped() -> void:
 
 
 func get_progress() -> float:
-	if not music or not music.stream:
-		return 0.0
 	var length: float = music.stream.get_length()
 	if length <= 0.0:
 		return 0.0
@@ -67,10 +75,6 @@ func get_progress() -> float:
 
 func _load_beatmap_actions() -> Array:
 	var difficulty: StringName = _difficulty()
-	if not music.stream:
-		printerr(&"Music node does not have an audio stream assigned!")
-		get_tree().quit()
-		return []
 
 	var beatmap_file: String = music.stream.resource_path.get_basename() + &".json"
 	var file: FileAccess = FileAccess.open(beatmap_file, FileAccess.READ)
@@ -197,7 +201,7 @@ func _obstacle_scene(type: Obstacle.Type) -> PackedScene:
 
 
 func _process(_delta: float) -> void:
-	if _stopped or not music or not music.playing:
+	if _stopped or not music.playing:
 		return
 
 	if music.get_playback_position() <= 0.0:
@@ -212,6 +216,12 @@ func _process(_delta: float) -> void:
 	if current_music_time <= _last_music_time:
 		return
 	_last_music_time = current_music_time
+
+	if not _ducking_started and current_music_time >= _ducking_trigger_time:
+		_ducking_started = true
+		victory.play()
+		var tween: Tween = create_tween()
+		tween.tween_property(music, ^"volume_db", -40.0, 2.0)
 
 	position.x = -current_music_time * scroll_speed
 	_notify_player_near(current_music_time)
