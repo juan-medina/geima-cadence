@@ -87,6 +87,13 @@ func _add_biome_songs(biome: BiomeEntry) -> int:
 		new_song_row.text = song.name
 		new_song_row.biome = biome
 		new_song_row.song = song
+
+		var s_stars: int = 0
+		for diff: int in Track.DifficultType.values():
+			if GameData.get_star_record(song.id, diff as Track.DifficultType) == Star.Rank.S:
+				s_stars += 1
+		new_song_row.stars = s_stars
+
 		new_song_row.pressed.connect(_on_song_row_pressed.bind(new_song_row))
 		_songs_list.add_child(new_song_row)
 		Audio._connect_button(new_song_row)
