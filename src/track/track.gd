@@ -38,7 +38,7 @@ func _ready() -> void:
 		printerr(&"Track needs an AudioStreamPlayer for Music!")
 		get_tree().quit()
 		return
-		
+
 	if GameData.last_song_id != &"":
 		var song_path: String = "res://data/assets/songs/" + GameData.last_song_id + ".ogg"
 		var stream: AudioStream = load(song_path) as AudioStream
@@ -46,6 +46,8 @@ func _ready() -> void:
 			music.stream = stream
 		else:
 			printerr(&"Could not load song stream from: " + song_path)
+			get_tree().quit()
+			return
 
 	if not music.stream:
 		printerr(&"Track needs a Song assigned!")
@@ -64,6 +66,8 @@ func _ready() -> void:
 
 
 func begin() -> void:
+	if not music or not music.stream:
+		return
 	_spawn_obstacles(_load_beatmap_actions())
 	music.play()
 
@@ -80,6 +84,8 @@ func _on_hero_stopped() -> void:
 
 
 func get_progress() -> float:
+	if not music or not music.stream:
+		return 0.0
 	var length: float = music.stream.get_length()
 	if length <= 0.0:
 		return 0.0
