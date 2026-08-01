@@ -20,7 +20,7 @@ func _process(_delta: float) -> void:
 func _draw() -> void:
 	var view: Vector2 = get_viewport_rect().size
 
-	# We cover the wole screem with the top and bottom color
+	# We cover the whole screen with the top and bottom color
 	draw_rect(Rect2(-view.x / 2.0, -view.y / 2.0, view.x, view.y / 2.0), biome.top_color())
 	draw_rect(Rect2(-view.x / 2.0, view.y / 2.0, view.x, view.y / 2.0), biome.bottom_color())
 
