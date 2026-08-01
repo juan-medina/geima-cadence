@@ -35,6 +35,19 @@ func _ready() -> void:
 		get_tree().quit()
 		return
 	if not music:
+		printerr(&"Track needs an AudioStreamPlayer for Music!")
+		get_tree().quit()
+		return
+		
+	if GameData.last_song_id != &"":
+		var song_path: String = "res://data/assets/songs/" + GameData.last_song_id + ".ogg"
+		var stream: AudioStream = load(song_path) as AudioStream
+		if stream:
+			music.stream = stream
+		else:
+			printerr(&"Could not load song stream from: " + song_path)
+
+	if not music.stream:
 		printerr(&"Track needs a Song assigned!")
 		get_tree().quit()
 		return
