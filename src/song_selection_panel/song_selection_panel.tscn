@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bmsgsub4em158" path="res://song_selection_panel/song_selection_panel.gd" id="1_1kv5s"]
 [ext_resource type="Resource" uid="uid://bhnr47r4rxtgr" path="res://data/assets/catalogue/catalogue.tres" id="2_sm2ec"]
-[ext_resource type="Texture2D" uid="uid://ot46r4fwlred" path="res://data/assets/backgrounds/bg_1_preview.png" id="3_ikrfw"]
 [ext_resource type="PackedScene" uid="uid://t4h28qulftc8" path="res://difficulty_button/difficulty_button.tscn" id="4_yqiyx"]
 [ext_resource type="PackedScene" path="res://star/star.tscn" id="5_star"]
 
@@ -58,7 +57,8 @@ grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/Header/Stars" unique_id=1274470081]
+[node name="TotalStars" type="Label" parent="VBoxContainer/Header/Stars" unique_id=1274470081]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0 / 24  "
@@ -73,7 +73,7 @@ rank = 3
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer" unique_id=340496060]
-custom_minimum_size = Vector2(150, 150)
+custom_minimum_size = Vector2(200, 150)
 layout_mode = 2
 follow_focus = true
 draw_focus_border = true
@@ -83,55 +83,53 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=531351979]
+[node name="Details" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=531351979]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Preview" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1606441633]
-custom_minimum_size = Vector2(50, 110)
-layout_mode = 2
-texture = ExtResource("3_ikrfw")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="SongName" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=920990357]
+[node name="SongName" type="Label" parent="VBoxContainer/HBoxContainer/Details" unique_id=920990357]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Song Name"
 
-[node name="SubRow" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=890228376]
+[node name="SubRow" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/Details" unique_id=890228376]
 layout_mode = 2
 
-[node name="BiomeName" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/SubRow" unique_id=650991084]
+[node name="BiomeName" type="Label" parent="VBoxContainer/HBoxContainer/Details/SubRow" unique_id=650991084]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Biome Name"
 
-[node name="BPP" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/SubRow" unique_id=1037729091]
+[node name="BPM" type="Label" parent="VBoxContainer/HBoxContainer/Details/SubRow" unique_id=1037729091]
+unique_name_in_owner = true
 layout_mode = 2
 text = "200 BPM"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=483683616]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/Details" unique_id=483683616]
 layout_mode = 2
 alignment = 1
 
-[node name="Easy" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=236782536 instance=ExtResource("4_yqiyx")]
+[node name="Easy" parent="VBoxContainer/HBoxContainer/Details/HBoxContainer" unique_id=236782536 instance=ExtResource("4_yqiyx")]
 unique_name_in_owner = true
 layout_mode = 2
 custom_text = "Easy"
 
-[node name="Normal" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1635423731 instance=ExtResource("4_yqiyx")]
+[node name="Normal" parent="VBoxContainer/HBoxContainer/Details/HBoxContainer" unique_id=1635423731 instance=ExtResource("4_yqiyx")]
 unique_name_in_owner = true
 layout_mode = 2
+button_pressed = true
 custom_text = "Normal"
 difficulty = 1
 
-[node name="Hard" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=316861954 instance=ExtResource("4_yqiyx")]
+[node name="Hard" parent="VBoxContainer/HBoxContainer/Details/HBoxContainer" unique_id=316861954 instance=ExtResource("4_yqiyx")]
 unique_name_in_owner = true
 layout_mode = 2
 custom_text = "Hard"
 difficulty = 2
 
-[node name="Play" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1015029408 groups=["ui_start"]]
+[node name="Play" type="Button" parent="VBoxContainer/HBoxContainer/Details" unique_id=1015029408 groups=["ui_start"]]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
@@ -146,5 +144,5 @@ size_flags_horizontal = 4
 shortcut = SubResource("Shortcut_sm2ec")
 text = "Back"
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Details/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]

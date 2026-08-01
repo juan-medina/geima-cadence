@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c8018wvd53hxe"]
 
 [ext_resource type="Script" uid="uid://jqnmh1jqhdqx" path="res://song_row/song_row.gd" id="1_row"]
+[ext_resource type="PackedScene" path="res://star/star.tscn" id="2_oba0o"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_sm2ec"]
 resource_local_to_scene = false
@@ -14,3 +15,29 @@ button_group = SubResource("ButtonGroup_sm2ec")
 text = "Song 2"
 alignment = 0
 script = ExtResource("1_row")
+
+[node name="Stars" type="HBoxContainer" parent="." unique_id=1456468595]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -9.0
+offset_right = -8.0
+offset_bottom = 9.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Stars" unique_id=1180053197]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0 / 3 "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Star" parent="Stars" unique_id=552062503 instance=ExtResource("2_oba0o")]
+layout_mode = 2
+rank = 3

@@ -10,39 +10,85 @@ const SONG_ROW: PackedScene = preload("res://song_row/song_row.tscn")
 
 @export var catalogue: Catalogue = null
 
+var _selected_song_row: SongRow = null
+var _preview_textures: Array[TextureRect] = []
+
 @onready var _play_button: Button = %Play
 @onready var _easy_button: DifficultyButton = %Easy
 @onready var _songs_list: VBoxContainer = %SongList
+@onready var _song_name_label: Label = %SongName
+@onready var _biome_name_label: Label = %BiomeName
+@onready var _bpm_label: Label = %BPM
+@onready var _details_panel: VBoxContainer = %Details
+@onready var _total_stars_label: Label = %TotalStars
 
 
 func _ready() -> void:
 	super._ready()
+	if not _is_setup_valid():
+		return
+	_build_catalogue_ui()
+
+
+func _is_setup_valid() -> bool:
 	if not catalogue or not catalogue.biomes or catalogue.biomes.is_empty():
 		printerr(&"BiomeCarouselPanel needs a non-empty Catalogue!")
 		get_tree().quit()
-		return
+		return false
 	if not SONG_ROW:
 		printerr(&"SONG_ROW PackedScene is null!")
 		get_tree().quit()
-		return
+		return false
+	return true
+
+
+func _build_catalogue_ui() -> void:
 	var first: bool = true
+	var total: int = 0
 	for biome: BiomeEntry in catalogue.biomes:
-		var biome_label: Label = Label.new()
-		biome_label.text = biome.name
-		_songs_list.add_child(biome_label)
-		for song: SongEntry in biome.songs:
-			if not song:
-				printerr(&"Invalid song entry in biome: %s" % biome.name)
-				continue
-			var new_song_row: SongRow = SONG_ROW.instantiate() as SongRow
-			new_song_row.text = song.name
-			if first:
-				new_song_row.button_pressed = true
-				_on_song_row_pressed(new_song_row)
-				first = false
-			new_song_row.pressed.connect(_on_song_row_pressed.bind(new_song_row))
-			_songs_list.add_child(new_song_row)
-			Audio._connect_button(new_song_row)
+		_add_biome_header(biome)
+		if not _add_biome_preview(biome):
+			return
+		total += _add_biome_songs(biome, first)
+		first = false
+	_total_stars_label.text = &"0 / %d" % (total * 3)
+
+
+func _add_biome_header(biome: BiomeEntry) -> void:
+	var biome_label: Label = Label.new()
+	biome_label.text = biome.name
+	_songs_list.add_child(biome_label)
+
+
+func _add_biome_preview(biome: BiomeEntry) -> bool:
+	var texture_rect: TextureRect = _create_preview(biome)
+	if texture_rect == null:
+		return false
+	_details_panel.add_child(texture_rect)
+	_details_panel.move_child(texture_rect, 0)
+	_preview_textures.append(texture_rect)
+	return true
+
+
+func _add_biome_songs(biome: BiomeEntry, first: bool) -> int:
+	var total: int = 0
+	for song: SongEntry in biome.songs:
+		if not song:
+			printerr(&"Invalid song entry in biome: %s" % biome.name)
+			continue
+		var new_song_row: SongRow = SONG_ROW.instantiate() as SongRow
+		new_song_row.text = song.name
+		new_song_row.biome = biome
+		new_song_row.song = song
+		if first:
+			new_song_row.button_pressed = true
+			_on_song_row_pressed(new_song_row)
+			first = false
+		new_song_row.pressed.connect(_on_song_row_pressed.bind(new_song_row))
+		_songs_list.add_child(new_song_row)
+		Audio._connect_button(new_song_row)
+		total += 1
+	return total
 
 
 func first_focus_control() -> Control:
@@ -57,9 +103,34 @@ func _selected_difficulty() -> Track.DifficultType:
 	return (_easy_button.button_group.get_pressed_button() as DifficultyButton).difficulty
 
 
+func _selected_biome() -> int:
+	return _selected_song_row.biome.id
+
+
 func _on_play_pressed() -> void:
-	await Transition.go_to_game(_selected_difficulty(), 1)
+	await Transition.go_to_game(_selected_difficulty(), _selected_biome())
 
 
-func _on_song_row_pressed(_song_row: SongRow) -> void:
-	pass
+func _on_song_row_pressed(song_row: SongRow) -> void:
+	_song_name_label.text = song_row.song.name
+	_biome_name_label.text = song_row.biome.name
+	_bpm_label.text = &"BPM: %d" % song_row.song.bpm
+	_selected_song_row = song_row
+	for i: int in range(_preview_textures.size()):
+		_preview_textures[i].visible = (i == song_row.biome.id - 1)
+
+
+func _create_preview(biome: BiomeEntry) -> TextureRect:
+	var texture_rect: TextureRect = TextureRect.new()
+	var path: String = "res://data/assets/backgrounds/bg_%d_preview.png" % biome.id
+	var texture: Texture2D = load(path) as Texture2D
+	if texture == null:
+		printerr("fail to load texture %s" % path)
+		get_tree().quit()
+		return null
+	texture_rect.texture = texture
+	texture_rect.custom_minimum_size = Vector2(50, 110)
+	texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	texture_rect.visible = false
+	return texture_rect
