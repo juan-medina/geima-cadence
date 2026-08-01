@@ -6,6 +6,10 @@ extends MenuPanel
 
 signal back_requested
 
+class BiomeStats extends RefCounted:
+	var total_songs: int = 0
+	var total_s_stars: int = 0
+
 const SONG_ROW: PackedScene = preload("res://song_row/song_row.tscn")
 
 @export var catalogue: Catalogue = null
@@ -43,16 +47,19 @@ func _is_setup_valid() -> bool:
 
 
 func _build_catalogue_ui() -> void:
-	var total: int = 0
+	var total_songs: int = 0
+	var total_s_stars: int = 0
 	for biome: BiomeEntry in catalogue.biomes:
 		if biome.songs.is_empty():
 			continue
 		_add_biome_header(biome)
 		if not _add_biome_preview(biome):
 			return
-		total += _add_biome_songs(biome)
+		var stats: BiomeStats = _add_biome_songs(biome)
+		total_songs += stats.total_songs
+		total_s_stars += stats.total_s_stars
 
-	_total_stars_label.text = &"0 / %d" % (total * 3)
+	_total_stars_label.text = &"%d / %d" % [total_s_stars, total_songs * 3]
 
 	if _easy_button and _easy_button.button_group:
 		for btn: BaseButton in _easy_button.button_group.get_buttons():
@@ -77,8 +84,8 @@ func _add_biome_preview(biome: BiomeEntry) -> bool:
 	return true
 
 
-func _add_biome_songs(biome: BiomeEntry) -> int:
-	var total: int = 0
+func _add_biome_songs(biome: BiomeEntry) -> BiomeStats:
+	var stats: BiomeStats = BiomeStats.new()
 	for song: SongEntry in biome.songs:
 		if not song:
 			printerr(&"Invalid song entry in biome: %s" % biome.name)
@@ -93,6 +100,7 @@ func _add_biome_songs(biome: BiomeEntry) -> int:
 			if GameData.get_star_record(song.id, diff as Track.DifficultType) == Star.Rank.S:
 				s_stars += 1
 		new_song_row.stars = s_stars
+		stats.total_s_stars += s_stars
 
 		new_song_row.pressed.connect(_on_song_row_pressed.bind(new_song_row))
 		_songs_list.add_child(new_song_row)
@@ -103,8 +111,8 @@ func _add_biome_songs(biome: BiomeEntry) -> int:
 			new_song_row.button_pressed = true
 			_on_song_row_pressed(new_song_row)
 
-		total += 1
-	return total
+		stats.total_songs += 1
+	return stats
 
 
 func first_focus_control() -> Control:
