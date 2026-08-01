@@ -43,15 +43,20 @@ func _is_setup_valid() -> bool:
 
 
 func _build_catalogue_ui() -> void:
-	var first: bool = true
 	var total: int = 0
 	for biome: BiomeEntry in catalogue.biomes:
 		_add_biome_header(biome)
 		if not _add_biome_preview(biome):
 			return
-		total += _add_biome_songs(biome, first)
-		first = false
+		total += _add_biome_songs(biome)
+
 	_total_stars_label.text = &"0 / %d" % (total * 3)
+
+	if _easy_button and _easy_button.button_group:
+		for btn: BaseButton in _easy_button.button_group.get_buttons():
+			var diff_btn: DifficultyButton = btn as DifficultyButton
+			if diff_btn:
+				diff_btn.set_pressed_no_signal(diff_btn.difficulty == GameData.difficulty)
 
 
 func _add_biome_header(biome: BiomeEntry) -> void:
@@ -70,7 +75,7 @@ func _add_biome_preview(biome: BiomeEntry) -> bool:
 	return true
 
 
-func _add_biome_songs(biome: BiomeEntry, first: bool) -> int:
+func _add_biome_songs(biome: BiomeEntry) -> int:
 	var total: int = 0
 	for song: SongEntry in biome.songs:
 		if not song:
@@ -80,13 +85,15 @@ func _add_biome_songs(biome: BiomeEntry, first: bool) -> int:
 		new_song_row.text = song.name
 		new_song_row.biome = biome
 		new_song_row.song = song
-		if first:
-			new_song_row.button_pressed = true
-			_on_song_row_pressed(new_song_row)
-			first = false
 		new_song_row.pressed.connect(_on_song_row_pressed.bind(new_song_row))
 		_songs_list.add_child(new_song_row)
 		Audio._connect_button(new_song_row)
+
+		var is_match: bool = String(song.id) == String(GameData.last_song_id)
+		if is_match or not _selected_song_row:
+			new_song_row.button_pressed = true
+			_on_song_row_pressed(new_song_row)
+
 		total += 1
 	return total
 
@@ -103,12 +110,12 @@ func _selected_difficulty() -> Track.DifficultType:
 	return (_easy_button.button_group.get_pressed_button() as DifficultyButton).difficulty
 
 
-func _selected_biome() -> int:
-	return _selected_song_row.biome.id
+func _selected_song_id() -> StringName:
+	return _selected_song_row.song.id
 
 
 func _on_play_pressed() -> void:
-	await Transition.go_to_game(_selected_difficulty(), _selected_biome())
+	await Transition.go_to_game(_selected_difficulty(), _selected_song_id())
 
 
 func _on_song_row_pressed(song_row: SongRow) -> void:

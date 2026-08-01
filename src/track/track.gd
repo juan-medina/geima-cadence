@@ -203,11 +203,10 @@ func _process(_delta: float) -> void:
 	if music.get_playback_position() <= 0.0:
 		return
 
-	var current_music_time: float = (
-		music.get_playback_position()
-		+ AudioServer.get_time_since_last_mix()
-		- AudioServer.get_output_latency()
-	)
+	var play_back_position: float = music.get_playback_position()
+	var time_since_last_mix: float = AudioServer.get_time_since_last_mix()
+	var output_latency: float = AudioServer.get_output_latency()
+	var current_music_time: float = play_back_position + time_since_last_mix - output_latency
 
 	# Threads make this jittery; never let the clock run backwards.
 	if current_music_time <= _last_music_time:
@@ -230,7 +229,7 @@ func _notify_player_near(music_time: float) -> void:
 
 
 func _difficulty() -> StringName:
-	return _difficulty_to_string(CurrentRun.difficulty)
+	return _difficulty_to_string(GameData.difficulty)
 
 
 func _difficulty_to_string(difficulty: DifficultType) -> StringName:

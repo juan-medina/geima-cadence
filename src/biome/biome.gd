@@ -58,9 +58,9 @@ func dash_burst() -> void:
 	)
 
 
-# The ground change between biomes
 func ground_y() -> float:
-	return catalogue.biomes[CurrentRun.biome - 1].floor_offset
+	var biome_entry: BiomeEntry = catalogue.get_biome_for_song(GameData.last_song_id)
+	return biome_entry.floor_offset if biome_entry else 0.0
 
 func back_layer_count() -> int:
 	return maxi(_layers.size() - 1, 0)
@@ -133,9 +133,12 @@ func _factor(index: int) -> float:
 
 
 func _load_layers() -> void:
+	var biome_entry: BiomeEntry = catalogue.get_biome_for_song(GameData.last_song_id)
+	var biome_id: int = biome_entry.id if biome_entry else 1
+
 	var layer_number: int = 1
 	while true:
-		var path: String = _LAYER_PATH % [CurrentRun.biome, layer_number]
+		var path: String = _LAYER_PATH % [biome_id, layer_number]
 		if not ResourceLoader.exists(path):
 			break
 		var texture: Texture2D = load(path) as Texture2D
@@ -145,7 +148,7 @@ func _load_layers() -> void:
 		layer_number += 1
 
 	if _layers.is_empty():
-		printerr(&"Biome found no layers for biome %d!" % CurrentRun.biome)
+		printerr(&"Biome found no layers for biome %d!" % biome_id)
 		get_tree().quit()
 		return
 

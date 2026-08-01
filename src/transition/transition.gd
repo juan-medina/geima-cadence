@@ -25,9 +25,10 @@ func _ready() -> void:
 	add_child(filler)
 
 
-func go_to_game(difficulty: Track.DifficultType, biome: int) -> void:
-	CurrentRun.difficulty = difficulty
-	CurrentRun.biome = biome
+func go_to_game(difficulty: Track.DifficultType, song_id: StringName) -> void:
+	GameData.difficulty = difficulty
+	GameData.last_song_id = song_id
+	GameData.save_data()
 	await reload_game()
 
 

@@ -4,7 +4,7 @@
 class_name BiomeEntry
 extends Resource
 
-# Matches the bg_<id>_* asset naming and CurrentRun.biome, so the preview and
+# Matches the bg_<id>_* asset naming, so the preview and
 # layers are derived from it rather than stored as paths.
 @export var id: int = 1
 
