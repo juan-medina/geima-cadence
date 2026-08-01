@@ -45,6 +45,8 @@ func _is_setup_valid() -> bool:
 func _build_catalogue_ui() -> void:
 	var total: int = 0
 	for biome: BiomeEntry in catalogue.biomes:
+		if biome.songs.is_empty():
+			continue
 		_add_biome_header(biome)
 		if not _add_biome_preview(biome):
 			return
@@ -121,7 +123,7 @@ func _on_play_pressed() -> void:
 func _on_song_row_pressed(song_row: SongRow) -> void:
 	_song_name_label.text = song_row.song.name
 	_biome_name_label.text = song_row.biome.name
-	_bpm_label.text = &"BPM: %d" % song_row.song.bpm
+	_bpm_label.text = &"%d BPM" % song_row.song.bpm
 	_selected_song_row = song_row
 	for i: int in range(_preview_textures.size()):
 		_preview_textures[i].visible = (i == song_row.biome.id - 1)
