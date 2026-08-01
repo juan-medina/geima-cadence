@@ -45,13 +45,17 @@ func save_data() -> void:
 		printerr(&"GameData: Failed to save config to %s. Error: %d !" % [CONFIG_PATH, err])
 
 
-func get_star_record(song_id: StringName, diff: Track.DifficultType) -> int:
+func get_star_record(song_id: StringName, diff: Track.DifficultType) -> Star.Rank:
 	var song_key: String = String(song_id)
 	if _star_records.has(song_key):
 		var diffs: Dictionary = _star_records[song_key]
 		if diffs.has(diff):
-			return diffs[diff]
-	return 0
+			var val: Variant = diffs[diff]
+			if val is int:
+				var rank_int: int = str(diffs[diff]).to_int()
+				var rank: Star.Rank = rank_int as Star.Rank
+				return rank
+	return Star.Rank.NONE
 
 
 func set_star_record(song_id: StringName, diff: Track.DifficultType, stars: Star.Rank) -> void:

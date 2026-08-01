@@ -128,6 +128,12 @@ func _on_song_row_pressed(song_row: SongRow) -> void:
 	for i: int in range(_preview_textures.size()):
 		_preview_textures[i].visible = (i == song_row.biome.id - 1)
 
+	if _easy_button and _easy_button.button_group:
+		for btn: BaseButton in _easy_button.button_group.get_buttons():
+			var diff_btn: DifficultyButton = btn as DifficultyButton
+			if diff_btn:
+				diff_btn.rank = GameData.get_star_record(song_row.song.id, diff_btn.difficulty)
+
 
 func _create_preview(biome: BiomeEntry) -> TextureRect:
 	var texture_rect: TextureRect = TextureRect.new()
