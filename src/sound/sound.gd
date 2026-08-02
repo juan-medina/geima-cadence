@@ -3,7 +3,7 @@
 
 extends Node
 
-const STEP_INTERVAL: float = 0.25
+const STEP_INTERVAL: float = 0.35
 const STEP_1: AudioStream = preload("res://data/assets/sounds/07_Step_rock_01.wav")
 const STEP_2: AudioStream = preload("res://data/assets/sounds/08_Step_rock_02.wav")
 const STEP_3: AudioStream = preload("res://data/assets/sounds/09_Step_rock_03.wav")
@@ -56,6 +56,13 @@ const GIANT_DEATH_1: AudioStream = preload("res://data/assets/sounds/Giant_Death
 const GIANT_DEATH_2: AudioStream = preload("res://data/assets/sounds/Giant_Death_2.wav")
 const GIANT_DEATHS: Array[AudioStream] = [GIANT_DEATH_1, GIANT_DEATH_2]
 
+const IMPACT_1: AudioStream = preload("res://data/assets/sounds/09_Impact_01.wav")
+const IMPACT_2: AudioStream = preload("res://data/assets/sounds/10_Impact_02.wav")
+const IMPACT_3: AudioStream = preload("res://data/assets/sounds/11_Impact_03.wav")
+const IMPACT_4: AudioStream = preload("res://data/assets/sounds/12_Impact_04.wav")
+const IMPACT_5: AudioStream = preload("res://data/assets/sounds/13_Impact_05.wav")
+const IMPACTS: Array[AudioStream] = [IMPACT_1, IMPACT_2, IMPACT_3, IMPACT_4, IMPACT_5]
+
 var _step_timer: Timer = null
 
 var _step_sound: AudioStreamPlayer = null
@@ -72,6 +79,7 @@ var _assassin_att_sound: AudioStreamPlayer = null
 var _assassin_death_sound: AudioStreamPlayer = null
 var _giant_wind_up_sound: AudioStreamPlayer = null
 var _giant_death_sound: AudioStreamPlayer = null
+var _impact_sound: AudioStreamPlayer = null
 
 
 func _ready() -> void:
@@ -96,6 +104,7 @@ func _ready() -> void:
 	_assassin_death_sound = create_sound(ASSASSIN_DEATH)
 	_giant_wind_up_sound = create_random_sound(GIANT_WIND_UPS, 1.1)
 	_giant_death_sound = create_random_sound(GIANT_DEATHS, 1.1)
+	_impact_sound = create_random_sound(IMPACTS, 1.1)
 
 
 func create_random_sound(streams: Array[AudioStream], pitch: float) -> AudioStreamPlayer:
@@ -188,3 +197,7 @@ func play_giant_wind_up() -> void:
 
 func play_giant_death() -> void:
 	_giant_death_sound.play()
+
+
+func play_impact() -> void:
+	_impact_sound.play()

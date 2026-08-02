@@ -36,6 +36,7 @@ func on_player_near() -> void:
 # ever moves right, which is what makes the moment readable.
 func _on_player_success() -> void:
 	Sound.play_giant_death()
+	Sound.play_impact()
 	animated_sprite2d.play(&"dead")
 	var tween: Tween = create_tween()
 	tween.tween_property(self, ^"position:x", position.x + REVERSE_DISTANCE, REVERSE_DURATION)
