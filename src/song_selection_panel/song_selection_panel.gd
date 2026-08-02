@@ -6,9 +6,12 @@ extends MenuPanel
 
 signal back_requested
 
-class BiomeStats extends RefCounted:
+
+class BiomeStats:
+	extends RefCounted
 	var total_songs: int = 0
 	var total_s_stars: int = 0
+
 
 const SONG_ROW: PackedScene = preload("res://song_row/song_row.tscn")
 
@@ -103,6 +106,8 @@ func _add_biome_songs(biome: BiomeEntry) -> BiomeStats:
 		stats.total_s_stars += s_stars
 
 		new_song_row.pressed.connect(_on_song_row_pressed.bind(new_song_row))
+		new_song_row.focus_entered.connect(_on_song_row_focused.bind(new_song_row))
+
 		_songs_list.add_child(new_song_row)
 		Audio._connect_button(new_song_row)
 
@@ -135,19 +140,27 @@ func _on_play_pressed() -> void:
 	await Transition.go_to_game(_selected_difficulty(), _selected_song_id())
 
 
-func _on_song_row_pressed(song_row: SongRow) -> void:
+func _on_song_row_focused(song_row: SongRow) -> void:
+	# update the details panel with the selected song's information
 	_song_name_label.text = song_row.song.name
 	_biome_name_label.text = song_row.biome.name
 	_bpm_label.text = &"%d BPM" % song_row.song.bpm
 	_selected_song_row = song_row
+
+	# show the correct biome preview texture for the selected song
 	for i: int in range(_preview_textures.size()):
 		_preview_textures[i].visible = (i == song_row.biome.id - 1)
 
-	if _easy_button and _easy_button.button_group:
-		for btn: BaseButton in _easy_button.button_group.get_buttons():
-			var diff_btn: DifficultyButton = btn as DifficultyButton
-			if diff_btn:
-				diff_btn.rank = GameData.get_star_record(song_row.song.id, diff_btn.difficulty)
+	# update the difficulty buttons with the correct star rank for the selected song
+	for btn: BaseButton in _easy_button.button_group.get_buttons():
+		var diff_btn: DifficultyButton = btn as DifficultyButton
+		if diff_btn:
+			diff_btn.rank = GameData.get_star_record(song_row.song.id, diff_btn.difficulty)
+
+
+func _on_song_row_pressed(song_row: SongRow) -> void:
+	_on_song_row_focused(song_row)
+	_play_button.grab_focus()
 
 
 func _create_preview(biome: BiomeEntry) -> TextureRect:
