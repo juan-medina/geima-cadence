@@ -21,11 +21,14 @@ const LANDING_2: AudioStream = preload("res://data/assets/sounds/46_Landing_02.w
 const LANDING_3: AudioStream = preload("res://data/assets/sounds/47_Landing_03.wav")
 const LANDINGS: Array[AudioStream] = [LANDING_1, LANDING_2, LANDING_3]
 
+const DASH: AudioStream = preload("res://data/assets/sounds/66_Dash_evade_02.wav")
+
 var _step_sound: AudioStreamPlayer = null
 var _step_timer: Timer = null
 
 var _jump_sound: AudioStreamPlayer = null
 var _landing_sound: AudioStreamPlayer = null
+var _dash_sound: AudioStreamPlayer = null
 
 
 func _ready() -> void:
@@ -39,6 +42,7 @@ func _ready() -> void:
 
 	_jump_sound = create_random_sound(JUMPS, 1.1)
 	_landing_sound = create_random_sound(LANDINGS, 1.1)
+	_dash_sound = create_sound(DASH)
 
 
 func create_random_sound(streams: Array[AudioStream], pitch: float) -> AudioStreamPlayer:
@@ -52,6 +56,14 @@ func create_random_sound(streams: Array[AudioStream], pitch: float) -> AudioStre
 	randomizer.random_pitch = pitch
 
 	player.stream = randomizer
+	player.bus = &"SFX"
+	add_child(player)
+	return player
+
+
+func create_sound(stream: AudioStream) -> AudioStreamPlayer:
+	var player: AudioStreamPlayer = AudioStreamPlayer.new()
+	player.stream = stream
 	player.bus = &"SFX"
 	add_child(player)
 	return player
@@ -78,3 +90,7 @@ func play_jump() -> void:
 
 func play_landing() -> void:
 	_landing_sound.play()
+
+
+func play_dash() -> void:
+	_dash_sound.play()

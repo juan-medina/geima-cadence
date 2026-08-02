@@ -123,6 +123,7 @@ func _change_state(new_state: State) -> void:
 
 		State.DASH:
 			Sound.stop_footsteps()
+			Sound.play_dash()
 			play(&"dash")
 			dashed.emit()
 		State.SLIDE:
