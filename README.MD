@@ -84,6 +84,20 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
   allowed; the pack may not be resold or redistributed). Attribution is optional
   but appreciated. Used for UI sound effects.
 
+#### 90+ RPG Battle SFX
+* **Author:** [Leohpaz](https://www.patreon.com/cw/leohpaz)
+* **Source:** [Itch.io](https://leohpaz.itch.io/90-rpg-battle-sfx)
+* **License:** Paid. Used under a purchased license (personal and commercial use
+  allowed; the pack may not be resold or redistributed). Attribution is optional
+  but appreciated.
+
+#### 90+ Retro Player Movement SFX
+* **Author:** [Leohpaz](https://www.patreon.com/cw/leohpaz)
+* **Source:** [Itch.io](https://leohpaz.itch.io/90-retro-player-movement-sfx)
+* **License:** Paid. Used under a purchased license (personal and commercial use
+  allowed; the pack may not be resold or redistributed). Attribution is optional
+  but appreciated.
+
 #### Game Start
 * **Author:** [plasterbrain](https://freesound.org/people/plasterbrain/)
 * **Source:** [Freesound](https://freesound.org/s/243020/)
