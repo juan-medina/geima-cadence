@@ -68,6 +68,7 @@ func connect_sound(control: Control) -> void:
 
 
 func _connect_button(button: BaseButton) -> void:
+	button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	_connect_focus(button)
 
 	if button.is_in_group(&"ui_return"):

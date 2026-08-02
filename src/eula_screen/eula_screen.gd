@@ -5,6 +5,7 @@ class_name EulaScreen
 extends CanvasLayer
 
 const EULA_PATH: String = "res://data/assets/eula.txt"
+const NOTIFICATION_DELAY: float = 2.0
 
 @onready var _eula_text: BigTextPanel = $Center/EulaPanel/VBox/EulaText
 @onready var _accept_button: Button = $Center/EulaPanel/VBox/Buttons/Accept
@@ -16,6 +17,7 @@ func _ready() -> void:
 		Transition.go_to_menu_instant()
 		return
 
+	get_tree().create_timer(NOTIFICATION_DELAY).timeout.connect(InputManager.enable_notifications)
 	_eula_text.load_file(EULA_PATH)
 	Audio.grab_focus_silent(_accept_button)
 

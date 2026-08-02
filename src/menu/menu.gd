@@ -4,6 +4,8 @@
 class_name Menu
 extends PanelHost
 
+const NOTIFICATION_DELAY: float = 2.0
+
 @onready var _main_menu_panel: MainMenuPanel = $Center/MainMenuPanel
 @onready var _song_selection_panel: SongSelectionPanel = $Center/SongSelectionPanel
 @onready var _settings_panel: SettingsPanel = $Center/SettingsPanel
@@ -12,6 +14,7 @@ extends PanelHost
 
 
 func _ready() -> void:
+	get_tree().create_timer(NOTIFICATION_DELAY).timeout.connect(InputManager.enable_notifications)
 	_show_first(_main_menu_panel)
 
 

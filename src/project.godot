@@ -36,6 +36,8 @@ BuildInfo="*res://build_info/build_info.gd"
 GameData="*res://game_data/game_data.gd"
 Transition="*res://transition/transition.gd"
 Sound="*uid://dpyah6b2fnrvl"
+Toast="*uid://x15twmexa4aj"
+InputManager="*uid://blpxa3sqrvna3"
 
 [debug]
 
