@@ -52,11 +52,13 @@ func _on_hero_died() -> void:
 func _on_track_victory_finished() -> void:
 	var health_percentage: float = _hero.health / _hero.max_health
 
-	var rank: Star.Rank = Star.Rank.S
-	if health_percentage < 0.5:
-		rank = Star.Rank.B
-	else:
+	var rank: Star.Rank
+	if health_percentage == 1.0:
+		rank = Star.Rank.S
+	elif health_percentage >= 0.5:
 		rank = Star.Rank.A
+	else:
+		rank = Star.Rank.B
 
 	GameData.set_star_record(GameData.last_song_id, GameData.difficulty, rank)
 	_pause_overlay._open_win(rank)
