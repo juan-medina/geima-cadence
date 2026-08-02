@@ -16,10 +16,16 @@ const JUMP_3: AudioStream = preload("res://data/assets/sounds/30_Jump_03.wav")
 const JUMP_4: AudioStream = preload("res://data/assets/sounds/31_Jump_04.wav")
 const JUMPS: Array[AudioStream] = [JUMP_1, JUMP_2, JUMP_3, JUMP_4]
 
+const LANDING_1: AudioStream = preload("res://data/assets/sounds/45_Landing_01.wav")
+const LANDING_2: AudioStream = preload("res://data/assets/sounds/46_Landing_02.wav")
+const LANDING_3: AudioStream = preload("res://data/assets/sounds/47_Landing_03.wav")
+const LANDINGS: Array[AudioStream] = [LANDING_1, LANDING_2, LANDING_3]
+
 var _step_sound: AudioStreamPlayer = null
 var _step_timer: Timer = null
 
 var _jump_sound: AudioStreamPlayer = null
+var _landing_sound: AudioStreamPlayer = null
 
 
 func _ready() -> void:
@@ -32,6 +38,7 @@ func _ready() -> void:
 	add_child(_step_timer)
 
 	_jump_sound = create_random_sound(JUMPS, 1.1)
+	_landing_sound = create_random_sound(LANDINGS, 1.1)
 
 
 func create_random_sound(streams: Array[AudioStream], pitch: float) -> AudioStreamPlayer:
@@ -62,9 +69,12 @@ func stop_footsteps() -> void:
 
 
 func _on_step_timer_timeout() -> void:
-	#if not _step_sound.playing:
 	_step_sound.play()
 
 
 func play_jump() -> void:
 	_jump_sound.play()
+
+
+func play_landing() -> void:
+	_landing_sound.play()

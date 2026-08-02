@@ -172,7 +172,10 @@ func _clear_flash() -> void:
 
 func _on_animation_finished() -> void:
 	match current_state:
-		State.SLASHING, State.DASH, State.SLIDE, State.JUMP_DOWN, State.HIT:
+		State.JUMP_DOWN:
+			Sound.play_landing()
+			_change_state(State.RUNNING)
+		State.SLASHING, State.DASH, State.SLIDE, State.HIT:
 			_change_state(State.RUNNING)
 		State.RUNNING, State.IDLE, State.DYING:
 			pass
