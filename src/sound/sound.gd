@@ -35,9 +35,11 @@ const HITS: Array[AudioStream] = [HIT_1, HIT_2]
 
 const DIE: AudioStream = preload("res://data/assets/sounds/68_Die_01.wav")
 
-const FIRE_EXPLOSION_1: AudioStream = preload("res://data/assets/sounds/01_Fire_explosion_01_small.wav")
-const FIRE_EXPLOSION_2: AudioStream = preload("res://data/assets/sounds/02_Fire_explosion_02_small.wav")
-const FIRE_EXPLOSIONS: Array[AudioStream] = [FIRE_EXPLOSION_1, FIRE_EXPLOSION_2]
+const EXPLOSION_1: AudioStream = preload("res://data/assets/sounds/01_Fire_explosion_01_small.wav")
+const EXPLOSION_2: AudioStream = preload("res://data/assets/sounds/02_Fire_explosion_02_small.wav")
+const FIRE_EXPLOSIONS: Array[AudioStream] = [EXPLOSION_1, EXPLOSION_2]
+
+const SLIME: AudioStream = preload("res://data/assets/sounds/01_Slime_damage.wav")
 
 var _step_timer: Timer = null
 
@@ -50,6 +52,7 @@ var _slash_sound: AudioStreamPlayer = null
 var _hit_sound: AudioStreamPlayer = null
 var _die_sound: AudioStreamPlayer = null
 var _fire_explosion_sound: AudioStreamPlayer = null
+var _slime_sound: AudioStreamPlayer = null
 
 
 func _ready() -> void:
@@ -69,6 +72,7 @@ func _ready() -> void:
 	_hit_sound = create_random_sound(HITS, 1.1)
 	_die_sound = create_sound(DIE)
 	_fire_explosion_sound = create_random_sound(FIRE_EXPLOSIONS, 1.1)
+	_slime_sound = create_sound(SLIME)
 
 
 func create_random_sound(streams: Array[AudioStream], pitch: float) -> AudioStreamPlayer:
@@ -141,3 +145,7 @@ func play_die() -> void:
 
 func play_fire_explosion() -> void:
 	_fire_explosion_sound.play()
+
+
+func play_slime() -> void:
+	_slime_sound.play()

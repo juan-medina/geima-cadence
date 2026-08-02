@@ -17,6 +17,7 @@ func _on_player_success() -> void:
 
 func _on_player_failure() -> void:
 	super._on_player_failure()
+	Sound.play_slime()
 	if animated_sprite2d:
 		animated_sprite2d.play(&"dead")
 		await animated_sprite2d.animation_finished
