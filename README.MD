@@ -98,6 +98,27 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
   allowed; the pack may not be resold or redistributed). Attribution is optional
   but appreciated.
 
+#### Minifantasy - True Heroes IV SFX
+* **Author:** [Leohpaz](https://www.patreon.com/cw/leohpaz)
+* **Source:** [Itch.io](https://leohpaz.itch.io/minifantasy-true-heroes-iv-sfx)
+* **License:** Paid. Used under a purchased license (personal and commercial use
+  allowed; the pack may not be resold or redistributed). Attribution is optional
+  but appreciated.
+
+#### Minifantasy - Creatures SFX Pack
+* **Author:** [Leohpaz](https://www.patreon.com/cw/leohpaz)
+* **Source:** [Itch.io](https://leohpaz.itch.io/minifantasy-creatures-sfx-pack)
+* **License:** Paid. Used under a purchased license (personal and commercial use
+  allowed; the pack may not be resold or redistributed). Attribution is optional
+  but appreciated.
+
+#### 50+ RPG Battle Magic SFX
+* **Author:** [Leohpaz](https://www.patreon.com/cw/leohpaz)
+* **Source:** [Itch.io](https://leohpaz.itch.io/50-rpg-battle-magic-sfx)
+* **License:** Paid. Used under a purchased license (personal and commercial use
+  allowed; the pack may not be resold or redistributed). Attribution is optional
+  but appreciated.
+
 #### Game Start
 * **Author:** [plasterbrain](https://freesound.org/people/plasterbrain/)
 * **Source:** [Freesound](https://freesound.org/s/243020/)
