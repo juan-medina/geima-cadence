@@ -13,7 +13,7 @@ const SECTION_GAMEPLAY: StringName = &"gameplay"
 
 const DEFAULT_FULLSCREEN: bool = true
 const DEFAULT_MASTER_VOLUME: float = 1.0
-const DEFAULT_MUSIC_VOLUME: float = 0.5
+const DEFAULT_MUSIC_VOLUME: float = 1.0
 const DEFAULT_SFX_VOLUME: float = 0.5
 const DEFAULT_EULA_VERSION: StringName = ""
 
@@ -107,7 +107,7 @@ func _load_options() -> void:
 	if err == OK:
 		fullscreen = config.get_value(SECTION_DISPLAY, &"fullscreen", DEFAULT_FULLSCREEN)
 		master_volume = config.get_value(SECTION_AUDIO, &"master_volume", DEFAULT_MASTER_VOLUME)
-		music_volume = config.get_value(SECTION_AUDIO, &"music_volume", DEFAULT_MUSIC_VOLUME)
+		music_volume = config.get_value(SECTION_AUDIO, &"bgm_volume", DEFAULT_MUSIC_VOLUME)
 		sfx_volume = config.get_value(SECTION_AUDIO, &"sfx_volume", DEFAULT_SFX_VOLUME)
 		eula_accepted_version = config.get_value(
 			SECTION_EULA, &"accepted_version", DEFAULT_EULA_VERSION
@@ -133,7 +133,7 @@ func _save_options() -> void:
 		config.set_value(SECTION_DISPLAY, &"fullscreen", fullscreen)
 
 	config.set_value(SECTION_AUDIO, &"master_volume", master_volume)
-	config.set_value(SECTION_AUDIO, &"music_volume", music_volume)
+	config.set_value(SECTION_AUDIO, &"bgm_volume", music_volume)
 	config.set_value(SECTION_AUDIO, &"sfx_volume", sfx_volume)
 	config.set_value(SECTION_EULA, &"accepted_version", eula_accepted_version)
 
