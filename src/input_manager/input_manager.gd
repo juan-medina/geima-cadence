@@ -10,6 +10,7 @@ var _mouse_hide_timer: Timer
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	_mouse_hide_timer = Timer.new()
 	_mouse_hide_timer.wait_time = MOUSE_HIDE_TIME
