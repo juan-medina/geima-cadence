@@ -23,12 +23,22 @@ const LANDINGS: Array[AudioStream] = [LANDING_1, LANDING_2, LANDING_3]
 
 const DASH: AudioStream = preload("res://data/assets/sounds/66_Dash_evade_02.wav")
 
+const SLIDE: AudioStream = preload("res://data/assets/sounds/19_Slide_01.wav")
+
+const SLASH_1: AudioStream = preload("res://data/assets/sounds/31_swoosh_sword_1.wav")
+const SLASH_2: AudioStream = preload("res://data/assets/sounds/32_swoosh_sword_2.wav")
+const SLASH_3: AudioStream = preload("res://data/assets/sounds/33_swoosh_sword_3.wav")
+
+const SLASHES: Array[AudioStream] = [SLASH_1, SLASH_2, SLASH_3]
+
 var _step_sound: AudioStreamPlayer = null
 var _step_timer: Timer = null
 
 var _jump_sound: AudioStreamPlayer = null
 var _landing_sound: AudioStreamPlayer = null
 var _dash_sound: AudioStreamPlayer = null
+var _slide_sound: AudioStreamPlayer = null
+var _slash_sound: AudioStreamPlayer = null
 
 
 func _ready() -> void:
@@ -43,6 +53,8 @@ func _ready() -> void:
 	_jump_sound = create_random_sound(JUMPS, 1.1)
 	_landing_sound = create_random_sound(LANDINGS, 1.1)
 	_dash_sound = create_sound(DASH)
+	_slide_sound = create_sound(SLIDE)
+	_slash_sound = create_random_sound(SLASHES, 1.1)
 
 
 func create_random_sound(streams: Array[AudioStream], pitch: float) -> AudioStreamPlayer:
@@ -94,3 +106,11 @@ func play_landing() -> void:
 
 func play_dash() -> void:
 	_dash_sound.play()
+
+
+func play_slide() -> void:
+	_slide_sound.play()
+
+
+func play_slash() -> void:
+	_slash_sound.play()

@@ -103,6 +103,7 @@ func _change_state(new_state: State) -> void:
 		State.SLASHING:
 			play(&"slash")
 			Sound.stop_footsteps()
+			Sound.play_slash()
 		State.JUMP_UP:
 			Sound.stop_footsteps()
 			Sound.play_jump()
@@ -128,6 +129,7 @@ func _change_state(new_state: State) -> void:
 			dashed.emit()
 		State.SLIDE:
 			Sound.stop_footsteps()
+			Sound.play_slide()
 			play(&"slide")
 		State.HIT:
 			Sound.stop_footsteps()
