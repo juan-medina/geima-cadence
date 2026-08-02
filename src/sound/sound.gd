@@ -3,12 +3,11 @@
 
 extends Node
 
+const STEP_INTERVAL: float = 0.25
 const STEP_1: AudioStream = preload("res://data/assets/sounds/07_Step_rock_01.wav")
 const STEP_2: AudioStream = preload("res://data/assets/sounds/08_Step_rock_02.wav")
 const STEP_3: AudioStream = preload("res://data/assets/sounds/09_Step_rock_03.wav")
 const STEPS: Array[AudioStream] = [STEP_1, STEP_2, STEP_3]
-
-const STEP_INTERVAL: float = 0.25
 
 const JUMP_1: AudioStream = preload("res://data/assets/sounds/28_Jump_01.wav")
 const JUMP_2: AudioStream = preload("res://data/assets/sounds/29_Jump_02.wav")
@@ -31,30 +30,40 @@ const SLASH_3: AudioStream = preload("res://data/assets/sounds/33_swoosh_sword_3
 
 const SLASHES: Array[AudioStream] = [SLASH_1, SLASH_2, SLASH_3]
 
-var _step_sound: AudioStreamPlayer = null
+const HIT_1: AudioStream = preload("res://data/assets/sounds/62_Get_hit_01.wav")
+const HIT_2: AudioStream = preload("res://data/assets/sounds/63_Get_hit_02.wav")
+const HITS: Array[AudioStream] = [HIT_1, HIT_2]
+
+const DIE: AudioStream = preload("res://data/assets/sounds/68_Die_01.wav")
+
 var _step_timer: Timer = null
 
+var _step_sound: AudioStreamPlayer = null
 var _jump_sound: AudioStreamPlayer = null
 var _landing_sound: AudioStreamPlayer = null
 var _dash_sound: AudioStreamPlayer = null
 var _slide_sound: AudioStreamPlayer = null
 var _slash_sound: AudioStreamPlayer = null
+var _hit_sound: AudioStreamPlayer = null
+var _die_sound: AudioStreamPlayer = null
 
 
 func _ready() -> void:
-	_step_sound = create_random_sound(STEPS, 1.1)
-
 	_step_timer = Timer.new()
 	_step_timer.wait_time = STEP_INTERVAL
 	_step_timer.one_shot = false
 	_step_timer.timeout.connect(_on_step_timer_timeout)
 	add_child(_step_timer)
 
+	_step_sound = create_random_sound(STEPS, 1.1)
+
 	_jump_sound = create_random_sound(JUMPS, 1.1)
 	_landing_sound = create_random_sound(LANDINGS, 1.1)
 	_dash_sound = create_sound(DASH)
 	_slide_sound = create_sound(SLIDE)
 	_slash_sound = create_random_sound(SLASHES, 1.1)
+	_hit_sound = create_random_sound(HITS, 1.1)
+	_die_sound = create_sound(DIE)
 
 
 func create_random_sound(streams: Array[AudioStream], pitch: float) -> AudioStreamPlayer:
@@ -114,3 +123,11 @@ func play_slide() -> void:
 
 func play_slash() -> void:
 	_slash_sound.play()
+
+
+func play_hit() -> void:
+	_hit_sound.play()
+
+
+func play_die() -> void:
+	_die_sound.play()

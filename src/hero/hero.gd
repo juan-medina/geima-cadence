@@ -244,9 +244,11 @@ func take_damage(amount: float) -> void:
 	_flash()
 
 	if health > 0.0:
+		Sound.play_hit()
 		if not _is_jumping():
 			_change_state(State.HIT)
 		return
+	Sound.play_die()
 
 	stopped.emit()
 	if _is_jumping():
