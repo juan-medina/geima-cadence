@@ -36,17 +36,22 @@ var _base_y: float = 0.0
 
 func _ready() -> void:
 	health = max_health
-	jump_up_duration = (
-		sprite_frames.get_frame_count(&"jump_up") / sprite_frames.get_animation_speed(&"jump_up")
-	)
-	jump_down_duration = (
-		sprite_frames.get_frame_count(&"jump_down")
-		/ sprite_frames.get_animation_speed(&"jump_down")
-	)
+	jump_up_duration = _anim_duration(&"jump_up")
+	jump_down_duration = _anim_duration(&"jump_down")
 	_base_y = position.y
 	animation_finished.connect(_on_animation_finished)
 	_hurt_box.area_entered.connect(_on_hurt_box_area_entered)
 	_update_active_shape()
+
+
+func _exit_tree() -> void:
+	Sound.stop_footsteps()
+
+
+func _anim_duration(anim: StringName) -> float:
+	var frames: int = sprite_frames.get_frame_count(anim)
+	var speed: float = sprite_frames.get_animation_speed(anim)
+	return frames / speed
 
 
 func start() -> void:
@@ -91,42 +96,46 @@ func _change_state(new_state: State) -> void:
 	match current_state:
 		State.IDLE:
 			play("&idle")
+			Sound.stop_footsteps()
 		State.RUNNING:
 			play(&"run")
+			Sound.start_footsteps()
 		State.SLASHING:
 			play(&"slash")
+			Sound.stop_footsteps()
 		State.JUMP_UP:
+			Sound.stop_footsteps()
 			play(&"jump_up")
 			_jump_tween = create_tween()
 			# Air time is fixed by the animation length, so the curve may change
 			# but the duration may not: the beat depends on it.
-			(
-				_jump_tween
-				. tween_property(self, ^"position:y", position.y - JUMP_HEIGHT, jump_up_duration)
-				. set_ease(Tween.EASE_OUT)
-				. set_trans(Tween.TRANS_CUBIC)
-			)
+			_jump_tween.tween_property(self, ^"position:y", position.y - JUMP_HEIGHT, jump_up_duration)
+			_jump_tween.set_ease(Tween.EASE_OUT)
+			_jump_tween.set_trans(Tween.TRANS_CUBIC)
+
 		State.JUMP_DOWN:
 			play(&"jump_down")
 			_jump_tween = create_tween()
-			(
-				_jump_tween
-				. tween_property(self, ^"position:y", position.y + JUMP_HEIGHT, jump_down_duration)
-				. set_ease(Tween.EASE_IN)
-				. set_trans(Tween.TRANS_CUBIC)
-			)
+			_jump_tween.tween_property(self, ^"position:y", position.y + JUMP_HEIGHT, jump_down_duration)
+			_jump_tween.set_ease(Tween.EASE_IN)
+			_jump_tween.set_trans(Tween.TRANS_CUBIC)
 
 		State.DASH:
+			Sound.stop_footsteps()
 			play(&"dash")
 			dashed.emit()
 		State.SLIDE:
+			Sound.stop_footsteps()
 			play(&"slide")
 		State.HIT:
+			Sound.stop_footsteps()
 			play(&"hit")
 		State.DYING:
+			Sound.stop_footsteps()
 			play(&"jump_down")
 			_fall_to_ground()
 		State.DEAD:
+			Sound.stop_footsteps()
 			play(&"dead")
 
 
@@ -137,12 +146,9 @@ func _fall_to_ground() -> void:
 		_jump_tween.kill()
 	var remaining: float = (_base_y - position.y) / JUMP_HEIGHT
 	_jump_tween = create_tween()
-	(
-		_jump_tween
-		. tween_property(self, ^"position:y", _base_y, maxf(remaining, 0.0) * jump_down_duration)
-		. set_ease(Tween.EASE_IN)
-		. set_trans(Tween.TRANS_CUBIC)
-	)
+	_jump_tween.tween_property(self, ^"position:y", _base_y, maxf(remaining, 0.0) * jump_down_duration)
+	_jump_tween.set_ease(Tween.EASE_IN)
+	_jump_tween.set_trans(Tween.TRANS_CUBIC)
 	_jump_tween.finished.connect(_on_fall_finished)
 
 

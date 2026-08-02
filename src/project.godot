@@ -35,6 +35,7 @@ Audio="*res://audio/audio.tscn"
 BuildInfo="*res://build_info/build_info.gd"
 GameData="*res://game_data/game_data.gd"
 Transition="*res://transition/transition.gd"
+Sound="*uid://dpyah6b2fnrvl"
 
 [debug]
 
