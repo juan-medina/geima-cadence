@@ -28,12 +28,14 @@ func near_time() -> float:
 # He swings before the player has chosen, so doing nothing is answered the same
 # way a wrong verb is. Nothing here may depend on the outcome.
 func on_player_near() -> void:
+	Sound.play_giant_wind_up()
 	animated_sprite2d.play(ATTACK_ANIMATION)
 
 
 # He travels right, against the scroll, while he falls. Nothing else in the game
 # ever moves right, which is what makes the moment readable.
 func _on_player_success() -> void:
+	Sound.play_giant_death()
 	animated_sprite2d.play(&"dead")
 	var tween: Tween = create_tween()
 	tween.tween_property(self, ^"position:x", position.x + REVERSE_DISTANCE, REVERSE_DURATION)

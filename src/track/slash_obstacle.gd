@@ -29,12 +29,14 @@ func near_time() -> float:
 
 # when we are near start playing the attack
 func on_player_near() -> void:
+	Sound.play_assassin_attack()
 	animated_sprite2d.play(ATTACK_ANIMATION)
 	_fade_tween = create_tween()
 	_fade_tween.tween_property(animated_sprite2d, ^"modulate:a", FADED_ALPHA, near_time())
 
 
 func _on_player_success() -> void:
+	Sound.play_assassin_death()
 	if _fade_tween:
 		_fade_tween.kill()
 	animated_sprite2d.modulate.a = 1.0

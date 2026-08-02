@@ -41,6 +41,21 @@ const FIRE_EXPLOSIONS: Array[AudioStream] = [EXPLOSION_1, EXPLOSION_2]
 
 const SLIME: AudioStream = preload("res://data/assets/sounds/01_Slime_damage.wav")
 
+const ASSASSIN_ATT_1: AudioStream = preload("res://data/assets/sounds/NinjaAssassin_Attack_1.wav")
+const ASSASSIN_ATT_2: AudioStream = preload("res://data/assets/sounds/NinjaAssassin_Attack_2.wav")
+const ASSASSIN_ATTACK: Array[AudioStream] = [ASSASSIN_ATT_1, ASSASSIN_ATT_2]
+
+const ASSASSIN_DEATH: AudioStream = preload("res://data/assets/sounds/NinjaAssassin_Death.wav")
+
+const GIANT_1: AudioStream = preload("res://data/assets/sounds/Giant_Wind_up_1.wav")
+const GIANT_2: AudioStream = preload("res://data/assets/sounds/Giant_Wind_up_2.wav")
+const GIANT_3: AudioStream = preload("res://data/assets/sounds/Giant_Wind_up_3.wav")
+const GIANT_WIND_UPS: Array[AudioStream] = [GIANT_1, GIANT_2, GIANT_3]
+
+const GIANT_DEATH_1: AudioStream = preload("res://data/assets/sounds/Giant_Death_1.wav")
+const GIANT_DEATH_2: AudioStream = preload("res://data/assets/sounds/Giant_Death_2.wav")
+const GIANT_DEATHS: Array[AudioStream] = [GIANT_DEATH_1, GIANT_DEATH_2]
+
 var _step_timer: Timer = null
 
 var _step_sound: AudioStreamPlayer = null
@@ -53,6 +68,10 @@ var _hit_sound: AudioStreamPlayer = null
 var _die_sound: AudioStreamPlayer = null
 var _fire_explosion_sound: AudioStreamPlayer = null
 var _slime_sound: AudioStreamPlayer = null
+var _assassin_att_sound: AudioStreamPlayer = null
+var _assassin_death_sound: AudioStreamPlayer = null
+var _giant_wind_up_sound: AudioStreamPlayer = null
+var _giant_death_sound: AudioStreamPlayer = null
 
 
 func _ready() -> void:
@@ -73,6 +92,10 @@ func _ready() -> void:
 	_die_sound = create_sound(DIE)
 	_fire_explosion_sound = create_random_sound(FIRE_EXPLOSIONS, 1.1)
 	_slime_sound = create_sound(SLIME)
+	_assassin_att_sound = create_random_sound(ASSASSIN_ATTACK, 1.1)
+	_assassin_death_sound = create_sound(ASSASSIN_DEATH)
+	_giant_wind_up_sound = create_random_sound(GIANT_WIND_UPS, 1.1)
+	_giant_death_sound = create_random_sound(GIANT_DEATHS, 1.1)
 
 
 func create_random_sound(streams: Array[AudioStream], pitch: float) -> AudioStreamPlayer:
@@ -149,3 +172,19 @@ func play_fire_explosion() -> void:
 
 func play_slime() -> void:
 	_slime_sound.play()
+
+
+func play_assassin_attack() -> void:
+	_assassin_att_sound.play()
+
+
+func play_assassin_death() -> void:
+	_assassin_death_sound.play()
+
+
+func play_giant_wind_up() -> void:
+	_giant_wind_up_sound.play()
+
+
+func play_giant_death() -> void:
+	_giant_death_sound.play()
