@@ -105,6 +105,7 @@ func _change_state(new_state: State) -> void:
 			Sound.stop_footsteps()
 		State.JUMP_UP:
 			Sound.stop_footsteps()
+			Sound.play_jump()
 			play(&"jump_up")
 			_jump_tween = create_tween()
 			# Air time is fixed by the animation length, so the curve may change
