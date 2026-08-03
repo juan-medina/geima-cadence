@@ -36,7 +36,7 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_pressed(_SEQUENCE[_index]):
 		_index += 1
-		# on swallow ui_accept, the final step so we dont "accept" a menu button
+		# on swallow ui_accept, the final step so we don't "accept" a menu button
 		if event.is_action_pressed(&"ui_accept") and _index == _SEQUENCE.size():
 			get_viewport().set_input_as_handled()
 		if _index == _SEQUENCE.size():
