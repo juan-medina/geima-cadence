@@ -4,8 +4,6 @@
 class_name AboutPanel
 extends MenuPanel
 
-signal back_requested
-
 const ABOUT_PATH: String = "res://data/assets/about.txt"
 
 @onready var _back_button: Button = $VBox/Back

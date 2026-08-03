@@ -4,6 +4,8 @@
 class_name MenuPanel
 extends PanelContainer
 
+signal back_requested
+
 
 func _ready() -> void:
 	Audio.connect_menu_sounds(self)

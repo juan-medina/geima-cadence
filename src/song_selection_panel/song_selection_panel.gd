@@ -4,8 +4,6 @@
 class_name SongSelectionPanel
 extends MenuPanel
 
-signal back_requested
-
 
 class BiomeStats:
 	extends RefCounted

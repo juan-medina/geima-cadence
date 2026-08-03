@@ -16,27 +16,31 @@ func display() -> void:
 
 func _open_pause(can_resume: bool) -> void:
 	_can_resume = can_resume
-	get_tree().paused = true
-	_settings_panel.visible = false
 	_pause_panel.configure(can_resume)
+	_open(_pause_panel)
+
+
+func _open_win(rank: Rank.Level) -> void:
+	_win_panel.rank = rank
+	_open(_win_panel)
+
+
+func _open(panel: MenuPanel) -> void:
+	get_tree().paused = true
 	set_host_alpha(0.0)
-	_show_first(_pause_panel)
+	_show_first(panel)
 	visible = true
 	fade_host(1.0)
 
-func _open_win(rank: Rank.Level) -> void:
-	get_tree().paused = true
-	_win_panel.rank = rank
-	_win_panel.visible = false
-	_show_first(_win_panel)
-	visible = true
-	fade_host(1.0)
 
 func _close() -> void:
 	fade_host(0.0).finished.connect(_on_close_finished)
 
 
 func _on_close_finished() -> void:
+	if _current != null:
+		_current.visible = false
+		_current = null
 	visible = false
 	get_tree().paused = false
 

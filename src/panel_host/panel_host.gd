@@ -11,11 +11,20 @@ var _busy: bool = false
 
 
 func _show_first(panel: MenuPanel) -> void:
+	_hide_all_panels(self)
 	_current = panel
 	panel.modulate.a = 1.0
 	panel.process_mode = Node.PROCESS_MODE_INHERIT
 	panel.visible = true
 	Audio.grab_focus_silent(panel.first_focus_control())
+
+
+func _hide_all_panels(from: Node) -> void:
+	for child: Node in from.get_children():
+		var panel: MenuPanel = child as MenuPanel
+		if panel != null:
+			panel.visible = false
+		_hide_all_panels(child)
 
 
 func show_panel(next: MenuPanel) -> void:

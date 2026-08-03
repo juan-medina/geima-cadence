@@ -4,8 +4,6 @@
 class_name SettingsPanel
 extends MenuPanel
 
-signal back_requested
-
 @onready var _fullscreen_check: CheckButton = $VBox/Fullscreen
 @onready var _scanlines_check: CheckButton = $VBox/Scanlines
 @onready var _curvature_check: CheckButton = $VBox/Curvature
