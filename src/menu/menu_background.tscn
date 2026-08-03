@@ -1,13 +1,13 @@
-[gd_scene format=3 uid="uid://new_uid_for_menu_bg"]
+[gd_scene format=3 uid="uid://omf6mp1kd1g6"]
 
-[ext_resource type="Script" uid="uid://menu_bg_script" path="res://menu/menu_background.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://dsarqdu3bh2tf" path="res://menu/menu_background.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://c5xart2yh6k1a" path="res://biome/biome.tscn" id="2_biome"]
 [ext_resource type="Resource" uid="uid://bhnr47r4rxtgr" path="res://data/assets/catalogue/catalogue.tres" id="3_cat"]
 
-[node name="MenuBackground" type="Node2D"]
+[node name="MenuBackground" type="Node2D" unique_id=722362160]
 script = ExtResource("1_script")
 catalogue = ExtResource("3_cat")
 
-[node name="BiomeA" parent="." instance=ExtResource("2_biome")]
+[node name="BiomeA" parent="." unique_id=1633856151 instance=ExtResource("2_biome")]
 
-[node name="BiomeB" parent="." instance=ExtResource("2_biome")]
+[node name="BiomeB" parent="." unique_id=617516119 instance=ExtResource("2_biome")]

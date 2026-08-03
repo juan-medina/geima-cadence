@@ -6,7 +6,7 @@ extends Button
 
 @export var custom_text: String = &"Difficulty"
 @export var difficulty: Track.DifficultType = Track.DifficultType.EASY
-@export var rank: Star.Rank = Star.Rank.NONE:
+@export var rank: Rank.Level = Rank.Level.NONE:
 	set(value):
 		rank = value
 		if _star:

@@ -4,7 +4,7 @@
 class_name WinPanel
 extends MenuPanel
 
-@export var rank: Star.Rank:
+@export var rank: Rank.Level = Rank.Level.NONE:
 	set(value):
 		rank = value
 		_star.rank = value

@@ -100,7 +100,7 @@ func _add_biome_songs(biome: BiomeEntry) -> BiomeStats:
 
 		var s_stars: int = 0
 		for diff: int in Track.DifficultType.values():
-			if GameData.get_star_record(song.id, diff as Track.DifficultType) == Star.Rank.S:
+			if GameData.get_star_record(song.id, diff as Track.DifficultType) == Rank.Level.S:
 				s_stars += 1
 		new_song_row.stars = s_stars
 		stats.total_s_stars += s_stars

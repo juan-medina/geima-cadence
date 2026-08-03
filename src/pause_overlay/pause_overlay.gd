@@ -24,7 +24,7 @@ func _open_pause(can_resume: bool) -> void:
 	visible = true
 	fade_host(1.0)
 
-func _open_win(rank: Star.Rank) -> void:
+func _open_win(rank: Rank.Level) -> void:
 	get_tree().paused = true
 	_win_panel.rank = rank
 	_win_panel.visible = false

@@ -4,10 +4,10 @@
 class_name Game
 extends Node2D
 
-@export var catalogue: Catalogue
-
 # Obstacles rest this far below the hero's ground line
 const _OBSTACLE_OFFSET_Y: float = 22.0
+
+@export var catalogue: Catalogue
 
 @onready var _track: Track = $Track
 @onready var _biome: Biome = $Biome
@@ -27,9 +27,9 @@ func _ready() -> void:
 
 	# Workaround for Godot 4 Camera2D not re-centering after the window resizes.
 	get_tree().root.size_changed.connect(_on_window_resized)
-	
+
 	_track.scrolled.connect(_biome.set_scroll)
-	
+
 	_prepare_biome()
 	_track.begin()
 
@@ -57,13 +57,7 @@ func _on_hero_died() -> void:
 func _on_track_victory_finished() -> void:
 	var health_percentage: float = _hero.health / _hero.max_health
 
-	var rank: Star.Rank
-	if health_percentage == 1.0:
-		rank = Star.Rank.S
-	elif health_percentage >= 0.5:
-		rank = Star.Rank.A
-	else:
-		rank = Star.Rank.B
+	var rank: Rank.Level = Rank.from_health_percentage(health_percentage)
 
 	GameData.set_star_record(GameData.last_song_id, GameData.difficulty, rank)
 	_pause_overlay._open_win(rank)
