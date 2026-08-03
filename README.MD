@@ -67,6 +67,11 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 * **License:** Paid. Used under a purchased license (personal and commercial use
   allowed for one or more projects; redistribution and resale prohibited).
 
+#### Godot CRT Shader
+* **Author:** [Henrique Alves (perons)](https://perons.itch.io/)
+* **Source:** [Itch.io](https://perons.itch.io/godot-crt-shader)
+* **License:** Free for personal and commercial use. The shader was purchased to support the author.
+
 ### Music
 
 #### RPG Music Essentials

@@ -7,6 +7,7 @@ signal fullscreen_changed
 
 const CONFIG_PATH: String = &"user://options.cfg"
 const SECTION_DISPLAY: StringName = &"display"
+const CRT_SECTION: StringName = &"crt"
 const SECTION_AUDIO: StringName = &"audio"
 const SECTION_EULA: StringName = &"eula"
 const SECTION_GAMEPLAY: StringName = &"gameplay"
@@ -16,6 +17,9 @@ const DEFAULT_MASTER_VOLUME: float = 1.0
 const DEFAULT_MUSIC_VOLUME: float = 1.0
 const DEFAULT_SFX_VOLUME: float = 0.5
 const DEFAULT_EULA_VERSION: StringName = ""
+const DEFAULT_SCANLINES: bool = true
+const DEFAULT_CURVATURE: bool = true
+const DEFAULT_CRT_BORDER: bool = true
 
 var invincible: bool = false
 
@@ -28,6 +32,36 @@ var fullscreen: bool = DEFAULT_FULLSCREEN:
 		fullscreen_changed.emit(value)
 		fullscreen = value
 		_apply_fullscreen()
+		_save_options()
+
+var scanlines: bool = true:
+	get():
+		return scanlines
+	set(value):
+		if scanlines == value:
+			return
+		scanlines = value
+		_apply_crt_settings()
+		_save_options()
+
+var curvature: bool = true:
+	get():
+		return curvature
+	set(value):
+		if curvature == value:
+			return
+		curvature = value
+		_apply_crt_settings()
+		_save_options()
+
+var crt_border: bool = true:
+	get():
+		return crt_border
+	set(value):
+		if crt_border == value:
+			return
+		crt_border = value
+		_apply_crt_settings()
 		_save_options()
 
 var music_volume: float = DEFAULT_MUSIC_VOLUME:
@@ -109,9 +143,10 @@ func _load_options() -> void:
 		master_volume = config.get_value(SECTION_AUDIO, &"master_volume", DEFAULT_MASTER_VOLUME)
 		music_volume = config.get_value(SECTION_AUDIO, &"bgm_volume", DEFAULT_MUSIC_VOLUME)
 		sfx_volume = config.get_value(SECTION_AUDIO, &"sfx_volume", DEFAULT_SFX_VOLUME)
-		eula_accepted_version = config.get_value(
-			SECTION_EULA, &"accepted_version", DEFAULT_EULA_VERSION
-		)
+		eula_accepted_version = config.get_value(SECTION_EULA, &"accepted_version", DEFAULT_EULA_VERSION)
+		scanlines = config.get_value(CRT_SECTION, &"scanlines", DEFAULT_SCANLINES)
+		curvature = config.get_value(CRT_SECTION, &"curvature", DEFAULT_CURVATURE)
+		crt_border = config.get_value(CRT_SECTION, &"crt_border", DEFAULT_CRT_BORDER)
 	else:
 		# First time launch or missing config - set defaults
 		fullscreen = DEFAULT_FULLSCREEN
@@ -119,6 +154,9 @@ func _load_options() -> void:
 		music_volume = DEFAULT_MUSIC_VOLUME
 		sfx_volume = DEFAULT_SFX_VOLUME
 		eula_accepted_version = DEFAULT_EULA_VERSION
+		scanlines = DEFAULT_SCANLINES
+		curvature = DEFAULT_CURVATURE
+		crt_border = DEFAULT_CRT_BORDER
 
 	# on web we always start not full screen
 	if OS.has_feature(&"web"):
@@ -153,16 +191,21 @@ func _apply_all_settings() -> void:
 	_apply_bus_volume(&"Master", master_volume)
 	_apply_bus_volume(&"Music", music_volume)
 	_apply_bus_volume(&"Sfx", sfx_volume)
+	_apply_crt_settings()
 
 
 func _apply_fullscreen() -> void:
-	DisplayServer.window_set_mode(
-		(
-			DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN
-			if fullscreen
-			else DisplayServer.WindowMode.WINDOW_MODE_WINDOWED
-		)
+	var mode: DisplayServer.WindowMode = (
+		DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN
+		if fullscreen else DisplayServer.WindowMode.WINDOW_MODE_WINDOWED
 	)
+	DisplayServer.window_set_mode(mode)
+
+
+func _apply_crt_settings() -> void:
+	Crt.set_scanlines_enabled(scanlines)
+	Crt.set_curvature_enabled(curvature)
+	Crt.set_border_enabled(crt_border)
 
 
 func _apply_bus_volume(bus_name: StringName, volume_linear: float) -> void:
@@ -178,9 +221,7 @@ func _apply_bus_volume(bus_name: StringName, volume_linear: float) -> void:
 				base_db = _base_master_db
 
 		# Convert linear 0.0-1.0 to Db offset, and apply to the base Db
-		var volume_db: float = (
-			base_db + linear_to_db(volume_linear) if volume_linear > 0.0 else -80.0
-		)
+		var volume_db: float = base_db + linear_to_db(volume_linear) if volume_linear > 0.0 else -80.0
 		AudioServer.set_bus_volume_db(bus_index, volume_db)
 	else:
 		printerr(&"Options: Audio Bus '%s' not found!" % bus_name)

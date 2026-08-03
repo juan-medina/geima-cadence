@@ -7,6 +7,9 @@ extends MenuPanel
 signal back_requested
 
 @onready var _fullscreen_check: CheckButton = $VBox/Fullscreen
+@onready var _scanlines_check: CheckButton = $VBox/Scanlines
+@onready var _curvature_check: CheckButton = $VBox/Curvature
+@onready var _crt_border_check: CheckButton = $VBox/CrtBorder
 @onready var _master_slider: HSlider = $VBox/MasterVolume/VBox/HBox/HSlider
 @onready var _master_percent: Label = $VBox/MasterVolume/VBox/HBox/Label
 @onready var _music_slider: HSlider = $VBox/MusicVolume/VBox/HBox/HSlider
@@ -22,6 +25,9 @@ func _ready() -> void:
 	_init_slider(_master_slider, _master_percent, Options.master_volume)
 	_init_slider(_music_slider, _music_percent, Options.music_volume)
 	_init_slider(_sfx_slider, _sfx_percent, Options.sfx_volume)
+	_scanlines_check.button_pressed = Options.scanlines
+	_curvature_check.button_pressed = Options.curvature
+	_crt_border_check.button_pressed = Options.crt_border
 
 
 func _exit_tree() -> void:
@@ -66,3 +72,15 @@ func _init_slider(slider: HSlider, percent: Label, volume: float) -> void:
 
 func _format_percent(volume: float) -> String:
 	return "%d %%" % roundi(volume * 100.0)
+
+
+func _on_scanlines_toggled(toggled_on: bool) -> void:
+	Options.scanlines = toggled_on
+
+
+func _on_curvature_toggled(toggled_on: bool) -> void:
+	Options.curvature = toggled_on
+
+
+func _on_crt_border_toggled(toggled_on: bool) -> void:
+	Options.crt_border = toggled_on

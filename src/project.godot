@@ -30,6 +30,7 @@ general/default_playback_type.web=0
 
 [autoload]
 
+Crt="*uid://itjf2dspp1me"
 Options="*uid://cpn1inpgx705w"
 Audio="*res://audio/audio.tscn"
 BuildInfo="*res://build_info/build_info.gd"
@@ -64,6 +65,10 @@ window/stretch/aspect="expand"
 
 movie_writer/movie_file="C:/Users/mail/Documents/Source/geima-cadence/bin/video.avi"
 movie_writer/fps=165
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/crt_shader/plugin.cfg")
 
 [gui]
 

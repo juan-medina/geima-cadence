@@ -33,6 +33,21 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Fullscreen"
 
+[node name="Scanlines" type="CheckButton" parent="VBox" unique_id=2031412814]
+layout_mode = 2
+text = "Scanlines"
+
+[node name="Curvature" type="CheckButton" parent="VBox" unique_id=1559884803]
+layout_mode = 2
+text = "Curvature"
+
+[node name="CrtBorder" type="CheckButton" parent="VBox" unique_id=1256278136]
+layout_mode = 2
+text = "CRT"
+
+[node name="HSeparator" type="HSeparator" parent="VBox" unique_id=1647545619]
+layout_mode = 2
+
 [node name="MasterVolume" type="MarginContainer" parent="VBox" unique_id=1168653511]
 layout_mode = 2
 theme_override_constants/margin_left = 6
@@ -122,7 +137,13 @@ layout_mode = 2
 shortcut = SubResource("Shortcut_back")
 text = "Back"
 
+[node name="Label" type="Label" parent="." unique_id=257475699]
+layout_mode = 2
+
 [connection signal="toggled" from="VBox/Fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="toggled" from="VBox/Scanlines" to="." method="_on_scanlines_toggled"]
+[connection signal="toggled" from="VBox/Curvature" to="." method="_on_curvature_toggled"]
+[connection signal="toggled" from="VBox/CrtBorder" to="." method="_on_crt_border_toggled"]
 [connection signal="value_changed" from="VBox/MasterVolume/VBox/HBox/HSlider" to="." method="_on_master_volume_changed"]
 [connection signal="value_changed" from="VBox/MusicVolume/VBox/HBox/HSlider" to="." method="_on_music_volume_changed"]
 [connection signal="value_changed" from="VBox/SfxVolume/VBox/HBox/HSlider" to="." method="_on_sfx_volume_changed"]
