@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://djy1hrtyic4ue" path="res://menu/menu.gd" id="1_g18jx"]
 [ext_resource type="Script" uid="uid://b22x0b0cxahlj" path="res://cheat/cheat_code.gd" id="1_j0t7f"]
+[ext_resource type="PackedScene" uid="uid://new_uid_for_menu_bg" path="res://menu/menu_background.tscn" id="2_menubg"]
 [ext_resource type="AudioStream" uid="uid://cas3f5gxv63w" path="res://data/assets/sounds/cheat.wav" id="3_6nwqt"]
 [ext_resource type="PackedScene" uid="uid://by26em3vy57v4" path="res://main_menu_panel/main_menu_panel.tscn" id="4_main"]
 [ext_resource type="PackedScene" uid="uid://cutwj246j5hso" path="res://song_selection_panel/song_selection_panel.tscn" id="4_v6yed"]
@@ -22,6 +23,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.12156863, 0.12156863, 0.18039216, 1)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=2384729384]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=3847293847]
+handle_input_locally = false
+size = Vector2(640, 360)
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport" unique_id=4847293847]
+
+[node name="MenuBackground" parent="SubViewportContainer/SubViewport" unique_id=5847293847 instance=ExtResource("2_menubg")]
 
 [node name="Center" type="CenterContainer" parent="." unique_id=449936572]
 anchors_preset = 15
