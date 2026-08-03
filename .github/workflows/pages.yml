@@ -31,6 +31,8 @@ jobs:
         steps:
             -   name: Checkout game
                 uses: actions/checkout@v4
+                with:
+                    lfs: true
 
             # The submodule is checked out by hand rather than with
             # submodules:true because a deploy key only authenticates SSH URLs
