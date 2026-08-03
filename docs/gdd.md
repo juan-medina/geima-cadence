@@ -34,6 +34,15 @@
 
 ## 2. Universe & Narrative Arc
 
+> **Setting is a reskinnable content layer, not design.** The specific
+> antagonists (orcs, cultists, or otherwise) and the biome names are art that
+> can be swapped without touching the design. The design-relevant kernel is
+> constant: an **evil empire**, an enslaved protagonist, a **non-recoverable
+> kinetic charge** that powers the escape, and a **time-loop** in which perfect
+> mastery makes the hero become the empire's own founder. That loop is the only
+> narrative element that is mechanical — it is the reason the game has two
+> endings (see §6).
+
 ### Story Synopsis
 You are an enslaved female prisoner sprinting for survival through a
 colossal, shifting scrap-graveyard ruled by the brutal **Iron
@@ -83,10 +92,16 @@ your hideout is breached[cite: 1].
 
 ---
 
-## 3. Cinematic Storyboard Screens
+## 3. Story Storyboard Screens
 
-The story is told using clean, comic-book-style slide screens with
-multi-panel illustrations[cite: 1].
+The story is told using clean, comic-book-style **static storyboard slides**
+with multi-panel illustrations and captions — not animated cinematics. They are
+reachable from the **Story** menu (see §6) and also play once, automatically, at
+the moment their trigger is met.
+
+> **Status: designed, not yet built.** The intro and both endings below are
+> specified here but not implemented; the art resources for them do not exist
+> yet.
 
 ### Screen 1: The Legacy of the Sage (Intro - Part 1)
 
@@ -147,8 +162,9 @@ multi-panel illustrations[cite: 1].
 
 ---
 
-### Screen 3: The Sanctuary (Normal Ending)
-*Unlocks upon beating the final song, but without 100% S-Rank/completion.*[cite: 1]
+### Screen 3: The Sanctuary (Escape Ending)
+*Unlocks once every song has been escaped — cleared at least once, on any
+difficulty, at any rank (see §6).*
 
 | PANEL 3.1 | PANEL 3.2 | PANEL 3.3 |
 | :---: | :---: | :---: |
@@ -174,8 +190,9 @@ multi-panel illustrations[cite: 1].
 
 ---
 
-### Screen 4: The Overload (True Ending - Part 1)
-*Unlocks ONLY when the player masters and S-Ranks every single track in the game.*[cite: 1]
+### Screen 4: The Overload (Master Ending - Part 1)
+*Secret ending. Unlocks ONLY when the player has mastered every song — an
+S-Rank on all three difficulties of every track in the game (see §6).*
 
 | PANEL 4.1 | PANEL 4.2 | PANEL 4.3 |
 | :---: | :---: | :---: |
@@ -204,7 +221,7 @@ multi-panel illustrations[cite: 1].
 
 ---
 
-### Screen 5: The Eternal Loop (True Ending - Part 2)
+### Screen 5: The Eternal Loop (Master Ending - Part 2)
 
 | PANEL 5.1 | PANEL 5.2 | PANEL 5.3 |
 | :---: | :---: | :---: |
@@ -278,9 +295,9 @@ rhythmic execution buffer[cite: 1]. **Health is non-recoverable.** To reach
 the Monolith with a full health bar, you must perform a flawless rhythmic
 run[cite: 1].
 
-*   **Perfect / Good (Successful Action):** Bypasses the threat safely[cite:
-    1]. Your health bar remains untouched, and you build your score
-    multiplier[cite: 1].
+*   **Successful Action:** Bypasses the threat safely[cite: 1]. Your health
+    bar remains untouched. Reaching the finish with a full bar is what earns
+    the S-Rank (see §6).
 *   **Casual Failure (Missed Jump/Dash):** The obstacle physically breaks or
     your feet clear it late. The character plays a quick "hurt/wince" pose,
     the sprite flashes red, and your health bar permanently drops by a
@@ -309,21 +326,30 @@ The game's running speed is directly tied to the song's tempo (BPM)[cite: 1].
 ## 6. World Structure & Progression
 
 Rather than static, hard-coded stages, the world is designed around
-**unlocked environments (Zones/Biomes)**[cite: 1]. These environments are
+**swappable environments (Zones/Biomes)**[cite: 1]. These environments are
 mechanically identical but visually distinct, built to adapt to whatever
 modular pixel art assets (such as forest, desert, or volcanic parallax
 packs) are acquired during development[cite: 1].
 
-### Zone Playlists & Path Selection
-Each Zone features a curated playlist of 6 songs, scaling in difficulty (2
-Slow, 2 Medium, 2 Fast)[cite: 1]. Players choose their own path[cite: 1]:
+### Song Selection (Fully Open)
+There is no path and no forced order. Every song is available from the start;
+the player picks whatever they please. Songs are grouped under Zones for visual
+variety, and each song's **BPM is its difficulty signal** — a higher-BPM track
+packs its notes closer together and plays harder. Players self-select challenge
+by reading the BPM, not by unlocking a route.
 
-*   **The Horizontal Explorer:** Master all the "Slow" starter tracks across
-    every Zone first to see all the different visual assets[cite: 1].
-*   **The Vertical Master:** Stay in a single Zone and practice until
-    surviving its fastest, most chaotic 170 BPM escape run[cite: 1].
+The song count is aspirational and grows as tracks are produced; the objective
+board (below) scales to whatever songs exist.
+
+### Difficulty Selection
+Independently of song choice, each song can be played on **Easy, Normal, or
+Hard**. The difficulty selects which beatmap chart loads (sparser to denser).
+Rank and medal records are kept per song *per difficulty*, which is what makes
+mastery (below) a three-difficulty goal.
 
 ### Onboarding Sequence (Zone 1 Tutorial Layout)
+> **Status: designed, not yet built.**
+
 To introduce the mechanics seamlessly without text-heavy manual
 interruptions, the initial area utilizes a forced narrative script:
 1.  **The Slash Tutorial:** A lone Normal Orc approaches with a prominent
@@ -338,15 +364,70 @@ interruptions, the initial area utilizes a forced narrative script:
     prompt guides the player to use **Dash**, violently pushing the
     unstoppable ogre back and clearing the tutorial track cleanly.
 
-### The Score Chase & Medal System
-Completing a song awards an **Escape Medal** based on the remaining
-percentage of your health bar at the finish line[cite: 1]:
-*   **C-Rank (Survivor):** Finished with critical health left.
-*   **B-Rank (Infiltrator):** Finished with a partially depleted health bar.
-*   **A-Rank (Ghost):** Finished with nearly full health.
-*   **S-Rank (Legendary):** Finished with a 100% full health bar[cite: 1].
-    Collecting S-Ranks across every song in every zone is required to unlock
-    the **True Ending**[cite: 1].
+### Rank Medals
+This is a pure-rhythm game: there is **no score and no multiplier**. The only
+measure of a run is the health remaining at the finish line, which awards a
+rank medal for that song *on that difficulty*:
+
+*   **B-Rank:** Finished with a partially depleted health bar.
+*   **A-Rank:** Finished with nearly full health (≥ 50%).
+*   **S-Rank:** Finished with a 100% full health bar — a flawless run.
+
+Ranks only ever improve: a better run overwrites a worse record for that song
+and difficulty. These medals are the raw material the objective board is built
+on.
+
+### The Objective Board & Two Endings
+The game has two win-states, revealed one at a time so the player always sees a
+reachable goal before the harder one is disclosed.
+
+*   **Escape (the reachable ending):** a song is *escaped* the moment it is
+    cleared once — any rank, any difficulty. Escape **every** song to trigger
+    the Escape ending. Everyone who finishes the game sees this.
+*   **Master (the secret ending):** a song is *mastered* when it holds an
+    **S-Rank on all three difficulties**. Master **every** song to trigger the
+    secret ending. This is the completionist's mountain.
+
+Both endings play once, automatically, at the moment the final qualifying
+medal is recorded, and are re-viewable afterward from the **Story** menu.
+
+#### Progressive Disclosure — The Three-Tier Readout
+The player learns the objectives by playing, with no tutorial text. Three
+scopes each show a state:
+
+*   **Header counter (global):** reads `Escape x/N` until every song is
+    escaped, then flips to `Master x/N`. The mastery goal stays hidden until
+    the Escape ending is earned.
+*   **Song row (per song):** shows the song's state as it climbs —
+    *(blank, untouched)* → `ESCAPED` → `★ x/3` *(mastery in progress, a
+    non-gold tint)* → `MASTERED` *(gold, reserved for all three S)*. The word
+    `MASTERED` never appears until 3/3, so a single S is never mistaken for
+    completion.
+*   **Biome preview (per zone, aggregate):** the selected biome's preview
+    image carries a status **word plus a frame** that escalates through the
+    same four states, representing the biome's rolled-up progress (biome
+    escaped = all its songs escaped; biome mastered = all its songs mastered).
+    Visual energy climbs with the state, and the **animated "marquee" frame is
+    reserved for the fully-mastered gold state** so mastery visibly comes
+    alive.
+
+The *per-difficulty truth* — which specific difficulties of the selected song
+are S-ranked — is read directly off the three **difficulty buttons** (Easy /
+Normal / Hard), each showing its own rank. That is what teaches "mastery = S on
+all three": three rank slots side by side, and the empty ones are the ask. The
+song row's `x/3` is the shorthand for that breakdown.
+
+### The Story Menu
+The main menu carries a **Story** entry that lets the player watch the
+storyboard slides (§3) on demand. It holds three items:
+
+*   **Intro** — always available.
+*   **Escape** — greyed out until the Escape ending is unlocked.
+*   **Secret** — greyed out until the Master ending is unlocked.
+
+The locked items are shown greyed rather than hidden, so the player can *see*
+that an ending exists to be earned, and that a second, secret one lies beyond
+it — the objective board and this menu reinforce the same two goals.
 
 ---
 
