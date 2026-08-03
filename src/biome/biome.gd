@@ -68,7 +68,7 @@ func dash_burst() -> void:
 
 
 func ground_y() -> float:
-	return _biome_entry.floor_offset if _biome_entry else 0.0
+	return _biome_entry.floor_offset
 
 func back_layer_count() -> int:
 	return maxi(_layers.size() - 1, 0)
@@ -158,7 +158,7 @@ func _factor(index: int) -> float:
 
 
 func _load_layers() -> void:
-	var biome_id: int = _biome_entry.id if _biome_entry else 1
+	var biome_id: int = _biome_entry.id
 
 	var layer_number: int = 1
 	while true:

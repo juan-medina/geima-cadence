@@ -13,6 +13,4 @@ func get_biome_for_song(song_id: StringName) -> BiomeEntry:
 			if song.id == song_id:
 				return biome
 
-	if not biomes.is_empty():
-		return biomes[0]
 	return null

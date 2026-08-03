@@ -36,6 +36,10 @@ func _ready() -> void:
 
 func _prepare_biome() -> void:
 	var biome_entry: BiomeEntry = catalogue.get_biome_for_song(GameData.last_song_id)
+	if not biome_entry:
+		printerr(&"No biome found for song: " + GameData.last_song_id + &"!")
+		get_tree().quit()
+		return
 	_biome.load(biome_entry)
 	var ground_y: float = _biome.ground_y()
 	_hero.set_ground_y(ground_y)
