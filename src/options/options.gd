@@ -5,7 +5,7 @@ extends Node
 
 signal fullscreen_changed
 
-const CONFIG_PATH: String = &"user://options.cfg"
+const CONFIG_PATH: String = &"user://game_options.cfg"
 const SECTION_DISPLAY: StringName = &"display"
 const CRT_SECTION: StringName = &"crt"
 const SECTION_AUDIO: StringName = &"audio"
@@ -17,9 +17,9 @@ const DEFAULT_MASTER_VOLUME: float = 1.0
 const DEFAULT_MUSIC_VOLUME: float = 1.0
 const DEFAULT_SFX_VOLUME: float = 0.5
 const DEFAULT_EULA_VERSION: StringName = ""
-const DEFAULT_SCANLINES: bool = true
-const DEFAULT_CURVATURE: bool = true
 const DEFAULT_CRT_BORDER: bool = true
+const DEFAULT_SCANLINES: bool = false
+const DEFAULT_CURVATURE: bool = false
 
 var invincible: bool = false
 
@@ -32,6 +32,16 @@ var fullscreen: bool = DEFAULT_FULLSCREEN:
 		fullscreen_changed.emit(value)
 		fullscreen = value
 		_apply_fullscreen()
+		_save_options()
+
+var crt_border: bool = true:
+	get():
+		return crt_border
+	set(value):
+		if crt_border == value:
+			return
+		crt_border = value
+		_apply_crt_settings()
 		_save_options()
 
 var scanlines: bool = true:
@@ -51,16 +61,6 @@ var curvature: bool = true:
 		if curvature == value:
 			return
 		curvature = value
-		_apply_crt_settings()
-		_save_options()
-
-var crt_border: bool = true:
-	get():
-		return crt_border
-	set(value):
-		if crt_border == value:
-			return
-		crt_border = value
 		_apply_crt_settings()
 		_save_options()
 
@@ -141,7 +141,7 @@ func _load_options() -> void:
 	if err == OK:
 		fullscreen = config.get_value(SECTION_DISPLAY, &"fullscreen", DEFAULT_FULLSCREEN)
 		master_volume = config.get_value(SECTION_AUDIO, &"master_volume", DEFAULT_MASTER_VOLUME)
-		music_volume = config.get_value(SECTION_AUDIO, &"bgm_volume", DEFAULT_MUSIC_VOLUME)
+		music_volume = config.get_value(SECTION_AUDIO, &"music_volume", DEFAULT_MUSIC_VOLUME)
 		sfx_volume = config.get_value(SECTION_AUDIO, &"sfx_volume", DEFAULT_SFX_VOLUME)
 		eula_accepted_version = config.get_value(SECTION_EULA, &"accepted_version", DEFAULT_EULA_VERSION)
 		scanlines = config.get_value(CRT_SECTION, &"scanlines", DEFAULT_SCANLINES)
@@ -203,9 +203,9 @@ func _apply_fullscreen() -> void:
 
 
 func _apply_crt_settings() -> void:
+	Crt.set_border_enabled(crt_border)
 	Crt.set_scanlines_enabled(scanlines)
 	Crt.set_curvature_enabled(curvature)
-	Crt.set_border_enabled(crt_border)
 
 
 func _apply_bus_volume(bus_name: StringName, volume_linear: float) -> void:
