@@ -5,6 +5,7 @@ class_name Track
 extends Node2D
 
 signal victory_finished
+signal scrolled(scroll: float)
 
 enum DifficultType { EASY, NORMAL, HARD }
 
@@ -246,6 +247,7 @@ func _process(_delta: float) -> void:
 		victory.finished.connect(_on_victory_finished)
 
 	position.x = -current_music_time * scroll_speed
+	scrolled.emit(position.x)
 	_notify_player_near(current_music_time)
 	if not _started:
 		hero.start()

@@ -4,6 +4,8 @@
 class_name Game
 extends Node2D
 
+@export var catalogue: Catalogue
+
 # Obstacles rest this far below the hero's ground line
 const _OBSTACLE_OFFSET_Y: float = 22.0
 
@@ -25,13 +27,16 @@ func _ready() -> void:
 
 	# Workaround for Godot 4 Camera2D not re-centering after the window resizes.
 	get_tree().root.size_changed.connect(_on_window_resized)
-
+	
+	_track.scrolled.connect(_biome.set_scroll)
+	
 	_prepare_biome()
 	_track.begin()
 
 
 func _prepare_biome() -> void:
-	_biome.load()
+	var biome_entry: BiomeEntry = catalogue.get_biome_for_song(GameData.last_song_id)
+	_biome.load(biome_entry)
 	var ground_y: float = _biome.ground_y()
 	_hero.set_ground_y(ground_y)
 	_track.floor_y = ground_y + _OBSTACLE_OFFSET_Y

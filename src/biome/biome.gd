@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 class_name Biome
-extends Node
+extends Node2D
 
 const _LAYER_PATH: String = &"res://data/assets/backgrounds/bg_%d_layer_%d.png"
 
@@ -10,15 +10,11 @@ const _LAYER_PATH: String = &"res://data/assets/backgrounds/bg_%d_layer_%d.png"
 const _DASH_BURST_DISTANCE: float = 100.0
 const _DASH_BURST_DURATION: float = 0.4
 
-@export var track: Track
-
 # Parallax speed of the backmost layer
 @export var far_factor: float = 0.1
 
 # The fog, on top of even the ground, enemies and players, has it own parallax speed
 @export var fog_factor: float = 0.6
-
-@export var catalogue: Catalogue = null
 
 var _layers: Array[Texture2D] = []
 
@@ -30,18 +26,31 @@ var _bottom_color: Color = Color.BLACK
 
 var _burst: float = 0.0
 var _burst_tween: Tween
+var _current_scroll: float = 0.0
+var _biome_entry: BiomeEntry = null
 
+var _back_renderer: Node2D
+var _front_renderer: Node2D
 
 func _ready() -> void:
-	if not track:
-		printerr(&"Biome needs a Track reference!")
-		get_tree().quit()
+	_back_renderer = Node2D.new()
+	_back_renderer.z_index = -10
+	_back_renderer.draw.connect(_draw_back)
+	add_child(_back_renderer)
 
-	if not catalogue or not catalogue.biomes or catalogue.biomes.is_empty():
-		printerr(&"Biome needs a Catalogue reference with biomes!")
-		get_tree().quit()
+	_front_renderer = Node2D.new()
+	_front_renderer.z_index = 10
+	_front_renderer.draw.connect(_draw_front)
+	add_child(_front_renderer)
 
-func load() -> void:
+func set_scroll(scroll: float) -> void:
+	_current_scroll = scroll
+	_back_renderer.queue_redraw()
+	_front_renderer.queue_redraw()
+
+
+func load(biome_entry: BiomeEntry) -> void:
+	_biome_entry = biome_entry
 	_layers.clear()
 	_load_layers()
 
@@ -59,8 +68,7 @@ func dash_burst() -> void:
 
 
 func ground_y() -> float:
-	var biome_entry: BiomeEntry = catalogue.get_biome_for_song(GameData.last_song_id)
-	return biome_entry.floor_offset if biome_entry else 0.0
+	return _biome_entry.floor_offset if _biome_entry else 0.0
 
 func back_layer_count() -> int:
 	return maxi(_layers.size() - 1, 0)
@@ -94,6 +102,25 @@ func bottom_color() -> Color:
 	return _bottom_color
 
 
+func _draw_back() -> void:
+	var view: Vector2 = get_viewport_rect().size
+
+	# We cover the whole screen with the top and bottom color
+	_back_renderer.draw_rect(Rect2(-view.x / 2.0, -view.y / 2.0, view.x, view.y / 2.0), top_color())
+	_back_renderer.draw_rect(Rect2(-view.x / 2.0, view.y / 2.0, view.x, view.y / 2.0), bottom_color())
+
+	# draw all layers
+	for index: int in back_layer_count():
+		draw_layer(_back_renderer, back_layer(index), back_layer_offset(index), view.x)
+
+
+func _draw_front() -> void:
+	if not has_fog():
+		return
+	var view: Vector2 = get_viewport_rect().size
+	draw_layer(_front_renderer, fog_layer(), fog_offset(), view.x)
+
+
 # Tiles one layer across the whole (possibly ultrawide) viewport, drawing onto
 # the caller's canvas. Kept here so the copy-placement maths lives in one place
 # and the render nodes only decide which layers to draw and in what order.
@@ -112,11 +139,9 @@ func draw_layer(canvas: CanvasItem, texture: Texture2D, offset: float, view_widt
 # How far a layer at this index has scrolled, wrapped to one tile so callers tile
 # only a handful of copies. Far layers move slowest, the fog fastest.
 func _layer_offset(index: int) -> float:
-	if not track:
-		return 0.0
 	var width: float = _layers[index].get_width()
 	var factor: float = _factor(index)
-	var scrolled: float = track.position.x
+	var scrolled: float = _current_scroll
 
 	if factor < 1.0:
 		scrolled -= _burst
@@ -133,8 +158,7 @@ func _factor(index: int) -> float:
 
 
 func _load_layers() -> void:
-	var biome_entry: BiomeEntry = catalogue.get_biome_for_song(GameData.last_song_id)
-	var biome_id: int = biome_entry.id if biome_entry else 1
+	var biome_id: int = _biome_entry.id if _biome_entry else 1
 
 	var layer_number: int = 1
 	while true:
