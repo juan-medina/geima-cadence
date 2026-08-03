@@ -22,7 +22,6 @@ func _update_screen_parameters():
 	var shader_material: ShaderMaterial = material
 	shader_material.set_shader_parameter("screen_width", size.x)
 	shader_material.set_shader_parameter("screen_height", size.y)
-	print("Screen parameters updated: ", size.x, size.y)
 
 
 func set_curvature_enabled(enabled: bool) -> void:
