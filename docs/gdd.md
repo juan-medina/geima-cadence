@@ -391,31 +391,48 @@ reachable goal before the harder one is disclosed.
 Both endings play once, automatically, at the moment the final qualifying
 medal is recorded, and are re-viewable afterward from the **Story** menu.
 
-#### Progressive Disclosure — The Three-Tier Readout
-The player learns the objectives by playing, with no tutorial text. Three
-scopes each show a state:
+#### The Four-State Model
+Progress — on a single song, and on the game as a whole — is always one of four
+states, read the same way at every scale:
 
-*   **Header counter (global):** reads `Escape x/N` until every song is
-    escaped, then flips to `Master x/N`. The mastery goal stays hidden until
-    the Escape ending is earned.
-*   **Song row (per song):** shows the song's state as it climbs —
-    *(blank, untouched)* → `ESCAPED` → `★ x/3` *(mastery in progress, a
-    non-gold tint)* → `MASTERED` *(gold, reserved for all three S)*. The word
-    `MASTERED` never appears until 3/3, so a single S is never mistaken for
-    completion.
-*   **Biome preview (per zone, aggregate):** the selected biome's preview
-    image carries a status **word plus a frame** that escalates through the
-    same four states, representing the biome's rolled-up progress (biome
-    escaped = all its songs escaped; biome mastered = all its songs mastered).
-    Visual energy climbs with the state, and the **animated "marquee" frame is
-    reserved for the fully-mastered gold state** so mastery visibly comes
-    alive.
+1.  **Escaping** — not yet escaped.
+2.  **Escaped** — survived, but no mastery yet.
+3.  **Mastering** — mastery under way.
+4.  **Mastered** — fully mastered.
 
-The *per-difficulty truth* — which specific difficulties of the selected song
-are S-ranked — is read directly off the three **difficulty buttons** (Easy /
-Normal / Hard), each showing its own rank. That is what teaches "mastery = S on
-all three": three rank slots side by side, and the empty ones are the ask. The
-song row's `x/3` is the shorthand for that breakdown.
+A **song** takes its state from its three difficulty records: escaped the moment
+*any* difficulty is cleared, mastering as soon as *any* difficulty is S-ranked,
+mastered when *all three* are. So escape is binary for a song — one clear is
+enough — while mastery is a progression that needs the full set.
+
+The **whole game** takes its state the same way, one level up, from its songs:
+escaping until every song is escaped, mastering the moment any song is mastered,
+mastered when all are. With one deliberate twist — **the game has no "escaped"
+resting state.** The instant every song is escaped it rolls straight into
+*mastering*. A player who escaped everything and saw "Escaped" would assume the
+game was over; flipping immediately to mastering is how the secret objective
+reveals itself.
+
+#### Reading the Board
+The player learns all of this by playing, with no tutorial text:
+
+*   **Each song row** names its state. Because escape is binary, an escaped song
+    just reads `ESCAPED`; because mastery is a progression, a mastering song
+    shows how far along it is — how many of its three difficulties are S-ranked.
+*   **The header** (the whole-game readout) pins a count onto whichever
+    objective is active, to pull the player toward it: songs escaped while
+    escaping, songs mastered while mastering — the same shape as a row, one
+    scale up.
+*   **Color** separates the four at a glance: escaping is dim, escaped is green,
+    mastering is bronze, mastered is gold.
+*   **The three difficulty buttons** of the selected song hold the
+    per-difficulty truth — which difficulties are S-ranked. Three slots side by
+    side, and the empty ones are the ask; that is what teaches "mastery = S on
+    all three."
+
+The same roll-up describes a **zone**: a biome is escaped when all its songs
+are, and mastered when all its songs are, so a zone's preview can carry its own
+aggregate state.
 
 ### The Story Menu
 The main menu carries a **Story** entry that lets the player watch the
