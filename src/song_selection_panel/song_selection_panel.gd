@@ -4,13 +4,6 @@
 class_name SongSelectionPanel
 extends MenuPanel
 
-
-class BiomeStats:
-	extends RefCounted
-	var total_songs: int = 0
-	var total_s_stars: int = 0
-
-
 const SONG_ROW: PackedScene = preload("res://song_row/song_row.tscn")
 
 @export var catalogue: Catalogue = null
@@ -26,6 +19,7 @@ var _preview_textures: Array[TextureRect] = []
 @onready var _bpm_label: Label = %BPM
 @onready var _details_panel: VBoxContainer = %Details
 @onready var _total_stars_label: Label = %TotalStars
+@onready var _header_star: Star = $VBoxContainer/Header/Stars/Star
 
 
 func _ready() -> void:
@@ -48,19 +42,16 @@ func _is_setup_valid() -> bool:
 
 
 func _build_catalogue_ui() -> void:
-	var total_songs: int = 0
-	var total_s_stars: int = 0
+	var states: Array[Completion.State] = []
 	for biome: BiomeEntry in catalogue.biomes:
 		if biome.songs.is_empty():
 			continue
 		_add_biome_header(biome)
 		if not _add_biome_preview(biome):
 			return
-		var stats: BiomeStats = _add_biome_songs(biome)
-		total_songs += stats.total_songs
-		total_s_stars += stats.total_s_stars
+		states.append_array(_add_biome_songs(biome))
 
-	_total_stars_label.text = &"%d / %d" % [total_s_stars, total_songs * 3]
+	_update_header(states)
 
 	if _easy_button and _easy_button.button_group:
 		for btn: BaseButton in _easy_button.button_group.get_buttons():
@@ -85,8 +76,8 @@ func _add_biome_preview(biome: BiomeEntry) -> bool:
 	return true
 
 
-func _add_biome_songs(biome: BiomeEntry) -> BiomeStats:
-	var stats: BiomeStats = BiomeStats.new()
+func _add_biome_songs(biome: BiomeEntry) -> Array[Completion.State]:
+	var states: Array[Completion.State] = []
 	for song: SongEntry in biome.songs:
 		if not song:
 			printerr(&"Invalid song entry in biome: %s" % biome.name)
@@ -100,12 +91,7 @@ func _add_biome_songs(biome: BiomeEntry) -> BiomeStats:
 		for diff: int in Track.DifficultType.values():
 			ranks.append(GameData.get_star_record(song.id, diff as Track.DifficultType))
 		new_song_row.ranks = ranks
-
-		var s_stars: int = 0
-		for rank: Rank.Level in ranks:
-			if rank == Rank.Level.S:
-				s_stars += 1
-		stats.total_s_stars += s_stars
+		states.append(Completion.from_ranks(ranks))
 
 		new_song_row.pressed.connect(_on_song_row_pressed.bind(new_song_row))
 		new_song_row.focus_entered.connect(_on_song_row_focused.bind(new_song_row))
@@ -117,9 +103,42 @@ func _add_biome_songs(biome: BiomeEntry) -> BiomeStats:
 		if is_match or not _selected_song_row:
 			new_song_row.button_pressed = true
 			_on_song_row_pressed(new_song_row)
+	return states
 
-		stats.total_songs += 1
-	return stats
+
+func _update_header(states: Array[Completion.State]) -> void:
+	var world: Completion.State = Completion.from_states(states)
+	_total_stars_label.text = _header_text(world, states)
+	_total_stars_label.add_theme_color_override(&"font_color", Completion.color(world))
+	_header_star.visible = world == Completion.State.MASTERING or world == Completion.State.MASTERED
+
+
+func _header_text(world: Completion.State, states: Array[Completion.State]) -> String:
+	if not (world == Completion.State.ESCAPING or world == Completion.State.MASTERING):
+		return Completion.string(world)
+
+	var count: int = 0
+	if world == Completion.State.ESCAPING:
+		count = _escaped_count(states)
+	elif world == Completion.State.MASTERING:
+		count = _mastered_count(states)
+	return &"%s %d / %d" % [Completion.string(world), count, states.size()]
+
+
+func _escaped_count(states: Array[Completion.State]) -> int:
+	var count: int = 0
+	for state: Completion.State in states:
+		if state != Completion.State.ESCAPING:
+			count += 1
+	return count
+
+
+func _mastered_count(states: Array[Completion.State]) -> int:
+	var count: int = 0
+	for state: Completion.State in states:
+		if state == Completion.State.MASTERED:
+			count += 1
+	return count
 
 
 func first_focus_control() -> Control:

@@ -38,7 +38,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 24
-text = "Select a Song"
+text = "Select a Escape Path"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -73,7 +73,7 @@ rank = 3
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer" unique_id=340496060]
-custom_minimum_size = Vector2(200, 150)
+custom_minimum_size = Vector2(250, 150)
 layout_mode = 2
 follow_focus = true
 draw_focus_border = true

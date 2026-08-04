@@ -22,19 +22,20 @@ func _ready() -> void:
 
 
 func _update_state() -> void:
-	var state: Completion.State = Completion.from(ranks)
+	var state: Completion.State = Completion.from_ranks(ranks)
+	_label.text = _text(state)
 	_label.add_theme_color_override(&"font_color", Completion.color(state))
 	_star.visible = state == Completion.State.MASTERING or state == Completion.State.MASTERED
 
-	# The count is a row choice: for MASTERING we show progress toward the S set
-	# instead of the plain word.
+
+# Escape is binary, so only mastering carries a count toward the full S set.
+func _text(state: Completion.State) -> String:
 	if state == Completion.State.MASTERING:
-		_label.text = &"%d / %d" % [_s_count(), ranks.size()]
-	else:
-		_label.text = Completion.string(state)
+		return &"%s %d / %d" % [Completion.string(state), _mastered_count(), ranks.size()]
+	return Completion.string(state)
 
 
-func _s_count() -> int:
+func _mastered_count() -> int:
 	var count: int = 0
 	for rank: Rank.Level in ranks:
 		if rank == Rank.Level.S:
