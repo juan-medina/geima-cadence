@@ -10,6 +10,7 @@ var _can_resume: bool = false
 @onready var _settings_panel: SettingsPanel = $Center/SettingsPanel
 @onready var _win_panel: WinPanel = $Center/WinPanel
 
+
 func display() -> void:
 	_open_pause(false)
 

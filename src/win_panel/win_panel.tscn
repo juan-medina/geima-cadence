@@ -2,11 +2,13 @@
 
 [ext_resource type="Script" uid="uid://b2ppi1dimfwbr" path="res://win_panel/win_panel.gd" id="1_2gykl"]
 [ext_resource type="PackedScene" path="res://star/star.tscn" id="2_2gykl"]
+[ext_resource type="Resource" uid="uid://bhnr47r4rxtgr" path="res://data/assets/catalogue/catalogue.tres" id="2_8jdlq"]
 
 [node name="WinPanel" type="PanelContainer" unique_id=1163804544]
 offset_right = 12.0
 offset_bottom = 12.0
 script = ExtResource("1_2gykl")
+catalogue = ExtResource("2_8jdlq")
 metadata/_custom_type_script = "uid://ido3okvantbc"
 
 [node name="VBox" type="VBoxContainer" parent="." unique_id=2019642119]
@@ -20,9 +22,15 @@ theme_override_font_sizes/font_size = 24
 text = "Congratulations: You Scape!"
 horizontal_alignment = 1
 
-[node name="Score" type="Label" parent="VBox" unique_id=1230121607]
+[node name="Song" type="Label" parent="VBox" unique_id=1230121607]
 layout_mode = 2
-text = "Score: "
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "This is the Song Name"
+horizontal_alignment = 1
+
+[node name="Mode" type="Label" parent="VBox" unique_id=522884497]
+layout_mode = 2
+text = "EASY"
 horizontal_alignment = 1
 
 [node name="Star" parent="VBox" unique_id=1261481326 instance=ExtResource("2_2gykl")]
