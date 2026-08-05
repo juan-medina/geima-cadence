@@ -4,6 +4,7 @@
 class_name MenuPanel
 extends PanelContainer
 
+@warning_ignore("unused_signal")
 signal back_requested
 
 
