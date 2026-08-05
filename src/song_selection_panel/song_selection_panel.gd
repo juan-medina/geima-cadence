@@ -198,3 +198,7 @@ func _create_preview(biome: BiomeEntry) -> TextureRect:
 	texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	texture_rect.visible = false
 	return texture_rect
+
+
+func _on_difficulty_button_pressed() -> void:
+	_play_button.grab_focus()

@@ -144,5 +144,8 @@ size_flags_horizontal = 4
 shortcut = SubResource("Shortcut_sm2ec")
 text = "Back"
 
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Details/HBoxContainer/Easy" to="." method="_on_difficulty_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Details/HBoxContainer/Normal" to="." method="_on_difficulty_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Details/HBoxContainer/Hard" to="." method="_on_difficulty_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Details/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]
