@@ -1,14 +1,9 @@
 [gd_scene format=3 uid="uid://b75lqx86bgvns"]
 
 [ext_resource type="Script" uid="uid://6n73a5thatbp" path="res://track/track.gd" id="1_t76p0"]
-[ext_resource type="AudioStream" uid="uid://e6awlksth30s" path="res://data/assets/songs/VictoryTheme.ogg" id="3_nmr8f"]
 
 [node name="Track" type="Node2D" unique_id=1738776798]
 script = ExtResource("1_t76p0")
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=140037485]
-bus = &"Music"
-
-[node name="Victory" type="AudioStreamPlayer" parent="." unique_id=1870497686]
-stream = ExtResource("3_nmr8f")
 bus = &"Music"

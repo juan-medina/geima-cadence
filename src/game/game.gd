@@ -52,9 +52,19 @@ func _on_window_resized() -> void:
 	_camera.force_update_scroll()
 
 
+func _await_all(signals: Array[Signal]) -> void:
+	var pending: Array[int] = [signals.size()]
+	var on_done: Callable = func() -> void: pending[0] -= 1
+	for signal_to_wait: Signal in signals:
+		signal_to_wait.connect(on_done, CONNECT_ONE_SHOT)
+	while pending[0] > 0:
+		await get_tree().process_frame
+
+
 func _on_hero_died() -> void:
-	# The player has finished dying, but the health bar may still be draining
-	await _hud.health_settled()
+	_track.stop_music()
+	await _await_all([Sound.play_game_over(), _hud.health_settled])
+
 	_pause_overlay.display()
 
 

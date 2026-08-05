@@ -29,7 +29,6 @@ var _ducking_started: bool = false
 var _ducking_trigger_time: float = 0.0
 
 @onready var music: AudioStreamPlayer = $Music
-@onready var victory: AudioStreamPlayer = $Victory
 
 
 func _ready() -> void:
@@ -57,13 +56,7 @@ func _ready() -> void:
 		get_tree().quit()
 		return
 
-	if not victory:
-		printerr(&"Track needs a Victory sound assigned!")
-		get_tree().quit()
-		return
-
-	if victory and victory.stream:
-		_ducking_trigger_time = music.stream.get_length() - victory.stream.get_length()
+	_ducking_trigger_time = music.stream.get_length() - Sound.game_win_length()
 
 	hero.stopped.connect(_on_hero_stopped)
 
@@ -78,8 +71,6 @@ func begin() -> void:
 func _exit_tree() -> void:
 	if music and music.playing:
 		music.stop()
-	if victory and victory.playing:
-		victory.stop()
 
 
 func _on_hero_stopped() -> void:
@@ -241,10 +232,12 @@ func _process(_delta: float) -> void:
 
 	if not _ducking_started and current_music_time >= _ducking_trigger_time:
 		_ducking_started = true
-		victory.play()
-		var tween: Tween = create_tween()
-		tween.tween_property(music, ^"volume_db", -40.0, 2.0)
-		victory.finished.connect(_on_victory_finished)
+
+		var music_down_tween: Tween = create_tween()
+		music_down_tween.tween_property(music, ^"volume_db", -40.0, 2.0)
+
+		await Sound.play_game_win()
+		_on_victory_finished()
 
 	position.x = -current_music_time * scroll_speed
 	scrolled.emit(position.x)
@@ -282,3 +275,8 @@ func _difficulty_to_string(difficulty: DifficultType) -> StringName:
 
 func _on_victory_finished() -> void:
 	victory_finished.emit()
+
+
+func stop_music() -> void:
+	if music and music.playing:
+		music.stop()

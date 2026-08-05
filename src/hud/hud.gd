@@ -4,6 +4,8 @@
 class_name Hud
 extends CanvasLayer
 
+signal health_settled
+
 # Arcade damage trail: yellow drops instantly, the red ghost holds the old
 const TRAIL_HOLD_DURATION: float = 0.4
 const TRAIL_DRAIN_DURATION: float = 0.25
@@ -38,11 +40,6 @@ func _process(_delta: float) -> void:
 	_song_bar.value = track.get_progress()
 
 
-func health_settled() -> void:
-	if _trail_tween and _trail_tween.is_running():
-		await _trail_tween.finished
-
-
 func _on_health_changed(current: float) -> void:
 	_health_bar.value = current
 	if _trail_tween:
@@ -50,3 +47,4 @@ func _on_health_changed(current: float) -> void:
 	_trail_tween = create_tween()
 	_trail_tween.tween_interval(TRAIL_HOLD_DURATION)
 	_trail_tween.tween_property(_trail_bar, ^"value", current, TRAIL_DRAIN_DURATION)
+	_trail_tween.tween_callback(health_settled.emit)

@@ -74,11 +74,13 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 
 ### Music
 
-#### RPG Music Essentials
-* **Author:** [Allen J. Mills](https://allenjmills.itch.io/)
-* **Source:** [Itch.io](https://allenjmills.itch.io/rpg-music-essentials)
-* **License:** Paid, royalty-free ("Unlimited Royalty-free Use"). Used under a
-  purchased license.
+#### 16-Bit Fantasy & Adventure Music Pack
+* **Author:** [Marllon Silva (xDeviruchi)](https://xdeviruchi.itch.io/)
+* **Source:** [Itch.io](https://xdeviruchi.itch.io/16-bit-fantasy-adventure-music-pack)
+* **License:** Free (name-your-own-price). Personal and commercial use allowed;
+  minor edits allowed; redistribution, resale, and OST releases prohibited.
+  Attribution optional but appreciated. Currently under evaluation — planning to
+  pay to support the author.
 
 ### Sound Effects
 
@@ -129,6 +131,18 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 * **Source:** [Freesound](https://freesound.org/s/243020/)
 * **License:** [Creative Commons Zero (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/) — public domain, free for personal and commercial use.
 * **Usage:** Cheat-activation sound.
+
+#### 8-bit Game Over
+* **Author:** [Euphrosyyn](https://freesound.org/people/Euphrosyyn/)
+* **Source:** [Freesound](https://freesound.org/people/Euphrosyyn/sounds/442127/)
+* **License:** [Creative Commons Attribution 4.0 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) — free for personal and commercial use with attribution.
+* **Usage:** Game over sound.
+
+#### WinSquare
+* **Author:** [Fupicat](https://freesound.org/people/Fupicat/)
+* **Source:** [Freesound](https://freesound.org/people/Fupicat/sounds/527650/)
+* **License:** [Creative Commons Zero (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/) — public domain, free for personal and commercial use.
+* **Usage:** Game win sound.
 
 ### Fonts
 

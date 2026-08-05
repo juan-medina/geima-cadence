@@ -17,7 +17,7 @@ alignment = 1
 [node name="Title" type="Label" parent="VBox" unique_id=61730951]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Congratulations: You Won!"
+text = "Congratulations: You Scape!"
 horizontal_alignment = 1
 
 [node name="Score" type="Label" parent="VBox" unique_id=1230121607]
