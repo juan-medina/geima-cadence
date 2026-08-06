@@ -57,17 +57,21 @@ func _await_all(signals: Array[Signal]) -> void:
 	var on_done: Callable = func() -> void: pending[0] -= 1
 	for signal_to_wait: Signal in signals:
 		signal_to_wait.connect(on_done, CONNECT_ONE_SHOT)
-	while pending[0] > 0:
-		var tree: SceneTree = get_tree()
-		if tree:
-			await tree.process_frame
+	# is_inside_tree() guards against the node being freed mid-await during a
+	# scene change or quit, which would resume the await against a torn-down tree.
+	while pending[0] > 0 and is_inside_tree():
+		await get_tree().process_frame
 
 
 func _on_hero_died() -> void:
+	# Pausing here would freeze the HUD tween that emits health_settled, so the
+	# await below could never complete; block pause until the overlay is shown.
+	_pause_overlay.set_process_unhandled_input(false)
 	_track.stop_music()
 	await _await_all([Sound.play_game_over(), _hud.health_settled])
 
 	_pause_overlay.display()
+	_pause_overlay.set_process_unhandled_input(true)
 
 
 func _on_track_victory_finished() -> void:
