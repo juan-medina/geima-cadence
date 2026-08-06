@@ -14,6 +14,9 @@ const DASH_SCENE: PackedScene = preload("res://track/dash_obstacle.tscn")
 const SLIDE_SCENE: PackedScene = preload("res://track/slide_obstacle.tscn")
 const JUMP_UP_SCENE: PackedScene = preload("res://track/jump_up_obstacle.tscn")
 
+# Start the win sequence this long before the song ends
+const _VICTORY_LEAD: float = 2.0
+
 @export var hero: Hero
 @export var scroll_speed: float = 250.0
 @export var floor_y: float = 24.0
@@ -25,8 +28,8 @@ var _last_music_time: float = 0.0
 var _approaching: Array[Obstacle] = []
 var _near_times: PackedFloat32Array = PackedFloat32Array()
 var _next_near: int = 0
-var _ducking_started: bool = false
-var _ducking_trigger_time: float = 0.0
+var _victory_triggered: bool = false
+var _victory_trigger_time: float = 0.0
 
 @onready var music: AudioStreamPlayer = $Music
 
@@ -56,7 +59,7 @@ func _ready() -> void:
 		get_tree().quit()
 		return
 
-	_ducking_trigger_time = music.stream.get_length() - Sound.game_win_length()
+	_victory_trigger_time = music.stream.get_length() - _VICTORY_LEAD
 
 	hero.stopped.connect(_on_hero_stopped)
 
@@ -230,14 +233,10 @@ func _process(_delta: float) -> void:
 		return
 	_last_music_time = current_music_time
 
-	if not _ducking_started and current_music_time >= _ducking_trigger_time:
-		_ducking_started = true
-
-		var music_down_tween: Tween = create_tween()
-		music_down_tween.tween_property(music, ^"volume_db", -40.0, 2.0)
-
-		await Sound.play_game_win()
-		_on_victory_finished()
+	if not _victory_triggered and current_music_time >= _victory_trigger_time:
+		_victory_triggered = true
+		_fade_out_music()
+		victory_finished.emit()
 
 	position.x = -current_music_time * scroll_speed
 	scrolled.emit(position.x)
@@ -273,8 +272,9 @@ func _difficulty_to_string(difficulty: DifficultType) -> StringName:
 			return &""
 
 
-func _on_victory_finished() -> void:
-	victory_finished.emit()
+func _fade_out_music() -> void:
+	var fade_tween: Tween = create_tween()
+	fade_tween.tween_property(music, ^"volume_db", -40.0, _VICTORY_LEAD)
 
 
 func stop_music() -> void:

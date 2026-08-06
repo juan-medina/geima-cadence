@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b75lqx86bgvns" path="res://track/track.tscn" id="4_4fuuu"]
 [ext_resource type="PackedScene" uid="uid://bkq3v7w2m8d5n" path="res://hud/hud.tscn" id="6_p2wqe"]
 [ext_resource type="PackedScene" uid="uid://c5xart2yh6k1a" path="res://biome/biome.tscn" id="7_biome"]
+[ext_resource type="AudioStream" uid="uid://bltsooqqpwst" path="res://data/assets/music/06 - Victory.ogg" id="9_l8g03"]
 [ext_resource type="PackedScene" uid="uid://dapiytd67uklp" path="res://pause_overlay/pause_overlay.tscn" id="10_j8tme"]
 [ext_resource type="AudioStream" uid="uid://svypuj6ubueo" path="res://data/assets/music/18 - Never Give Up.ogg" id="11_gover"]
 
@@ -17,15 +18,11 @@ catalogue = ExtResource("3_j8tme")
 
 [node name="Biome" parent="." unique_id=446387458 instance=ExtResource("7_biome")]
 
-
-
 [node name="Track" parent="." unique_id=1738776798 node_paths=PackedStringArray("hero") instance=ExtResource("4_4fuuu")]
 hero = NodePath("../Hero")
 
 [node name="Hero" parent="." unique_id=954983578 instance=ExtResource("2_vasa2")]
 position = Vector2(-100, 158)
-
-
 
 [node name="Hud" parent="." unique_id=1930472651 node_paths=PackedStringArray("track", "hero") instance=ExtResource("6_p2wqe")]
 track = NodePath("../Track")
@@ -33,9 +30,15 @@ hero = NodePath("../Hero")
 
 [node name="PauseOverlay" parent="." unique_id=12134441 instance=ExtResource("10_j8tme")]
 
-[node name="GameOver" type="AudioStreamPlayer" parent="."]
+[node name="GameOver" type="AudioStreamPlayer" parent="." unique_id=1199419631]
 process_mode = 3
 stream = ExtResource("11_gover")
 bus = &"Music"
+
+[node name="GameWin" type="AudioStreamPlayer" parent="." unique_id=1134556571]
+process_mode = 3
+stream = ExtResource("9_l8g03")
+bus = &"Music"
+parameters/looping = true
 
 [connection signal="victory_finished" from="Track" to="." method="_on_track_victory_finished"]

@@ -8,12 +8,14 @@ signal health_changed(current: float)
 signal stopped
 signal died
 signal dashed
+signal vanished
 
 enum State { IDLE, RUNNING, SLASHING, JUMP_UP, JUMP_DOWN, DASH, SLIDE, HIT, DYING, DEAD }
 
 const JUMP_HEIGHT: float = 30.0
 const HIT_MATERIAL: Material = preload("res://hero/hit.tres")
 const HIT_FLASH_DURATION: float = 0.2
+const VANISH_DURATION: float = 2.0
 
 @export var max_health: float = 100.0
 
@@ -63,6 +65,12 @@ func start() -> void:
 func set_ground_y(y: float) -> void:
 	position.y = y
 	_base_y = y
+
+
+func vanish() -> void:
+	var vanish_tween: Tween = create_tween()
+	vanish_tween.tween_property(self, ^"modulate:a", 0.0, VANISH_DURATION)
+	vanish_tween.tween_callback(vanished.emit)
 
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -19,6 +19,7 @@ const _OBSTACLE_OFFSET_Y: float = 22.0
 @onready var _hud: Hud = $Hud
 
 @onready var _game_over: AudioStreamPlayer = $GameOver
+@onready var _game_win: AudioStreamPlayer = $GameWin
 
 
 func _ready() -> void:
@@ -34,6 +35,8 @@ func _ready() -> void:
 
 	_prepare_biome()
 	_track.begin()
+
+	print("Game win length: " + str(_game_win.stream.get_length()))
 
 
 func _prepare_biome() -> void:
@@ -67,9 +70,14 @@ func _on_hero_died() -> void:
 
 
 func _on_track_victory_finished() -> void:
+	_pause_overlay.set_process_unhandled_input(false)
+	_hero.vanish()
+	await _hero.vanished
+
+	_game_win.play()
+
 	var health_percentage: float = _hero.health / _hero.max_health
-
 	var rank: Rank.Level = Rank.from_health_percentage(health_percentage)
-
 	GameData.set_star_record(GameData.last_song_id, GameData.difficulty, rank)
 	_pause_overlay._open_win(rank)
+	_pause_overlay.set_process_unhandled_input(true)
