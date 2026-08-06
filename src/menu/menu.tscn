@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cutwj246j5hso" path="res://song_selection_panel/song_selection_panel.tscn" id="4_v6yed"]
 [ext_resource type="PackedScene" uid="uid://dxbnvjyrjip1y" path="res://settings_panel/settings_panel.tscn" id="6_settings"]
 [ext_resource type="PackedScene" uid="uid://cs4cvs62xjs2s" path="res://about_panel/about_panel.tscn" id="7_about"]
+[ext_resource type="AudioStream" uid="uid://cfqojwn6qi16x" path="res://data/assets/music/02 - Title Theme.ogg" id="9_6fswf"]
 
 [node name="MenuOverlay" type="CanvasLayer" unique_id=105136617]
 script = ExtResource("1_g18jx")
@@ -67,8 +68,10 @@ stream = ExtResource("3_6nwqt")
 bus = &"Sfx"
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=1962149118]
+stream = ExtResource("9_6fswf")
 autoplay = true
 bus = &"Music"
+parameters/looping = true
 
 [connection signal="entered" from="CheatCode" to="." method="_on_cheat_code_entered"]
 [connection signal="about_requested" from="Center/MainMenuPanel" to="." method="_on_about_requested"]
