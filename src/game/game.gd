@@ -18,6 +18,8 @@ const _OBSTACLE_OFFSET_Y: float = 22.0
 @onready var _hero: Hero = $Hero
 @onready var _hud: Hud = $Hud
 
+@onready var _game_over: AudioStreamPlayer = $GameOver
+
 
 func _ready() -> void:
 	_hero.died.connect(_on_hero_died)
@@ -52,23 +54,13 @@ func _on_window_resized() -> void:
 	_camera.force_update_scroll()
 
 
-func _await_all(signals: Array[Signal]) -> void:
-	var pending: Array[int] = [signals.size()]
-	var on_done: Callable = func() -> void: pending[0] -= 1
-	for signal_to_wait: Signal in signals:
-		signal_to_wait.connect(on_done, CONNECT_ONE_SHOT)
-	# is_inside_tree() guards against the node being freed mid-await during a
-	# scene change or quit, which would resume the await against a torn-down tree.
-	while pending[0] > 0 and is_inside_tree():
-		await get_tree().process_frame
-
-
 func _on_hero_died() -> void:
-	# Pausing here would freeze the HUD tween that emits health_settled, so the
-	# await below could never complete; block pause until the overlay is shown.
+	# Pausing mid-sequence would freeze the health drain we await below, so block
+	# pause until the overlay is up. The game-over track plays under the overlay.
 	_pause_overlay.set_process_unhandled_input(false)
 	_track.stop_music()
-	await _await_all([Sound.play_game_over(), _hud.health_settled])
+	_game_over.play()
+	await _hud.await_health_settled()
 
 	_pause_overlay.display()
 	_pause_overlay.set_process_unhandled_input(true)

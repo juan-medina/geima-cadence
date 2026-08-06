@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bkq3v7w2m8d5n" path="res://hud/hud.tscn" id="6_p2wqe"]
 [ext_resource type="PackedScene" uid="uid://c5xart2yh6k1a" path="res://biome/biome.tscn" id="7_biome"]
 [ext_resource type="PackedScene" uid="uid://dapiytd67uklp" path="res://pause_overlay/pause_overlay.tscn" id="10_j8tme"]
+[ext_resource type="AudioStream" uid="uid://svypuj6ubueo" path="res://data/assets/music/18 - Never Give Up.ogg" id="11_gover"]
 
 [node name="Game" type="Node2D" unique_id=534874988]
 script = ExtResource("1_qnjlk")
@@ -31,5 +32,10 @@ track = NodePath("../Track")
 hero = NodePath("../Hero")
 
 [node name="PauseOverlay" parent="." unique_id=12134441 instance=ExtResource("10_j8tme")]
+
+[node name="GameOver" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("11_gover")
+bus = &"Music"
 
 [connection signal="victory_finished" from="Track" to="." method="_on_track_victory_finished"]

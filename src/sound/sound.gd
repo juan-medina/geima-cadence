@@ -64,7 +64,6 @@ const IMPACT_5: AudioStream = preload("res://data/assets/sounds/13_Impact_05.wav
 const IMPACTS: Array[AudioStream] = [IMPACT_1, IMPACT_2, IMPACT_3, IMPACT_4, IMPACT_5]
 
 const GAME_WIN: AudioStream = preload("res://data/assets/sounds/game_win.wav")
-const GAME_OVER: AudioStream = preload("res://data/assets/sounds/game_over.wav")
 
 var _step_timer: Timer = null
 
@@ -84,7 +83,6 @@ var _giant_wind_up_sound: AudioStreamPlayer = null
 var _giant_death_sound: AudioStreamPlayer = null
 var _impact_sound: AudioStreamPlayer = null
 var _game_win_sound: AudioStreamPlayer = null
-var _game_over_sound: AudioStreamPlayer = null
 
 
 func _ready() -> void:
@@ -111,7 +109,6 @@ func _ready() -> void:
 	_giant_death_sound = create_random_sound(GIANT_DEATHS, 1.1)
 	_impact_sound = create_random_sound(IMPACTS, 1.1)
 	_game_win_sound = create_sound(GAME_WIN, &"Music")
-	_game_over_sound = create_sound(GAME_OVER, &"Music")
 
 
 func create_random_sound(streams: Array[AudioStream], pitch: float) -> AudioStreamPlayer:
@@ -217,8 +214,3 @@ func play_game_win() -> Signal:
 
 func game_win_length() -> float:
 	return _game_win_sound.stream.get_length()
-
-
-func play_game_over() -> Signal:
-	_game_over_sound.play()
-	return _game_over_sound.finished

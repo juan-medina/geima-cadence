@@ -132,12 +132,6 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 * **License:** [Creative Commons Zero (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/) — public domain, free for personal and commercial use.
 * **Usage:** Cheat-activation sound.
 
-#### 8-bit Game Over
-* **Author:** [Euphrosyyn](https://freesound.org/people/Euphrosyyn/)
-* **Source:** [Freesound](https://freesound.org/people/Euphrosyyn/sounds/442127/)
-* **License:** [Creative Commons Attribution 4.0 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) — free for personal and commercial use with attribution.
-* **Usage:** Game over sound.
-
 #### WinSquare
 * **Author:** [Fupicat](https://freesound.org/people/Fupicat/)
 * **Source:** [Freesound](https://freesound.org/people/Fupicat/sounds/527650/)
