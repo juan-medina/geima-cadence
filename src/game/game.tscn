@@ -41,4 +41,4 @@ stream = ExtResource("9_l8g03")
 bus = &"Music"
 parameters/looping = true
 
-[connection signal="victory_finished" from="Track" to="." method="_on_track_victory_finished"]
+[connection signal="victory_reached" from="Track" to="." method="_on_track_victory_reached"]

@@ -36,8 +36,6 @@ func _ready() -> void:
 	_prepare_biome()
 	_track.begin()
 
-	print("Game win length: " + str(_game_win.stream.get_length()))
-
 
 func _prepare_biome() -> void:
 	var biome_entry: BiomeEntry = catalogue.get_biome_for_song(GameData.last_song_id)
@@ -58,9 +56,8 @@ func _on_window_resized() -> void:
 
 
 func _on_hero_died() -> void:
-	# Pausing mid-sequence would freeze the health drain we await below, so block
-	# pause until the overlay is up. The game-over track plays under the overlay.
 	_pause_overlay.set_process_unhandled_input(false)
+
 	_track.stop_music()
 	_game_over.play()
 	await _hud.await_health_settled()
@@ -69,15 +66,18 @@ func _on_hero_died() -> void:
 	_pause_overlay.set_process_unhandled_input(true)
 
 
-func _on_track_victory_finished() -> void:
+func _on_track_victory_reached() -> void:
 	_pause_overlay.set_process_unhandled_input(false)
+
 	_hero.vanish()
 	await _hero.vanished
 
-	_game_win.play()
+	_open_pause_win_overlay()
+	_pause_overlay.set_process_unhandled_input(true)
 
-	var health_percentage: float = _hero.health / _hero.max_health
-	var rank: Rank.Level = Rank.from_health_percentage(health_percentage)
+
+func _open_pause_win_overlay() -> void:
+	_game_win.play()
+	var rank: Rank.Level = Rank.from_health_percentage(_hero.health_percentage)
 	GameData.set_star_record(GameData.last_song_id, GameData.difficulty, rank)
 	_pause_overlay._open_win(rank)
-	_pause_overlay.set_process_unhandled_input(true)

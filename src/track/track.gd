@@ -4,7 +4,7 @@
 class_name Track
 extends Node2D
 
-signal victory_finished
+signal victory_reached
 signal scrolled(scroll: float)
 
 enum DifficultType { EASY, NORMAL, HARD }
@@ -14,8 +14,7 @@ const DASH_SCENE: PackedScene = preload("res://track/dash_obstacle.tscn")
 const SLIDE_SCENE: PackedScene = preload("res://track/slide_obstacle.tscn")
 const JUMP_UP_SCENE: PackedScene = preload("res://track/jump_up_obstacle.tscn")
 
-# Start the win sequence this long before the song ends
-const _VICTORY_LEAD: float = 2.0
+const _FADE_OUT_DURATION: float = 2.0
 
 @export var hero: Hero
 @export var scroll_speed: float = 250.0
@@ -59,7 +58,7 @@ func _ready() -> void:
 		get_tree().quit()
 		return
 
-	_victory_trigger_time = music.stream.get_length() - _VICTORY_LEAD
+	_victory_trigger_time = music.stream.get_length() - _FADE_OUT_DURATION
 
 	hero.stopped.connect(_on_hero_stopped)
 
@@ -236,7 +235,7 @@ func _process(_delta: float) -> void:
 	if not _victory_triggered and current_music_time >= _victory_trigger_time:
 		_victory_triggered = true
 		_fade_out_music()
-		victory_finished.emit()
+		victory_reached.emit()
 
 	position.x = -current_music_time * scroll_speed
 	scrolled.emit(position.x)
@@ -274,7 +273,7 @@ func _difficulty_to_string(difficulty: DifficultType) -> StringName:
 
 func _fade_out_music() -> void:
 	var fade_tween: Tween = create_tween()
-	fade_tween.tween_property(music, ^"volume_db", -40.0, _VICTORY_LEAD)
+	fade_tween.tween_property(music, ^"volume_db", -40.0, _FADE_OUT_DURATION)
 
 
 func stop_music() -> void:

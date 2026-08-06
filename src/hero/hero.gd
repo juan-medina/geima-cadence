@@ -23,6 +23,9 @@ var current_state: State = State.IDLE
 var health: float = 0.0
 var jump_up_duration: float = 0.0
 var jump_down_duration: float = 0.0
+var health_percentage: float:
+	get:
+		return health / max_health
 
 var _jump_tween: Tween
 var _flash_tween: Tween
