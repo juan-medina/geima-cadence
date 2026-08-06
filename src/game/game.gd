@@ -58,7 +58,9 @@ func _await_all(signals: Array[Signal]) -> void:
 	for signal_to_wait: Signal in signals:
 		signal_to_wait.connect(on_done, CONNECT_ONE_SHOT)
 	while pending[0] > 0:
-		await get_tree().process_frame
+		var tree: SceneTree = get_tree()
+		if tree:
+			await tree.process_frame
 
 
 func _on_hero_died() -> void:
