@@ -48,16 +48,23 @@ func on_player_near() -> void:
 	pass
 
 
-func resolve(action: Type) -> void:
+func resolve(action: Type) -> bool:
 	if _resolved:
-		return
+		return false
 	_resolved = true
 	if action == type:
 		_fade_glyph_success()
 		_on_player_success()
-	else:
-		_fade_glyph_failure()
-		_on_player_failure()
+		return false
+	_fade_glyph_failure()
+	_on_player_failure()
+	return true
+
+
+# Called by the hero after a miss, but only while it is still alive — a fatal hit
+# never turns the threat. Threats that react to being passed override this.
+func on_player_passed() -> void:
+	pass
 
 
 func _fade_glyph_success() -> void:

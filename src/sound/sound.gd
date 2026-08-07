@@ -171,8 +171,7 @@ func play_slash() -> void:
 
 
 func play_hit() -> void:
-	#_hit_sound.play()
-	pass
+	_hit_sound.play()
 
 
 func play_die() -> void:

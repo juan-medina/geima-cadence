@@ -11,7 +11,6 @@ size = Vector2(32, 34)
 collision_mask = 0
 monitoring = false
 script = ExtResource("1_xiw5x")
-damage = 9999.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1289071184]
 position = Vector2(6, -17)

@@ -11,10 +11,9 @@ size = Vector2(57, 66)
 collision_mask = 0
 monitoring = false
 script = ExtResource("1_qroe8")
-damage = 9999.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1278810387]
-position = Vector2(-8.5, -33)
+position = Vector2(1.5, -33)
 shape = SubResource("Shape_dash")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=142235232]
@@ -25,7 +24,7 @@ vframes = 24
 frame = 72
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1945128615]
-position = Vector2(-32, -45)
+position = Vector2(-2, -45)
 scale = Vector2(1.5, 1.5)
 sprite_frames = ExtResource("3_jkmvy")
 animation = &"idle"

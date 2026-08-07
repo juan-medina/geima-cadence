@@ -44,3 +44,14 @@ func _on_player_success() -> void:
 	animated_sprite2d.play(&"dead")
 	await animated_sprite2d.animation_finished
 	queue_free()
+
+
+func on_player_passed() -> void:
+	if _fade_tween:
+		_fade_tween.kill()
+	animated_sprite2d.modulate.a = 1.0
+	# animation_finished never fires once the swing has ended; only wait while it plays.
+	if animated_sprite2d.is_playing():
+		await animated_sprite2d.animation_finished
+	animated_sprite2d.play(&"idle")
+	animated_sprite2d.scale.x = -animated_sprite2d.scale.x

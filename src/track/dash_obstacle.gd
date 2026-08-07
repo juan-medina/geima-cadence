@@ -43,3 +43,11 @@ func _on_player_success() -> void:
 	tween.tween_property(animated_sprite2d, ^"position:x", recoil_x, REVERSE_DURATION)
 	await animated_sprite2d.animation_finished
 	queue_free()
+
+
+func on_player_passed() -> void:
+	# animation_finished never fires once the swing has ended; only wait while it plays.
+	if animated_sprite2d.is_playing():
+		await animated_sprite2d.animation_finished
+	animated_sprite2d.play(&"idle")
+	animated_sprite2d.scale.x = -animated_sprite2d.scale.x

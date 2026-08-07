@@ -270,7 +270,13 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	if not obstacle:
 		return
 
-	obstacle.resolve(_current_action())
+	var was_hit: bool = obstacle.resolve(_current_action())
+	if was_hit and is_alive():
+		obstacle.on_player_passed()
+
+
+func is_alive() -> bool:
+	return health > 0.0
 
 
 func take_damage(amount: float) -> void:
