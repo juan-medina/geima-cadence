@@ -35,6 +35,8 @@ const HITS: Array[AudioStream] = [HIT_1, HIT_2]
 
 const DIE: AudioStream = preload("res://data/assets/sounds/68_Die_01.wav")
 
+const TELEPORT: AudioStream = preload("res://data/assets/sounds/90_Teleport_04.wav")
+
 const EXPLOSION_1: AudioStream = preload("res://data/assets/sounds/01_Fire_explosion_01_small.wav")
 const EXPLOSION_2: AudioStream = preload("res://data/assets/sounds/02_Fire_explosion_02_small.wav")
 const FIRE_EXPLOSIONS: Array[AudioStream] = [EXPLOSION_1, EXPLOSION_2]
@@ -73,6 +75,7 @@ var _slide_sound: AudioStreamPlayer = null
 var _slash_sound: AudioStreamPlayer = null
 var _hit_sound: AudioStreamPlayer = null
 var _die_sound: AudioStreamPlayer = null
+var _teleport_sound: AudioStreamPlayer = null
 var _fire_explosion_sound: AudioStreamPlayer = null
 var _slime_sound: AudioStreamPlayer = null
 var _assassin_att_sound: AudioStreamPlayer = null
@@ -98,6 +101,7 @@ func _ready() -> void:
 	_slash_sound = create_random_sound(SLASHES, 1.1)
 	_hit_sound = create_random_sound(HITS, 1.1)
 	_die_sound = create_sound(DIE)
+	_teleport_sound = create_sound(TELEPORT)
 	_fire_explosion_sound = create_random_sound(FIRE_EXPLOSIONS, 1.1)
 	_slime_sound = create_sound(SLIME)
 	_assassin_att_sound = create_random_sound(ASSASSIN_ATTACK, 1.1)
@@ -173,6 +177,10 @@ func play_hit() -> void:
 
 func play_die() -> void:
 	_die_sound.play()
+
+
+func play_teleport() -> void:
+	_teleport_sound.play()
 
 
 func play_fire_explosion() -> void:

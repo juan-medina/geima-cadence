@@ -16,6 +16,8 @@ const JUMP_HEIGHT: float = 30.0
 const HIT_MATERIAL: Material = preload("res://hero/hit.tres")
 const HIT_FLASH_DURATION: float = 0.2
 const VANISH_DURATION: float = 2.0
+const _TELEPORT_PEAK_VELOCITY: float = 120.0
+const _TELEPORT_FLASH_HOLD: float = 0.35
 
 @export var max_health: float = 100.0
 
@@ -32,6 +34,9 @@ var _flash_tween: Tween
 var _base_y: float = 0.0
 
 @onready var _energy_core: EnergyCore = $EnergyCore
+@onready var _teleport: CPUParticles2D = $Teleport
+@onready var _teleport_flash: CPUParticles2D = $TeleportFlash
+@onready var _teleport_beam: CPUParticles2D = $TeleportBeam
 @onready var _hurt_box: Area2D = $HurtBox
 @onready var _shape_running: CollisionShape2D = $HurtBox/ShapeRunning
 @onready var _shape_slash: CollisionShape2D = $HurtBox/ShapeSlash
@@ -76,9 +81,24 @@ func set_ground_y(y: float) -> void:
 
 
 func vanish() -> void:
+	Sound.play_teleport()
+	_teleport.emitting = true
 	var vanish_tween: Tween = create_tween()
-	vanish_tween.tween_property(self, ^"modulate:a", 0.0, VANISH_DURATION)
-	vanish_tween.tween_callback(vanished.emit)
+	vanish_tween.set_parallel(true)
+	vanish_tween.tween_property(self, ^"self_modulate:a", 0.0, VANISH_DURATION)
+	vanish_tween.tween_property(
+		_teleport, ^"initial_velocity_max", _TELEPORT_PEAK_VELOCITY, VANISH_DURATION
+	)
+	vanish_tween.chain().tween_callback(_on_dissolved)
+
+
+func _on_dissolved() -> void:
+	_teleport.emitting = false
+	_teleport_flash.restart()
+	_teleport_beam.restart()
+	var flash_tween: Tween = create_tween()
+	flash_tween.tween_interval(_TELEPORT_FLASH_HOLD)
+	flash_tween.tween_callback(vanished.emit)
 
 
 func _unhandled_input(event: InputEvent) -> void:

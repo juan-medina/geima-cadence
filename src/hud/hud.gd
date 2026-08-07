@@ -16,6 +16,7 @@ var _trail_tween: Tween
 @onready var _song_bar: TextureProgressBar = $SongFrame/SongPanel/SongBar
 @onready var _health_bar: TextureProgressBar = $HealthFrame/HealthPanel/HealthBar
 @onready var _trail_bar: TextureProgressBar = $HealthFrame/HealthPanel/TrailBar
+@onready var _bar_spark: CPUParticles2D = $BarSpark
 
 
 func _ready() -> void:
@@ -36,6 +37,12 @@ func _process(_delta: float) -> void:
 		return
 	# the track indicates the progress
 	_song_bar.value = track.get_progress()
+
+	var progress: float = _song_bar.value / _song_bar.max_value
+	var bar_left: float = _song_bar.global_position.x
+	var bar_width: float = _song_bar.size.x
+	var bar_mid_y: float = _song_bar.global_position.y + _song_bar.size.y / 2.0
+	_bar_spark.position = Vector2(bar_left + progress * bar_width, bar_mid_y)
 
 
 func _on_health_changed(current: float) -> void:

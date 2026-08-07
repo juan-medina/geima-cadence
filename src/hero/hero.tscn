@@ -19,6 +19,12 @@ size = Vector2(30, 18)
 [sub_resource type="RectangleShape2D" id="Shape_hurt"]
 size = Vector2(26, 29)
 
+[sub_resource type="CanvasItemMaterial" id="Mat_teleport_add"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Grad_teleport"]
+colors = PackedColorArray(0.7, 0.92, 1, 1, 0.7, 0.92, 1, 0)
+
 [node name="Hero" type="AnimatedSprite2D" unique_id=954983578]
 sprite_frames = ExtResource("1_m6eum")
 animation = &"jump_up"
@@ -56,3 +62,61 @@ disabled = true
 
 [node name="EnergyCore" parent="." unique_id=433326775 instance=ExtResource("3_energy")]
 position = Vector2(-8, 12)
+
+[node name="Teleport" type="CPUParticles2D" parent="." unique_id=433326776]
+process_mode = 3
+z_index = 1
+material = SubResource("Mat_teleport_add")
+emitting = false
+amount = 80
+lifetime = 0.8
+emission_shape = 3
+emission_rect_extents = Vector2(12, 16)
+direction = Vector2(0, -1)
+spread = 22.0
+gravity = Vector2(0, -40)
+initial_velocity_min = 20.0
+initial_velocity_max = 50.0
+scale_amount_min = 1.5
+scale_amount_max = 2.5
+color_ramp = SubResource("Grad_teleport")
+
+[node name="TeleportFlash" type="CPUParticles2D" parent="." unique_id=433326777]
+process_mode = 3
+z_index = 1
+material = SubResource("Mat_teleport_add")
+emitting = false
+amount = 30
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(4, 4)
+direction = Vector2(0, -1)
+spread = 120.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 70.0
+initial_velocity_max = 160.0
+scale_amount_min = 2.0
+scale_amount_max = 3.5
+color_ramp = SubResource("Grad_teleport")
+
+[node name="TeleportBeam" type="CPUParticles2D" parent="." unique_id=433326778]
+process_mode = 3
+z_index = 1
+material = SubResource("Mat_teleport_add")
+emitting = false
+amount = 10
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(2, 2)
+direction = Vector2(0, -1)
+spread = 3.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 260.0
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Grad_teleport")

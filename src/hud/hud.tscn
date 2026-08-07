@@ -14,7 +14,7 @@ border_width_bottom = 2
 border_color = Color(0.85, 0.85, 0.9, 1)
 
 [sub_resource type="Gradient" id="Gradient_song"]
-colors = PackedColorArray(0.2, 0.5, 1, 1, 0.2, 0.5, 1, 1)
+colors = PackedColorArray(0.7, 0.92, 1, 1, 0.7, 0.92, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_song"]
 gradient = SubResource("Gradient_song")
@@ -44,6 +44,13 @@ colors = PackedColorArray(0.95, 0.8, 0.2, 1, 0.95, 0.8, 0.2, 1)
 gradient = SubResource("Gradient_health")
 width = 620
 height = 16
+
+[sub_resource type="CanvasItemMaterial" id="Mat_bar_add"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Grad_bar_spark"]
+offsets = PackedFloat32Array(0, 0.2, 1)
+colors = PackedColorArray(0.7, 0.92, 1, 0, 0.7, 0.92, 1, 1, 0.7, 0.92, 1, 0)
 
 [node name="Hud" type="CanvasLayer" unique_id=686730703]
 script = ExtResource("1_hud0a")
@@ -134,3 +141,38 @@ step = 0.0
 value = 100.0
 nine_patch_stretch = true
 texture_progress = SubResource("GradientTexture2D_health")
+
+[node name="EscapeLabel" type="Label" parent="." unique_id=770010301]
+anchors_preset = -1
+anchor_right = 0.125
+offset_top = 8.0
+offset_right = -4.0
+offset_bottom = 28.0
+text = "Escape"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LifeLabel" type="Label" parent="." unique_id=770010302]
+anchors_preset = -1
+anchor_right = 0.125
+offset_top = 34.0
+offset_right = -4.0
+offset_bottom = 54.0
+text = "Life"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="BarSpark" type="CPUParticles2D" parent="." unique_id=770010303]
+material = SubResource("Mat_bar_add")
+position = Vector2(555, 18)
+amount = 20
+lifetime = 0.3
+emission_shape = 3
+emission_rect_extents = Vector2(1, 7)
+direction = Vector2(0, -1)
+spread = 8.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 6.0
+scale_amount_min = 1.5
+scale_amount_max = 2.5
+color_ramp = SubResource("Grad_bar_spark")
