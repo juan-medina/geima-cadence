@@ -38,7 +38,8 @@ func _on_player_success() -> void:
 	Sound.play_giant_death()
 	Sound.play_impact()
 	animated_sprite2d.play(&"dead")
+	var recoil_x: float = animated_sprite2d.position.x + REVERSE_DISTANCE
 	var tween: Tween = create_tween()
-	tween.tween_property(self, ^"position:x", position.x + REVERSE_DISTANCE, REVERSE_DURATION)
+	tween.tween_property(animated_sprite2d, ^"position:x", recoil_x, REVERSE_DURATION)
 	await animated_sprite2d.animation_finished
 	queue_free()

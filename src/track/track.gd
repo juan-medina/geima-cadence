@@ -16,6 +16,7 @@ const SLIDE_SCENE: PackedScene = preload("res://track/slide_obstacle.tscn")
 const JUMP_UP_SCENE: PackedScene = preload("res://track/jump_up_obstacle.tscn")
 
 const _FADE_OUT_DURATION: float = 2.0
+const _GLYPH_LANE_Y: float = 20.0
 
 @export var hero: Hero
 @export var scroll_speed: float = 250.0
@@ -208,6 +209,7 @@ func _spawn_obstacle(type: Obstacle.Type, time: float) -> void:
 	obstacle.hit_player.connect(hero.take_damage)
 	obstacle.z_index = 1
 	add_child(obstacle)
+	obstacle.place_glyph_on_lane(_GLYPH_LANE_Y, floor_y)
 
 	# Both sides use scroll_speed, so a threat placed for this beat reaches the
 	# hero at exactly this music time, and counts him near its own span before.
