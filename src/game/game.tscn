@@ -42,3 +42,4 @@ bus = &"Music"
 parameters/looping = true
 
 [connection signal="victory_reached" from="Track" to="." method="_on_track_victory_reached"]
+[connection signal="beat" from="Track" to="." method="_on_track_beat"]

@@ -6,6 +6,7 @@ extends Node2D
 
 signal victory_reached
 signal scrolled(scroll: float)
+signal beat
 
 enum DifficultType { EASY, NORMAL, HARD }
 
@@ -27,6 +28,8 @@ var _last_music_time: float = 0.0
 var _approaching: Array[Obstacle] = []
 var _near_times: PackedFloat32Array = PackedFloat32Array()
 var _next_near: int = 0
+var _beat_times: PackedFloat32Array = PackedFloat32Array()
+var _next_beat: int = 0
 var _victory_triggered: bool = false
 var _victory_trigger_time: float = 0.0
 
@@ -66,7 +69,10 @@ func _ready() -> void:
 func begin() -> void:
 	if not music or not music.stream:
 		return
-	_spawn_obstacles(_load_beatmap_actions())
+	var beatmap: Dictionary = _load_beatmap()
+	if beatmap.is_empty():
+		return
+	_spawn_obstacles(_load_actions(beatmap))
 	music.play()
 
 
@@ -88,36 +94,38 @@ func get_progress() -> float:
 	return clampf(_last_music_time / length, 0.0, 1.0)
 
 
-func _load_beatmap_actions() -> Array:
-	var difficulty: StringName = _difficulty()
-
+func _load_beatmap() -> Dictionary:
 	var beatmap_file: String = music.stream.resource_path.get_basename() + &".json"
 	var file: FileAccess = FileAccess.open(beatmap_file, FileAccess.READ)
 	if not file:
 		printerr(&"Could not open beatmap file: " + beatmap_file + &"!")
 		get_tree().quit()
-		return []
+		return {}
 
 	var json_var: Variant = JSON.parse_string(file.get_as_text())
 	if not json_var is Dictionary:
 		printerr(&"Invalid beatmap JSON format!")
 		get_tree().quit()
-		return []
+		return {}
 
 	var json: Dictionary = json_var
-	if not json.has("difficulties"):
+	return json
+
+
+func _load_actions(beatmap: Dictionary) -> Array:
+	if not beatmap.has("difficulties"):
 		printerr(&"Beatmap JSON has no difficulties!")
 		get_tree().quit()
 		return []
 
-	var difficulties_var: Variant = json[&"difficulties"]
+	var difficulties_var: Variant = beatmap[&"difficulties"]
 	if not difficulties_var is Dictionary:
 		printerr(&"Beatmap difficulties must be a dictionary!")
 		get_tree().quit()
 		return []
 	var difficulties: Dictionary = difficulties_var
 
-	return _extract_actions(difficulties, difficulty)
+	return _extract_actions(difficulties, _difficulty())
 
 
 func _extract_actions(difficulties: Dictionary, difficulty: StringName) -> Array:
@@ -148,6 +156,9 @@ func _extract_actions(difficulties: Dictionary, difficulty: StringName) -> Array
 
 
 func _spawn_obstacles(actions: Array) -> void:
+	_beat_times = PackedFloat32Array()
+	_next_beat = 0
+
 	for action_var: Variant in actions:
 		if not action_var is Dictionary:
 			continue
@@ -157,6 +168,10 @@ func _spawn_obstacles(actions: Array) -> void:
 		var type_var: Variant = action.get(&"type", &"")
 		var time: float = time_var if time_var is float else 0.0
 		var type_name: String = type_var if type_var is String else &""
+
+		_beat_times.append(time)
+		if type_name == "sync":
+			continue
 
 		var type: Obstacle.Type = _parse_type(type_name)
 		if type == Obstacle.Type.NONE:
@@ -240,6 +255,7 @@ func _process(_delta: float) -> void:
 	position.x = -current_music_time * scroll_speed
 	scrolled.emit(position.x)
 	_notify_player_near(current_music_time)
+	_notify_beats(current_music_time)
 	if not _started:
 		hero.start()
 		_started = true
@@ -251,6 +267,12 @@ func _notify_player_near(music_time: float) -> void:
 		if is_instance_valid(obstacle):
 			obstacle.on_player_near()
 		_next_near += 1
+
+
+func _notify_beats(music_time: float) -> void:
+	while _next_beat < _beat_times.size() and music_time >= _beat_times[_next_beat]:
+		beat.emit()
+		_next_beat += 1
 
 
 func _difficulty() -> StringName:

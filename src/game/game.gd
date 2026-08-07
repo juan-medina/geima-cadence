@@ -55,6 +55,10 @@ func _on_window_resized() -> void:
 	_camera.force_update_scroll()
 
 
+func _on_track_beat() -> void:
+	_hero.pulse_core()
+
+
 func _on_hero_died() -> void:
 	_pause_overlay.set_process_unhandled_input(false)
 

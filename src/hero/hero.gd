@@ -31,6 +31,7 @@ var _jump_tween: Tween
 var _flash_tween: Tween
 var _base_y: float = 0.0
 
+@onready var _energy_core: EnergyCore = $EnergyCore
 @onready var _hurt_box: Area2D = $HurtBox
 @onready var _shape_running: CollisionShape2D = $HurtBox/ShapeRunning
 @onready var _shape_slash: CollisionShape2D = $HurtBox/ShapeSlash
@@ -62,6 +63,10 @@ func _anim_duration(anim: StringName) -> float:
 func start() -> void:
 	if current_state == State.IDLE:
 		_change_state(State.RUNNING)
+
+
+func pulse_core() -> void:
+	_energy_core.pulse()
 
 
 # position the hero but also store, use when we died mid-air

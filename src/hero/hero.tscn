@@ -2,6 +2,7 @@
 
 [ext_resource type="SpriteFrames" uid="uid://lxp5ckjredck" path="res://data/assets/sprites/hero.tres" id="1_m6eum"]
 [ext_resource type="Script" uid="uid://bktcibxpo74kv" path="res://hero/hero.gd" id="2_m6eum"]
+[ext_resource type="PackedScene" uid="uid://lu2bk20fj03y" path="res://energy_core/energy_core.tscn" id="3_energy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m6eum"]
 size = Vector2(30, 28)
@@ -52,3 +53,6 @@ disabled = true
 position = Vector2(-10, 6.5)
 shape = SubResource("Shape_hurt")
 disabled = true
+
+[node name="EnergyCore" parent="." unique_id=433326775 instance=ExtResource("3_energy")]
+position = Vector2(-8, 12)
