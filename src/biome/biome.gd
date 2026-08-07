@@ -107,7 +107,7 @@ func _draw_back() -> void:
 
 	# We cover the whole screen with the top and bottom color
 	_back_renderer.draw_rect(Rect2(-view.x / 2.0, -view.y / 2.0, view.x, view.y / 2.0), top_color())
-	_back_renderer.draw_rect(Rect2(-view.x / 2.0, view.y / 2.0, view.x, view.y / 2.0), bottom_color())
+	_back_renderer.draw_rect(Rect2(-view.x / 2.0, 0.0, view.x, view.y / 2.0), bottom_color())
 
 	# draw all layers
 	for index: int in back_layer_count():
