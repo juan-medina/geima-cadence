@@ -25,7 +25,7 @@
     the player back or interrupt the music track; instead, the rhythm
     falters but the run continues.
 *   **Agnostic Asset Pipeline:** The game is structured so that level
-    visuals are defined strictly by unlocked "visual skins" (Biomes)[cite:
+    visuals are defined strictly by "visual skins" (Biomes)[cite:
     1]. This allows the developer to swap, expand, or introduce brand-new
     parallax backgrounds without altering the underlying rhythm-collision
     logic[cite: 1].
@@ -76,7 +76,7 @@ creators[cite: 1].
 
 A member of the Elder Council, bored of a world with no wars, no conflict,
 and absolute peace, secretly contacted the Orc clans[cite: 1]. He gave them
-weapons, taught them how to forge iron armor, and united them into a single,
+weapons, taught them how to use magic, and united them into a single,
 unstoppable legion[cite: 1]. The Orc Legion erupted from the mines,
 conquered the soft utopia, executed the Elders, and established a brutal,
 sprawling **Iron Empire**[cite: 1].
@@ -95,7 +95,7 @@ your hideout is breached[cite: 1].
 ## 3. Story Storyboard Screens
 
 The story is told using clean, comic-book-style **static storyboard slides**
-with multi-panel illustrations and captions — not animated cinematics. They are
+with multi-panel illustrations and captions — not animated cinematic. They are
 reachable from the **Story** menu (see §6) and also play once, automatically, at
 the moment their trigger is met.
 
@@ -116,19 +116,19 @@ the moment their trigger is met.
     *   *Caption:* *"Centuries ago, the legendary First Sage discovered the
         power of the Geima-stone, building a golden utopia of peace and
         magic..."*[cite: 1]
-*   **Panel 1.2 (The Iron Revolt):** The scene shifts to a dark, jagged
+*   **Panel 1.2 (The Revolt):** The scene shifts to a dark, jagged
     quarry[cite: 1]. Orcs with pickaxes look up from the deep pits with
     glowing, furious red eyes[cite: 1]. In the foreground, a shadowy,
-    corrupt Elder secretly hands them iron weapons[cite: 1].
+    corrupt Elder secretly hands them magic[cite: 1].
     *   *Caption:* *"To harvest the stone, the Elders forged a warrior race
         of Orcs to slave in the toxic deep. But a bored, power-hungry
         councilman betrayed his own kin, uniting the slaves..."*[cite: 1]
 *   **Panel 1.3 (The New Reign):** A burning city[cite: 1]. The white stone
-    towers are crumbling, replaced by dark, soot-belching iron siege
-    engines[cite: 1]. Massive Orc banners drape over the ruins[cite: 1]. Our
+    towers are crumbling, replaced by dark, soot-belching siege
+    engines[cite: 1]. Massive banners drape over the ruins[cite: 1]. Our
     main character, wearing tattered prisoner rags, is shown in chains
     sifting through scrap metal[cite: 1].
-    *   *Caption:* *"The Iron Empire arose. We became the slaves, forced to
+    *   *Caption:* *"The Empire arose. We became the slaves, forced to
         rebuild their war machine from the scrap of our fallen
         paradise."*[cite: 1]
 
@@ -158,7 +158,7 @@ the moment their trigger is met.
     sprinting directly into the scrolling quarry background[cite: 1]. The
     core in their pack glows bright blue, pulsing in sync with the first beat
     of the music.
-    *   *Caption:* *"Do not stop. Do not break the cadence. Run!"*[cite: 1]
+    *   *Caption:* *"Do not stop. Do not break the cadence. Escape!"*[cite: 1]
 
 ---
 
@@ -261,14 +261,14 @@ energy and vibration[cite: 1]. The rhythmic, steady impact of your boots
 hitting the ground at high speeds, the clashing of your sword strikes, and
 swift maneuvering are what actually charge the core.
 
-If you hit minor hazards, the rhythmic charge drops, the energy bleeds out,
-and your health bar depletes[cite: 1].
+If you hit minor hazard your health bar depletes[cite: 1].
 
 ### Controller Mapping & Hazard Interaction Matrix
 The player's character is positioned on the left-center of the screen[cite:
-1]. Obstacles are strictly categorized into **Fatal Threats** (which trigger
-an instant time fracture) and **Casual Obstacles** (which cause minor damage
-but break apart, allowing forward momentum to continue).
+1]. Every obstacle demands one matching maneuver, and a mistimed or wrong
+input is never instantly fatal: the blow simply lands, costing a fixed chunk
+of health while forward momentum and the music continue. A run ends only when
+accumulated misses drain the health bar to empty.
 
 When an obstacle reaches the player's physical coordinates on a beat, they
 must press the matching button[cite: 1].
@@ -280,16 +280,16 @@ layout) all trigger the same action.
 
 | Direction | Buttons | Combat Action | Target Hazard | Success Outcome | Failure Outcome |
 | :---: | :---: | :--- | :--- | :--- | :--- |
-| **Right** | **B / D-pad Right / →** | **Sword Slash** | Normal Orc Scout | Slices the weak Orc cleanly on the beat; enemy vanishes in a particle explosion. | **Fatal Failure:** You slam head-on into their weapon. The run ends in defeat. |
-| **Left** | **X / D-pad Left / ←** | **Dash** | Heavy Orc Vanguard | You explosively push back the unstoppable big ogre, clearing the lane. | **Fatal Failure:** You are crushed by the heavy obstacle. The run ends in defeat. |
-| **Up** | **Y / D-pad Up / ↑** | **Jump / Vault** | Gaps / Fire Barrels | You vault over the hazard in a tight aerial arc. (Not high enough to jump over enemies). | **Casual Hurt:** You fall or smash into the hazard, losing health but keeping momentum. |
-| **Down** | **A / D-pad Down / ↓** | **Slide** | Barbed Wire / Beams | A quick, frictionless slide to go under low hazards like wires. | **Casual Hurt:** You strike the obstacle. You lose health but keep running. |
+| **Right** | **B / D-pad Right / →** | **Sword Slash** | Normal Orc Scout | Slices the weak Orc cleanly on the beat; enemy vanishes in a particle explosion. | **Hurt:** their blade lands and your health drops, but you keep running; the Orc turns to watch you pass. |
+| **Left** | **X / D-pad Left / ←** | **Dash** | Heavy Orc Vanguard | You explosively push back the unstoppable big ogre, clearing the lane. | **Hurt:** the Vanguard's blow lands and your health drops, but you keep running; he turns to watch you pass. |
+| **Up** | **Y / D-pad Up / ↑** | **Jump / Vault** | Gaps / Fire Barrels | You vault over the hazard in a tight aerial arc. (Not high enough to jump over enemies). | **Hurt:** You fall or smash into the hazard, losing health but keeping momentum. |
+| **Down** | **A / D-pad Down / ↓** | **Slide** | Barbed Wire / Beams | A quick, frictionless slide to go under low hazards like wires. | **Hurt:** You strike the obstacle, losing health but keeping momentum. |
 
 ---
 
 ## 5. Core Mechanics & Systems
 
-### Rhythmic Performance & The Two-Tiered Fail States
+### Rhythmic Performance & The Fail State
 Instead of separate health and scoring meters, your health bar is your
 rhythmic execution buffer[cite: 1]. **Health is non-recoverable.** To reach
 the Monolith with a full health bar, you must perform a flawless rhythmic
@@ -298,14 +298,16 @@ run[cite: 1].
 *   **Successful Action:** Bypasses the threat safely[cite: 1]. Your health
     bar remains untouched. Reaching the finish with a full bar is what earns
     the S-Rank (see §6).
-*   **Casual Failure (Missed Jump/Dash):** The obstacle physically breaks or
-    your feet clear it late. The character plays a quick "hurt/wince" pose,
-    the sprite flashes red, and your health bar permanently drops by a
-    chunk[cite: 1]. Forward movement and music continue seamlessly.
-*   **Fatal Failure (Missed Slash/Crashing a Heavy Orc):** The character
-    collides head-on with an unstoppable force. The screen violently cracks,
-    the music screeches to a dead halt, and the run ends in absolute defeat,
-    forcing a full level restart.
+*   **Missed Action:** Every threat is answered the same way — a wrong or
+    absent input lands a hit. The character plays a quick "hurt/wince" pose,
+    the sprite flashes red, and the health bar permanently drops by a fixed
+    chunk, whichever obstacle it was. Enemy threats turn to watch you run
+    past; hazards break apart behind you. Forward movement and music continue
+    seamlessly.
+*   **Defeat:** The run ends only when accumulated misses spend the last of
+    the health bar. The character collapses, the music screeches to a halt,
+    and the level restarts. No single obstacle is fatal on its own — defeat is
+    always the sum of missed beats.
 
 ### Dynamic Tempo Scaling
 The game's running speed is directly tied to the song's tempo (BPM)[cite: 1].
@@ -356,13 +358,13 @@ interruptions, the initial area utilizes a forced narrative script:
     button prompt. The player presses **Slash**, exploding the enemy and
     establishing basic rhythmic timing.
 2.  **The Unstoppable Wall:** Immediately after, an armored Heavy Orc blocks
-    the entire lane. The player intuitively presses **Slash** again; the
-    blade bounces off harmlessly, the screen cracks, and the stage ends,
-    establishing that some threats are fatal and cannot be fought.
-3.  **The Retry:** The player restarts the sequence, now aware of the danger.
-4.  **The Alternate Action:** As the Heavy Orc approaches again, a flashing
-    prompt guides the player to use **Dash**, violently pushing the
-    unstoppable ogre back and clearing the tutorial track cleanly.
+    the lane. If the player reflexively presses **Slash**, the blow lands on
+    *them* — the hurt pose plays and the health bar drops — but the run
+    continues, teaching that the wrong maneuver still costs a beat.
+3.  **The Alternate Action:** A flashing prompt then guides the player to
+    **Dash**, violently pushing the unstoppable ogre back and clearing the
+    lane cleanly — establishing that every threat has exactly one correct
+    answer.
 
 ### Rank Medals
 This is a pure-rhythm game: there is **no score and no multiplier**. The only
@@ -477,7 +479,7 @@ animation states:
 5.  **The Slide:** A low-profile, compressed forward slide to go under
     low-hanging threats like wires.
 6.  **The Hurt / Flicker State:** A brief, off-balance animation frame
-    triggered when taking damage from casual obstacles, visually signaling a
-    missed beat while continuing forward momentum[cite: 1].
-7.  **The Crash / Defeat:** A full physical collapse frame triggered when
-    striking a fatal threat, ending the run.
+    triggered when a missed beat lands a hit, visually signaling it while
+    continuing forward momentum[cite: 1].
+7.  **The Crash / Defeat:** A full physical collapse frame triggered when the
+    last of the health bar is spent, ending the run.
