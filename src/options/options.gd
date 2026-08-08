@@ -171,9 +171,12 @@ func _save_options() -> void:
 		config.set_value(SECTION_DISPLAY, &"fullscreen", fullscreen)
 
 	config.set_value(SECTION_AUDIO, &"master_volume", master_volume)
-	config.set_value(SECTION_AUDIO, &"bgm_volume", music_volume)
+	config.set_value(SECTION_AUDIO, &"music_volume", music_volume)
 	config.set_value(SECTION_AUDIO, &"sfx_volume", sfx_volume)
 	config.set_value(SECTION_EULA, &"accepted_version", eula_accepted_version)
+	config.set_value(CRT_SECTION, &"scanlines", scanlines)
+	config.set_value(CRT_SECTION, &"curvature", curvature)
+	config.set_value(CRT_SECTION, &"crt_border", crt_border)
 
 	var err: int = config.save(CONFIG_PATH)
 	if err != OK:
