@@ -34,6 +34,12 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Play"
 
+[node name="Story" type="Button" parent="VBox"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Story"
+
 [node name="Settings" type="Button" parent="VBox" unique_id=645039572]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -54,6 +60,7 @@ shortcut = SubResource("Shortcut_back")
 text = "Exit"
 
 [connection signal="pressed" from="VBox/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBox/Story" to="." method="_on_story_pressed"]
 [connection signal="pressed" from="VBox/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="VBox/About" to="." method="_on_about_pressed"]
 [connection signal="pressed" from="VBox/Exit" to="." method="_on_exit_pressed"]

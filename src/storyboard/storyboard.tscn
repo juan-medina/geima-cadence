@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://dboardscene01"]
+
+[ext_resource type="Script" uid="uid://dboard2p3q4r5" path="res://storyboard/storyboard.gd" id="1_board"]
+[ext_resource type="Resource" uid="uid://01spgdfdyrr7" path="res://data/assets/story/story.tres" id="2_story"]
+
+[node name="Storyboard" type="CanvasLayer" unique_id=1908299448]
+script = ExtResource("1_board")
+catalogue = ExtResource("2_story")
+
+[node name="Background" type="ColorRect" parent="." unique_id=272439344]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12156863, 0.12156863, 0.18039216, 1)
+
+[node name="ImageA" type="TextureRect" parent="." unique_id=1459701459]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.8
+grow_horizontal = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ImageB" type="TextureRect" parent="." unique_id=300543066]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.8
+grow_horizontal = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CaptionBox" type="CenterContainer" parent="." unique_id=1370454041]
+anchors_preset = -1
+anchor_top = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Caption" type="RichTextLabel" parent="CaptionBox" unique_id=1312450927]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.85, 0.87, 0.9, 1)
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=1727378626]
+bus = &"Music"

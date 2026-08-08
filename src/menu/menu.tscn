@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cutwj246j5hso" path="res://song_selection_panel/song_selection_panel.tscn" id="4_v6yed"]
 [ext_resource type="PackedScene" uid="uid://dxbnvjyrjip1y" path="res://settings_panel/settings_panel.tscn" id="6_settings"]
 [ext_resource type="PackedScene" uid="uid://cs4cvs62xjs2s" path="res://about_panel/about_panel.tscn" id="7_about"]
+[ext_resource type="PackedScene" uid="uid://01soxrtvcnuc" path="res://story_panel/story_panel.tscn" id="8_story"]
 [ext_resource type="AudioStream" uid="uid://cfqojwn6qi16x" path="res://data/assets/music/02 - Title Theme.ogg" id="9_6fswf"]
 
 [node name="MenuOverlay" type="CanvasLayer" unique_id=105136617]
@@ -62,6 +63,10 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
+[node name="StoryPanel" parent="Center" instance=ExtResource("8_story")]
+visible = false
+layout_mode = 2
+
 [node name="Cheat" type="AudioStreamPlayer2D" parent="." unique_id=1523574304]
 position = Vector2(31, 46)
 stream = ExtResource("3_6nwqt")
@@ -77,7 +82,9 @@ parameters/looping = true
 [connection signal="about_requested" from="Center/MainMenuPanel" to="." method="_on_about_requested"]
 [connection signal="exit_requested" from="Center/MainMenuPanel" to="." method="_on_exit_requested"]
 [connection signal="play_requested" from="Center/MainMenuPanel" to="." method="_on_play_requested"]
+[connection signal="story_requested" from="Center/MainMenuPanel" to="." method="_on_story_requested"]
 [connection signal="settings_requested" from="Center/MainMenuPanel" to="." method="_on_settings_requested"]
 [connection signal="back_requested" from="Center/SongSelectionPanel" to="." method="_on_panel_back_requested"]
 [connection signal="back_requested" from="Center/SettingsPanel" to="." method="_on_panel_back_requested"]
 [connection signal="back_requested" from="Center/AboutPanel" to="." method="_on_panel_back_requested"]
+[connection signal="back_requested" from="Center/StoryPanel" to="." method="_on_panel_back_requested"]

@@ -14,7 +14,7 @@ const NOTIFICATION_DELAY: float = 2.0
 func _ready() -> void:
 	Audio.connect_menu_sounds(self)
 	if Options.is_eula_accepted(_eula_version()):
-		Transition.go_to_menu_instant()
+		Transition.go_to_story_instant(&"intro")
 		return
 
 	get_tree().create_timer(NOTIFICATION_DELAY).timeout.connect(InputManager.enable_notifications)
@@ -33,7 +33,7 @@ func _eula_version() -> String:
 
 func _on_accept_pressed() -> void:
 	Options.eula_accepted_version = _eula_version()
-	await Transition.go_to_menu()
+	await Transition.go_to_story(&"intro")
 
 
 func _on_decline_pressed() -> void:

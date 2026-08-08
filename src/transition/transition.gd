@@ -8,9 +8,13 @@ const FADE_PHASE: float = FADE_DURATION / 3
 
 const GAME_SCENE: PackedScene = preload("res://game/game.tscn")
 const MENU_SCENE: PackedScene = preload("res://menu/menu.tscn")
+const STORY_SCENE: PackedScene = preload("res://storyboard/storyboard.tscn")
 
 var in_transition: bool = false
 var filler: ColorRect = null
+
+# Read by the storyboard on load to pick which sequence to play.
+var pending_story_id: StringName = &"intro"
 
 
 func _ready() -> void:
@@ -42,6 +46,16 @@ func go_to_menu() -> void:
 
 func go_to_menu_instant() -> void:
 	get_tree().change_scene_to_packed.call_deferred(MENU_SCENE)
+
+
+func go_to_story(id: StringName) -> void:
+	pending_story_id = id
+	await _go_to_scene(STORY_SCENE)
+
+
+func go_to_story_instant(id: StringName) -> void:
+	pending_story_id = id
+	get_tree().change_scene_to_packed.call_deferred(STORY_SCENE)
 
 
 func _go_to_scene(scene: PackedScene) -> void:

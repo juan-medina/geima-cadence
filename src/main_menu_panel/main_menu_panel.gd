@@ -5,6 +5,7 @@ class_name MainMenuPanel
 extends MenuPanel
 
 signal play_requested
+signal story_requested
 signal settings_requested
 signal about_requested
 signal exit_requested
@@ -25,6 +26,10 @@ func first_focus_control() -> Control:
 
 func _on_play_pressed() -> void:
 	play_requested.emit()
+
+
+func _on_story_pressed() -> void:
+	story_requested.emit()
 
 
 func _on_settings_pressed() -> void:

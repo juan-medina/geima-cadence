@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://01soxrtvcnuc"]
+
+[ext_resource type="Script" uid="uid://01soxrtvcvjq" path="res://story_panel/story_panel.gd" id="1_story"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_pause"]
+device = -1
+action = &"pause"
+
+[sub_resource type="InputEventAction" id="InputEventAction_back"]
+device = -1
+action = &"back"
+
+[sub_resource type="Shortcut" id="Shortcut_back"]
+events = [SubResource("InputEventAction_pause"), SubResource("InputEventAction_back")]
+
+[node name="StoryPanel" type="PanelContainer" unique_id=1110945898]
+script = ExtResource("1_story")
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=1053283318]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Title" type="Label" parent="VBox" unique_id=395222820]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Story"
+horizontal_alignment = 1
+
+[node name="Intro" type="Button" parent="VBox" unique_id=1023374695]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Intro"
+
+[node name="Ending" type="Button" parent="VBox" unique_id=2066371675]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+text = "Ending"
+
+[node name="Secret" type="Button" parent="VBox" unique_id=339249919]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+text = "Secret"
+
+[node name="Back" type="Button" parent="VBox" unique_id=1044871935 groups=["ui_return"]]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+shortcut = SubResource("Shortcut_back")
+text = "Back"
+
+[connection signal="pressed" from="VBox/Intro" to="." method="_on_intro_pressed"]
+[connection signal="pressed" from="VBox/Ending" to="." method="_on_ending_pressed"]
+[connection signal="pressed" from="VBox/Secret" to="." method="_on_secret_pressed"]
+[connection signal="pressed" from="VBox/Back" to="." method="_on_back_pressed"]
