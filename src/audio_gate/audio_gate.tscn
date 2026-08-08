@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b6t4p1x50eahj"]
+
+[ext_resource type="Script" uid="uid://c3n8k2waqr7wm" path="res://audio_gate/audio_gate.gd" id="1_gate"]
+[ext_resource type="PackedScene" uid="uid://ueusw0gqpry1" path="res://eula_screen/eula_screen.tscn" id="2_eula"]
+
+[node name="AudioGate" type="CanvasLayer" unique_id=213223714]
+script = ExtResource("1_gate")
+main_scene = ExtResource("2_eula")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=172527253]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12156863, 0.12156863, 0.18039216, 1)
+
+[node name="Center" type="CenterContainer" parent="." unique_id=1630645265]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Center" unique_id=281184019]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Press to begin"
+horizontal_alignment = 1

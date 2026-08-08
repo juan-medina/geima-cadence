@@ -139,6 +139,24 @@ body {
 			<div id="status-notice"></div>
 		</div>
 
+		<!-- Audio gate: the game calls webAudioState() to learn whether this
+		     browser will start Web Audio without a user gesture. Returns the
+		     AudioContext state as a string ("running" when audio is unlocked)
+		     because JavaScriptBridge.eval only carries strings back reliably. -->
+		<script>
+window.webAudioState = function () {
+	try {
+		var Ctx = window.AudioContext || window.webkitAudioContext;
+		var ctx = new Ctx();
+		var state = ctx.state;
+		ctx.close();
+		return state;
+	} catch (e) {
+		return "error";
+	}
+};
+		</script>
+
 		<script src="$GODOT_URL"></script>
 		<script>
 const GODOT_CONFIG = $GODOT_CONFIG;
