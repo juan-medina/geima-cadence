@@ -25,5 +25,5 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="Center" unique_id=281184019]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Press to begin"
+text = "Press anything to begin"
 horizontal_alignment = 1
