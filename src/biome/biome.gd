@@ -10,6 +10,10 @@ const _LAYER_PATH: String = &"res://data/assets/backgrounds/bg_%d_layer_%d.png"
 const _DASH_BURST_DISTANCE: float = 100.0
 const _DASH_BURST_DURATION: float = 0.4
 
+# Shared banded alpha mask (white RGB) that fades top to bottom; the biome
+# modulates it with top_color so each biome dissolves into its own sky.
+const _FADE_MASK_PATH: String = &"res://data/assets/backgrounds/top_fade_mask.png"
+
 # Parallax speed of the backmost layer
 @export var far_factor: float = 0.1
 
@@ -17,6 +21,7 @@ const _DASH_BURST_DURATION: float = 0.4
 @export var fog_factor: float = 0.6
 
 var _layers: Array[Texture2D] = []
+var _fade_mask: Texture2D = null
 
 # Filled behind the art above and below the horizon. The two edges are different
 # colors (sky at the top, fog-tinted ground at the bottom), so they are read
@@ -42,6 +47,10 @@ func _ready() -> void:
 	_front_renderer.z_index = 10
 	_front_renderer.draw.connect(_draw_front)
 	add_child(_front_renderer)
+
+	_fade_mask = load(_FADE_MASK_PATH) as Texture2D
+	if _fade_mask == null:
+		printerr(&"Biome could not load top-fade mask at %s" % _FADE_MASK_PATH)
 
 func set_scroll(scroll: float) -> void:
 	_current_scroll = scroll
@@ -112,6 +121,29 @@ func _draw_back() -> void:
 	# draw all layers
 	for index: int in back_layer_count():
 		draw_layer(_back_renderer, back_layer(index), back_layer_offset(index), view.x)
+
+	# Must run after the layer loop so the band covers the top edge of every layer.
+	_draw_top_fade(view)
+
+
+# Tiles the banded fade mask along the art's top edge (anchored there, not
+# centred like the layers) painted with top_color, so tall silhouettes dissolve
+# into the sky instead of being sliced where the art meets the flat fill. The
+# band is a fixed atmospheric strip, so it does not scroll with the parallax.
+func _draw_top_fade(view: Vector2) -> void:
+	if _fade_mask == null:
+		return
+	var mask_width: float = _fade_mask.get_width()
+	var mask_height: float = _fade_mask.get_height()
+	var art_height: float = _layers[0].get_height()
+	var art_top: float = - art_height / 2.0
+	var tint: Color = top_color()
+
+	var first: int = floori((-view.x / 2.0) / mask_width)
+	var last: int = ceili((view.x / 2.0) / mask_width)
+	for copy: int in range(first, last + 1):
+		var rect: Rect2 = Rect2(copy * mask_width, art_top, mask_width, mask_height)
+		_back_renderer.draw_texture_rect(_fade_mask, rect, false, tint)
 
 
 func _draw_front() -> void:
