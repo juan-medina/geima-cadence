@@ -123,7 +123,11 @@ func _swap_image(texture: Texture2D) -> void:
 	if _front.texture != null:
 		tween.tween_property(_front, ^"modulate:a", 0.0, _IMAGE_FADE)
 	tween.tween_property(_back, ^"modulate:a", 1.0, _IMAGE_FADE)
-	await tween.finished
+	while tween.is_running():
+		if _skip_all:
+			tween.kill()
+			break
+		await get_tree().process_frame
 
 	var previous_front: TextureRect = _front
 	_front = _back
@@ -134,24 +138,29 @@ func _play_caption(caption: String, is_final: bool) -> void:
 	_caption.text = "[center]%s[/center]" % caption
 	_caption.visible_ratio = 0.0
 	await _fade(_caption, 1.0, _CAPTION_FADE)
+	if _skip_all:
+		return
 
 	var length: int = _caption.get_total_character_count()
 	var reveal_time: float = maxf(_MIN_REVEAL, length * _CHAR_TIME)
 	var reveal: Tween = create_tween()
 	reveal.tween_property(_caption, ^"visible_ratio", 1.0, reveal_time)
 	await _wait_tween(reveal)
+	if _skip_all:
+		return
 	_caption.visible_ratio = 1.0
 
-	if not _skip_all:
-		var hold_time: float = _FINAL_HOLD if is_final else maxf(_MIN_HOLD, length * _HOLD_PER_CHAR)
-		await _hold(hold_time)
+	var hold_time: float = _FINAL_HOLD if is_final else maxf(_MIN_HOLD, length * _HOLD_PER_CHAR)
+	await _hold(hold_time)
+	if _skip_all:
+		return
 
 	await _fade(_caption, 0.0, _CAPTION_FADE)
 
 
 func _wait_tween(tween: Tween) -> void:
 	while tween.is_running():
-		if _skip_step:
+		if _skip_step or _skip_all:
 			_skip_step = false
 			tween.kill()
 			return
@@ -173,7 +182,11 @@ func _hold(seconds: float) -> void:
 func _fade(target: CanvasItem, alpha: float, duration: float) -> void:
 	var tween: Tween = create_tween()
 	tween.tween_property(target, ^"modulate:a", alpha, duration)
-	await tween.finished
+	while tween.is_running():
+		if _skip_all:
+			tween.kill()
+			return
+		await get_tree().process_frame
 
 
 func _finish() -> void:
