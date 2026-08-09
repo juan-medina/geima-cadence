@@ -32,7 +32,8 @@ func _hand_off() -> void:
 	if _handed_off:
 		return
 	if main_scene == null:
-		printerr("AudioGate: main_scene is not set")
+		printerr(&"AudioGate: main_scene is not set")
+		Transition.fatal_error(&"Could not start the game")
 		return
 	_handed_off = true
 	get_tree().change_scene_to_packed.call_deferred(main_scene)

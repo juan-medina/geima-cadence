@@ -45,7 +45,9 @@ func _build_catalogue_ui() -> void:
 	var states: Array[Completion.State] = []
 	for biome: BiomeEntry in catalogue.biomes:
 		if biome.songs.is_empty():
-			continue
+			printerr(&"Biome has no songs: %s" % biome.name)
+			Transition.fatal_error(&"Could not load game data")
+			return
 		_add_biome_header(biome)
 		if not _add_biome_preview(biome):
 			return
@@ -81,7 +83,8 @@ func _add_biome_songs(biome: BiomeEntry) -> Array[Completion.State]:
 	for song: SongEntry in biome.songs:
 		if not song:
 			printerr(&"Invalid song entry in biome: %s" % biome.name)
-			continue
+			Transition.fatal_error(&"Could not load game data")
+			return states
 		var new_song_row: SongRow = SONG_ROW.instantiate() as SongRow
 		new_song_row.text = song.name
 		new_song_row.biome = biome

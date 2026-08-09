@@ -52,6 +52,8 @@ func _ready() -> void:
 	_fade_mask = load(_FADE_MASK_PATH) as Texture2D
 	if _fade_mask == null:
 		printerr(&"Biome could not load top-fade mask at %s" % _FADE_MASK_PATH)
+		Transition.fatal_error(&"Could not load the level")
+		return
 
 
 func set_scroll(scroll: float) -> void:
@@ -131,8 +133,6 @@ func _draw_back() -> void:
 # It drifts horizontally at fog speed like the bottom fog, so the dither reads as
 # moving fog rather than a static pane; vertically it stays pinned to the edge.
 func _draw_top_fade(view: Vector2) -> void:
-	if _fade_mask == null:
-		return
 	var mask_width: float = _fade_mask.get_width()
 	var mask_height: float = _fade_mask.get_height()
 	var art_height: float = _layers[0].get_height()

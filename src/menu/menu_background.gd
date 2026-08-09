@@ -20,6 +20,8 @@ var _fade_tween: Tween
 
 func _ready() -> void:
 	if not catalogue or catalogue.biomes.is_empty():
+		printerr(&"MenuBackground needs a non-empty Catalogue!")
+		Transition.fatal_error(&"Could not load game data")
 		return
 
 	_biome_a.modulate.a = 1.0

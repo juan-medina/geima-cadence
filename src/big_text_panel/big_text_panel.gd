@@ -4,8 +4,6 @@
 class_name BigTextPanel
 extends RichTextLabel
 
-signal load_failed(message: String)
-
 const SCROLL_SPEED: float = 500.0
 
 
@@ -27,8 +25,8 @@ func _process(delta: float) -> void:
 func load_file(path: String) -> void:
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	if file == null:
-		printerr("BigTextPanel: Failed to open %s !" % path)
-		load_failed.emit("Failed to open %s" % path)
+		printerr(&"BigTextPanel: Failed to open %s !" % path)
+		Transition.fatal_error(&"Could not load game data")
 		return
 
 	# {build} is a placeholder in the text files, filled with the build stamp.
