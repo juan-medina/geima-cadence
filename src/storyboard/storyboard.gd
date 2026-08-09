@@ -177,4 +177,4 @@ func _fade(target: CanvasItem, alpha: float, duration: float) -> void:
 
 
 func _finish() -> void:
-	await Transition.go_to_menu()
+	await Transition.go_to_menu(Transition.MenuTarget.MAIN_MENU)

@@ -37,7 +37,7 @@ func _on_replay_pressed() -> void:
 
 
 func _on_back_to_menu_pressed() -> void:
-	await Transition.go_to_menu()
+	await Transition.go_to_menu(Transition.MenuTarget.SONG_SELECTION)
 
 
 func _refresh() -> void:

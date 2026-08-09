@@ -53,7 +53,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		Audio.play_pause()
 		_open_pause(true)
 	elif not _can_resume:
-		await Transition.go_to_menu()
+		await Transition.go_to_menu(Transition.MenuTarget.SONG_SELECTION)
 
 
 func _on_resume_requested() -> void:

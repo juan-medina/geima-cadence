@@ -10,11 +10,16 @@ const GAME_SCENE: PackedScene = preload("res://game/game.tscn")
 const MENU_SCENE: PackedScene = preload("res://menu/menu.tscn")
 const STORY_SCENE: PackedScene = preload("res://storyboard/storyboard.tscn")
 
+enum MenuTarget { MAIN_MENU, SONG_SELECTION }
+
 var in_transition: bool = false
 var filler: ColorRect = null
 
 # Read by the storyboard on load to pick which sequence to play.
 var pending_story_id: StringName = &"intro"
+
+# Read by the menu on load to pick which panel to open.
+var pending_menu_target: MenuTarget = MenuTarget.MAIN_MENU
 
 
 func _ready() -> void:
@@ -40,7 +45,8 @@ func reload_game() -> void:
 	await _go_to_scene(GAME_SCENE)
 
 
-func go_to_menu() -> void:
+func go_to_menu(target: MenuTarget) -> void:
+	pending_menu_target = target
 	await _go_to_scene(MENU_SCENE)
 
 

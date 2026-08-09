@@ -19,7 +19,7 @@ var _attract_timer: Timer
 
 func _ready() -> void:
 	get_tree().create_timer(NOTIFICATION_DELAY).timeout.connect(InputManager.enable_notifications)
-	_show_first(_main_menu_panel)
+	_show_first(_starting_panel())
 
 	_attract_timer = Timer.new()
 	_attract_timer.wait_time = ATTRACT_DELAY
@@ -27,6 +27,14 @@ func _ready() -> void:
 	_attract_timer.timeout.connect(_on_attract_timeout)
 	add_child(_attract_timer)
 	_attract_timer.start()
+
+
+func _starting_panel() -> MenuPanel:
+	match Transition.pending_menu_target:
+		Transition.MenuTarget.SONG_SELECTION:
+			return _song_selection_panel
+		_:
+			return _main_menu_panel
 
 
 func _input(_event: InputEvent) -> void:

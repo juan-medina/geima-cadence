@@ -33,7 +33,7 @@ func _on_retry_pressed() -> void:
 
 
 func _on_back_to_menu_pressed() -> void:
-	await Transition.go_to_menu()
+	await Transition.go_to_menu(Transition.MenuTarget.SONG_SELECTION)
 
 
 func _on_settings_pressed() -> void:
