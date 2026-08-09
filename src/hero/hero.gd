@@ -153,8 +153,10 @@ func _change_state(new_state: State) -> void:
 
 		State.JUMP_DOWN:
 			play(&"jump_down")
+			if _jump_tween:
+				_jump_tween.kill()
 			_jump_tween = create_tween()
-			_jump_tween.tween_property(self, ^"position:y", position.y + JUMP_HEIGHT, jump_down_duration)
+			_jump_tween.tween_property(self, ^"position:y", _base_y, jump_down_duration)
 			_jump_tween.set_ease(Tween.EASE_IN)
 			_jump_tween.set_trans(Tween.TRANS_CUBIC)
 
@@ -212,6 +214,7 @@ func _clear_flash() -> void:
 func _on_animation_finished() -> void:
 	match current_state:
 		State.JUMP_DOWN:
+			position.y = _base_y
 			Sound.play_landing()
 			_change_state(State.RUNNING)
 		State.SLASHING, State.DASH, State.SLIDE, State.HIT:
