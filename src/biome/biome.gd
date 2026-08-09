@@ -126,10 +126,10 @@ func _draw_back() -> void:
 	_draw_top_fade(view)
 
 
-# Tiles the banded fade mask along the art's top edge (anchored there, not
-# centred like the layers) painted with top_color, so tall silhouettes dissolve
-# into the sky instead of being sliced where the art meets the flat fill. The
-# band is a fixed atmospheric strip, so it does not scroll with the parallax.
+# Tiles the fade mask along the art's top edge (anchored there, not centred like
+# the layers) painted with top_color, so tall silhouettes dissolve into the sky.
+# It drifts horizontally at fog speed like the bottom fog, so the dither reads as
+# moving fog rather than a static pane; vertically it stays pinned to the edge.
 func _draw_top_fade(view: Vector2) -> void:
 	if _fade_mask == null:
 		return
@@ -139,10 +139,15 @@ func _draw_top_fade(view: Vector2) -> void:
 	var art_top: float = - art_height / 2.0
 	var tint: Color = top_color()
 
-	var first: int = floori((-view.x / 2.0) / mask_width)
-	var last: int = ceili((view.x / 2.0) / mask_width)
+	var scrolled: float = _current_scroll
+	if fog_factor < 1.0:
+		scrolled -= _burst
+	var offset: float = fmod(scrolled * fog_factor, mask_width)
+
+	var first: int = floori((-view.x / 2.0 - offset) / mask_width)
+	var last: int = ceili((view.x / 2.0 - offset) / mask_width)
 	for copy: int in range(first, last + 1):
-		var rect: Rect2 = Rect2(copy * mask_width, art_top, mask_width, mask_height)
+		var rect: Rect2 = Rect2(offset + copy * mask_width, art_top, mask_width, mask_height)
 		_back_renderer.draw_texture_rect(_fade_mask, rect, false, tint)
 
 
