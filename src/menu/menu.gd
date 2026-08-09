@@ -35,6 +35,8 @@ func _input(_event: InputEvent) -> void:
 
 
 func _on_attract_timeout() -> void:
+	if _current != _main_menu_panel:
+		return
 	await Transition.go_to_story(&"intro")
 
 
