@@ -36,6 +36,9 @@ horizontal_alignment = 1
 [node name="Star" parent="VBox" unique_id=1261481326 instance=ExtResource("2_2gykl")]
 layout_mode = 2
 
+[node name="HSeparator" type="HSeparator" parent="VBox" unique_id=333092544]
+layout_mode = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="VBox" unique_id=111236095]
 layout_mode = 2
 size_flags_horizontal = 4

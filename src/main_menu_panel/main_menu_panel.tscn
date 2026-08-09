@@ -34,7 +34,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Play"
 
-[node name="Story" type="Button" parent="VBox"]
+[node name="Story" type="Button" parent="VBox" unique_id=1905290697]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -51,6 +51,9 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "About"
+
+[node name="HSeparator" type="HSeparator" parent="VBox" unique_id=1957002517]
+layout_mode = 2
 
 [node name="Exit" type="Button" parent="VBox" unique_id=1636178871]
 custom_minimum_size = Vector2(100, 0)

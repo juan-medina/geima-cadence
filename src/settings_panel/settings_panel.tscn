@@ -45,9 +45,6 @@ text = "Scanlines"
 layout_mode = 2
 text = "Curvature"
 
-[node name="HSeparator" type="HSeparator" parent="VBox" unique_id=1647545619]
-layout_mode = 2
-
 [node name="MasterVolume" type="MarginContainer" parent="VBox" unique_id=1168653511]
 layout_mode = 2
 theme_override_constants/margin_left = 6
@@ -132,13 +129,13 @@ layout_mode = 2
 text = "50 %"
 horizontal_alignment = 2
 
+[node name="HSeparator" type="HSeparator" parent="VBox" unique_id=1956308885]
+layout_mode = 2
+
 [node name="Back" type="Button" parent="VBox" unique_id=1564037314 groups=["ui_return"]]
 layout_mode = 2
 shortcut = SubResource("Shortcut_back")
 text = "Back"
-
-[node name="Label" type="Label" parent="." unique_id=257475699]
-layout_mode = 2
 
 [connection signal="toggled" from="VBox/Fullscreen" to="." method="_on_fullscreen_toggled"]
 [connection signal="toggled" from="VBox/CrtBorder" to="." method="_on_crt_border_toggled"]
