@@ -37,6 +37,7 @@ var _biome_entry: BiomeEntry = null
 var _back_renderer: Node2D
 var _front_renderer: Node2D
 
+
 func _ready() -> void:
 	_back_renderer = Node2D.new()
 	_back_renderer.z_index = -10
@@ -51,6 +52,7 @@ func _ready() -> void:
 	_fade_mask = load(_FADE_MASK_PATH) as Texture2D
 	if _fade_mask == null:
 		printerr(&"Biome could not load top-fade mask at %s" % _FADE_MASK_PATH)
+
 
 func set_scroll(scroll: float) -> void:
 	_current_scroll = scroll
@@ -68,16 +70,14 @@ func dash_burst() -> void:
 	if _burst_tween:
 		_burst_tween.kill()
 	_burst_tween = create_tween()
-	(
-		_burst_tween
-		.tween_property(self, ^"_burst", _burst + _DASH_BURST_DISTANCE, _DASH_BURST_DURATION)
-		.set_ease(Tween.EASE_OUT)
-		.set_trans(Tween.TRANS_CUBIC)
+	_burst_tween.tween_property(self, ^"_burst", _burst + _DASH_BURST_DISTANCE, _DASH_BURST_DURATION).set_ease(Tween.EASE_OUT).set_trans(
+		Tween.TRANS_CUBIC
 	)
 
 
 func ground_y() -> float:
 	return _biome_entry.floor_offset
+
 
 func back_layer_count() -> int:
 	return maxi(_layers.size() - 1, 0)
@@ -136,7 +136,7 @@ func _draw_top_fade(view: Vector2) -> void:
 	var mask_width: float = _fade_mask.get_width()
 	var mask_height: float = _fade_mask.get_height()
 	var art_height: float = _layers[0].get_height()
-	var art_top: float = - art_height / 2.0
+	var art_top: float = -art_height / 2.0
 	var tint: Color = top_color()
 
 	var scrolled: float = _current_scroll
@@ -166,7 +166,7 @@ func draw_layer(canvas: CanvasItem, texture: Texture2D, offset: float, view_widt
 	# no scaling, just tiling copies across the viewport.
 	var width: float = texture.get_width()
 	var height: float = texture.get_height()
-	var top: float = - height / 2.0
+	var top: float = -height / 2.0
 	var first: int = floori((-view_width / 2.0 - offset) / width)
 	var last: int = ceili((view_width / 2.0 - offset) / width)
 	for copy: int in range(first, last + 1):
@@ -210,7 +210,7 @@ func _load_layers() -> void:
 
 	if _layers.is_empty():
 		printerr(&"Biome found no layers for biome %d!" % biome_id)
-		get_tree().quit()
+		Transition.fatal_error(&"Could not load the level")
 		return
 
 	_sample_edge_colors()

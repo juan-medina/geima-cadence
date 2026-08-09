@@ -37,9 +37,4 @@ func _on_accept_pressed() -> void:
 
 
 func _on_decline_pressed() -> void:
-	# quit() cannot close a browser tab, so on web we leave the game instead.
-	if OS.has_feature(&"web"):
-		JavaScriptBridge.eval("window.location.href = 'about:blank';")
-		return
-
-	get_tree().quit()
+	Transition.quit_game()

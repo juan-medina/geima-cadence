@@ -65,7 +65,7 @@ func _on_about_requested() -> void:
 
 
 func _on_exit_requested() -> void:
-	get_tree().quit()
+	Transition.quit_game()
 
 
 func _on_panel_back_requested() -> void:

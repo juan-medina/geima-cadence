@@ -112,10 +112,6 @@ func _ready() -> void:
 	print(&"Options: Initializing...")
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
-	# Route window-close (the X button) through our own quit so audio is stopped
-	# first, instead of letting the engine quit immediately.
-	get_tree().set_auto_accept_quit(false)
-
 	# get base Db from the default buss setup
 	_base_master_db = AudioServer.get_bus_volume_db(AudioServer.get_bus_index(&"Master"))
 	_base_music_db = AudioServer.get_bus_volume_db(AudioServer.get_bus_index(&"Music"))
@@ -199,8 +195,7 @@ func _apply_all_settings() -> void:
 
 func _apply_fullscreen() -> void:
 	var mode: DisplayServer.WindowMode = (
-		DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN
-		if fullscreen else DisplayServer.WindowMode.WINDOW_MODE_WINDOWED
+		DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN if fullscreen else DisplayServer.WindowMode.WINDOW_MODE_WINDOWED
 	)
 	DisplayServer.window_set_mode(mode)
 
@@ -228,23 +223,3 @@ func _apply_bus_volume(bus_name: StringName, volume_linear: float) -> void:
 		AudioServer.set_bus_volume_db(bus_index, volume_db)
 	else:
 		printerr(&"Options: Audio Bus '%s' not found!" % bus_name)
-
-
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		_quit()
-
-
-func _quit() -> void:
-	# Stop any playing audio before quitting, otherwise Godot reports the audio
-	_stop_all_audio(get_tree().root)
-	get_tree().quit()
-
-
-func _stop_all_audio(node: Node) -> void:
-	var audio_node: AudioStreamPlayer = node as AudioStreamPlayer
-	if audio_node:
-		audio_node.stop()
-		audio_node.stream = null
-	for child: Node in node.get_children():
-		_stop_all_audio(child)

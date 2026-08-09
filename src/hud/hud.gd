@@ -22,7 +22,7 @@ var _trail_tween: Tween
 func _ready() -> void:
 	if not track or not hero:
 		printerr(&"Hud needs Track and Hero references!")
-		get_tree().quit()
+		Transition.fatal_error(&"Could not start the game")
 		return
 
 	hero.health_changed.connect(_on_health_changed)

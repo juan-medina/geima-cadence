@@ -24,7 +24,7 @@ func _ready() -> void:
 	super._ready()
 	if not catalogue:
 		printerr(&"WinPanel needs a Catalogue!")
-		get_tree().quit()
+		Transition.fatal_error(&"Could not load game data")
 	_mode_label.add_theme_color_override(&"font_color", _BRONZE)
 
 

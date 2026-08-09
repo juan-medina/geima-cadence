@@ -45,6 +45,7 @@ func grab_focus_silent(control: Control) -> void:
 	control.grab_focus()
 	_suppress_hover = false
 
+
 func connect_menu_sounds(root: Node) -> void:
 	for child: Node in root.get_children():
 		var control: Control = child as Control
@@ -89,3 +90,20 @@ func _connect_focus(control: Control) -> void:
 	if control.focus_mode != Control.FOCUS_NONE:
 		control.mouse_entered.connect(control.grab_focus)
 	control.focus_entered.connect(play_hover)
+
+
+func set_master_volume_db(db: float) -> void:
+	var master_index: int = AudioServer.get_bus_index(&"Master")
+	AudioServer.set_bus_volume_db(master_index, db)
+
+
+func stop_all_players(node: Node) -> void:
+	# Stops every player before a quit, so Godot logs no audio error at exit.
+	var stereo: AudioStreamPlayer = node as AudioStreamPlayer
+	if stereo:
+		stereo.stop()
+	var positional: AudioStreamPlayer2D = node as AudioStreamPlayer2D
+	if positional:
+		positional.stop()
+	for child: Node in node.get_children():
+		stop_all_players(child)

@@ -40,11 +40,11 @@ var _victory_trigger_time: float = 0.0
 func _ready() -> void:
 	if not hero:
 		printerr(&"Track needs a Hero reference!")
-		get_tree().quit()
+		Transition.fatal_error(&"Could not start the game")
 		return
 	if not music:
 		printerr(&"Track needs an AudioStreamPlayer for Music!")
-		get_tree().quit()
+		Transition.fatal_error(&"Could not start the game")
 		return
 
 	if GameData.last_song_id != &"":
@@ -54,12 +54,12 @@ func _ready() -> void:
 			music.stream = stream
 		else:
 			printerr(&"Could not load song stream from: " + song_path)
-			get_tree().quit()
+			Transition.fatal_error(&"Could not load the song")
 			return
 
 	if not music.stream:
 		printerr(&"Track needs a Song assigned!")
-		get_tree().quit()
+		Transition.fatal_error(&"Could not load the song")
 		return
 
 	_victory_trigger_time = music.stream.get_length() - _FADE_OUT_DURATION
@@ -100,13 +100,13 @@ func _load_beatmap() -> Dictionary:
 	var file: FileAccess = FileAccess.open(beatmap_file, FileAccess.READ)
 	if not file:
 		printerr(&"Could not open beatmap file: " + beatmap_file + &"!")
-		get_tree().quit()
+		Transition.fatal_error(&"Could not load the song chart")
 		return {}
 
 	var json_var: Variant = JSON.parse_string(file.get_as_text())
 	if not json_var is Dictionary:
 		printerr(&"Invalid beatmap JSON format!")
-		get_tree().quit()
+		Transition.fatal_error(&"Could not load the song chart")
 		return {}
 
 	var json: Dictionary = json_var
@@ -116,13 +116,13 @@ func _load_beatmap() -> Dictionary:
 func _load_actions(beatmap: Dictionary) -> Array:
 	if not beatmap.has("difficulties"):
 		printerr(&"Beatmap JSON has no difficulties!")
-		get_tree().quit()
+		Transition.fatal_error(&"Could not load the song chart")
 		return []
 
 	var difficulties_var: Variant = beatmap[&"difficulties"]
 	if not difficulties_var is Dictionary:
 		printerr(&"Beatmap difficulties must be a dictionary!")
-		get_tree().quit()
+		Transition.fatal_error(&"Could not load the song chart")
 		return []
 	var difficulties: Dictionary = difficulties_var
 
@@ -132,25 +132,25 @@ func _load_actions(beatmap: Dictionary) -> Array:
 func _extract_actions(difficulties: Dictionary, difficulty: StringName) -> Array:
 	if not difficulties.has(difficulty):
 		printerr(&"Beatmap has no '" + difficulty + &"' difficulty!")
-		get_tree().quit()
+		Transition.fatal_error(&"Could not load the song chart")
 		return []
 
 	var entry_var: Variant = difficulties[difficulty]
 	if not entry_var is Dictionary:
 		printerr(&"Beatmap '" + difficulty + &"' difficulty must be a dictionary!")
-		get_tree().quit()
+		Transition.fatal_error(&"Could not load the song chart")
 		return []
 	var entry: Dictionary = entry_var
 
 	if not entry.has("actions"):
 		printerr(&"Beatmap '" + difficulty + &"' difficulty has no actions!")
-		get_tree().quit()
+		Transition.fatal_error(&"Could not load the song chart")
 		return []
 
 	var actions_var: Variant = entry[&"actions"]
 	if not actions_var is Array:
 		printerr(&"Beatmap actions must be an array!")
-		get_tree().quit()
+		Transition.fatal_error(&"Could not load the song chart")
 		return []
 	var actions: Array = actions_var
 	return actions
@@ -177,7 +177,7 @@ func _spawn_obstacles(actions: Array) -> void:
 		var type: Obstacle.Type = _parse_type(type_name)
 		if type == Obstacle.Type.NONE:
 			printerr(&"Beatmap has an unknown action type: " + type_name + &"!")
-			get_tree().quit()
+			Transition.fatal_error(&"Could not load the song chart")
 			return
 
 		_spawn_obstacle(type, time)
@@ -291,7 +291,7 @@ func _difficulty_to_string(difficulty: DifficultType) -> StringName:
 			return &"hard"
 		_:
 			printerr(&"invalid difficulty")
-			get_tree().quit()
+			Transition.fatal_error(&"Could not load the song chart")
 			return &""
 
 

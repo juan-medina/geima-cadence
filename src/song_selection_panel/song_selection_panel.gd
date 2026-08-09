@@ -32,11 +32,11 @@ func _ready() -> void:
 func _is_setup_valid() -> bool:
 	if not catalogue or not catalogue.biomes or catalogue.biomes.is_empty():
 		printerr(&"BiomeCarouselPanel needs a non-empty Catalogue!")
-		get_tree().quit()
+		Transition.fatal_error(&"Could not load game data")
 		return false
 	if not SONG_ROW:
 		printerr(&"SONG_ROW PackedScene is null!")
-		get_tree().quit()
+		Transition.fatal_error(&"Could not load game data")
 		return false
 	return true
 
@@ -189,8 +189,8 @@ func _create_preview(biome: BiomeEntry) -> TextureRect:
 	var path: String = "res://data/assets/backgrounds/bg_%d_preview.png" % biome.id
 	var texture: Texture2D = load(path) as Texture2D
 	if texture == null:
-		printerr("fail to load texture %s" % path)
-		get_tree().quit()
+		printerr(&"fail to load texture %s" % path)
+		Transition.fatal_error(&"Could not load game data")
 		return null
 	texture_rect.texture = texture
 	texture_rect.custom_minimum_size = Vector2(50, 110)

@@ -62,8 +62,8 @@ func _play() -> void:
 	if catalogue != null:
 		sequence = catalogue.sequence_for(sequence_id)
 	if sequence == null:
-		printerr("Storyboard: no sequence for id %s" % sequence_id)
-		get_tree().quit()
+		printerr(&"Storyboard: no sequence for id %s" % sequence_id)
+		Transition.fatal_error(&"Could not load the story")
 		return
 
 	_start_music(sequence)
@@ -84,8 +84,8 @@ func _start_music(sequence: StorySequence) -> void:
 		return
 	var stream: AudioStreamOggVorbis = load(sequence.music) as AudioStreamOggVorbis
 	if stream == null:
-		printerr("Storyboard: failed to load music %s" % sequence.music)
-		get_tree().quit()
+		printerr(&"Storyboard: failed to load music %s" % sequence.music)
+		Transition.fatal_error(&"Could not load the story")
 		return
 	stream.loop = true
 	stream.loop_offset = sequence.loop_start
@@ -96,13 +96,13 @@ func _start_music(sequence: StorySequence) -> void:
 func _show_slide(seq_id: StringName, index: int, slide: StorySlide, is_last_slide: bool) -> void:
 	var path: String = _IMAGE_PATH % [seq_id, index]
 	if not ResourceLoader.exists(path):
-		printerr("Storyboard: missing image %s" % path)
-		get_tree().quit()
+		printerr(&"Storyboard: missing image %s" % path)
+		Transition.fatal_error(&"Could not load the story")
 		return
 	var texture: Texture2D = load(path) as Texture2D
 	if texture == null:
-		printerr("Storyboard: failed to load image %s" % path)
-		get_tree().quit()
+		printerr(&"Storyboard: failed to load image %s" % path)
+		Transition.fatal_error(&"Could not load the story")
 		return
 	await _swap_image(texture)
 

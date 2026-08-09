@@ -32,6 +32,10 @@ func show_panel(next: MenuPanel) -> void:
 		return
 	_busy = true
 
+	# Drop focus so a second accept during the crossfade hits no button;
+	# _on_swap_finished re-grabs focus on the incoming panel.
+	get_viewport().gui_release_focus()
+
 	var previous: MenuPanel = _current
 	_current = next
 
