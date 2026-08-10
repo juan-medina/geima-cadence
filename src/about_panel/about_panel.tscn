@@ -35,12 +35,22 @@ theme_override_colors/default_color = Color(0.7, 0.72, 0.78, 1)
 bbcode_enabled = true
 script = ExtResource("2_bigtext")
 
-[node name="Back" type="Button" parent="VBox" unique_id=1475802171 groups=["ui_return"]]
-custom_minimum_size = Vector2(100, 0)
+[node name="Buttons" type="HBoxContainer" parent="VBox" unique_id=884213097]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_constants/separation = 8
+
+[node name="Website" type="Button" parent="VBox/Buttons" unique_id=884213098]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Website"
+
+[node name="Back" type="Button" parent="VBox/Buttons" unique_id=1475802171 groups=["ui_return"]]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
 shortcut = SubResource("Shortcut_back")
 text = "Back"
 
 [connection signal="meta_clicked" from="VBox/AboutText" to="VBox/AboutText" method="_on_meta_clicked"]
-[connection signal="pressed" from="VBox/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="VBox/Buttons/Website" to="." method="_on_website_pressed"]
+[connection signal="pressed" from="VBox/Buttons/Back" to="." method="_on_back_pressed"]
