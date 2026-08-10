@@ -6,6 +6,8 @@ extends RichTextLabel
 
 const SCROLL_SPEED: float = 500.0
 
+const DOWNLOAD_LINK: String = "https://juanmedina.itch.io/geima-cadence"
+
 
 func _ready() -> void:
 	set_process(is_visible_in_tree())
@@ -31,6 +33,16 @@ func load_file(path: String) -> void:
 
 	# {build} is a placeholder in the text files, filled with the build stamp.
 	text = file.get_as_text().replace("{build}", BuildInfo.display_string())
+
+	# If the game is running in a web browser, we want to show a link to download the desktop version.
+	# replace {download} with the link to download the desktop version.
+	var download_text: String = ""
+	if OS.has_feature("web"):
+		download_text = (
+			"\n[center]Download the desktop version from: [pulse freq=2.0 color=#6cc6ff][url=%s/]itch.io[/url][/pulse][/center]\n" % DOWNLOAD_LINK
+		)
+
+	text = text.replace("{download}", download_text)
 	file.close()
 
 
