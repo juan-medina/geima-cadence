@@ -1,3 +1,4 @@
-# Geima: Cadence 0.9.1
+# Geima: Cadence 0.9.2
 
-- Adding a download link in the about when running on web versions.
+- Update story-boards
+- Fix a bug when the last played song does not display correctly whe come back to the menu
