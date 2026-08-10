@@ -151,6 +151,16 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 * **Source:** [Itch.io](https://managore.itch.io/m5x7)
 * **License:** [Creative Commons Zero (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/) — public domain, free for personal and commercial use. The font was purchased to support the author.
 
+## Testers
+
+Huge thanks to everyone who played the game and helped shape it with their feedback:
+
+* [Adirtan](https://open.spotify.com/user/11155600083)
+* [RightBigChimken](https://rightbigchimken.carrd.co/)
+* [Yunc4](https://www.twitch.tv/yunc4)
+
+And to everyone who gives the game a run — thank you for playing!
+
 
 ## License
 
