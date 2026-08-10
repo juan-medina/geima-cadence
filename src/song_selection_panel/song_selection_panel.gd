@@ -20,6 +20,7 @@ var _preview_textures: Array[TextureRect] = []
 @onready var _details_panel: VBoxContainer = %Details
 @onready var _total_stars_label: Label = %TotalStars
 @onready var _header_star: Star = $VBoxContainer/Header/Stars/Star
+@onready var _scroll_container: ScrollContainer = $VBoxContainer/HBoxContainer/ScrollContainer
 
 
 func _ready() -> void:
@@ -27,6 +28,7 @@ func _ready() -> void:
 	if not _is_setup_valid():
 		return
 	_build_catalogue_ui()
+	visibility_changed.connect(_on_visibility_changed)
 
 
 func _is_setup_valid() -> bool:
@@ -60,6 +62,22 @@ func _build_catalogue_ui() -> void:
 			var diff_btn: DifficultyButton = btn as DifficultyButton
 			if diff_btn:
 				diff_btn.set_pressed_no_signal(diff_btn.difficulty == GameData.difficulty)
+
+
+func _on_visibility_changed() -> void:
+	if not is_visible_in_tree():
+		return
+	await _scroll_to_selected_song()
+
+
+func _scroll_to_selected_song() -> void:
+	if not _selected_song_row:
+		return
+	# The list only gets its final layout once the panel is shown, so wait for
+	# two sort passes before asking the container to reveal the selected row.
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_scroll_container.ensure_control_visible(_selected_song_row)
 
 
 func _add_biome_header(biome: BiomeEntry) -> void:
