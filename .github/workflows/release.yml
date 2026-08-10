@@ -1,0 +1,262 @@
+# SPDX-FileCopyrightText: 2026 Juan Medina
+# SPDX-License-Identifier: MIT
+
+name: Release
+
+on:
+    workflow_dispatch:
+
+# Only one release may run at a time so two dispatches can't race on the same tag.
+concurrency:
+    group: release
+    cancel-in-progress: false
+
+permissions:
+    contents: write
+
+jobs:
+    prepare:
+        name: Prepare tag
+        runs-on: ubuntu-latest
+        outputs:
+            version: ${{ steps.version.outputs.version }}
+            tag: ${{ steps.version.outputs.tag }}
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v4
+
+            # The release version is the game's own version, never a CI counter, so
+            # a build always matches the version shown in-game (build_info.gd reads
+            # the same setting).
+            -   name: Read version from project.godot
+                id: version
+                run: |
+                    version=$(grep -oP '(?<=^config/version=")[^"]+' src/project.godot)
+                    if [ -z "$version" ]; then
+                        echo "::error::Could not read config/version from src/project.godot"
+                        exit 1
+                    fi
+                    echo "version=$version" >> "$GITHUB_OUTPUT"
+                    echo "tag=v$version" >> "$GITHUB_OUTPUT"
+                    echo "Releasing v$version"
+
+            -   name: Fail if tag already exists
+                run: |
+                    tag="${{ steps.version.outputs.tag }}"
+                    if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
+                        echo "::error::Tag $tag already exists. Bump config/version in src/project.godot before releasing."
+                        exit 1
+                    fi
+
+            -   name: Create and push tag
+                run: |
+                    tag="${{ steps.version.outputs.tag }}"
+                    git config user.name "github-actions[bot]"
+                    git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                    git tag -a "$tag" -m "Release $tag"
+                    git push origin "$tag"
+
+    build:
+        name: Build ${{ matrix.artifact }}
+        needs: prepare
+        runs-on: ${{ matrix.os }}
+        defaults:
+            run:
+                shell: bash
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    -   os: windows-latest
+                        artifact: windows
+                        preset: Windows Desktop
+                    -   os: ubuntu-latest
+                        artifact: linux
+                        preset: Linux
+                    -   os: macos-latest
+                        artifact: macos
+                        preset: macOS
+                    -   os: ubuntu-latest
+                        artifact: web
+                        preset: Web
+
+        steps:
+            -   name: Checkout game
+                uses: actions/checkout@v4
+                with:
+                    lfs: true
+
+            # The submodule is checked out by hand rather than with
+            # submodules:true because a deploy key only authenticates SSH URLs
+            # and .gitmodules holds the HTTPS one. Reading the pinned revision
+            # keeps the build reproducible: a tagged game commit always builds
+            # against the assets it shipped with.
+            -   name: Read pinned data revision
+                id: pin
+                run: echo "sha=$(git rev-parse HEAD:src/data)" >> "$GITHUB_OUTPUT"
+
+            -   name: Checkout data
+                uses: actions/checkout@v4
+                with:
+                    repository: juan-medina/geima-cadence-data
+                    ssh-key: ${{ secrets.DATA_REPO_KEY }}
+                    ref: ${{ steps.pin.outputs.sha }}
+                    lfs: true
+                    path: src/data
+
+            # An unfetched LFS file imports as a 130 byte text file and ships a
+            # silently broken build, so fail here instead.
+            -   name: Verify assets
+                run: |
+                    if grep -rl "^version https://git-lfs" src/data/assets/ 2>/dev/null | grep -q .; then
+                        echo "::error::LFS objects were not fetched"
+                        exit 1
+                    fi
+
+            -   name: Setup Python
+                uses: actions/setup-python@v5
+                with:
+                    python-version: '3.x'
+
+            -   name: Stamp build info
+                run: python scripts/gen_build_info.py
+
+            -   name: Setup Godot
+                uses: chickensoft-games/setup-godot@v2
+                with:
+                    version: 4.7.1
+                    use-dotnet: false
+                    include-templates: true
+                    cache: true
+
+            -   name: Import project assets
+                working-directory: src
+                env:
+                    GODOT_DISABLE_LEAK_CHECKS: 1
+                run: godot --headless --import
+
+            # rcedit embeds the icon and version/copyright metadata into the .exe
+            # (application/modify_resources). Godot only finds it through this
+            # editor setting, so it is installed and pointed at here.
+            -   name: Configure rcedit (Windows)
+                if: matrix.artifact == 'windows'
+                shell: pwsh
+                run: |
+                    choco install rcedit -y --no-progress
+                    $dir = "$env:APPDATA\Godot"
+                    New-Item -ItemType Directory -Force -Path $dir | Out-Null
+                    @'
+                    [gd_resource type="EditorSettings" format=3]
+
+                    [resource]
+                    export/windows/rcedit = "C:/ProgramData/chocolatey/bin/rcedit.exe"
+                    '@ | Set-Content -Path "$dir\editor_settings-4.tres" -Encoding utf8
+
+            -   name: Export Windows
+                if: matrix.artifact == 'windows'
+                working-directory: src
+                shell: pwsh
+                run: |
+                    New-Item -ItemType Directory -Force -Path build/windows | Out-Null
+                    godot --headless --export-release "Windows Desktop" build/windows/Geima_Cadence.exe
+                    $zip = "geima-cadence-${{ needs.prepare.outputs.version }}-windows.zip"
+                    Compress-Archive -Path build/windows/* -DestinationPath "$env:GITHUB_WORKSPACE/$zip"
+
+            -   name: Export Linux
+                if: matrix.artifact == 'linux'
+                working-directory: src
+                run: |
+                    mkdir -p build/linux
+                    godot --headless --export-release "Linux" build/linux/Geima_Cadence.x86_64
+                    zip="geima-cadence-${{ needs.prepare.outputs.version }}-linux.zip"
+                    (cd build/linux && zip -r "$GITHUB_WORKSPACE/$zip" .)
+
+            -   name: Export macOS
+                if: matrix.artifact == 'macos'
+                working-directory: src
+                run: |
+                    zip="geima-cadence-${{ needs.prepare.outputs.version }}-macos.zip"
+                    godot --headless --export-release "macOS" "$GITHUB_WORKSPACE/$zip"
+
+            -   name: Export Web
+                if: matrix.artifact == 'web'
+                working-directory: src
+                run: |
+                    mkdir -p build/web
+                    godot --headless --export-release "Web" build/web/index.html
+                    zip="geima-cadence-${{ needs.prepare.outputs.version }}-web.zip"
+                    (cd build/web && zip -r "$GITHUB_WORKSPACE/$zip" .)
+
+            -   name: Upload artifact
+                uses: actions/upload-artifact@v4
+                with:
+                    name: geima-cadence-${{ matrix.artifact }}
+                    path: geima-cadence-${{ needs.prepare.outputs.version }}-${{ matrix.artifact }}.zip
+                    if-no-files-found: error
+
+    release:
+        name: GitHub Release
+        needs: [prepare, build]
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v4
+
+            -   name: Download artifacts
+                uses: actions/download-artifact@v4
+                with:
+                    path: dist
+                    merge-multiple: true
+
+            -   name: Create release
+                env:
+                    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                run: |
+                    v="${{ needs.prepare.outputs.version }}"
+                    tag="${{ needs.prepare.outputs.tag }}"
+                    gh release create "$tag" \
+                        -t "$tag" \
+                        -F release-notes.md \
+                        "dist/geima-cadence-$v-windows.zip" \
+                        "dist/geima-cadence-$v-linux.zip" \
+                        "dist/geima-cadence-$v-macos.zip"
+
+    itch:
+        name: itch.io ${{ matrix.channel }}
+        needs: [prepare, build]
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    -   artifact: windows
+                        channel: windows
+                    -   artifact: linux
+                        channel: linux
+                    -   artifact: macos
+                        channel: mac
+                    -   artifact: web
+                        channel: web
+
+        steps:
+            -   name: Download artifact
+                uses: actions/download-artifact@v4
+                with:
+                    name: geima-cadence-${{ matrix.artifact }}
+                    path: dist
+
+            -   name: Install butler
+                run: |
+                    curl -L -o butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default
+                    unzip butler.zip
+                    chmod +x butler
+                    ./butler -V
+
+            -   name: Push to itch.io
+                env:
+                    BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+                run: |
+                    v="${{ needs.prepare.outputs.version }}"
+                    ./butler push "dist/geima-cadence-$v-${{ matrix.artifact }}.zip" \
+                        juanmedina/geima-cadence:${{ matrix.channel }} \
+                        --userversion "$v"

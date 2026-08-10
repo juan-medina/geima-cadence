@@ -2,14 +2,17 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-478CBF.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Conduct](https://img.shields.io/badge/Conduct-Covenat%202.0-478CBF.svg?style=for-the-badge)](https://www.contributor-covenant.org/version/2/0/code_of_conduct/)
 [![Made with Godot](https://img.shields.io/badge/GODOT-4.7-478CBF?style=for-the-badge&logo=godot%20engine&logoColor=white)](https://godotengine.org)
+[![Play on itch.io](https://img.shields.io/badge/itch.io-Play-478CBF?style=for-the-badge&logo=itchdotio&logoColor=white)](https://juanmedina.itch.io/geima-cadence)
 
 <p align="center">
-  <a href="https://juan-medina.github.io/geima-cadence/"><img src="logo.png" alt="Geima: Cadence — play in your browser"></a>
+  <a href="https://juanmedina.itch.io/geima-cadence"><img src="screens/cover.jpg" alt="Geima: Cadence — play on itch.io"></a>
 </p>
 
 > **Geima: Cadence** is a rhythm-action endless runner where **the music is your health, and your heartbeat is your shield**. Run, jump, slash, and block to the beat of a high-energy soundtrack to charge your magical escape core and outrun a ruthless empire.
 
-**[Play in your browser →](https://juan-medina.github.io/geima-cadence/)** — no download required.
+**[Play on itch.io →](https://juanmedina.itch.io/geima-cadence)** — play in your browser, or download for Windows, Linux, and macOS.
+
+Chasing the bleeding edge? The [latest dev build](https://juan-medina.github.io/geima-cadence/) auto-deploys from `main` for testers.
 
 ## Assets
 
@@ -131,18 +134,6 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 * **License:** Paid. Used under a purchased license (personal and commercial use
   allowed; the pack may not be resold or redistributed). Attribution is optional
   but appreciated.
-
-#### Game Start
-* **Author:** [plasterbrain](https://freesound.org/people/plasterbrain/)
-* **Source:** [Freesound](https://freesound.org/s/243020/)
-* **License:** [Creative Commons Zero (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/) — public domain, free for personal and commercial use.
-* **Usage:** Cheat-activation sound.
-
-#### WinSquare
-* **Author:** [Fupicat](https://freesound.org/people/Fupicat/)
-* **Source:** [Freesound](https://freesound.org/people/Fupicat/sounds/527650/)
-* **License:** [Creative Commons Zero (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/) — public domain, free for personal and commercial use.
-* **Usage:** Game win sound.
 
 ### Fonts
 

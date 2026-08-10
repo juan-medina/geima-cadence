@@ -5,7 +5,7 @@ class_name AboutPanel
 extends MenuPanel
 
 const ABOUT_PATH: String = "res://data/assets/about.txt"
-const WEBSITE_URL: String = "https://github.com/juan-medina/geima-cadence"
+const WEBSITE_URL: String = "https://juanmedina.itch.io/geima-cadence"
 
 @onready var _back_button: Button = $VBox/Buttons/Back
 @onready var _about_text: BigTextPanel = $VBox/AboutText
