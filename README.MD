@@ -79,8 +79,14 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 * **Source:** [Itch.io](https://xdeviruchi.itch.io/16-bit-fantasy-adventure-music-pack)
 * **License:** Free (name-your-own-price). Personal and commercial use allowed;
   minor edits allowed; redistribution, resale, and OST releases prohibited.
-  Attribution optional but appreciated. Currently under evaluation — planning to
-  pay to support the author.
+  Attribution optional but appreciated. Purchased to support the author.
+
+#### 16-Bit Fantasy: Battles Music Pack
+* **Author:** [Marllon Silva (xDeviruchi)](https://xdeviruchi.itch.io/)
+* **Source:** [Itch.io](https://xdeviruchi.itch.io/16-bit-fantasy-battles-music-pack)
+* **License:** Paid. Used under a purchased license (personal and commercial
+  use allowed; minor edits allowed; redistribution, resale, and OST releases
+  prohibited). Attribution optional but appreciated.
 
 ### Sound Effects
 
