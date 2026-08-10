@@ -235,6 +235,14 @@ jobs:
                     BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
                 run: |
                     v="${{ needs.prepare.outputs.version }}"
-                    ./butler push "dist/geima-cadence-$v-${{ matrix.plat }}.zip" \
-                        juanmedina/geima-cadence:${{ matrix.channel }} \
-                        --userversion "$v"
+                    zip="dist/geima-cadence-$v-${{ matrix.plat }}.zip"
+                    if [ "${{ matrix.channel }}" = "web" ]; then
+                        # itch serves the browser build from index.html at the build
+                        # root, and butler uploads a zip as a single file without
+                        # unpacking it, so push the unpacked folder instead.
+                        mkdir -p web_build
+                        unzip -q "$zip" -d web_build
+                        ./butler push web_build juanmedina/geima-cadence:web --userversion "$v"
+                    else
+                        ./butler push "$zip" juanmedina/geima-cadence:${{ matrix.channel }} --userversion "$v"
+                    fi
