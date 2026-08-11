@@ -5,5 +5,5 @@ class_name DifficultyProfile
 extends Resource
 
 @export var damage_per_hit: float = 0.0
-@export var s_min_health: float = 0.95
-@export var a_min_health: float = 0.5
+@export var s_min_health: float = 0.0
+@export var a_min_health: float = 0.0
