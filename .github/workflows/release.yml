@@ -86,10 +86,8 @@ jobs:
                 with:
                     lfs: true
 
-            # The submodule is checked out by hand rather than with submodules:true
-            # because the deploy key only authenticates SSH URLs while .gitmodules
-            # holds the HTTPS one. Building at the pinned revision keeps a tagged
-            # game commit building against the assets it shipped with.
+            # Checked out by hand rather than submodules:true because the deploy
+            # key only authenticates SSH URLs while .gitmodules holds the HTTPS one.
             -   name: Read pinned data revision
                 id: pin
                 run: echo "sha=$(git rev-parse HEAD:src/data)" >> "$GITHUB_OUTPUT"
