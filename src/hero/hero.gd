@@ -282,7 +282,7 @@ func is_alive() -> bool:
 	return health > 0.0
 
 
-func take_damage(amount: float) -> void:
+func take_hit(amount: float) -> void:
 	if not Options.invincible:
 		health = maxf(health - amount, 0.0)
 		health_changed.emit(health)

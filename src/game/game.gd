@@ -6,8 +6,11 @@ extends Node2D
 
 # Obstacles rest this far below the hero's ground line
 const _OBSTACLE_OFFSET_Y: float = 22.0
+const _DIFFICULTY_TABLE: DifficultyTable = preload("res://data/assets/difficulty/difficulty_table.tres")
 
 @export var catalogue: Catalogue
+
+var _damage_per_hit: float = 0.0
 
 @onready var _track: Track = $Track
 @onready var _biome: Biome = $Biome
@@ -25,13 +28,14 @@ const _OBSTACLE_OFFSET_Y: float = 22.0
 func _ready() -> void:
 	_hero.died.connect(_on_hero_died)
 
-	# disable the dash burst effect for now, we may remove it entirely
-	# _hero.dashed.connect(_biome.dash_burst)
-
 	# Workaround for Godot 4 Camera2D not re-centering after the window resizes.
 	get_tree().root.size_changed.connect(_on_window_resized)
 
 	_track.scrolled.connect(_biome.set_scroll)
+	_track.player_hit.connect(_on_player_hit)
+
+	var profile: DifficultyProfile = _DIFFICULTY_TABLE.profile_for(GameData.difficulty)
+	_damage_per_hit = profile.damage_per_hit
 
 	_prepare_biome()
 	_track.begin()
@@ -59,6 +63,10 @@ func _on_track_beat() -> void:
 	_hero.pulse_core()
 
 
+func _on_player_hit() -> void:
+	_hero.take_hit(_damage_per_hit)
+
+
 func _on_hero_died() -> void:
 	_pause_overlay.set_process_unhandled_input(false)
 
@@ -82,6 +90,6 @@ func _on_track_victory_reached() -> void:
 
 func _open_pause_win_overlay() -> void:
 	_game_win.play()
-	var rank: Rank.Level = Rank.from_health_percentage(_hero.health_percentage)
+	var rank: Rank.Level = Rank.from_health_percentage(_hero.health_percentage, GameData.difficulty)
 	GameData.set_star_record(GameData.last_song_id, GameData.difficulty, rank)
 	_pause_overlay._open_win(rank)

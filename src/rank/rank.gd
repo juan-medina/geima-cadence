@@ -8,11 +8,14 @@ const _GOLD: Color = Color.GOLD
 const _BRONZE: Color = Color(0.65, 0.4, 0.15)
 const _EMPTY: Color = Color(0.25, 0.25, 0.3)
 
+const _DIFFICULTY_TABLE: DifficultyTable = preload("res://data/assets/difficulty/difficulty_table.tres")
 
-static func from_health_percentage(health_percentage: float) -> Level:
-	if health_percentage >= 0.9:
+
+static func from_health_percentage(health_percentage: float, difficulty: Track.DifficultType) -> Level:
+	var profile: DifficultyProfile = _DIFFICULTY_TABLE.profile_for(difficulty)
+	if health_percentage >= profile.s_min_health:
 		return Level.S
-	if health_percentage >= 0.7:
+	if health_percentage >= profile.a_min_health:
 		return Level.A
 	if health_percentage >= 0.0:
 		return Level.B

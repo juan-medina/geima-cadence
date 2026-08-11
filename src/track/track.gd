@@ -7,6 +7,7 @@ extends Node2D
 signal victory_reached
 signal scrolled(scroll: float)
 signal beat
+signal player_hit
 
 enum DifficultType { EASY, NORMAL, HARD }
 
@@ -206,7 +207,7 @@ func _spawn_obstacle(type: Obstacle.Type, time: float) -> void:
 		return
 
 	obstacle.position = Vector2(hero.position.x + (time * scroll_speed), floor_y)
-	obstacle.hit_player.connect(hero.take_damage)
+	obstacle.hit_player.connect(player_hit.emit)
 	obstacle.z_index = 1
 	add_child(obstacle)
 	obstacle.place_glyph_on_lane(_GLYPH_LANE_Y, floor_y)

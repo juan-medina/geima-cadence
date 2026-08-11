@@ -4,7 +4,7 @@
 class_name Obstacle
 extends Area2D
 
-signal hit_player(damage: float)
+signal hit_player
 
 enum Type { NONE, SLASH, DASH, SLIDE, JUMP_UP }
 
@@ -18,8 +18,6 @@ const _GLYPH_FLASH_DURATION: float = 0.08
 const _GLYPH_FADE_DURATION: float = 0.3
 
 static var _glyph_additive_material: CanvasItemMaterial
-
-@export var damage: float = 10.0
 
 # Set by each obstacle's own script.
 var type: Type = Type.NONE
@@ -91,4 +89,4 @@ func _on_player_success() -> void:
 
 
 func _on_player_failure() -> void:
-	hit_player.emit(damage)
+	hit_player.emit()
