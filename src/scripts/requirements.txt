@@ -1,0 +1,4 @@
+pillow
+librosa
+numpy
+soundfile

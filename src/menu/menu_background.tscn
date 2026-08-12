@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dsarqdu3bh2tf" path="res://menu/menu_background.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://c5xart2yh6k1a" path="res://biome/biome.tscn" id="2_biome"]
-[ext_resource type="Resource" uid="uid://bhnr47r4rxtgr" path="res://data/assets/catalogue/catalogue.tres" id="3_cat"]
+[ext_resource type="Resource" uid="uid://bhnr47r4rxtgr" path="res://assets/catalogue/catalogue.tres" id="3_cat"]
 
 [node name="MenuBackground" type="Node2D" unique_id=722362160]
 script = ExtResource("1_script")

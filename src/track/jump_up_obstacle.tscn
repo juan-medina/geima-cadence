@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://data/assets/sprites/input.png" id="1_input"]
 [ext_resource type="Script" uid="uid://cl1med2dbbjct" path="res://track/jump_up_obstacle.gd" id="1_tirxj"]
-[ext_resource type="SpriteFrames" uid="uid://dm2firwfelhnp" path="res://data/assets/sprites/shoggoth.tres" id="3_n7kf5"]
+[ext_resource type="SpriteFrames" uid="uid://dm2firwfelhnp" path="res://assets/sprites/shoggoth.tres" id="3_n7kf5"]
 
 [sub_resource type="RectangleShape2D" id="Shape_jump"]
 size = Vector2(20, 25)

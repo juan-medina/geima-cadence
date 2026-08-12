@@ -1,0 +1,86 @@
+{
+  "target_level": -16,
+  "songs": [
+    {
+      "name": "For Hope",
+      "input": "./data/raw/songs/01_for_hope_intro.wav",
+      "loop": "./data/raw/songs/01_for_hope_loopable.wav",
+      "output": "./data/assets/songs/01_for_hope.ogg"
+    },
+    {
+      "name": "For Courage",
+      "input": "./data/raw/songs/02_for_courage_intro.wav",
+      "loop": "./data/raw/songs/02_for_courage_loopable.wav",
+      "output": "./data/assets/songs/02_for_courage.ogg"
+    },
+    {
+      "name": "For What Remains",
+      "input": "./data/raw/songs/03_for_what_remains_intro.wav",
+      "loop": "./data/raw/songs/03_for_what_remains_loopable.wav",
+      "output": "./data/assets/songs/03_for_what_remains.ogg"
+    },
+    {
+      "name": "For Humanity",
+      "input": "./data/raw/songs/04_for_humanity_intro.wav",
+      "loop": "./data/raw/songs/04_for_humanity_loopable.wav",
+      "output": "./data/assets/songs/04_for_humanity.ogg"
+    },
+    {
+      "name": "For the Fallen Ones",
+      "input": "./data/raw/songs/05_for_the_fallen_ones_intro.wav",
+      "loop": "./data/raw/songs/05_for_the_fallen_ones_loopable.wav",
+      "output": "./data/assets/songs/05_for_the_fallen_ones.ogg"
+    },
+    {
+      "name": "For Vengeance",
+      "input": "./data/raw/songs/06_for_vengeance_intro.wav",
+      "loop": "./data/raw/songs/06_for_vengeance_loopable.wav",
+      "output": "./data/assets/songs/06_for_vengeance.ogg"
+    },
+    {
+      "name": "For Despair",
+      "input": "./data/raw/songs/07_for_despair_intro.wav",
+      "loop": "./data/raw/songs/07_for_despair_loopable.wav",
+      "output": "./data/assets/songs/07_for_despair.ogg"
+    },
+    {
+      "name": "For Nothing",
+      "input": "./data/raw/songs/08_for_nothing_intro.wav",
+      "loop": "./data/raw/songs/08_for_nothing_loopable.wav",
+      "output": "./data/assets/songs/08_for_nothing.ogg"
+    },
+    {
+      "name": "Falling Apart",
+      "input": "./data/raw/songs/09_falling_Apart.wav",
+      "output": "./data/assets/songs/09_falling_Apart.ogg"
+    },
+    {
+      "name": "For Glory",
+      "input": "./data/raw/songs/10_battle_1.wav",
+      "loop_start_samples": 474525,
+      "loop_length_samples": 2761026,
+      "output": "./data/assets/songs/10_for_glory.ogg"
+    },
+    {
+      "name": "For the Last Stand",
+      "input": "./data/raw/songs/11_battle_2.wav",
+      "loop_start_samples": 27783,
+      "loop_length_samples": 2790582,
+      "output": "./data/assets/songs/11_for_the_last_stand.ogg"
+    },
+    {
+      "name": "Don't Be Afraid",
+      "input": "./data/raw/songs/12_dont_be_afraid.wav",
+      "loop_start_samples": 7348,
+      "loop_length_samples": 4740840,
+      "output": "./data/assets/songs/12_dont_be_afraid.ogg"
+    },
+    {
+      "name": "For Love",
+      "input": "./data/raw/songs/13 _for_love.wav",
+      "loop_start_samples": 1605932,
+      "loop_length_samples": 4083681,
+      "output": "./data/assets/songs/13_for_love.ogg"
+    }
+  ]
+}

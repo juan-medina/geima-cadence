@@ -8,7 +8,7 @@ const _GOLD: Color = Color.GOLD
 const _BRONZE: Color = Color(0.65, 0.4, 0.15)
 const _EMPTY: Color = Color(0.25, 0.25, 0.3)
 
-const _DIFFICULTY_TABLE: DifficultyTable = preload("res://data/assets/difficulty/difficulty_table.tres")
+const _DIFFICULTY_TABLE: DifficultyTable = preload("res://assets/difficulty/difficulty_table.tres")
 
 
 static func from_health_percentage(health_percentage: float, difficulty: Track.DifficultType) -> Level:

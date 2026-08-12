@@ -1,0 +1,226 @@
+{
+  "peak_ceiling": -1.0,
+  "tiers": {
+    "soft": {
+      "target_level": -30
+    },
+    "normal": {
+      "target_level": -22
+    },
+    "important": {
+      "target_level": -18
+    }
+  },
+  "sounds": [
+    {
+      "input": "./data/raw/sounds/Hover_1.wav",
+      "output": "./data/assets/sounds/Hover_1.wav",
+      "tier": "soft"
+    },
+    {
+      "input": "./data/raw/sounds/Click_1.wav",
+      "output": "./data/assets/sounds/Click_1.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/Return_1.wav",
+      "output": "./data/assets/sounds/Return_1.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/Start_2.wav",
+      "output": "./data/assets/sounds/Start_2.wav",
+      "tier": "important"
+    },
+    {
+      "input": "./data/raw/sounds/Pause_4.wav",
+      "output": "./data/assets/sounds/Pause_4.wav",
+      "tier": "important"
+    },
+    {
+      "input": "./data/raw/sounds/cheat.wav",
+      "output": "./data/assets/sounds/cheat.wav",
+      "tier": "important"
+    },
+    {
+      "input": "./data/raw/sounds/07_Step_rock_01.wav",
+      "output": "./data/assets/sounds/07_Step_rock_01.wav",
+      "tier": "soft"
+    },
+    {
+      "input": "./data/raw/sounds/08_Step_rock_02.wav",
+      "output": "./data/assets/sounds/08_Step_rock_02.wav",
+      "tier": "soft"
+    },
+    {
+      "input": "./data/raw/sounds/09_Step_rock_03.wav",
+      "output": "./data/assets/sounds/09_Step_rock_03.wav",
+      "tier": "soft"
+    },
+    {
+      "input": "./data/raw/sounds/28_Jump_01.wav",
+      "output": "./data/assets/sounds/28_Jump_01.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/29_Jump_02.wav",
+      "output": "./data/assets/sounds/29_Jump_02.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/30_Jump_03.wav",
+      "output": "./data/assets/sounds/30_Jump_03.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/31_Jump_04.wav",
+      "output": "./data/assets/sounds/31_Jump_04.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/45_Landing_01.wav",
+      "output": "./data/assets/sounds/45_Landing_01.wav",
+      "tier": "soft"
+    },
+    {
+      "input": "./data/raw/sounds/46_Landing_02.wav",
+      "output": "./data/assets/sounds/46_Landing_02.wav",
+      "tier": "soft"
+    },
+    {
+      "input": "./data/raw/sounds/47_Landing_03.wav",
+      "output": "./data/assets/sounds/47_Landing_03.wav",
+      "tier": "soft"
+    },
+    {
+      "input": "./data/raw/sounds/66_Dash_evade_02.wav",
+      "output": "./data/assets/sounds/66_Dash_evade_02.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/19_Slide_01.wav",
+      "output": "./data/assets/sounds/19_Slide_01.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/31_swoosh_sword_1.wav",
+      "output": "./data/assets/sounds/31_swoosh_sword_1.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/32_swoosh_sword_2.wav",
+      "output": "./data/assets/sounds/32_swoosh_sword_2.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/33_swoosh_sword_3.wav",
+      "output": "./data/assets/sounds/33_swoosh_sword_3.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/62_Get_hit_01.wav",
+      "output": "./data/assets/sounds/62_Get_hit_01.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/63_Get_hit_02.wav",
+      "output": "./data/assets/sounds/63_Get_hit_02.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/68_Die_01.wav",
+      "output": "./data/assets/sounds/68_Die_01.wav",
+      "tier": "important"
+    },
+    {
+      "input": "./data/raw/sounds/01_Fire_explosion_01_small.wav",
+      "output": "./data/assets/sounds/01_Fire_explosion_01_small.wav",
+      "tier": "important"
+    },
+    {
+      "input": "./data/raw/sounds/02_Fire_explosion_02_small.wav",
+      "output": "./data/assets/sounds/02_Fire_explosion_02_small.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/01_Slime_damage.wav",
+      "output": "./data/assets/sounds/01_Slime_damage.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/NinjaAssassin_Attack_1.ogg",
+      "output": "./data/assets/sounds/NinjaAssassin_Attack_1.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/NinjaAssassin_Attack_2.ogg",
+      "output": "./data/assets/sounds/NinjaAssassin_Attack_2.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/NinjaAssassin_Death.ogg",
+      "output": "./data/assets/sounds/NinjaAssassin_Death.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/Giant_Wind_up_1.wav",
+      "output": "./data/assets/sounds/Giant_Wind_up_1.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/Giant_Wind_up_2.wav",
+      "output": "./data/assets/sounds/Giant_Wind_up_2.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/Giant_Wind_up_3.wav",
+      "output": "./data/assets/sounds/Giant_Wind_up_3.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/Giant_Death_1.wav",
+      "output": "./data/assets/sounds/Giant_Death_1.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/Giant_Death_2.wav",
+      "output": "./data/assets/sounds/Giant_Death_2.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/09_Impact_01.wav",
+      "output": "./data/assets/sounds/09_Impact_01.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/10_Impact_02.wav",
+      "output": "./data/assets/sounds/10_Impact_02.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/11_Impact_03.wav",
+      "output": "./data/assets/sounds/11_Impact_03.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/12_Impact_04.wav",
+      "output": "./data/assets/sounds/12_Impact_04.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/13_Impact_05.wav",
+      "output": "./data/assets/sounds/13_Impact_05.wav",
+      "tier": "normal"
+    },
+    {
+      "input": "./data/raw/sounds/game_win.wav",
+      "output": "./data/assets/sounds/game_win.wav",
+      "tier": "important"
+    },
+    {
+      "input": "./data/raw/sounds/90_Teleport_04.wav",
+      "output": "./data/assets/sounds/90_Teleport_04.wav",
+      "tier": "important"
+    }
+  ]
+}

@@ -97,7 +97,8 @@ func get_progress() -> float:
 
 
 func _load_beatmap() -> Dictionary:
-	var beatmap_file: String = music.stream.resource_path.get_basename() + &".json"
+	var song_name: String = music.stream.resource_path.get_file().get_basename()
+	var beatmap_file: String = "res://assets/songs/" + song_name + &".json"
 	var file: FileAccess = FileAccess.open(beatmap_file, FileAccess.READ)
 	if not file:
 		printerr(&"Could not open beatmap file: " + beatmap_file + &"!")

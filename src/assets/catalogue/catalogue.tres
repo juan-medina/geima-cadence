@@ -1,0 +1,114 @@
+[gd_resource type="Resource" script_class="Catalogue" format=3 uid="uid://bhnr47r4rxtgr"]
+
+[ext_resource type="Script" uid="uid://bkw5mh8b4k8x8" path="res://catalogue/song_entry.gd" id="1_song"]
+[ext_resource type="Script" uid="uid://hgsgwoifrmo3" path="res://catalogue/biome_entry.gd" id="2_biome"]
+[ext_resource type="Script" uid="uid://cnyp62ukw665i" path="res://catalogue/catalogue.gd" id="3_cat"]
+
+[sub_resource type="Resource" id="Song_08_for_nothing"]
+script = ExtResource("1_song")
+id = &"08_for_nothing"
+name = "For Nothing"
+bpm = 157
+
+[sub_resource type="Resource" id="Song_12_dont_be_afraid"]
+script = ExtResource("1_song")
+id = &"12_dont_be_afraid"
+name = "Don't Be Afraid"
+bpm = 120
+
+[sub_resource type="Resource" id="Song_11_for_the_last_stand"]
+script = ExtResource("1_song")
+id = &"11_for_the_last_stand"
+name = "For the Last Stand"
+bpm = 167
+
+[sub_resource type="Resource" id="Biome_1"]
+script = ExtResource("2_biome")
+name = "Amber Boneyard"
+songs = Array[ExtResource("1_song")]([SubResource("Song_08_for_nothing"), SubResource("Song_12_dont_be_afraid"), SubResource("Song_11_for_the_last_stand")])
+floor_offset = 130.0
+
+[sub_resource type="Resource" id="Song_13_for_love"]
+script = ExtResource("1_song")
+id = &"13_for_love"
+name = "For Love"
+bpm = 86
+
+[sub_resource type="Resource" id="Song_10_for_glory"]
+script = ExtResource("1_song")
+id = &"10_for_glory"
+name = "For Glory"
+bpm = 92
+
+[sub_resource type="Resource" id="Song_05_for_the_fallen_ones"]
+script = ExtResource("1_song")
+id = &"05_for_the_fallen_ones"
+name = "For the Fallen Ones"
+bpm = 172
+
+[sub_resource type="Resource" id="Biome_2"]
+script = ExtResource("2_biome")
+id = 2
+name = "Frostpine Hollow"
+songs = Array[ExtResource("1_song")]([SubResource("Song_13_for_love"), SubResource("Song_10_for_glory"), SubResource("Song_05_for_the_fallen_ones")])
+floor_offset = 130.0
+
+[sub_resource type="Resource" id="Song_02_for_courage"]
+script = ExtResource("1_song")
+id = &"02_for_courage"
+name = "For Courage"
+bpm = 136
+
+[sub_resource type="Resource" id="Song_03_for_what_remains"]
+script = ExtResource("1_song")
+id = &"03_for_what_remains"
+name = "For What Remains"
+bpm = 110
+
+[sub_resource type="Resource" id="Song_09_falling_Apart"]
+script = ExtResource("1_song")
+id = &"09_falling_Apart"
+name = "Falling Apart"
+bpm = 91
+
+[sub_resource type="Resource" id="Biome_3"]
+script = ExtResource("2_biome")
+id = 3
+name = "Nightshade Woods"
+songs = Array[ExtResource("1_song")]([SubResource("Song_02_for_courage"), SubResource("Song_03_for_what_remains"), SubResource("Song_09_falling_Apart")])
+floor_offset = 115.0
+
+[sub_resource type="Resource" id="Song_07_for_despair"]
+script = ExtResource("1_song")
+id = &"07_for_despair"
+name = "For Despair"
+bpm = 152
+
+[sub_resource type="Resource" id="Song_06_for_vengeance"]
+script = ExtResource("1_song")
+id = &"06_for_vengeance"
+name = "For Vengeance"
+bpm = 167
+
+[sub_resource type="Resource" id="Song_01_for_hope"]
+script = ExtResource("1_song")
+id = &"01_for_hope"
+name = "For Hope"
+bpm = 178
+
+[sub_resource type="Resource" id="Song_04_for_humanity"]
+script = ExtResource("1_song")
+id = &"04_for_humanity"
+name = "For Humanity"
+bpm = 85
+
+[sub_resource type="Resource" id="Biome_4"]
+script = ExtResource("2_biome")
+id = 4
+name = "Sunspire Ruins"
+songs = Array[ExtResource("1_song")]([SubResource("Song_07_for_despair"), SubResource("Song_06_for_vengeance"), SubResource("Song_01_for_hope"), SubResource("Song_04_for_humanity")])
+floor_offset = 130.0
+
+[resource]
+script = ExtResource("3_cat")
+biomes = Array[ExtResource("2_biome")]([SubResource("Biome_1"), SubResource("Biome_2"), SubResource("Biome_3"), SubResource("Biome_4")])

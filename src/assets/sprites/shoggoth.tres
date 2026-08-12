@@ -1,0 +1,128 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dm2firwfelhnp"]
+
+[ext_resource type="Texture2D" uid="uid://u117cspadv85" path="res://data/assets/sprites/shoggoth.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="dead_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 236, 153, 118)
+
+[sub_resource type="AtlasTexture" id="dead_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(153, 236, 153, 118)
+
+[sub_resource type="AtlasTexture" id="dead_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(306, 236, 153, 118)
+
+[sub_resource type="AtlasTexture" id="dead_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(459, 236, 153, 118)
+
+[sub_resource type="AtlasTexture" id="dead_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 354, 153, 118)
+
+[sub_resource type="AtlasTexture" id="dead_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(153, 354, 153, 118)
+
+[sub_resource type="AtlasTexture" id="dead_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(306, 354, 153, 118)
+
+[sub_resource type="AtlasTexture" id="dead_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(459, 354, 153, 118)
+
+[sub_resource type="AtlasTexture" id="idle_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 153, 118)
+
+[sub_resource type="AtlasTexture" id="idle_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(153, 0, 153, 118)
+
+[sub_resource type="AtlasTexture" id="idle_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(306, 0, 153, 118)
+
+[sub_resource type="AtlasTexture" id="idle_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(459, 0, 153, 118)
+
+[sub_resource type="AtlasTexture" id="idle_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 118, 153, 118)
+
+[sub_resource type="AtlasTexture" id="idle_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(153, 118, 153, 118)
+
+[sub_resource type="AtlasTexture" id="idle_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(306, 118, 153, 118)
+
+[sub_resource type="AtlasTexture" id="idle_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(459, 118, 153, 118)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("dead_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("dead_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("dead_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("dead_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("dead_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("dead_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("dead_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("dead_7")
+}],
+"loop": 0,
+"name": &"dead",
+"speed": 14.545455
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("idle_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_7")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 8.0
+}]

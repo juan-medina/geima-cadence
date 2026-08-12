@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bn2amc5tts46y"]
 
-[ext_resource type="SpriteFrames" uid="uid://lxp5ckjredck" path="res://data/assets/sprites/hero.tres" id="1_m6eum"]
+[ext_resource type="SpriteFrames" uid="uid://lxp5ckjredck" path="res://assets/sprites/hero.tres" id="1_m6eum"]
 [ext_resource type="Script" uid="uid://bktcibxpo74kv" path="res://hero/hero.gd" id="2_m6eum"]
 [ext_resource type="PackedScene" uid="uid://lu2bk20fj03y" path="res://energy_core/energy_core.tscn" id="3_energy"]
 

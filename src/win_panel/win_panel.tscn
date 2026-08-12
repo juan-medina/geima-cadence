@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b2ppi1dimfwbr" path="res://win_panel/win_panel.gd" id="1_2gykl"]
 [ext_resource type="PackedScene" path="res://star/star.tscn" id="2_2gykl"]
-[ext_resource type="Resource" uid="uid://bhnr47r4rxtgr" path="res://data/assets/catalogue/catalogue.tres" id="2_8jdlq"]
+[ext_resource type="Resource" uid="uid://bhnr47r4rxtgr" path="res://assets/catalogue/catalogue.tres" id="2_8jdlq"]
 
 [node name="WinPanel" type="PanelContainer" unique_id=1163804544]
 offset_right = 12.0

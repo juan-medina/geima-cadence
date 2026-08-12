@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="DifficultyTable" format=3 uid="uid://bhjnv75kkdybn"]
+
+[ext_resource type="Script" uid="uid://bmk23dqw5nayx" path="res://difficulty/difficulty_profile.gd" id="1_profile"]
+[ext_resource type="Script" uid="uid://ddkr27cyysub8" path="res://difficulty/difficulty_table.gd" id="2_table"]
+
+[sub_resource type="Resource" id="Easy"]
+script = ExtResource("1_profile")
+damage_per_hit = 3.85
+s_min_health = 0.95
+a_min_health = 0.5
+
+[sub_resource type="Resource" id="Hard"]
+script = ExtResource("1_profile")
+damage_per_hit = 2.13
+s_min_health = 0.95
+a_min_health = 0.5
+
+[sub_resource type="Resource" id="Normal"]
+script = ExtResource("1_profile")
+damage_per_hit = 2.44
+s_min_health = 0.95
+a_min_health = 0.5
+
+[resource]
+script = ExtResource("2_table")
+easy = SubResource("Easy")
+normal = SubResource("Normal")
+hard = SubResource("Hard")

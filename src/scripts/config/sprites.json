@@ -1,0 +1,148 @@
+{
+  "spritesheets": [
+    {
+      "output_path": "./data/assets/sprites/hero.png",
+      "padding": 2,
+      "animations": [
+        {
+          "name": "run",
+          "duration": 1.0,
+          "loop": true,
+          "frames": "./data/raw/Warrior/Individual Sprite/Run/*.png"
+        },
+        {
+          "name": "slash",
+          "duration": 0.35,
+          "loop": false,
+          "frames": "./data/raw/Warrior/Individual Sprite/Dash Attack/*.png"
+        },
+        {
+          "name": "dash",
+          "duration": 0.55,
+          "loop": false,
+          "frames": "./data/raw/custom/dash_shield/*.png"
+        },
+        {
+          "name": "jump_up",
+          "duration": 0.175,
+          "loop": false,
+          "frames": "./data/raw/Warrior/Individual Sprite/Jump/*.png"
+        },
+        {
+          "name": "jump_down",
+          "duration": 0.175,
+          "loop": false,
+          "frames": "./data/raw/Warrior/Individual Sprite/Fall/*.png"
+        },
+        {
+          "name": "slide",
+          "duration": 0.35,
+          "loop": false,
+          "frames": "./data/raw/Warrior/Individual Sprite/Slide/*.png"
+        },
+        {
+          "name": "hit",
+          "duration": 0.2,
+          "loop": false,
+          "frames": "./data/raw/Warrior/Individual Sprite/Hurt-Effect/*.png"
+        },
+        {
+          "name": "dead",
+          "duration": 0.55,
+          "loop": false,
+          "frames": "./data/raw/Warrior/Individual Sprite/Death-Effect/*.png"
+        },
+        {
+          "name": "idle",
+          "duration": 0.75,
+          "loop": true,
+          "frames": "./data/raw/Warrior/Individual Sprite/idle/*.png"
+        }
+      ]
+    },
+    {
+      "output_path": "./data/assets/sprites/shoggoth.png",
+      "padding": 2,
+      "animations": [
+        {
+          "name": "idle",
+          "duration": 1,
+          "loop": true,
+          "frames": "./data/raw/Shoggoth/Individual Sprite/Idle/*.png"
+        },
+        {
+          "name": "dead",
+          "duration": 0.55,
+          "loop": false,
+          "frames": "./data/raw/Shoggoth/Individual Sprite/Dead/*.png"
+        }
+      ]
+    },
+    {
+      "output_path": "./data/assets/sprites/fireball.png",
+      "padding": 2,
+      "animations": [
+        {
+          "name": "run",
+          "duration": 0.55,
+          "loop": true,
+          "frames": "./data/raw/Cultist Enemy Pack/Individual Sprite/Cultist/Fireball/*.png"
+        },
+        {
+          "name": "impact",
+          "duration": 0.55,
+          "loop": false,
+          "frames": "./data/raw/Cultist Enemy Pack/Individual Sprite/Cultist/Impact/*.png"
+        }
+      ]
+    },
+    {
+      "output_path": "./data/assets/sprites/assassin.png",
+      "padding": 2,
+      "animations": [
+        {
+          "name": "idle",
+          "duration": 0.55,
+          "loop": true,
+          "frames": "./data/raw/Cultist Enemy Pack/Individual Sprite/Assassin Cultist/Idle/*.png"
+        },
+        {
+          "name": "dead",
+          "duration": 0.55,
+          "loop": false,
+          "frames": "./data/raw/Cultist Enemy Pack/Individual Sprite/Assassin Cultist/Death/*.png"
+        },
+        {
+          "name": "attack",
+          "duration": 0.45,
+          "loop": false,
+          "frames": "./data/raw/Cultist Enemy Pack/Individual Sprite/Assassin Cultist/Attack/*.png"
+        }
+      ]
+    },
+    {
+      "output_path": "./data/assets/sprites/big_cultist.png",
+      "padding": 2,
+      "animations": [
+        {
+          "name": "idle",
+          "duration": 1.0,
+          "loop": true,
+          "frames": "./data/raw/custom/big_cultist/Idle/*.png"
+        },
+        {
+          "name": "dead",
+          "duration": 0.55,
+          "loop": false,
+          "frames": "./data/raw/custom/big_cultist/Death/*.png"
+        },
+        {
+          "name": "attack",
+          "duration": 1.0,
+          "loop": false,
+          "frames": "./data/raw/custom/big_cultist/Attack/*.png"
+        }
+      ]
+    }
+  ]
+}

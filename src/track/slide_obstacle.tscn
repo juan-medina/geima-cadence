@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bgyaryhqjymes" path="res://track/slide_obstacle.gd" id="1_3panf"]
 [ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://data/assets/sprites/input.png" id="1_input"]
-[ext_resource type="SpriteFrames" uid="uid://dlxcrnc0ppoej" path="res://data/assets/sprites/fireball.tres" id="3_fge8k"]
+[ext_resource type="SpriteFrames" uid="uid://dlxcrnc0ppoej" path="res://assets/sprites/fireball.tres" id="3_fge8k"]
 
 [sub_resource type="RectangleShape2D" id="Shape_slide"]
 size = Vector2(31, 15)

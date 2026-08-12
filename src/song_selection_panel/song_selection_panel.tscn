@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cutwj246j5hso"]
 
 [ext_resource type="Script" uid="uid://bmsgsub4em158" path="res://song_selection_panel/song_selection_panel.gd" id="1_1kv5s"]
-[ext_resource type="Resource" uid="uid://bhnr47r4rxtgr" path="res://data/assets/catalogue/catalogue.tres" id="2_sm2ec"]
+[ext_resource type="Resource" uid="uid://bhnr47r4rxtgr" path="res://assets/catalogue/catalogue.tres" id="2_sm2ec"]
 [ext_resource type="PackedScene" uid="uid://t4h28qulftc8" path="res://difficulty_button/difficulty_button.tscn" id="4_yqiyx"]
 [ext_resource type="PackedScene" path="res://star/star.tscn" id="5_star"]
 

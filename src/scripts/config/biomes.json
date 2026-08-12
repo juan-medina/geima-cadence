@@ -1,0 +1,28 @@
+{
+  "biomes": [
+    {
+      "id": 1,
+      "source_bg": 2,
+      "name": "Amber Boneyard",
+      "floor_offset": 130.0
+    },
+    {
+      "id": 2,
+      "source_bg": 6,
+      "name": "Frostpine Hollow",
+      "floor_offset": 130.0
+    },
+    {
+      "id": 3,
+      "source_bg": 4,
+      "name": "Nightshade Woods",
+      "floor_offset": 115.0
+    },
+    {
+      "id": 4,
+      "source_bg": 7,
+      "name": "Sunspire Ruins",
+      "floor_offset": 130.0
+    }
+  ]
+}

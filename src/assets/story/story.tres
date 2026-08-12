@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="StoryCatalogue" format=3 uid="uid://01spgdfdyrr7"]
+
+[ext_resource type="Script" uid="uid://dslide7k1a2b3" path="res://storyboard/story_slide.gd" id="1_slide"]
+[ext_resource type="Script" uid="uid://dseqn8m4c5d6e" path="res://storyboard/story_sequence.gd" id="2_seq"]
+[ext_resource type="Script" uid="uid://dcathan7f8g0h" path="res://storyboard/story_catalogue.gd" id="3_cat"]
+
+[sub_resource type="Resource" id="EscapeSlide1"]
+script = ExtResource("1_slide")
+captions = PackedStringArray("The Core blazed in my hands, tearing the air ahead into a churning vortex of blue Geima light. One last stride stood between me and the end of the run.", "I threw myself into the air, the Core held high, its glow searing bright as the rhythm of a thousand steps poured out of it at once.", "Cultist spears tore past me through the dark. I did not look back. I plunged headlong into the heart of the rift the Core had torn.")
+
+[sub_resource type="Resource" id="EscapeSlide2"]
+script = ExtResource("1_slide")
+captions = PackedStringArray("I woke on soft grass, the roar of the run gone, replaced by the gentle wash of waves. In my hand the Core lay dark and cracked, its power forever spent.", "The Empire was sealed away in a past that could no longer reach us. On a green cliff above a wide valley, my people had already begun to build.", "Here we built a quiet haven, free at last - yet the Core still hummed, as if only those who [pulse freq=2.0 color=#6cc6ff]master[/pulse] every escape, every road run unbroken, might reach somewhere greater.")
+
+[sub_resource type="Resource" id="Escape"]
+script = ExtResource("2_seq")
+id = &"escape"
+music = "res://data/assets/music/11 - The Mighty Kingdom.ogg"
+loop_start = 11.503
+slides = Array[ExtResource("1_slide")]([SubResource("EscapeSlide1"), SubResource("EscapeSlide2")])
+
+[sub_resource type="Resource" id="IntroSlide1"]
+script = ExtResource("1_slide")
+captions = PackedStringArray("Centuries ago, the legendary First Sage discovered the power of the Geima-stone, building a golden utopia of peace and magic.", "To harvest the stone, the Elders forged a warrior race to slave in the toxic deep. But a bored, power-hungry councilman betrayed his own kin, uniting the slaves.", "The Empire arose. We became the slaves, forced to rebuild their war machine from the scrap of our fallen paradise.")
+
+[sub_resource type="Resource" id="IntroSlide2"]
+script = ExtResource("1_slide")
+captions = PackedStringArray("For three generations, my family secretly forged a master Core from stolen fragments of Geima-stone - the one key that could tear open a road to freedom.", "They found us. My father shoved the Core into my hands. \"Run!\" he cried. \"Feed the Core the rhythm of your stride! It is our only hope!\"", "Do not stop. Do not break the cadence. [pulse freq=2.0 color=#6cc6ff]Escape![/pulse]")
+
+[sub_resource type="Resource" id="Intro"]
+script = ExtResource("2_seq")
+id = &"intro"
+music = "res://data/assets/music/22 - The Final of The Fantasy.ogg"
+loop_start = 5.337
+slides = Array[ExtResource("1_slide")]([SubResource("IntroSlide1"), SubResource("IntroSlide2")])
+
+[sub_resource type="Resource" id="SecretSlide1"]
+script = ExtResource("1_slide")
+captions = PackedStringArray("A perfect run. A perfect rhythm. The Geima Core did not just activate - it resonated in absolute, flawless harmony.", "The energy ripped a hole not through space, but through time itself, dragging me back through centuries of history.", "I awoke in an untamed, ancient age. A time before the Empire. A time before the Elders.")
+
+[sub_resource type="Resource" id="SecretSlide2"]
+script = ExtResource("1_slide")
+captions = PackedStringArray("To survive, I gathered the lost tribes. I taught them the secrets of the Geima-stone, guiding them to build a peaceful, rhythmic utopia.", "On my deathbed, as the lights of our great new empire shined outside my window, my people gathered to bid me farewell.", "As my eyes closed, they whispered the name of the legendary [pulse freq=2.0 color=#6cc6ff]First Sage[/pulse]. The loop was complete. I ran from my chains... only to forge them myself.")
+
+[sub_resource type="Resource" id="Secret"]
+script = ExtResource("2_seq")
+id = &"secret"
+music = "res://data/assets/music/16 - The Calm Before The Storm.ogg"
+loop_start = 2.438
+slides = Array[ExtResource("1_slide")]([SubResource("SecretSlide1"), SubResource("SecretSlide2")])
+
+[resource]
+script = ExtResource("3_cat")
+intro = SubResource("Intro")
+escape = SubResource("Escape")
+secret = SubResource("Secret")

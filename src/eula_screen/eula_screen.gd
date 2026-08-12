@@ -4,7 +4,7 @@
 class_name EulaScreen
 extends CanvasLayer
 
-const EULA_PATH: String = "res://data/assets/eula.txt"
+const EULA_PATH: String = "res://assets/eula.txt"
 const NOTIFICATION_DELAY: float = 2.0
 
 @onready var _eula_text: BigTextPanel = $Center/EulaPanel/VBox/EulaText

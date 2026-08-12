@@ -1,0 +1,124 @@
+[center][img=128]res://data/assets/logo/logo.png[/img]
+{build}[/center]
+
+A rhythm-action endless runner where the music is your health and your heartbeat is your shield.
+{download}
+[color=#ffffff][b]GAME DESIGN & PROGRAMMING[/b][/color]
+[url=https://juan-medina.com/]Juan Medina[/url]
+
+[color=#ffffff][b]ENGINE[/b][/color]
+[url=https://godotengine.org/]Godot Engine 4[/url]
+License: MIT License.
+
+[color=#ffffff][b]GRAPHICS[/b][/color]
+
+[color=#ffffff][b]Storyboards[/b][/color]
+Author: [url=https://www.behance.net/artsbyjazzmin]Jazz Mine[/url]
+License: Commissioned artwork, created for this project.
+
+[color=#ffffff][b]Warrior-Free Animation set[/b][/color]
+Author: [url=https://clembod.itch.io/]Clement Baudet[/url]
+Source: [url=https://clembod.itch.io/warrior-free-animation-set]Itch.io[/url]
+License: Free for personal & commercial use, no redistribution. Purchased to support the author.
+
+[color=#ffffff][b]Cultist Enemy Pack[/b][/color]
+Author: [url=https://clembod.itch.io/]Clement Baudet[/url]
+Source: [url=https://clembod.itch.io/cultist-enemy-pack]Itch.io[/url]
+License: Paid. Personal & commercial use allowed; redistribution and resale prohibited.
+
+[color=#ffffff][b]Shoggoth[/b][/color]
+Author: [url=https://clembod.itch.io/]Clement Baudet[/url]
+Source: [url=https://clembod.itch.io/shoggoth]Itch.io[/url]
+License: Paid. Personal & commercial use allowed; redistribution and resale prohibited.
+
+[color=#ffffff][b]Kenney Game Assets All-in-1[/b][/color]
+Author: [url=https://kenney.nl/]Kenney[/url]
+Source: [url=https://kenney.itch.io/kenney-game-assets]Itch.io[/url]
+License: Creative Commons Zero (CC0), public domain. Purchased to support the author.
+
+[color=#ffffff][b]Dark Fantasy Backgrounds[/b][/color]
+Author: [url=https://arludus.itch.io/]Arludus[/url]
+Source: [url=https://arludus.itch.io/dark-fantasy-backgrounds]Itch.io[/url]
+License: Paid. Free for use in games incl. commercial; the pack may not be resold or redistributed.
+
+[color=#ffffff][b]Pixel UI Theme for Godot[/b][/color]
+Author: [url=https://thowsenmedia.itch.io/]Pelatho[/url]
+Source: [url=https://thowsenmedia.itch.io/pixel-ui-theme-for-godot]Itch.io[/url]
+License: Paid. Personal & commercial use allowed; redistribution and resale prohibited.
+
+[color=#ffffff][b]Godot CRT Shader[/b][/color]
+Author: [url=https://perons.itch.io/]Henrique Alves (perons)[/url]
+Source: [url=https://perons.itch.io/godot-crt-shader]Itch.io[/url]
+License: Free for personal & commercial use. Purchased to support the author.
+
+[color=#ffffff][b]MUSIC[/b][/color]
+
+[color=#ffffff][b]16-Bit Fantasy & Adventure Music Pack[/b][/color]
+Author: [url=https://xdeviruchi.itch.io/]Marllon Silva (xDeviruchi)[/url]
+Source: [url=https://xdeviruchi.itch.io/16-bit-fantasy-adventure-music-pack]Itch.io[/url]
+License: Free (name-your-own-price). Personal & commercial use allowed; redistribution, resale, and OST releases prohibited. Attribution optional but appreciated. Purchased to support the author.
+
+[color=#ffffff][b]16-Bit Fantasy: Battles Music Pack[/b][/color]
+Author: [url=https://xdeviruchi.itch.io/]Marllon Silva (xDeviruchi)[/url]
+Source: [url=https://xdeviruchi.itch.io/16-bit-fantasy-battles-music-pack]Itch.io[/url]
+License: Paid. Personal & commercial use allowed; minor edits allowed; redistribution, resale, and OST releases prohibited. Attribution optional but appreciated.
+
+[color=#ffffff][b]SOUND EFFECTS[/b][/color]
+
+[color=#ffffff][b]Modern UI SFX[/b][/color]
+Author: [url=https://www.patreon.com/cw/leohpaz]Leohpaz[/url]
+Source: [url=https://leohpaz.itch.io/modern-ui-sfx]Itch.io[/url]
+License: Paid. Personal & commercial use allowed; the pack may not be resold or redistributed.
+
+[color=#ffffff][b]90+ RPG Battle SFX[/b][/color]
+Author: [url=https://www.patreon.com/cw/leohpaz]Leohpaz[/url]
+Source: [url=https://leohpaz.itch.io/90-rpg-battle-sfx]Itch.io[/url]
+License: Paid. Personal & commercial use allowed; the pack may not be resold or redistributed.
+
+[color=#ffffff][b]90+ Retro Player Movement SFX[/b][/color]
+Author: [url=https://www.patreon.com/cw/leohpaz]Leohpaz[/url]
+Source: [url=https://leohpaz.itch.io/90-retro-player-movement-sfx]Itch.io[/url]
+License: Paid. Personal & commercial use allowed; the pack may not be resold or redistributed.
+
+[color=#ffffff][b]Minifantasy - True Heroes IV SFX[/b][/color]
+Author: [url=https://www.patreon.com/cw/leohpaz]Leohpaz[/url]
+Source: [url=https://leohpaz.itch.io/minifantasy-true-heroes-iv-sfx]Itch.io[/url]
+License: Paid. Personal & commercial use allowed; the pack may not be resold or redistributed.
+
+[color=#ffffff][b]Minifantasy - Creatures SFX Pack[/b][/color]
+Author: [url=https://www.patreon.com/cw/leohpaz]Leohpaz[/url]
+Source: [url=https://leohpaz.itch.io/minifantasy-creatures-sfx-pack]Itch.io[/url]
+License: Paid. Personal & commercial use allowed; the pack may not be resold or redistributed.
+
+[color=#ffffff][b]50+ RPG Battle Magic SFX[/b][/color]
+Author: [url=https://www.patreon.com/cw/leohpaz]Leohpaz[/url]
+Source: [url=https://leohpaz.itch.io/50-rpg-battle-magic-sfx]Itch.io[/url]
+License: Paid. Personal & commercial use allowed; the pack may not be resold or redistributed.
+
+[color=#ffffff][b]FONT[/b][/color]
+
+[color=#ffffff][b]m5x7[/b][/color]
+Author: [url=https://managore.itch.io/]Daniel Linssen[/url]
+Source: [url=https://managore.itch.io/m5x7]Itch.io[/url]
+License: Creative Commons Zero (CC0), public domain. Purchased to support the author.
+
+[color=#ffffff][b]TESTING[/b][/color]
+
+[url=https://open.spotify.com/user/11155600083]Adirtan[/url]
+[url=https://rightbigchimken.carrd.co/]RightBigChimken[/url]
+[url=https://www.twitch.tv/yunc4]Yunc4[/url]
+
+-----------------------------------------------
+
+Copyright 2026 Juan Medina. All rights reserved.
+
+The game's source code is open-source and available under the MIT License.
+The name "Geima: Cadence", its branding, and the compiled game distribution are protected by the EULA.
+
+[url=https://github.com/juan-medina/geima-cadence]Full source-code on GitHub[/url]
+
+[url=https://github.com/juan-medina/geima-cadence/issues]Report bugs or feedback[/url]
+
+-----------------------------------------------
+
+Thank you for playing!

@@ -6,7 +6,7 @@ extends Node2D
 
 # Obstacles rest this far below the hero's ground line
 const _OBSTACLE_OFFSET_Y: float = 22.0
-const _DIFFICULTY_TABLE: DifficultyTable = preload("res://data/assets/difficulty/difficulty_table.tres")
+const _DIFFICULTY_TABLE: DifficultyTable = preload("res://assets/difficulty/difficulty_table.tres")
 
 @export var catalogue: Catalogue
 

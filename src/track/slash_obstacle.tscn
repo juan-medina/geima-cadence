@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://62vu0ro6ge22" path="res://data/assets/sprites/input.png" id="1_input"]
 [ext_resource type="Script" uid="uid://basulbhagg4v" path="res://track/slash_obstacle.gd" id="1_xiw5x"]
-[ext_resource type="SpriteFrames" uid="uid://ex2yfarrwcdn" path="res://data/assets/sprites/assassin.tres" id="3_x8lxr"]
+[ext_resource type="SpriteFrames" uid="uid://ex2yfarrwcdn" path="res://assets/sprites/assassin.tres" id="3_x8lxr"]
 
 [sub_resource type="RectangleShape2D" id="Shape_slash"]
 size = Vector2(32, 34)
