@@ -35,6 +35,10 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 
 ### Graphics
 
+#### Storyboards
+* **Author:** [Jazz Mine](https://www.behance.net/artsbyjazzmin)
+* **License:** Commissioned artwork, created for this project.
+
 #### Warrior-Free Animation set V1.3
 * **Author:** [Clement Baudet](https://clembod.itch.io/)
 * **Source:** [Itch.io](https://clembod.itch.io/warrior-free-animation-set)
