@@ -24,6 +24,7 @@ func _open_pause(can_resume: bool) -> void:
 func _open_win(rank: Rank.Level) -> void:
 	_win_panel.rank = rank
 	_open(_win_panel)
+	_win_panel.begin_auto_return()
 
 
 func _open(panel: MenuPanel) -> void:

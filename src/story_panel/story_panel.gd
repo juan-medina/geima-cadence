@@ -5,6 +5,14 @@ class_name StoryPanel
 extends MenuPanel
 
 @onready var _intro_button: Button = $VBox/Intro
+@onready var _ending_button: Button = $VBox/Ending
+@onready var _secret_button: Button = $VBox/Secret
+
+
+func _ready() -> void:
+	super._ready()
+	_ending_button.disabled = not GameData.ending_unlocked(Endings.ESCAPE_ID)
+	_secret_button.disabled = not GameData.ending_unlocked(Endings.SECRET_ID)
 
 
 func first_focus_control() -> Control:

@@ -4,6 +4,12 @@
 [ext_resource type="Script" uid="uid://hgsgwoifrmo3" path="res://catalogue/biome_entry.gd" id="2_biome"]
 [ext_resource type="Script" uid="uid://cnyp62ukw665i" path="res://catalogue/catalogue.gd" id="3_cat"]
 
+[sub_resource type="Resource" id="Song_11_for_the_last_stand"]
+script = ExtResource("1_song")
+id = &"11_for_the_last_stand"
+name = "For the Last Stand"
+bpm = 167
+
 [sub_resource type="Resource" id="Song_08_for_nothing"]
 script = ExtResource("1_song")
 id = &"08_for_nothing"
@@ -16,16 +22,10 @@ id = &"12_dont_be_afraid"
 name = "Don't Be Afraid"
 bpm = 120
 
-[sub_resource type="Resource" id="Song_11_for_the_last_stand"]
-script = ExtResource("1_song")
-id = &"11_for_the_last_stand"
-name = "For the Last Stand"
-bpm = 167
-
 [sub_resource type="Resource" id="Biome_1"]
 script = ExtResource("2_biome")
 name = "Amber Boneyard"
-songs = Array[ExtResource("1_song")]([ SubResource("Song_11_for_the_last_stand"), SubResource("Song_08_for_nothing"), SubResource("Song_12_dont_be_afraid")])
+songs = Array[ExtResource("1_song")]([SubResource("Song_11_for_the_last_stand"), SubResource("Song_08_for_nothing"), SubResource("Song_12_dont_be_afraid")])
 floor_offset = 130.0
 
 [sub_resource type="Resource" id="Song_13_for_love"]

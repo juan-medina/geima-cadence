@@ -47,6 +47,9 @@ size_flags_horizontal = 4
 disabled = true
 text = "Secret"
 
+[node name="HSeparator" type="HSeparator" parent="VBox" unique_id=1643111113]
+layout_mode = 2
+
 [node name="Back" type="Button" parent="VBox" unique_id=1044871935 groups=["ui_return"]]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2

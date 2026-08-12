@@ -6,12 +6,17 @@ extends Node
 const CONFIG_PATH: String = &"user://gamedata.cfg"
 const SECTION_SESSION: StringName = &"session"
 const SECTION_RECORDS: StringName = &"records"
+const SECTION_ENDINGS: StringName = &"endings"
 
 var difficulty: Track.DifficultType = Track.DifficultType.NORMAL
 var last_song_id: StringName = &""
 
 # star_records format: { song_id_string: { difficulty_int: stars_int } }
 var _star_records: Dictionary = {}
+
+# The "escape"/"secret" keys below must match the story.tres sequence ids.
+var _escape_unlocked: bool = false
+var _secret_unlocked: bool = false
 
 
 func _ready() -> void:
@@ -27,10 +32,14 @@ func _load_data() -> void:
 		difficulty = config.get_value(SECTION_SESSION, &"difficulty", Track.DifficultType.NORMAL)
 		last_song_id = config.get_value(SECTION_SESSION, &"last_song_id", &"")
 		_star_records = config.get_value(SECTION_RECORDS, &"stars", {})
+		_escape_unlocked = config.get_value(SECTION_ENDINGS, &"escape_unlocked", false)
+		_secret_unlocked = config.get_value(SECTION_ENDINGS, &"secret_unlocked", false)
 	else:
 		difficulty = Track.DifficultType.NORMAL
 		last_song_id = &""
 		_star_records = {}
+		_escape_unlocked = false
+		_secret_unlocked = false
 
 
 func save_data() -> void:
@@ -39,6 +48,8 @@ func save_data() -> void:
 	config.set_value(SECTION_SESSION, &"difficulty", difficulty)
 	config.set_value(SECTION_SESSION, &"last_song_id", last_song_id)
 	config.set_value(SECTION_RECORDS, &"stars", _star_records)
+	config.set_value(SECTION_ENDINGS, &"escape_unlocked", _escape_unlocked)
+	config.set_value(SECTION_ENDINGS, &"secret_unlocked", _secret_unlocked)
 
 	var err: int = config.save(CONFIG_PATH)
 	if err != OK:
@@ -68,3 +79,21 @@ func set_star_record(song_id: StringName, diff: Track.DifficultType, stars: Rank
 	if not diffs.has(diff) or diffs[diff] < stars:
 		diffs[diff] = stars
 		save_data()
+
+
+func ending_unlocked(story_id: StringName) -> bool:
+	if story_id == &"secret":
+		return _secret_unlocked
+	return _escape_unlocked
+
+
+func latch_ending_unlocked(story_id: StringName) -> void:
+	if story_id == &"secret":
+		if _secret_unlocked:
+			return
+		_secret_unlocked = true
+	else:
+		if _escape_unlocked:
+			return
+		_escape_unlocked = true
+	save_data()

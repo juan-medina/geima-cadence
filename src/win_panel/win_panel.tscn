@@ -51,5 +51,10 @@ text = "Replay"
 layout_mode = 2
 text = "Back to Menu"
 
+[node name="AutoReturn" type="Timer" parent="." unique_id=1400000777]
+process_mode = 3
+wait_time = 1.0
+
 [connection signal="pressed" from="VBox/HBoxContainer/Replay" to="." method="_on_replay_pressed"]
 [connection signal="pressed" from="VBox/HBoxContainer/BackToMenu" to="." method="_on_back_to_menu_pressed"]
+[connection signal="timeout" from="AutoReturn" to="." method="_on_auto_return_tick"]
