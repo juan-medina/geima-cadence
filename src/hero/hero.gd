@@ -81,6 +81,7 @@ func set_ground_y(y: float) -> void:
 
 
 func vanish() -> void:
+	_energy_core.stop()
 	Sound.play_teleport()
 	_teleport.emitting = true
 	var vanish_tween: Tween = create_tween()
