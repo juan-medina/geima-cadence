@@ -12,13 +12,17 @@ const _EMPTY: Color = Color(0.25, 0.25, 0.3)
 
 static func from_ranks(ranks: Array[Rank.Level]) -> State:
 	var escaped: bool = false
-	var mastered_count: int = 0
+	var mastered: bool = false
 	for rank: Rank.Level in ranks:
 		if rank != Rank.Level.NONE:
 			escaped = true
 		if rank == Rank.Level.S:
-			mastered_count += 1
-	return _derive(escaped, mastered_count, ranks.size())
+			mastered = true
+	if mastered:
+		return State.MASTERED
+	if escaped:
+		return State.ESCAPED
+	return State.ESCAPING
 
 
 static func from_states(states: Array[State]) -> State:

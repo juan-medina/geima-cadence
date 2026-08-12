@@ -23,21 +23,16 @@ func _ready() -> void:
 
 func _update_state() -> void:
 	var state: Completion.State = Completion.from_ranks(ranks)
-	_label.text = _text(state)
+	_label.text = Completion.string(state)
 	_label.add_theme_color_override(&"font_color", Completion.color(state))
-	_star.visible = state == Completion.State.MASTERING or state == Completion.State.MASTERED
+	var best: Rank.Level = _best_rank()
+	_star.rank = best
+	_star.visible = best != Rank.Level.NONE
 
 
-# Escape is binary, so only mastering carries a count toward the full S set.
-func _text(state: Completion.State) -> String:
-	if state == Completion.State.MASTERING:
-		return &"%s %d / %d" % [Completion.string(state), _mastered_count(), ranks.size()]
-	return Completion.string(state)
-
-
-func _mastered_count() -> int:
-	var count: int = 0
+func _best_rank() -> Rank.Level:
+	var best: Rank.Level = Rank.Level.NONE
 	for rank: Rank.Level in ranks:
-		if rank == Rank.Level.S:
-			count += 1
-	return count
+		if rank > best:
+			best = rank
+	return best
