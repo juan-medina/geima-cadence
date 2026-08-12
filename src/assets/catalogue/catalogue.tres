@@ -25,7 +25,7 @@ bpm = 167
 [sub_resource type="Resource" id="Biome_1"]
 script = ExtResource("2_biome")
 name = "Amber Boneyard"
-songs = Array[ExtResource("1_song")]([SubResource("Song_08_for_nothing"), SubResource("Song_12_dont_be_afraid"), SubResource("Song_11_for_the_last_stand")])
+songs = Array[ExtResource("1_song")]([ SubResource("Song_11_for_the_last_stand"), SubResource("Song_08_for_nothing"), SubResource("Song_12_dont_be_afraid")])
 floor_offset = 130.0
 
 [sub_resource type="Resource" id="Song_13_for_love"]
