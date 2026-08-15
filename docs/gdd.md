@@ -93,20 +93,20 @@ forgotten Elder alchemy. The game begins as your hideout is breached.
 
 ## 3. Story Storyboard Screens
 
-The story is told using clean, comic-book-style **static storyboard slides**
-with multi-scene illustrations and captions — not animated cinematic. They are
-reachable from the **Story** menu (see §6) and also play once, automatically, at
-the moment their trigger is met.
+The story is told as centered, large-format narration text over a slowly
+scrolling **biome** backdrop — the same tileable parallax art the game uses
+during a run, not dedicated illustration. Each line of narration fades in,
+types out, holds, then fades to the next; the player can tap/click to
+advance a line early, or back out to skip the whole sequence. They are
+reachable from the **Story** menu (see §6) and also play once, automatically,
+at the moment their trigger is met.
 
-There are three sequences — **Intro**, **Escape**, and **Secret**. Each slide is
-a single multi-scene illustration carrying up to three captions.
+There are three sequences — **Intro**, **Escape**, and **Secret** — each with
+its own dedicated biome backdrop and up to two paced groups of captions.
 
 ### Sequence 1: Intro (always available)
 
-*   **Slide 1.1 (The Legend & The Betrayal):** A split composition of past and
-    present. On one side the dignified **First Sage** holds her white stone staff
-    before the golden utopia; on the other, a corrupt councilman secretly hands
-    dark magic to the cult in the quarry pit.
+*   **Beat 1.1 (The Legend & The Betrayal):**
     *   *"Centuries ago, the legendary First Sage discovered the power of the
         Geima-stone, building a golden utopia of peace and magic."*
     *   *"To harvest the stone, the Elders forged a warrior race to slave in the
@@ -114,9 +114,7 @@ a single multi-scene illustration carrying up to three captions.
         uniting the slaves."*
     *   *"The Empire arose. We became the slaves, forced to rebuild their war
         machine from the scrap of our fallen paradise."*
-*   **Slide 1.2 (The Raid & The Chase):** Inside the hidden cave, the father
-    shoves the glowing blue **Geima Core** into the protagonist's hands as cultist
-    guards smash through the wooden barricades, pointing her toward the exit.
+*   **Beat 1.2 (The Raid & The Chase):**
     *   *"For three generations, my family secretly forged a master Core from
         stolen fragments of Geima-stone - the one key that could tear open a road
         to freedom."*
@@ -130,9 +128,7 @@ a single multi-scene illustration carrying up to three captions.
 *Unlocks once every song has been escaped — cleared at least once, on any
 difficulty, at any rank (see §6).*
 
-*   **Slide 2.1 (The Portal Leap):** The protagonist dives headfirst mid-sprint
-    into a swirling blue rift torn open by the Core she holds high, as cultist
-    spears streak past her through the dark.
+*   **Beat 2.1 (The Portal Leap):**
     *   *"The Core blazed in my hands, tearing the air ahead into a churning vortex
         of blue Geima light. One last stride stood between me and the end of the
         run."*
@@ -140,9 +136,7 @@ difficulty, at any rank (see §6).*
         as the rhythm of a thousand steps poured out of it at once."*
     *   *"Cultist spears tore past me through the dark. I did not look back. I
         plunged headlong into the heart of the rift the Core had torn."*
-*   **Slide 2.2 (A New Dawn):** She stands tall on a grassy cliff above a peaceful
-    valley where escaped villagers raise homes under a rising sun, the spent Core
-    dark and cracked in her hand.
+*   **Beat 2.2 (A New Dawn):**
     *   *"I woke on soft grass, the roar of the run gone, replaced by the gentle
         wash of waves. In my hand the Core lay dark and cracked, its power forever
         spent."*
@@ -158,18 +152,14 @@ difficulty, at any rank (see §6).*
 *Unlocks when the player has mastered every song — an S-Rank on any one
 difficulty of every song in the game (see §6).*
 
-*   **Slide 3.1 (The Overload & Displacement):** The Core detonates mid-leap in a
-    flash of white and sky-blue pigment, speed-lines tearing through time into an
-    ancient, untamed prehistoric plain beneath a double moon.
+*   **Beat 3.1 (The Overload & Displacement):**
     *   *"A perfect run. A perfect rhythm. The Geima Core did not just activate -
         it resonated in absolute, flawless harmony."*
     *   *"The energy ripped a hole not through space, but through time itself,
         dragging me back through centuries of history."*
     *   *"I awoke in an untamed, ancient age. A time before the Empire. A time
         before the Elders."*
-*   **Slide 3.2 (The Closed Loop):** The dying, grey-haired Sage lies peacefully
-    among bowing citizens; as her eyes close, the faint blue Geima veins on her
-    hands fade, revealing her as the exact **First Sage** from Slide 1.1.
+*   **Beat 3.2 (The Closed Loop):**
     *   *"To survive, I gathered the lost tribes. I taught them the secrets of the
         Geima-stone, guiding them to build a peaceful, rhythmic utopia."*
     *   *"On my deathbed, as the lights of our great new empire shined outside my

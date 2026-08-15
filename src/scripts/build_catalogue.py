@@ -119,7 +119,13 @@ def main():
     songs = [read_song(entry) for entry in load_json(args.songs)["songs"]]
     songs.sort(key=lambda song: (song["metric"], song["id"]))
 
-    biomes = sorted(load_json(args.biomes)["biomes"], key=lambda biome: biome["id"])
+    all_biomes = load_json(args.biomes)["biomes"]
+    # Story-only biomes (Intro/Escape/Secret backdrops) aren't part of the
+    # playable song catalogue: Storyboard resolves them directly by id.
+    biomes = sorted(
+        (biome for biome in all_biomes if not biome.get("story_only")),
+        key=lambda biome: biome["id"],
+    )
     if not biomes:
         print("Error: biomes.json has no biomes.")
         sys.exit(1)

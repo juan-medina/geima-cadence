@@ -4,37 +4,30 @@
 class_name Storyboard
 extends CanvasLayer
 
-const _IMAGE_PATH: String = "res://data/assets/story/%s_%d.png"
-
-const _CHAR_TIME: float = 0.035
-const _MIN_REVEAL: float = 0.6
+const _CHAR_TIME: float = 0.05
+const _MIN_REVEAL: float = 1.0
+# Reading-rhythm pauses after punctuation, not randomness: a comma gets a
+# short breath, a sentence-ender gets a longer one, same as a JRPG text box.
+const _WEAK_PUNCTUATION: String = ",;:-"
+const _STRONG_PUNCTUATION: String = ".!?"
+const _PAUSE_WEAK: float = 0.15
+const _PAUSE_STRONG: float = 0.35
 const _HOLD_PER_CHAR: float = 0.045
 const _MIN_HOLD: float = 1.4
 const _FINAL_HOLD: float = 15.0
 const _CAPTION_FADE: float = 0.35
-const _IMAGE_FADE: float = 0.6
 
 @export var catalogue: StoryCatalogue
 
 var _skip_step: bool = false
 var _skip_all: bool = false
 
-# Reassigning the texture of a visible TextureRect flashes, so the next slide
-# loads into the hidden back node and the two swap roles.
-var _front: TextureRect
-var _back: TextureRect
-
-@onready var _image_a: TextureRect = $ImageA
-@onready var _image_b: TextureRect = $ImageB
+@onready var _biome: Biome = $SubViewportContainer/SubViewport/Biome
 @onready var _caption: RichTextLabel = $CaptionBox/Caption
 @onready var _music: AudioStreamPlayer = $Music
 
 
 func _ready() -> void:
-	_front = _image_a
-	_back = _image_b
-	_image_a.modulate.a = 0.0
-	_image_b.modulate.a = 0.0
 	_caption.modulate.a = 0.0
 	await _play()
 
@@ -66,6 +59,7 @@ func _play() -> void:
 		Transition.fatal_error(&"Could not load the story")
 		return
 
+	_load_biome(sequence)
 	_start_music(sequence)
 
 	var slide_count: int = sequence.slides.size()
@@ -73,10 +67,18 @@ func _play() -> void:
 	for slide: StorySlide in sequence.slides:
 		if _skip_all:
 			break
-		await _show_slide(sequence.id, index, slide, index == slide_count)
+		await _show_slide(slide, index == slide_count)
 		index += 1
 
 	await _finish()
+
+
+func _load_biome(sequence: StorySequence) -> void:
+	var entry: BiomeEntry = BiomeEntry.new()
+	entry.id = sequence.biome_id
+	_biome.load(entry)
+	# Biome only redraws when scrolled; one still frame is the whole picture here.
+	_biome.set_scroll(0.0)
 
 
 func _start_music(sequence: StorySequence) -> void:
@@ -93,19 +95,7 @@ func _start_music(sequence: StorySequence) -> void:
 	_music.play()
 
 
-func _show_slide(seq_id: StringName, index: int, slide: StorySlide, is_last_slide: bool) -> void:
-	var path: String = _IMAGE_PATH % [seq_id, index]
-	if not ResourceLoader.exists(path):
-		printerr(&"Storyboard: missing image %s" % path)
-		Transition.fatal_error(&"Could not load the story")
-		return
-	var texture: Texture2D = load(path) as Texture2D
-	if texture == null:
-		printerr(&"Storyboard: failed to load image %s" % path)
-		Transition.fatal_error(&"Could not load the story")
-		return
-	await _swap_image(texture)
-
+func _show_slide(slide: StorySlide, is_last_slide: bool) -> void:
 	var caption_count: int = slide.captions.size()
 	var caption_index: int = 0
 	for caption: String in slide.captions:
@@ -113,25 +103,6 @@ func _show_slide(seq_id: StringName, index: int, slide: StorySlide, is_last_slid
 			break
 		await _play_caption(caption, is_last_slide and caption_index == caption_count - 1)
 		caption_index += 1
-
-
-func _swap_image(texture: Texture2D) -> void:
-	_back.texture = texture
-	_back.modulate.a = 0.0
-
-	var tween: Tween = create_tween().set_parallel(true)
-	if _front.texture != null:
-		tween.tween_property(_front, ^"modulate:a", 0.0, _IMAGE_FADE)
-	tween.tween_property(_back, ^"modulate:a", 1.0, _IMAGE_FADE)
-	while tween.is_running():
-		if _skip_all:
-			tween.kill()
-			break
-		await get_tree().process_frame
-
-	var previous_front: TextureRect = _front
-	_front = _back
-	_back = previous_front
 
 
 func _play_caption(caption: String, is_final: bool) -> void:
@@ -142,10 +113,7 @@ func _play_caption(caption: String, is_final: bool) -> void:
 		return
 
 	var length: int = _caption.get_total_character_count()
-	var reveal_time: float = maxf(_MIN_REVEAL, length * _CHAR_TIME)
-	var reveal: Tween = create_tween()
-	reveal.tween_property(_caption, ^"visible_ratio", 1.0, reveal_time)
-	await _wait_tween(reveal)
+	await _reveal(length)
 	if _skip_all:
 		return
 	_caption.visible_ratio = 1.0
@@ -158,13 +126,37 @@ func _play_caption(caption: String, is_final: bool) -> void:
 	await _fade(_caption, 0.0, _CAPTION_FADE)
 
 
-func _wait_tween(tween: Tween) -> void:
-	while tween.is_running():
-		if _skip_step or _skip_all:
+func _reveal(length: int) -> void:
+	if length <= 0:
+		return
+	var plain_text: String = _caption.get_parsed_text()
+	var char_delay: float = maxf(_CHAR_TIME, _MIN_REVEAL / float(length))
+	for revealed: int in range(1, length + 1):
+		# Checked here, not inside _wait, so a tap always jumps straight to the
+		# full line rather than just shortening the character it lands on.
+		if _skip_all or _skip_step:
 			_skip_step = false
-			tween.kill()
+			return
+		_caption.visible_ratio = float(revealed) / float(length)
+		Sound.play_type()
+		await _wait(char_delay + _pause_after(plain_text[revealed - 1]))
+
+
+func _pause_after(revealed_char: String) -> float:
+	if _STRONG_PUNCTUATION.contains(revealed_char):
+		return _PAUSE_STRONG
+	if _WEAK_PUNCTUATION.contains(revealed_char):
+		return _PAUSE_WEAK
+	return 0.0
+
+
+func _wait(seconds: float) -> void:
+	var remaining: float = seconds
+	while remaining > 0.0:
+		if _skip_all:
 			return
 		await get_tree().process_frame
+		remaining -= get_process_delta_time()
 
 
 func _hold(seconds: float) -> void:

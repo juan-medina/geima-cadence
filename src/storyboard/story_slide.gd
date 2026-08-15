@@ -4,6 +4,5 @@
 class_name StorySlide
 extends Resource
 
-# The slide image is derived by convention from the sequence id and slide
-# position (see Storyboard); only the captions are stored here.
+# One paced group of captions, played back to back over the sequence's biome.
 @export var captions: PackedStringArray = PackedStringArray()

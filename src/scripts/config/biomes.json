@@ -23,6 +23,27 @@
       "source_bg": 7,
       "name": "Sunspire Ruins",
       "floor_offset": 130.0
+    },
+    {
+      "id": 5,
+      "source_bg": 10,
+      "name": "Intro",
+      "floor_offset": 130.0,
+      "story_only": true
+    },
+    {
+      "id": 6,
+      "source_bg": 5,
+      "name": "End",
+      "floor_offset": 130.0,
+      "story_only": true
+    },
+    {
+      "id": 7,
+      "source_bg": 8,
+      "name": "Secret",
+      "floor_offset": 130.0,
+      "story_only": true
     }
   ]
 }

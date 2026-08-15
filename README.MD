@@ -35,10 +35,6 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 
 ### Graphics
 
-#### Storyboards
-* **Author:** [Jazz Mine](https://www.behance.net/artsbyjazzmin)
-* **License:** Commissioned artwork, created for this project.
-
 #### Warrior-Free Animation set V1.3
 * **Author:** [Clement Baudet](https://clembod.itch.io/)
 * **Source:** [Itch.io](https://clembod.itch.io/warrior-free-animation-set)
@@ -138,6 +134,11 @@ Each song also needs a beatmap: a JSON file next to the audio, named after it, d
 * **License:** Paid. Used under a purchased license (personal and commercial use
   allowed; the pack may not be resold or redistributed). Attribution is optional
   but appreciated.
+
+#### Fake Vintage Computer Terminal Text Output Bleeps
+* **Author:** [subetha2026](https://freesound.org/people/subetha2026/)
+* **Source:** [Freesound](https://freesound.org/people/subetha2026/sounds/843291/)
+* **License:** [Creative Commons Zero (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/) — public domain, free for personal and commercial use.
 
 ### Fonts
 

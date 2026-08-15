@@ -4,9 +4,10 @@
 class_name StorySequence
 extends Resource
 
-# The id doubles as the slide image stem: slide N loads
-# res://data/assets/story/<id>_<N>.png (see Storyboard).
 @export var id: StringName = &""
+
+# Biome (see biomes.json) rendered behind this sequence's captions.
+@export var biome_id: int = 0
 
 @export var music: String = ""
 

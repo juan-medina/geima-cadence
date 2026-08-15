@@ -1,14 +1,25 @@
+$srcRoot = Split-Path $PSScriptRoot -Parent
+$repoRoot = Split-Path $srcRoot -Parent
+$venvPath = Join-Path $repoRoot ".venv"
+$python = Join-Path $venvPath "Scripts\python.exe"
+$requirements = Join-Path $PSScriptRoot "requirements.txt"
+
 Write-Host "Setting up Python virtual environment..."
 
-if (-Not (Test-Path ".\.venv")) {
+if (-Not (Test-Path $venvPath)) {
     Write-Host "Creating .venv directory..."
-    python -m venv .venv
+    Push-Location $repoRoot
+    try {
+        python -m venv .venv
+    } finally {
+        Pop-Location
+    }
 } else {
     Write-Host ".venv already exists."
 }
 
-Write-Host "Installing dependencies from scripts\requirements.txt..."
-& .\.venv\Scripts\python.exe -m pip install -U pip
-& .\.venv\Scripts\python.exe -m pip install -r scripts\requirements.txt
+Write-Host "Installing dependencies from $requirements..."
+& $python -m pip install -U pip
+& $python -m pip install -r $requirements
 
 Write-Host "Environment setup complete!" -ForegroundColor Green

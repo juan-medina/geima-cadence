@@ -12,10 +12,6 @@ License: MIT License.
 
 [color=#ffffff][b]GRAPHICS[/b][/color]
 
-[color=#ffffff][b]Storyboards[/b][/color]
-Author: [url=https://www.behance.net/artsbyjazzmin]Jazz Mine[/url]
-License: Commissioned artwork, created for this project.
-
 [color=#ffffff][b]Warrior-Free Animation set[/b][/color]
 Author: [url=https://clembod.itch.io/]Clement Baudet[/url]
 Source: [url=https://clembod.itch.io/warrior-free-animation-set]Itch.io[/url]
@@ -94,6 +90,11 @@ License: Paid. Personal & commercial use allowed; the pack may not be resold or 
 Author: [url=https://www.patreon.com/cw/leohpaz]Leohpaz[/url]
 Source: [url=https://leohpaz.itch.io/50-rpg-battle-magic-sfx]Itch.io[/url]
 License: Paid. Personal & commercial use allowed; the pack may not be resold or redistributed.
+
+[color=#ffffff][b]Fake Vintage Computer Terminal Text Output Bleeps[/b][/color]
+Author: [url=https://freesound.org/people/subetha2026/]subetha2026[/url]
+Source: [url=https://freesound.org/people/subetha2026/sounds/843291/]Freesound[/url]
+License: Creative Commons Zero (CC0), public domain.
 
 [color=#ffffff][b]FONT[/b][/color]
 

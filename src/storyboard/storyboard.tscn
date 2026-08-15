@@ -2,52 +2,41 @@
 
 [ext_resource type="Script" uid="uid://dboard2p3q4r5" path="res://storyboard/storyboard.gd" id="1_board"]
 [ext_resource type="Resource" uid="uid://01spgdfdyrr7" path="res://assets/story/story.tres" id="2_story"]
+[ext_resource type="PackedScene" uid="uid://c5xart2yh6k1a" path="res://biome/biome.tscn" id="3_biome"]
 
 [node name="Storyboard" type="CanvasLayer" unique_id=1908299448]
 script = ExtResource("1_board")
 catalogue = ExtResource("2_story")
 
-[node name="Background" type="ColorRect" parent="." unique_id=272439344]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=894471102]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
+stretch = true
 
-[node name="ImageA" type="TextureRect" parent="." unique_id=1459701459]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-expand_mode = 1
-stretch_mode = 5
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1650228317]
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
 
-[node name="ImageB" type="TextureRect" parent="." unique_id=300543066]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-expand_mode = 1
-stretch_mode = 5
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport" unique_id=712933841]
+
+[node name="Biome" parent="SubViewportContainer/SubViewport" unique_id=339018264 instance=ExtResource("3_biome")]
 
 [node name="CaptionBox" type="CenterContainer" parent="." unique_id=1370454041]
-anchors_preset = -1
-anchor_top = 0.8
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Caption" type="RichTextLabel" parent="CaptionBox" unique_id=1312450927]
-custom_minimum_size = Vector2(480, 0)
+custom_minimum_size = Vector2(560, 0)
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_font_sizes/normal_font_size = 16
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 fit_content = true
 scroll_active = false

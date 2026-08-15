@@ -221,6 +221,11 @@
       "input": "./data/raw/sounds/90_Teleport_04.wav",
       "output": "./data/assets/sounds/90_Teleport_04.wav",
       "tier": "important"
+    },
+    {
+      "input": "./data/raw/sounds/Type_1.wav",
+      "output": "./data/assets/sounds/Type_1.wav",
+      "tier": "soft"
     }
   ]
 }

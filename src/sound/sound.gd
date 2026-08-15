@@ -65,6 +65,9 @@ const IMPACT_4: AudioStream = preload("res://data/assets/sounds/12_Impact_04.wav
 const IMPACT_5: AudioStream = preload("res://data/assets/sounds/13_Impact_05.wav")
 const IMPACTS: Array[AudioStream] = [IMPACT_1, IMPACT_2, IMPACT_3, IMPACT_4, IMPACT_5]
 
+const TYPE_1: AudioStream = preload("res://data/assets/sounds/Type_1.wav")
+const TYPES: Array[AudioStream] = [TYPE_1]
+
 var _step_timer: Timer = null
 
 var _step_sound: AudioStreamPlayer = null
@@ -83,6 +86,7 @@ var _assassin_death_sound: AudioStreamPlayer = null
 var _giant_wind_up_sound: AudioStreamPlayer = null
 var _giant_death_sound: AudioStreamPlayer = null
 var _impact_sound: AudioStreamPlayer = null
+var _type_sound: AudioStreamPlayer = null
 
 
 func _ready() -> void:
@@ -109,6 +113,7 @@ func _ready() -> void:
 	_giant_wind_up_sound = create_random_sound(GIANT_WIND_UPS, 1.1)
 	_giant_death_sound = create_random_sound(GIANT_DEATHS, 1.1)
 	_impact_sound = create_random_sound(IMPACTS, 1.1)
+	_type_sound = create_random_sound(TYPES, 0.2)
 
 
 func create_random_sound(streams: Array[AudioStream], pitch: float) -> AudioStreamPlayer:
@@ -208,3 +213,8 @@ func play_giant_death() -> void:
 
 func play_impact() -> void:
 	_impact_sound.play()
+
+
+func play_type() -> void:
+	if not _type_sound.playing:
+		_type_sound.play()

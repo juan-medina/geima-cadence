@@ -15,6 +15,7 @@ captions = PackedStringArray("I woke on soft grass, the roar of the run gone, re
 [sub_resource type="Resource" id="Escape"]
 script = ExtResource("2_seq")
 id = &"escape"
+biome_id = 6
 music = "res://data/assets/music/11 - The Mighty Kingdom.ogg"
 loop_start = 11.503
 slides = Array[ExtResource("1_slide")]([SubResource("EscapeSlide1"), SubResource("EscapeSlide2")])
@@ -30,6 +31,7 @@ captions = PackedStringArray("For three generations, my family secretly forged a
 [sub_resource type="Resource" id="Intro"]
 script = ExtResource("2_seq")
 id = &"intro"
+biome_id = 5
 music = "res://data/assets/music/22 - The Final of The Fantasy.ogg"
 loop_start = 5.337
 slides = Array[ExtResource("1_slide")]([SubResource("IntroSlide1"), SubResource("IntroSlide2")])
@@ -45,6 +47,7 @@ captions = PackedStringArray("To survive, I gathered the lost tribes. I taught t
 [sub_resource type="Resource" id="Secret"]
 script = ExtResource("2_seq")
 id = &"secret"
+biome_id = 7
 music = "res://data/assets/music/16 - The Calm Before The Storm.ogg"
 loop_start = 2.438
 slides = Array[ExtResource("1_slide")]([SubResource("SecretSlide1"), SubResource("SecretSlide2")])
