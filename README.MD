@@ -8,7 +8,10 @@
   <a href="https://juanmedina.itch.io/geima-cadence"><img src="screens/cover.jpg" alt="Geima: Cadence — play on itch.io"></a>
 </p>
 
-> **Geima: Cadence** is a rhythm-action endless runner where **the music is your health, and your heartbeat is your shield**. Run, jump, slash, and block to the beat of a high-energy soundtrack to charge your magical escape core and outrun a ruthless empire.
+>**Geima: Cadence** is a rhythm-action endless runner. There's no rhythm highway - the world itself is your timeline. Enemies and hazards rush in from the right, and you answer each one with the correct move, exactly on the beat, to charge the Geima Core in your pack and tear open a portal to freedom.
+>
+>Miss a beat and you don't fall- you falter. The run never stops, the music never breaks.
+
 
 **[Play on itch.io →](https://juanmedina.itch.io/geima-cadence)** — play in your browser, or download for Windows, Linux, and macOS.
 
