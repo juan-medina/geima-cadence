@@ -63,12 +63,12 @@ jobs:
             fail-fast: false
             matrix:
                 include:
-                    -   os: windows-latest
+                    -   os: ubuntu-latest
                         artifact: windows-64
                         preset: Windows Desktop 64
                         output: Geima_Cadence.exe
                         archive: zip
-                    -   os: windows-latest
+                    -   os: ubuntu-latest
                         artifact: windows-32
                         preset: Windows Desktop 32
                         output: Geima_Cadence.exe
