@@ -1,3 +1,3 @@
-# Geima: Cadence 0.9.3
+# Geima: Cadence 1.0.1
 
-- Adding first panel story-board
+- Adding 32 bits version for old CPUs

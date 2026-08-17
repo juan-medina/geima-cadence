@@ -64,21 +64,35 @@ jobs:
             matrix:
                 include:
                     -   os: windows-latest
-                        artifact: windows
-                        preset: Windows Desktop
+                        artifact: windows-64
+                        preset: Windows Desktop 64
                         output: Geima_Cadence.exe
+                        archive: zip
+                    -   os: windows-latest
+                        artifact: windows-32
+                        preset: Windows Desktop 32
+                        output: Geima_Cadence.exe
+                        archive: zip
                     -   os: ubuntu-latest
-                        artifact: linux
-                        preset: Linux
+                        artifact: linux-64
+                        preset: Linux 64
                         output: Geima_Cadence.x86_64
+                        archive: targz
+                    -   os: ubuntu-latest
+                        artifact: linux-32
+                        preset: Linux 32
+                        output: Geima_Cadence.x86_64
+                        archive: targz
                     -   os: macos-latest
                         artifact: macos
                         preset: macOS
                         output: Geima_Cadence.zip
+                        archive: macoszip
                     -   os: ubuntu-latest
                         artifact: web
                         preset: Web
                         output: index.html
+                        archive: zip
 
         steps:
             -   name: Checkout game
@@ -136,43 +150,42 @@ jobs:
                     mkdir -p ../publish/${{ matrix.artifact }}
                     godot --headless --export-release "${{ matrix.preset }}" ../publish/${{ matrix.artifact }}/${{ matrix.output }}
 
-            -   name: Upload build artifact
+            # Godot never sets the executable bit on Linux exports, and the
+            # artifact upload/download round trip below resets permissions to
+            # 644 regardless - so packaging (chmod + archive) happens here, in
+            # one shot, before this ever becomes a loose file GitHub can touch.
+            -   name: Package
+                working-directory: publish/${{ matrix.artifact }}
+                run: |
+                    v="${{ needs.prepare.outputs.version }}"
+                    mkdir -p "$GITHUB_WORKSPACE/dist"
+                    case "${{ matrix.archive }}" in
+                        zip)
+                            zip -r "$GITHUB_WORKSPACE/dist/geima-cadence-$v-${{ matrix.artifact }}.zip" .
+                            ;;
+                        targz)
+                            chmod +x "${{ matrix.output }}"
+                            tar -czf "$GITHUB_WORKSPACE/dist/geima-cadence-$v-${{ matrix.artifact }}.tar.gz" .
+                            ;;
+                        macoszip)
+                            cp "${{ matrix.output }}" "$GITHUB_WORKSPACE/dist/geima-cadence-$v-${{ matrix.artifact }}.zip"
+                            ;;
+                        *)
+                            echo "::error::Unknown archive type: ${{ matrix.archive }}"
+                            exit 1
+                            ;;
+                    esac
+
+            -   name: Upload artifact
                 uses: actions/upload-artifact@v4
                 with:
                     name: ${{ matrix.artifact }}
-                    path: publish/${{ matrix.artifact }}
-                    if-no-files-found: error
-
-    package:
-        name: Package
-        needs: [prepare, build]
-        runs-on: ubuntu-latest
-        steps:
-            -   name: Download build artifacts
-                uses: actions/download-artifact@v4
-                with:
-                    path: publish
-
-            -   name: Zip builds
-                run: |
-                    v="${{ needs.prepare.outputs.version }}"
-                    mkdir -p dist
-                    (cd publish/windows && zip -r "$GITHUB_WORKSPACE/dist/geima-cadence-$v-windows.zip" .)
-                    (cd publish/linux   && zip -r "$GITHUB_WORKSPACE/dist/geima-cadence-$v-linux.zip" .)
-                    (cd publish/web     && zip -r "$GITHUB_WORKSPACE/dist/geima-cadence-$v-web.zip" .)
-                    cp publish/macos/Geima_Cadence.zip "dist/geima-cadence-$v-macos.zip"
-                    ls -la dist
-
-            -   name: Upload packaged builds
-                uses: actions/upload-artifact@v4
-                with:
-                    name: dist
                     path: dist
                     if-no-files-found: error
 
     release:
         name: GitHub Release
-        needs: [prepare, package]
+        needs: [prepare, build]
         runs-on: ubuntu-latest
         steps:
             -   name: Checkout
@@ -181,8 +194,8 @@ jobs:
             -   name: Download packaged builds
                 uses: actions/download-artifact@v4
                 with:
-                    name: dist
                     path: dist
+                    merge-multiple: true
 
             -   name: Create release
                 env:
@@ -193,33 +206,45 @@ jobs:
                     gh release create "$tag" \
                         -t "$tag" \
                         -F release-notes.md \
-                        "dist/geima-cadence-$v-windows.zip" \
-                        "dist/geima-cadence-$v-linux.zip" \
+                        "dist/geima-cadence-$v-windows-64.zip" \
+                        "dist/geima-cadence-$v-windows-32.zip" \
+                        "dist/geima-cadence-$v-linux-64.tar.gz" \
+                        "dist/geima-cadence-$v-linux-32.tar.gz" \
                         "dist/geima-cadence-$v-macos.zip"
 
     itch:
         name: itch.io ${{ matrix.channel }}
-        needs: [prepare, package]
+        needs: [prepare, build]
         runs-on: ubuntu-latest
         strategy:
             fail-fast: false
             matrix:
                 include:
-                    -   plat: windows
-                        channel: windows
-                    -   plat: linux
-                        channel: linux
-                    -   plat: macos
+                    -   artifact: windows-64
+                        channel: windows-64
+                        ext: zip
+                    -   artifact: windows-32
+                        channel: windows-32
+                        ext: zip
+                    -   artifact: linux-64
+                        channel: linux-64
+                        ext: tar.gz
+                    -   artifact: linux-32
+                        channel: linux-32
+                        ext: tar.gz
+                    -   artifact: macos
                         channel: mac
-                    -   plat: web
+                        ext: zip
+                    -   artifact: web
                         channel: web
+                        ext: zip
 
         steps:
             -   name: Download packaged builds
                 uses: actions/download-artifact@v4
                 with:
-                    name: dist
                     path: dist
+                    merge-multiple: true
 
             -   name: Install butler
                 run: |
@@ -233,14 +258,14 @@ jobs:
                     BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
                 run: |
                     v="${{ needs.prepare.outputs.version }}"
-                    zip="dist/geima-cadence-$v-${{ matrix.plat }}.zip"
+                    file="dist/geima-cadence-$v-${{ matrix.artifact }}.${{ matrix.ext }}"
                     if [ "${{ matrix.channel }}" = "web" ]; then
                         # itch serves the browser build from index.html at the build
                         # root, and butler uploads a zip as a single file without
                         # unpacking it, so push the unpacked folder instead.
                         mkdir -p web_build
-                        unzip -q "$zip" -d web_build
+                        unzip -q "$file" -d web_build
                         ./butler push web_build juanmedina/geima-cadence:web --userversion "$v"
                     else
-                        ./butler push "$zip" juanmedina/geima-cadence:${{ matrix.channel }} --userversion "$v"
+                        ./butler push "$file" juanmedina/geima-cadence:${{ matrix.channel }} --userversion "$v"
                     fi
