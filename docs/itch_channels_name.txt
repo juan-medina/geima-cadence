@@ -1,0 +1,15 @@
+windows-32
+Geima Cadence - Windows (64-bit)
+windows-64
+Geima Cadence - Windows (32-bit / Legacy)
+
+linux-64
+Geima Cadence - Linux (64-bit)
+linux-32
+Geima Cadence - Linux (32-bit / Legacy)
+
+mac
+Geima Cadence - macOS (Universal)
+
+web
+Geima Cadence - web
